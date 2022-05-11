@@ -1,5 +1,16 @@
 {
   "nodes": {
+    "cached__nixpkgs-stable__x86_64-linux": {
+      "locked": {
+        "narHash": "sha256-f0lsy0DqBvd1RITD6jN4Y9KYkZaT2aFFK4pHPvuU/A4=",
+        "type": "tarball",
+        "url": "https://hydra.floxsdlc.com/channels/nixpkgs/stable/x86_64-linux.tar.gz"
+      },
+      "original": {
+        "type": "tarball",
+        "url": "https://hydra.floxsdlc.com/channels/nixpkgs/stable/x86_64-linux.tar.gz"
+      }
+    },
     "capacitor": {
       "inputs": {
         "flake-utils": "flake-utils",
@@ -75,6 +86,22 @@
         "type": "github"
       }
     },
+    "nixpkgs": {
+      "locked": {
+        "lastModified": 1647598144,
+        "narHash": "sha256-ulGq3W5XsrBMU/u5k9d4oPy65pQTkunR4HKKtTq0RwY=",
+        "owner": "flox",
+        "repo": "nixpkgs",
+        "rev": "d236aeb87f660cb2945dad63bcfdd2540eda1b53",
+        "type": "github"
+      },
+      "original": {
+        "owner": "flox",
+        "ref": "stable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixpkgs-stable": {
       "locked": {
         "lastModified": 1647598144,
@@ -125,7 +152,9 @@
     },
     "root": {
       "inputs": {
+        "cached__nixpkgs-stable__x86_64-linux": "cached__nixpkgs-stable__x86_64-linux",
         "capacitor": "capacitor",
+        "nixpkgs": "nixpkgs",
         "nixpkgs-stable": "nixpkgs-stable",
         "nixpkgs-staging": "nixpkgs-staging",
         "nixpkgs-unstable": "nixpkgs-unstable"
