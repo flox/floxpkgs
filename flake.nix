@@ -6,6 +6,8 @@ rec {
   inputs.capacitor.url = "git+ssh://git@github.com/flox/capacitor?ref=ysndr";
   inputs.capacitor.inputs.nixpkgs.follows = "nixpkgs-unstable";
 
+  inputs.cached__nixpkgs-stable__x86_64-linux.url = "https://hydra.floxsdlc.com/channels/nixpkgs/stable/x86_64-linux.tar.gz";
+
   outputs = {self, capacitor, ...} @ args: (capacitor args ({auto,...}: rec {
     packages = auto.automaticPkgsWith inputs ./pkgs;
     legacyPackages = {system,...}: rec {
@@ -16,6 +18,10 @@ rec {
       flox.unstable = packages nixpkgs.unstable;
       flox.stable = packages nixpkgs.stable;
       flox.staging = packages nixpkgs.staging;
+
+      cached.nixpkgs.stable = if system == "x86_64-linux"
+                              then args.cached__nixpkgs-stable__x86_64-linux.legacyPackages.${system}
+                              else {};
     };
   }));
 }
