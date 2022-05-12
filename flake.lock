@@ -17,14 +17,15 @@
         "nix-eval-jobs": "nix-eval-jobs",
         "nixpkgs": [
           "nixpkgs-unstable"
-        ]
+        ],
+        "root": []
       },
       "locked": {
-        "lastModified": 1652279669,
-        "narHash": "sha256-C8HRQRTNxASxUiWxzFKiO2fl/1nhwlOHLyhKxjR/xHw=",
+        "lastModified": 1652362428,
+        "narHash": "sha256-n3IOaYBT9CF2XA6HVg0ri1kKY8hKu4QgdJbG45c1OAA=",
         "ref": "ysndr",
-        "rev": "55332fe52d0cd237ffd812c60be7e8fd09377894",
-        "revCount": 136,
+        "rev": "22d5cfe7fc6f36a4bacba71ea5e2236630df1131",
+        "revCount": 140,
         "type": "git",
         "url": "ssh://git@github.com/flox/capacitor"
       },
@@ -64,6 +65,21 @@
         "type": "github"
       }
     },
+    "lib": {
+      "locked": {
+        "lastModified": 1651970744,
+        "narHash": "sha256-3X/96C8I5alTCP0FHEx01/YOIvVmjkYoUPX/1Y4Bdsw=",
+        "owner": "nix-community",
+        "repo": "nixpkgs.lib",
+        "rev": "da23418cffc1763e30dba3383eac541afe3e4e70",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "nixpkgs.lib",
+        "type": "github"
+      }
+    },
     "nix-eval-jobs": {
       "inputs": {
         "flake-utils": "flake-utils_2",
@@ -83,22 +99,6 @@
       "original": {
         "owner": "tomberek",
         "repo": "nix-eval-jobs",
-        "type": "github"
-      }
-    },
-    "nixpkgs": {
-      "locked": {
-        "lastModified": 1647598144,
-        "narHash": "sha256-ulGq3W5XsrBMU/u5k9d4oPy65pQTkunR4HKKtTq0RwY=",
-        "owner": "flox",
-        "repo": "nixpkgs",
-        "rev": "d236aeb87f660cb2945dad63bcfdd2540eda1b53",
-        "type": "github"
-      },
-      "original": {
-        "owner": "flox",
-        "ref": "stable",
-        "repo": "nixpkgs",
         "type": "github"
       }
     },
@@ -154,7 +154,7 @@
       "inputs": {
         "cached__nixpkgs-stable__x86_64-linux": "cached__nixpkgs-stable__x86_64-linux",
         "capacitor": "capacitor",
-        "nixpkgs": "nixpkgs",
+        "lib": "lib",
         "nixpkgs-stable": "nixpkgs-stable",
         "nixpkgs-staging": "nixpkgs-staging",
         "nixpkgs-unstable": "nixpkgs-unstable"
