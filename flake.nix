@@ -20,7 +20,11 @@ rec {
     ...
   } @ args:
     capacitor args ({auto, ...}: rec {
+
+      packages = {system, ...}: auto.automaticPkgsWith inputs ./pkgs args.nixpkgs-stable.legacyPackages.${system};
+
       legacyPackages = {system, ...}: rec {
+
         nixpkgs = capacitor.lib.recurseIntoAttrs2 {
           stable = args.nixpkgs-stable.legacyPackages.${system};
           unstable = args.nixpkgs-unstable.legacyPackages.${system};
@@ -38,8 +42,9 @@ rec {
           then args.cached__nixpkgs-stable__x86_64-linux.legacyPackages.${system}
           else {};
 
-        search = capacitor.lib.recurseIntoAttrs2 {
-          nixpkgs.stable =
+        search = {
+          recurseForDerivations = true;
+          nixpkgs = capacitor.lib.recurseIntoAttrs2 (
             capacitor.lib.mapAttrsRecursiveCond
             (path: a: (a ? element))
             (path: value: {
@@ -48,7 +53,7 @@ rec {
               meta.description = "";
               version = "";
             })
-            self.legacyPackages.x86_64-linux.nixpkgs.stable;
+            self.legacyPackages.x86_64-linux.nixpkgs);
         };
       };
 
