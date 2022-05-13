@@ -21,11 +21,11 @@
         "root": []
       },
       "locked": {
-        "lastModified": 1652362428,
-        "narHash": "sha256-n3IOaYBT9CF2XA6HVg0ri1kKY8hKu4QgdJbG45c1OAA=",
+        "lastModified": 1652417285,
+        "narHash": "sha256-E9CXEKlHhBTD+jB82VYEGZg4bHOX99YIqwaQS5rzK4g=",
         "ref": "ysndr",
-        "rev": "22d5cfe7fc6f36a4bacba71ea5e2236630df1131",
-        "revCount": 140,
+        "rev": "85d6b3e91ea596e01a2747d5abda640a2c58aaf3",
+        "revCount": 141,
         "type": "git",
         "url": "ssh://git@github.com/flox/capacitor"
       },
@@ -157,7 +157,25 @@
         "lib": "lib",
         "nixpkgs-stable": "nixpkgs-stable",
         "nixpkgs-staging": "nixpkgs-staging",
-        "nixpkgs-unstable": "nixpkgs-unstable"
+        "nixpkgs-unstable": "nixpkgs-unstable",
+        "tracelinks": "tracelinks"
+      }
+    },
+    "tracelinks": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1647596882,
+        "narHash": "sha256-RdD0fUS1XT03T4XSp4abxb8AOkQUEy93I86xBkks/Tc=",
+        "ref": "main",
+        "rev": "22d985d2757f1834ee51d3dadc93908c9cfc9ab3",
+        "revCount": 5,
+        "type": "git",
+        "url": "ssh://git@github.com/flox/tracelinks"
+      },
+      "original": {
+        "ref": "main",
+        "type": "git",
+        "url": "ssh://git@github.com/flox/tracelinks"
       }
     }
   },
