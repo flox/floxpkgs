@@ -1,9 +1,17 @@
 rec {
   inputs.lib.url = "github:nix-community/nixpkgs.lib";
 
-  inputs.nixpkgs-stable.url = "github:flox/nixpkgs/stable";
-  inputs.nixpkgs-unstable.url = "github:flox/nixpkgs/unstable";
-  inputs.nixpkgs-staging.url = "github:flox/nixpkgs/staging";
+  inputs.nixpkgs-stable.url = "git+ssh://git@github.com/flox/nixpkgs-flox";
+  inputs.nixpkgs-stable-src.url = "github:flox/nixpkgs/stable";
+  inputs.nixpkgs-stable.inputs.nixpkgs.follows = "nixpkgs-stable-src";
+
+  inputs.nixpkgs-unstable.url = "git+ssh://git@github.com/flox/nixpkgs-flox";
+  inputs.nixpkgs-unstable-src.url = "github:flox/nixpkgs/unstable";
+  inputs.nixpkgs-unstable.inputs.nixpkgs.follows = "nixpkgs-unstable-src";
+
+  inputs.nixpkgs-staging.url = "git+ssh://git@github.com/flox/nixpkgs-flox";
+  inputs.nixpkgs-staging-src.url = "github:flox/nixpkgs/staging";
+  inputs.nixpkgs-staging.inputs.nixpkgs.follows = "nixpkgs-staging-src";
 
   inputs.capacitor.url = "git+ssh://git@github.com/flox/capacitor?ref=ysndr";
   inputs.capacitor.inputs.nixpkgs.follows = "nixpkgs-unstable";
@@ -42,6 +50,7 @@ rec {
           then args.cached__nixpkgs-stable__x86_64-linux.legacyPackages.${system}
           else {};
 
+        # Provides a search speedup, bypassing descriptions
         search = {
           recurseForDerivations = true;
           nixpkgs = capacitor.lib.recurseIntoAttrs2 (
