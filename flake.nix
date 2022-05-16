@@ -49,5 +49,22 @@ rec {
       };
 
       # apps = auto.automaticPkgsWith inputs ./apps ;
-    });
+    }) // {
+
+      templates = {
+	python-black = {
+         path = templates/python-black;
+         description = "Python Black example template";
+         };
+	python2 = {
+         path = templates/python2;
+         description = "Python 2 template";
+         };
+	python3 = {
+         path = templates/python3;
+         description = "Python 3 template";
+         };
+      };
+
+   };
 }

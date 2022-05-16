@@ -1,0 +1,30 @@
+# Boilerplate - do not change
+[inputs]
+pkgs = {}
+
+# Package builder.
+[pkgs.python3Packages.buildPythonPackage]
+name = "yourproject"
+
+# Similar to other packaging ecosystems, flox requires that you
+# declare the package that you depend upon. Use "flox search" to
+# discover the set of packages available with flox:
+#
+# $ flox search stable pandas
+#
+# Packages must be quoted and expressed as the following:
+#
+# "inputs.pythonPackages.<pkgname>"
+#
+
+# Add packages used in the developer shell.
+nativeBuildInputs = [
+  # "inputs.gh",
+  # "inputs.jq"
+]
+
+# Add packages required by the python software being developed.
+propagatedBuildInputs = [
+  # "inputs.pythonPackages.click",
+  # "inputs.pythonPackages.requests"
+]
