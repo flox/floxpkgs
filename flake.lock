@@ -14,37 +14,15 @@
     "capacitor": {
       "inputs": {
         "nixpkgs": "nixpkgs",
+        "nixpkgs-lib": "nixpkgs-lib",
         "root": []
       },
       "locked": {
-        "lastModified": 1652552568,
-        "narHash": "sha256-5aE4Mx3kVPys7nqhwBe6umXn8I2UqqFewbcEjIifxbI=",
+        "lastModified": 1652770000,
+        "narHash": "sha256-VSr2vYg+jAkJN7nSDEbR/O83UDfFs59Dtm+Oru5cDW8=",
         "ref": "ysndr",
-        "rev": "4cdf6895af2e5b88e7e0946d74b462aa1a792647",
-        "revCount": 153,
-        "type": "git",
-        "url": "ssh://git@github.com/flox/capacitor"
-      },
-      "original": {
-        "ref": "ysndr",
-        "type": "git",
-        "url": "ssh://git@github.com/flox/capacitor"
-      }
-    },
-    "capacitor_2": {
-      "inputs": {
-        "nixpkgs": "nixpkgs_2",
-        "root": [
-          "capacitor",
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1652549696,
-        "narHash": "sha256-FpKhYar8h0U/c+0GdrygPfuH5Hz5hHUMn4h4TNuH3rA=",
-        "ref": "ysndr",
-        "rev": "80a781e8de88d842bdc500c1e0dff87dee8532af",
-        "revCount": 149,
+        "rev": "d888e0d4b75dfaca1bc6d1ab81bb24364971bb37",
+        "revCount": 166,
         "type": "git",
         "url": "ssh://git@github.com/flox/capacitor"
       },
@@ -72,7 +50,7 @@
     "nix-eval-jobs": {
       "inputs": {
         "flake-utils": "flake-utils",
-        "nixpkgs": "nixpkgs_3"
+        "nixpkgs": "nixpkgs_2"
       },
       "locked": {
         "lastModified": 1650329966,
@@ -90,25 +68,42 @@
     },
     "nixpkgs": {
       "inputs": {
-        "capacitor": "capacitor_2",
+        "capacitor": [
+          "capacitor"
+        ],
         "nix-eval-jobs": "nix-eval-jobs",
-        "nixpkgs": "nixpkgs_4",
+        "nixpkgs": "nixpkgs_3",
         "nixpkgs-stable": "nixpkgs-stable",
         "nixpkgs-staging": "nixpkgs-staging",
         "nixpkgs-unstable": "nixpkgs-unstable"
       },
       "locked": {
-        "lastModified": 1652550070,
-        "narHash": "sha256-YphZmO2YrmUrtf4aN01i6DZwgM7h0xr0JmiIDxUUKxs=",
+        "lastModified": 1652558415,
+        "narHash": "sha256-usR1ssxDNgWeNmDMkLJO75DCKQOAmrNwqPp18YNA2h8=",
         "ref": "master",
-        "rev": "8c58cabf53a24e8310aa7791a28e948197899f05",
-        "revCount": 52,
+        "rev": "23714ca2e6f18752790c9a700ff303106ef134f7",
+        "revCount": 53,
         "type": "git",
         "url": "ssh://git@github.com/flox/nixpkgs-flox"
       },
       "original": {
         "type": "git",
         "url": "ssh://git@github.com/flox/nixpkgs-flox"
+      }
+    },
+    "nixpkgs-lib": {
+      "locked": {
+        "lastModified": 1652576347,
+        "narHash": "sha256-52Wu7hkcIRcS4UenSSrt01J2sAbbQ6YqxZIDpuEPL/c=",
+        "owner": "nix-community",
+        "repo": "nixpkgs.lib",
+        "rev": "bdf553800c9c34ed00641785b02038f67f44d671",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "nixpkgs.lib",
+        "type": "github"
       }
     },
     "nixpkgs-stable": {
@@ -161,22 +156,6 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1650161686,
-        "narHash": "sha256-70ZWAlOQ9nAZ08OU6WY7n4Ij2kOO199dLfNlvO/+pf8=",
-        "owner": "flox",
-        "repo": "nixpkgs",
-        "rev": "1ffba9f2f683063c2b14c9f4d12c55ad5f4ed887",
-        "type": "github"
-      },
-      "original": {
-        "owner": "flox",
-        "ref": "unstable",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
-    "nixpkgs_3": {
-      "locked": {
         "lastModified": 1647186833,
         "narHash": "sha256-62CMNrhICLcI/5jNSQDAQpUUvtvTXBsYWSU6ZlhPIzs=",
         "owner": "Mic92",
@@ -191,7 +170,7 @@
         "type": "github"
       }
     },
-    "nixpkgs_4": {
+    "nixpkgs_3": {
       "locked": {
         "lastModified": 1650161686,
         "narHash": "sha256-70ZWAlOQ9nAZ08OU6WY7n4Ij2kOO199dLfNlvO/+pf8=",
