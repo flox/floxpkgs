@@ -1,0 +1,33 @@
+[floxEnv]
+postShellHook = '''
+# Show versions with a bit of color
+echo
+LC_ALL=en_US.UTF-8 parallel --will-cite 'readlink -e $(which {}) | cut -d- -f2- | cut -d/ -f1' ::: curl docker unzip aws kubectl python3 helm |
+   grep -P --colour=always '(?:^|(?<=[-]))[0-9.]*|$'
+echo
+'''
+
+[floxEnv.programs]
+vscode = { extensions = ["ms-python.python", "ms-python.pylint"] }
+kubernetes-helm = { version = "3.7" }
+
+bats = {}
+curl = { version = "7.7" }
+docker = {}
+unzip = {}
+awscli2 = {}
+kubectl = {}
+
+parallel = {}
+gnugrep = {}
+which = {}
+coreutils = {}
+
+[floxEnv.programs.python]
+python = "python39"
+requirements = '''
+    pip
+    allure-pytest==2.9.45
+    kubernetes
+    pytest
+'''

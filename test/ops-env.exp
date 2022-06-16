@@ -1,0 +1,17 @@
+#!/usr/bin/expect
+set err 1
+set timeout 200
+spawn flox develop
+expect "λ"
+send "bats ops-env.bats\r"
+expect {
+   -re "0 failures" {
+    set err 0
+    exp_continue
+  }
+
+ "λ"
+}
+send "exit\r"
+expect eof
+exit $err
