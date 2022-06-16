@@ -18,7 +18,7 @@ rec {
   inputs.mach-nix.inputs.pypi-deps-db.follows = "pypi-deps-db";
   inputs.pypi-deps-db.url = "github:DavHau/pypi-deps-db";
   inputs.pypi-deps-db.flake = false;
-
+  inputs.flox.url = "path:./pkgs/flox";
   nixConfig.bash-prompt = "[flox] \\[\\033[38;5;172m\\]λ \\[\\033[0m\\]";
 
   outputs = _: (_.capacitor _ ({
@@ -36,7 +36,7 @@ rec {
       legacyPackages = {
         pkgs,
         system,
-        stability ? "unstable",
+        stability ? "stable",
         ...
       }: rec {
         # Declare my channels (projects)
