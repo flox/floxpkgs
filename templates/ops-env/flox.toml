@@ -30,12 +30,5 @@ echo
 LC_ALL=en_US.UTF-8 parallel --will-cite 'readlink -e $(which {}) | cut -d- -f2- | cut -d/ -f1' ::: curl docker unzip aws kubectl python3 helm |
    grep -P --colour=always '(?:^|(?<=[-]))[0-9.]*|$'
 echo
-
-cat <<EOF
-If you have previously selected a Python interpreter for VS Code in this workspace, you'll need to clear that setting:
-- open command palette (Mac: ⇧+⌘+P, Linux: Ctrl+Shift+P)
-- run "Python: Clear Workspace Interpreter Setting"
-EOF
-echo
 '''
 
