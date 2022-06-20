@@ -34,6 +34,10 @@ jobset="''${jobset:-$jobsetDefault}"
 
 # assumption is that the cache is availble and configured
 
+function error() {
+    echo "ERROR:" "$@" 1>&2
+    exit 1
+}
 
 export LC_ALL=en_US.UTF-8
 # Find all versions built for current system
@@ -46,8 +50,9 @@ if [ -v REFRESH -o ! -f "$tmpDir/$attr.$system.json" ]; then
 fi
 
 if [ -v AS_LIST ]; then
-    jq -cr -s --arg version "^$version" '
-      map(select(has("timestamp") and .finished == 1))
+    jq -e -cr -s --arg version "^$version" '
+    ( if ( . == null ) then . else {} end )
+    | map(select(has("timestamp") and .finished == 1))
     | map(select(.nixname|capture("(?<name>.*)-(?<version>[^a-zA-Z].*)")|.version|match($version)!=[]))
     | sort_by(.timestamp)
     | reverse
@@ -55,18 +60,18 @@ if [ -v AS_LIST ]; then
     | .[]
     | [(.buildproducts|to_entries[0].value.path),.nixname]
     | @tsv
-    ' "$tmpDir/$attr.$system.json"
+    ' "$tmpDir/$attr.$system.json" || error "no match for \"$attr\" version \"^$version\" (run again with REFRESH=1)"
     exit 0
 fi
 
 # Extract name-version from nixname and match the regex provided by user
-out=$(jq -cr -s --arg version "^$version" '
+out=$(jq -e -cr -s --arg version "^$version" '
       map(select(has("timestamp") and .finished == 1))
     | map(select(.nixname|capture("(?<name>.*)-(?<version>[^a-zA-Z].*)")|.version|match($version)!=[]))
     | sort_by(.timestamp)
     | reverse
     | .[0]
-    ' "$tmpDir/$attr.$system.json")
+    ' "$tmpDir/$attr.$system.json") || error "no match for \"$attr\" version \"^$version\" (run again with REFRESH=1)"
 
 # ASSUMPTIONS:
 # last id is latest
