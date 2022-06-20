@@ -9,9 +9,7 @@ unzip = {}
 awscli2 = {}
 kubectl = {}
 
-parallel = {}
 gnugrep = {}
-which = {}
 coreutils = {}
 
 [programs.python]
@@ -29,10 +27,10 @@ postShellHook = '''
 #EXAMPLE_VAR="foo"
 #echo "Hello World"
 
-# Show versions with a bit of color
-echo
-LC_ALL=en_US.UTF-8 parallel --will-cite 'readlink -e $(which {}) | cut -d- -f2- | cut -d/ -f1' ::: curl docker unzip aws kubectl python3 helm |
-   grep -P --colour=always '(?:^|(?<=[-]))[0-9.]*|$'
+echo \# Show versions of packages providing binaries with a bit of color
+find @DEVSHELL_DIR@/bin -exec realpath {} \; | \
+    cut -d- -f2- | cut -d/ -f1 | sort -u | \
+    grep -P --colour=always '(?:^|(?<=[-]))[0-9.]*|$'
 echo
 '''
 
