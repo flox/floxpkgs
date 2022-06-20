@@ -1,3 +1,4 @@
+[flox]λ cat test.bats 
 #!/usr/bin/env bats
 # to run these tests, first run 'flox develop'
 setup() {
@@ -15,10 +16,19 @@ setup() {
   [[ "${lines[0]}" =~ "by Info-ZIP" ]]
 }
 
+@test "test by unzip is sourced from flox" {
+  run which unzip
+  [[ "${lines[0]}" =~ "/nix/store" ]]
+}
 
 @test "test GNUgrep" {
   run grep --help
   [[ "${lines[0]}" =~ "Usage: grep [OPTION]... PATTERNS [FILE]..." ]]
+}
+
+@test "test GNUgrep is sourced from flox" {
+  run which grep
+  [[ "${lines[0]}" =~ "/nix/store" ]]
 }
 
 @test "test coreutils" {
@@ -26,11 +36,11 @@ setup() {
   [[ "${lines[0]}" =~ "Usage: cat [OPTION]... [FILE]..." ]]
 }
 
-@test "test which" {
-  run which --help
-  [[ "${lines[0]}" =~ "Usage: which [options] [--] COMMAND [...]" ]]
-}
 
+@test "test coreutils is sourced from flox" {
+  run which cat
+  [[ "${lines[0]}" =~ "/nix/store" ]]
+}
 
 @test "test python pip" {
   run python -c "import pip;print(pip)"
@@ -56,7 +66,6 @@ setup() {
   [[ "$status" -eq 0 ]]
 
 }
-
 @test "flox search" {
   run flox search "kubectl Kubernetes"
   [[ "$output" =~ "Kubernetes" ]]
