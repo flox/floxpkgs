@@ -12,11 +12,11 @@
         "root": []
       },
       "locked": {
-        "lastModified": 1655124817,
-        "narHash": "sha256-v6puO/7RhlknD+5+9XYgOCMpTI9BrZSpCNTTLSwa4mU=",
-        "ref": "master",
-        "rev": "e76ff4977fb8239423187ae9975ac7cdaa183492",
-        "revCount": 198,
+        "lastModified": 1655746729,
+        "narHash": "sha256-DrhDftmBbY39YB8oTpPrS6POIHy/OR8G4m9Z+nhKOIY=",
+        "ref": "refs/heads/master",
+        "rev": "feea6e79e9d056910e38a34854a3f4223bb1b541",
+        "revCount": 205,
         "type": "git",
         "url": "ssh://git@github.com/flox/capacitor"
       },
@@ -206,11 +206,11 @@
         "pypi-deps-db": "pypi-deps-db"
       },
       "locked": {
-        "lastModified": 1654084003,
-        "narHash": "sha256-j/XrVVistvM+Ua+0tNFvO5z83isL+LBgmBi9XppxuKA=",
+        "lastModified": 1655670309,
+        "narHash": "sha256-BpFY3YKt6JkWeK94IpIS+qnRhqDHPWZDhXMJYMZwpYc=",
         "owner": "DavHau",
         "repo": "mach-nix",
-        "rev": "7e14360bde07dcae32e5e24f366c83272f52923f",
+        "rev": "7e84a4e8fe088449abfa22476ad35c6cf493cad1",
         "type": "github"
       },
       "original": {
