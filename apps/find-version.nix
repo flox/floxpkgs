@@ -10,7 +10,7 @@ attr="$1"
 # TODO: detect no version given and provide list, dry-run, show meta
 
 version="$2"
-system=$(nix show-config | sed -n 's/system = \(.*\)$/\1/p')
+system=''${system:-$(nix show-config | sed -n 's/system = \(.*\)$/\1/p')}
 
 tmpDir="$HOME/.cache/flox/versions"
 mkdir -p "$tmpDir"
@@ -26,7 +26,11 @@ substituter="''${substituter:-https://cache.nixos.org}"
 hydra="''${hydra:-https://hydra.nixos.org}"
 url="''${url:-github:NixOS/nixpkgs}"
 project="''${project:-nixpkgs}"
-jobset="''${jobset:-trunk}"
+jobsetDefault="trunk"
+if [ "$system" == "aarch64-darwin" ]; then
+  jobsetDefault="nixpkgs-unstable-aarch64-darwin"
+fi
+jobset="''${jobset:-$jobsetDefault}"
 
 # assumption is that the cache is availble and configured
 

@@ -17,7 +17,7 @@
         if [ -v DEBUG ]; then set -x; fi
         raw_extensions=$(
           dasel -f flox.toml -w json | jq '
-          .floxEnv.programs.vscode.extensions|
+          .programs.vscode.extensions|
           select(.!=null)|
           .[]
         ' -cr)
