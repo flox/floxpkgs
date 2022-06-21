@@ -1,4 +1,3 @@
-[flox]λ cat test.bats 
 #!/usr/bin/env bats
 # to run these tests, first run 'flox develop'
 setup() {
