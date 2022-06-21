@@ -27,22 +27,8 @@ rec {
       # AUTO-MANAGED AFTER THIS POINT ##################################
       # AUTO-MANAGED AFTER THIS POINT ##################################
       __pins.versions = [
-        (builtins.getFlake "github:NixOS/nixpkgs/43cc623340ac0723fb73c1bce244bb6d791c5bb9").legacyPackages.x86_64-linux.curl
-        (builtins.getFlake "github:NixOS/nixpkgs/4d922730369d1c468cc4ef5b2fc30fd4200530e0").legacyPackages.x86_64-linux.kubernetes-helm
       ];
       __pins.vscode-extensions = [
-        {
-          name = "python";
-          publisher = "ms-python";
-          sha256 = "0dxlqyhcfmb0bqbny633g0hwcq5ac7nz5rrq1c795bs3pimm8p20";
-          version = "2022.7.11541009";
-        }
-        {
-          name = "pylint";
-          publisher = "ms-python";
-          sha256 = "0zca7w55v5xw69d7fva0mq5swc9ax36v598khzvrq3p4nzfjvfhk";
-          version = "2022.1.11541003";
-        }
       ];
     });
 }
