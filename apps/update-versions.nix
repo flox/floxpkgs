@@ -18,7 +18,7 @@
         # System should not matter here
         raw_versions=$(
         dasel -f flox.toml -w json | jq '
-          .floxEnv.programs|
+          .programs|
           to_entries|
           map(select(.value|has("version")))|
           .[]|
