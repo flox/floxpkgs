@@ -6,7 +6,7 @@ bats = {}
 curl = { version = "7.7" }
 docker = {}
 unzip = {}
-awscli2 = {}
+awscli2 = { version = "2.7.3" }
 kubectl = {}
 
 gnugrep = {}
