@@ -26,8 +26,8 @@ rec {
       # AUTO-MANAGED AFTER THIS POINT ##################################
       # AUTO-MANAGED AFTER THIS POINT ##################################
       # AUTO-MANAGED AFTER THIS POINT ##################################
-      __pins.versions = [
-      ];
+      __pins.versions = {
+      };
       __pins.vscode-extensions = [
       ];
     });
