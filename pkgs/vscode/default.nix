@@ -1,4 +1,4 @@
-{ callPackage, pkgs }:
+{ callPackage, pkgs, xcodeenv }:
 
 let
   callVSCodePackage = pkg: attrs: let p = callPackage pkg attrs; in p // {
@@ -12,5 +12,6 @@ in {
   vscodium = callVSCodePackage ./vscodium.nix { };
   vscode-oss = callVSCodePackage ./oss.nix { electron = pkgs.electron;
       inherit (pkgs.darwin.apple_sdk.frameworks) Cocoa;
+      inherit xcodeenv;
       };
 }
