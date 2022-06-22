@@ -107,9 +107,8 @@ rec {
 
 
 
-      devShells = {system,...}: {
-        default = (lib.sanitizes (auto.callSubflakesWith inputs "path:./templates" {}) ["devShells" "packages" "legacyPackages" "apps" system]).default;
-      };
+      devShells = {system,...}:
+        (lib.sanitizes (auto.callSubflakesWith inputs "path:./templates" {}) ["devShells" "packages" "legacyPackages" "apps" system]).default;
 
       lib =
         _.capacitor.lib
