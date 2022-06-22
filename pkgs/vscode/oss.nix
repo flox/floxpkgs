@@ -1,12 +1,17 @@
-{ stdenv, fetchFromGitHub, python, zip, makeWrapper, fetchurl, pkgconfig, jq
+{ lib, stdenv, fetchFromGitHub, python3, zip, makeWrapper, fetchurl, pkgconfig, jq
 , makeDesktopItem, runtimeShell, writeScript
 , nodejs, yarn, libsecret, xorg, ripgrep, electron
 , productOverrides ? {}
+, xcodeenv, Cocoa
 }:
 
-with stdenv.lib;
+with lib;
 
 let
+xcodeWrapper = xcodeenv.composeXcodeWrapper {
+  version = "13.4.1";
+  xcodeBaseDir = "/Applications/Xcode.app";
+};
   productDefaultOverrides = {
     extensionsGallery =  {
       serviceUrl = "https://marketplace.visualstudio.com/_apis/public/gallery";
@@ -41,17 +46,21 @@ let
 
   shortName = productOverrides.nameShort or "Code - OSS";
   longName = productOverrides.nameLong or "Code - OSS";
-  executableName = productOverrides.applicationName or "code-oss";
+  executableName = productOverrides.applicationName or "code";
 
   # to get hash values use nix-build -A vscode-oss.yarnPrefetchCache --argstr system <system>
   vscodePlatforms = rec {
-    x86_64-linux = {
-      name = "linux-x64";
-      yarnCacheSha256 = "0fhcfm2n52bas7gc674z63aydz2nq54zvb9q090986x081hpjzc5";
-    };
-    aarch64-linux = {
-      name = "linux-arm64";
-      yarnCacheSha256 = "0l85nggc9sf7ag99g7ynx8kkhn5rcw9fc68iqsxzib5sw3r20phd";
+#    x86_64-linux = {
+#      name = "linux-x64";
+#      yarnCacheSha256 = "0fhcfm2n52bas7gc674z63aydz2nq54zvb9q090986x081hpjzc5";
+#    };
+#    aarch64-linux = {
+#      name = "linux-arm64";
+#      yarnCacheSha256 = "0l85nggc9sf7ag99g7ynx8kkhn5rcw9fc68iqsxzib5sw3r20phd";
+#    };
+    aarch64-darwin = {
+      name = "darwin-arm64";
+      yarnCacheSha256 = "sha256-66cfWaKO8Psr7b5vafiOi0gJvNlNQUHwwmOoj7yifjs=";
     };
   };
 
@@ -61,13 +70,13 @@ let
 
 in stdenv.mkDerivation rec {
   pname = "vscode-oss";
-  version = "1.44.2";
+  version = "1.68.1";
 
   src = fetchFromGitHub {
     owner = "microsoft";
     repo = "vscode";
     rev = version;
-    sha256 = "z0XdyD3lpcL90uGFlHeWHEJnnXmYPfpeaU0e2xjJnGU=";
+    sha256 = "sha256-0Nzx0sYKwW3UbcR8a9IKJl26QmJvHw7AH4XFxv8CB0I=";
   };
 
   yarnCache = stdenv.mkDerivation {
@@ -90,47 +99,43 @@ in stdenv.mkDerivation rec {
 
   productOverridesJSON = builtins.toFile "product-override.json" (builtins.toJSON productOverrides');
 
-  nativeBuildInputs = [ nodejs yarn python pkgconfig zip makeWrapper jq ];
+  nativeBuildInputs = [ nodejs yarn python3 pkgconfig zip makeWrapper jq xcodeWrapper Cocoa ];
   buildInputs = [ libsecret xorg.libX11 xorg.libxkbfile ];
 
   BUILD_SOURCEVERSION = version;
 
   desktopItem = makeDesktopItem {
+    startupWMClass = shortName;
+    actions.new-empty-window = {
+      name = "New Empty Window";
+      exec = "${executableName} --new-window %F";
+      icon = "code";
+    };
+    categories = [ "Utility" "TextEditor" "Development" "IDE" ];
+    mimeTypes = [ "text/plain" "inode/directory" ];
+      startupNotify = true;
+
     name = executableName;
     desktopName = longName;
     comment = "Code Editing. Redefined.";
     genericName = "Text Editor";
     exec = executableName;
     icon = "code";
-    startupNotify = "true";
-    categories = "Utility;TextEditor;Development;IDE;";
-    mimeType = "text/plain;inode/directory;";
-    extraEntries = ''
-      StartupWMClass=${shortName}
-      Actions=new-empty-window;
-      Keywords=vscode;
-
-      [Desktop Action new-empty-window]
-      Name=New Empty Window
-      Exec=${executableName} --new-window %F
-      Icon=code
-    '';
   };
 
   urlHandlerDesktopItem = makeDesktopItem {
+      categories = [ "Utility" "TextEditor" "Development" "IDE" ];
+      mimeTypes = [ "x-scheme-handler/vscode" ];
+      keywords = [ "vscode" ];
+      noDisplay = true;
+      startupNotify = true;
+
     name = executableName + "-url-handler";
     desktopName = longName + " - URL Handler";
     comment = "Code Editing. Redefined.";
     genericName = "Text Editor";
     exec = executableName + " --open-url %U";
     icon = "code";
-    startupNotify = "true";
-    categories = "Utility;TextEditor;Development;IDE;";
-    mimeType = "x-scheme-handler/vscode;";
-    extraEntries = ''
-      NoDisplay=true
-      Keywords=vscode;
-    '';
   };
 
   # vscode is started using vscode cli. To start cli no parameters should be
@@ -149,7 +154,8 @@ in stdenv.mkDerivation rec {
     exec "${electron}/bin/electron" "$@"
   '';
 
-  patchPhase = ''
+  patches = [ ./yarn-patch.patch ./no-git.patch ];
+  postPatch = ''
     DEFAULT_TRUE="'default': true"
     DEFAULT_FALSE="'default': false"
     TELEMETRY_ENABLE="'telemetry.enableTelemetry':"
@@ -160,17 +166,21 @@ in stdenv.mkDerivation rec {
     }
 
     update_setting () {
+      FILENAME="$2"
       # go through lines of file, looking for block that contains setting
       local SETTING="$1"
       local LINE_NUM=0
+      local IN_SETTING=0
       while read -r line; do
         local LINE_NUM=$(( $LINE_NUM + 1 ))
-        if [[ $line == *"$SETTING"* ]]; then
-          local IN_SETTING=1
-        fi
         if [[ $line == *"$DEFAULT_TRUE"* && "$IN_SETTING" == "1" ]]; then
           local FOUND=1
           break
+        fi
+        if [[ $line == *"$SETTING"* ]]; then
+          IN_SETTING=1
+        else
+          IN_SETTING=0
         fi
       done < $FILENAME
 
@@ -186,8 +196,8 @@ in stdenv.mkDerivation rec {
     }
 
     # disable telemetry by default
-    update_setting "$TELEMETRY_ENABLE" src/vs/platform/telemetry/common/telemetryService.ts
-    update_setting "$TELEMETRY_CRASH_REPORTER" src/vs/workbench/electron-browser/desktop.contribution.ts
+    #update_setting "$TELEMETRY_ENABLE" src/vs/platform/telemetry/common/telemetryService.ts
+    #update_setting "$TELEMETRY_CRASH_REPORTER" src/vs/workbench/electron-browser/desktop.contribution.ts
 
     sed -i '/target/c\target "${electron.version}"' .yarnrc
 
@@ -249,6 +259,7 @@ in stdenv.mkDerivation rec {
     patchShebangs .
 
     # rebuild binaries, we use npm here, as yarn does not provider alternative
+#    export SDKROOT=${xcodeWrapper}/SDKs/MacOSX12.3.sdk
     npm rebuild --update-binary
 
     # run postinstall scripts, which eventually do yarn install on all additional requirements
@@ -260,7 +271,9 @@ in stdenv.mkDerivation rec {
 
   installPhase = ''
     mkdir -p $out/lib/vscode $out/bin
-    cp -r ../VSCode-${platform.name}/* $out/lib/vscode
+    pwd
+    cp -r ../VSCode-${platform.name}/* $out
+    exit 0
 
     substituteInPlace $out/lib/vscode/bin/${executableName} --replace '"$CLI" "$@"' '"$CLI" "--skip-getting-started" "$@"'
 

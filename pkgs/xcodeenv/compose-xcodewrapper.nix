@@ -19,9 +19,11 @@ stdenv.mkDerivation {
     ln -s /usr/bin/rev
     ln -s "${xcodeBaseDir}/Contents/Developer/usr/bin/xcodebuild"
     ln -s "${xcodeBaseDir}/Contents/Developer/Applications/Simulator.app/Contents/MacOS/Simulator"
+    ln -s "${xcodeBaseDir}/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/libtool"
 
     cd ..
     ln -s "${xcodeBaseDir}/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs"
+#    ln -s "${xcodeBaseDir}/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs"
 
     # Check if we have the xcodebuild version that we want
     if [ -z "$($out/bin/xcodebuild -version | grep -x 'Xcode ${version}')" ]

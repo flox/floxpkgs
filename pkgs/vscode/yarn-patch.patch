@@ -1,0 +1,16 @@
+diff --git a/build/npm/preinstall.js b/build/npm/preinstall.js
+index a839653f75c..ab9f4f71642 100644
+--- a/build/npm/preinstall.js
++++ b/build/npm/preinstall.js
+@@ -30,11 +30,6 @@ if (majorYarnVersion < 1 || minorYarnVersion < 10) {
+ 	err = true;
+ }
+ 
+-if (!/yarn[\w-.]*\.c?js$|yarnpkg$/.test(process.env['npm_execpath'])) {
+-	console.error('\033[1;31m*** Please use yarn to install dependencies.\033[0;0m');
+-	err = true;
+-}
+-
+ if (process.platform === 'win32') {
+ 	if (!hasSupportedVisualStudioVersion()) {
+ 		console.error('\033[1;31m*** Invalid C/C++ Compiler Toolchain. Please check https://github.com/microsoft/vscode/wiki/How-to-Contribute#prerequisites.\033[0;0m');
