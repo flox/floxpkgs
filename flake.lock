@@ -25,6 +25,27 @@
         "url": "ssh://git@github.com/flox/capacitor"
       }
     },
+    "default": {
+      "inputs": {
+        "capacitor": [
+          "capacitor"
+        ],
+        "floxpkgs": [],
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1,
+        "narHash": "sha256-cnBTA2ao3HcS1AdRcBRgONGKXEevlllVQ/buGxohayM=",
+        "path": "./templates/default",
+        "type": "path"
+      },
+      "original": {
+        "path": "./templates/default",
+        "type": "path"
+      }
+    },
     "devshell": {
       "inputs": {
         "flake-utils": "flake-utils",
@@ -518,27 +539,6 @@
         "type": "github"
       }
     },
-    "ops-env": {
-      "inputs": {
-        "capacitor": [
-          "capacitor"
-        ],
-        "floxpkgs": [],
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1,
-        "narHash": "sha256-1TJCXv3SKTFgBGoQ8br+GN1asOT5Rv1NJCrHeYQh/U0=",
-        "path": "./templates/ops-env",
-        "type": "path"
-      },
-      "original": {
-        "path": "./templates/ops-env",
-        "type": "path"
-      }
-    },
     "pypi-deps-db": {
       "flake": false,
       "locked": {
@@ -574,11 +574,11 @@
     "root": {
       "inputs": {
         "capacitor": "capacitor",
+        "default": "default",
         "devshell": "devshell_2",
         "flox": "flox",
         "mach-nix": "mach-nix_2",
         "nixpkgs": "nixpkgs_4",
-        "ops-env": "ops-env",
         "pypi-deps-db": "pypi-deps-db_2"
       }
     },

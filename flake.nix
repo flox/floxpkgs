@@ -5,11 +5,11 @@ rec {
   inputs.nixpkgs.url = "git+ssh://git@github.com/flox/nixpkgs-flox";
   inputs.nixpkgs.inputs.capacitor.follows = "capacitor";
   inputs.capacitor.inputs.nixpkgs.follows = "nixpkgs";
-  inputs.ops-env.url = "path:./templates/ops-env";
 
-  inputs.ops-env.inputs.capacitor.follows = "capacitor";
-  inputs.ops-env.inputs.floxpkgs.follows = "/";
-  inputs.ops-env.inputs.nixpkgs.follows = "nixpkgs";
+  inputs.default.url = "path:./templates/default";
+  inputs.default.inputs.capacitor.follows = "capacitor";
+  inputs.default.inputs.floxpkgs.follows = "/";
+  inputs.default.inputs.nixpkgs.follows = "nixpkgs";
 
   # Used for ops-env library functions. TODO: move to capacitor?
   inputs.devshell.url = "github:numtide/devshell";
@@ -108,7 +108,7 @@ rec {
 
 
       devShells = {system,...}: {
-        ops-env = (lib.sanitizes (auto.callSubflakesWith inputs "path:./templates" {}) ["devShells" "default" "packages" "legacyPackages" "apps" system]).ops-env;
+        default = (lib.sanitizes (auto.callSubflakesWith inputs "path:./templates" {}) ["devShells" "packages" "legacyPackages" "apps" system]).default;
       };
 
       lib =
