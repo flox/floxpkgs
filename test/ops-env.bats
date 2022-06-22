@@ -67,5 +67,5 @@ setup() {
 }
 @test "flox search" {
   run flox search "kubectl Kubernetes"
-  [[ "$output" =~ "Kubernetes" ]]
+  [[ "$output" =~ "kubernetes" ]]
 }
