@@ -50,14 +50,14 @@ xcodeWrapper = xcodeenv.composeXcodeWrapper {
 
   # to get hash values use nix-build -A vscode-oss.yarnPrefetchCache --argstr system <system>
   vscodePlatforms = rec {
-#    x86_64-linux = {
-#      name = "linux-x64";
-#      yarnCacheSha256 = "0fhcfm2n52bas7gc674z63aydz2nq54zvb9q090986x081hpjzc5";
-#    };
-#    aarch64-linux = {
-#      name = "linux-arm64";
-#      yarnCacheSha256 = "0l85nggc9sf7ag99g7ynx8kkhn5rcw9fc68iqsxzib5sw3r20phd";
-#    };
+   x86_64-linux = {
+     name = "linux-x64";
+     yarnCacheSha256 = "sha256-2MieQEE8EqndOhfPz+W28Ts/LoZlwIo8s4mzscDKOXc=";
+   };
+   # aarch64-linux = {
+   #   name = "linux-arm64";
+   #   yarnCacheSha256 = "0l85nggc9sf7ag99g7ynx8kkhn5rcw9fc68iqsxzib5sw3r20phd";
+   # };
     aarch64-darwin = {
       name = "darwin-arm64";
       yarnCacheSha256 = "sha256-66cfWaKO8Psr7b5vafiOi0gJvNlNQUHwwmOoj7yifjs=";
@@ -99,7 +99,7 @@ in stdenv.mkDerivation rec {
 
   productOverridesJSON = builtins.toFile "product-override.json" (builtins.toJSON productOverrides');
 
-  nativeBuildInputs = [ nodejs yarn python3 pkgconfig zip makeWrapper jq xcodeWrapper Cocoa ];
+  nativeBuildInputs = [ nodejs yarn python3 pkgconfig zip makeWrapper jq ] ++ lib.optionals stdenv.isDarwin [ Cocoa xcodeWrapper] ;
   buildInputs = [ libsecret xorg.libX11 xorg.libxkbfile ];
 
   BUILD_SOURCEVERSION = version;
@@ -259,7 +259,6 @@ in stdenv.mkDerivation rec {
     patchShebangs .
 
     # rebuild binaries, we use npm here, as yarn does not provider alternative
-#    export SDKROOT=${xcodeWrapper}/SDKs/MacOSX12.3.sdk
     npm rebuild --update-binary
 
     # run postinstall scripts, which eventually do yarn install on all additional requirements
@@ -271,9 +270,7 @@ in stdenv.mkDerivation rec {
 
   installPhase = ''
     mkdir -p $out/lib/vscode $out/bin
-    pwd
-    cp -r ../VSCode-${platform.name}/* $out
-    exit 0
+    cp -r ../VSCode-${platform.name}/* $out/lib/vscode
 
     substituteInPlace $out/lib/vscode/bin/${executableName} --replace '"$CLI" "$@"' '"$CLI" "--skip-getting-started" "$@"'
 
