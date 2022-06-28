@@ -1,6 +1,7 @@
 { lib, stdenv, fetchFromGitHub, python3, zip, makeWrapper, fetchurl, pkgconfig, jq
 , makeDesktopItem, runtimeShell, writeScript
 , nodejs, yarn, libsecret, xorg, ripgrep, electron
+, buildGoModule, esbuild
 , productOverrides ? {}
 , xcodeenv, Cocoa
 }:
@@ -8,10 +9,31 @@
 with lib;
 
 let
-xcodeWrapper = xcodeenv.composeXcodeWrapper {
-  version = "13.4.1";
-  xcodeBaseDir = "/Applications/Xcode.app";
-};
+  esbuild_11 = buildGoModule {
+    pname = "esbuild";
+    version = "0.11.23";
+
+    src = fetchFromGitHub {
+      owner = "evanw";
+      repo = "esbuild";
+      rev = "v${version}";
+      sha256 = "sha256-dqq+9ei+ro1xQcPW5FZF7/31ZIfHjKqYToo27XeFLVU=";
+    };
+
+    vendorSha256 = "sha256-2ABWPqhK2Cf4ipQH7XvRrd+ZscJhYPc3SV2cGT0apdg=";
+
+    meta = with lib; {
+      description = "An extremely fast JavaScript bundler";
+      homepage = "https://esbuild.github.io";
+      license = licenses.mit;
+      maintainers = with maintainers; [ lucus16 ];
+    };
+  };
+
+  xcodeWrapper = xcodeenv.composeXcodeWrapper {
+    version = "13.4.1";
+    xcodeBaseDir = "/Applications/Xcode.app";
+  };
   productDefaultOverrides = {
     extensionsGallery =  {
       serviceUrl = "https://marketplace.visualstudio.com/_apis/public/gallery";
@@ -40,27 +62,28 @@ xcodeWrapper = xcodeenv.composeXcodeWrapper {
       "ms-vscode.js-debug"
       "ms-vscode.js-debug-nightly"
     ];
+    builtInExtensions = [ ];
   };
 
   productOverrides' = productDefaultOverrides // productOverrides;
 
   shortName = productOverrides.nameShort or "Code - OSS";
   longName = productOverrides.nameLong or "Code - OSS";
-  executableName = productOverrides.applicationName or "code";
+  executableName = productOverrides.applicationName or "code-oss";
 
   # to get hash values use nix-build -A vscode-oss.yarnPrefetchCache --argstr system <system>
   vscodePlatforms = rec {
-   x86_64-linux = {
-     name = "linux-x64";
-     yarnCacheSha256 = "sha256-2MieQEE8EqndOhfPz+W28Ts/LoZlwIo8s4mzscDKOXc=";
-   };
-   # aarch64-linux = {
-   #   name = "linux-arm64";
-   #   yarnCacheSha256 = "0l85nggc9sf7ag99g7ynx8kkhn5rcw9fc68iqsxzib5sw3r20phd";
-   # };
+    x86_64-linux = {
+      name = "linux-x64";
+      yarnCacheSha256 = "sha256-2MieQEE8EqndOhfPz+W28Ts/LoZlwIo8s4mzscDKOXc=";
+    };
+    # aarch64-linux = {
+    #   name = "linux-arm64";
+    #   yarnCacheSha256 = "0l85nggc9sf7ag99g7ynx8kkhn5rcw9fc68iqsxzib5sw3r20phd";
+    # };
     aarch64-darwin = {
       name = "darwin-arm64";
-      yarnCacheSha256 = "sha256-66cfWaKO8Psr7b5vafiOi0gJvNlNQUHwwmOoj7yifjs=";
+      yarnCacheSha256 = "sha256-06cfWaKO8Psr7b5vafiOi0gJvNlNQUHwwmOoj7yifjs=";
     };
   };
 
@@ -82,7 +105,7 @@ in stdenv.mkDerivation rec {
   yarnCache = stdenv.mkDerivation {
     name = "${pname}-${version}-${system}-yarn-cache";
     inherit src;
-    phases = ["unpackPhase" "buildPhase"];
+    phases = [ "unpackPhase" "buildPhase" ];
     nativeBuildInputs = [ yarn ];
     buildPhase = ''
       export HOME=$PWD
@@ -113,7 +136,7 @@ in stdenv.mkDerivation rec {
     };
     categories = [ "Utility" "TextEditor" "Development" "IDE" ];
     mimeTypes = [ "text/plain" "inode/directory" ];
-      startupNotify = true;
+    startupNotify = true;
 
     name = executableName;
     desktopName = longName;
@@ -124,11 +147,11 @@ in stdenv.mkDerivation rec {
   };
 
   urlHandlerDesktopItem = makeDesktopItem {
-      categories = [ "Utility" "TextEditor" "Development" "IDE" ];
-      mimeTypes = [ "x-scheme-handler/vscode" ];
-      keywords = [ "vscode" ];
-      noDisplay = true;
-      startupNotify = true;
+    categories = [ "Utility" "TextEditor" "Development" "IDE" ];
+    mimeTypes = [ "x-scheme-handler/vscode" ];
+    keywords = [ "vscode" ];
+    noDisplay = true;
+    startupNotify = true;
 
     name = executableName + "-url-handler";
     desktopName = longName + " - URL Handler";
@@ -154,7 +177,7 @@ in stdenv.mkDerivation rec {
     exec "${electron}/bin/electron" "$@"
   '';
 
-  patches = [ ./yarn-patch.patch ./no-git.patch ];
+  patches = [ ./patches/yarn-patch.patch ./patches/no-git.patch ];
   postPatch = ''
     DEFAULT_TRUE="'default': true"
     DEFAULT_FALSE="'default': false"
@@ -234,15 +257,31 @@ in stdenv.mkDerivation rec {
     # wrapper that starts electron in vscode folder
     electron_archive="electron-v${electron.version}-${platform.name}.zip"
     ffmpeg_archive="ffmpeg-v${electron.version}-${platform.name}.zip"
-    gulp_electron_dir="$TMPDIR/gulp-electron-cache/atom/electron"
+
+    # electron will try to download a binary, so instead override the local cache per
+    # https://github.com/electron/electron/blob/main/docs/tutorial/installation.md#cache
+    # electron_config_cache needs a zip in a directory with the checksum
+    # create checksum of url using node's crypto module as in
+    # https://github.com/electron/get/blob/5c81f9a388577a9d446b2f7ae1a6e2dd2d7177d6/src/Cache.ts#L23
+    # ffmpeg gets pulled from
+    # https://github.com/electron/electron/releases/download/v${electron.version}/ffmpeg-v${electron.version}-linux-x64.zip
+    # so it has the same checksum
+    electron_checksum=$(echo "const crypto = require('crypto');
+      console.log(crypto
+       .createHash('sha256')
+       .update('https://github.com/electron/electron/releases/download/v${electron.version}')
+       .digest('hex'))" | node -)
+    export electron_config_cache="$TMPDIR/electron_config_cache"
+    mkdir -p "$electron_config_cache/$electron_checksum"
 
     substituteAll ${electronWrapper} electron
     chmod +x electron
-    zip "$electron_archive" electron
+    zip "$electron_config_cache/$electron_checksum/$electron_archive" electron
 
-    mkdir -p "$gulp_electron_dir"
-    cp "$electron_archive" "$gulp_electron_dir/$electron_archive"
-    cp "$electron_archive" "$gulp_electron_dir/$ffmpeg_archive"
+    # our version of electron contains libffmpeg.so (TODO: check for dylib on MacOS) and gulp-atom-electron applies
+    # filter("**/*ffmpeg.*"), so we can pass the electron zip as the ffmpeg zip
+    # https://github.com/joaomoreno/gulp-atom-electron/blob/master/src/download.js?#L193,
+    ln -s "$electron_config_cache/$electron_checksum/$electron_archive" "$electron_config_cache/$electron_checksum/$ffmpeg_archive"
 
     # install without running scripts, for all required packages that needs patching
     for d in . remote build test/automation; do
@@ -250,20 +289,28 @@ in stdenv.mkDerivation rec {
     done
 
     # put ripgrep binary into bin folder, so postinstall does not try to download it
-    find -name vscode-ripgrep -type d \
-      -execdir mkdir -p {}/bin \; \
-      -execdir ln -s ${ripgrep}/bin/rg {}/bin/rg \;
+    mkdir node_modules/@vscode/ripgrep/bin
+    ln -s ${ripgrep}/bin/rg node_modules/@vscode/ripgrep/bin/rg
 
     # patch shebangs of everything, also cached files, as otherwise postinstall
     # will not be able to find /usr/bin/env, as it does not exists in sandbox
     patchShebangs .
 
+    # playwright gets pulled into node_modules so we can't patch it in patchPhase
+    patch -p1 -i ${./patches/playwright.patch}
+
     # rebuild binaries, we use npm here, as yarn does not provider alternative
-    npm rebuild --update-binary
+    # ? --update-binary?
+    # pass esbuild a binary using an env var so that it doesn't attempt to download it
+    # esbuild's install script verifies that the binary version matches the requested version, so we
+    # have to use that version rather than the nixpkgs default
+    ESBUILD_BINARY_PATH="${esbuild_11}/bin/esbuild" npm rebuild --update-binary
 
     # run postinstall scripts, which eventually do yarn install on all additional requirements
     yarn postinstall --offline --frozen-lockfile
 
+    # gulp-atom-electron gets pulled into node_modules so we can't patch it in patchPhase
+    patch -p1 -i ${./patches/honor-electron_config_cache.patch}
     # build vscode itself
     yarn gulp vscode-${platform.name}-min
   '';
