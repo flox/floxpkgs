@@ -85,6 +85,20 @@ rec {
           in
             jobs
             // {
+              ch = pkgs.releaseTools.channel {
+                  constituents = let
+                    constituentList = lib.collect lib.isList (
+                      lib.mapAttrsRecursiveCond
+                      (value: !(lib.isDerivation value))
+                      (path: value: path)
+                      jobs
+                    );
+                      in with builtins;
+                      map (x: concatStringsSep "." ([system] ++ x)) constituentList;
+                  name = "channel";
+                  src = self;
+                  isNixOS = false;
+              };
               gate =
                 pkgs.runCommand "all-jobs" rec {
                   _hydraAggregate = true;
