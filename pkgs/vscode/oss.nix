@@ -70,6 +70,9 @@ let
   shortName = productOverrides.nameShort or "Code - OSS";
   longName = productOverrides.nameLong or "Code - OSS";
   executableName = productOverrides.applicationName or "code-oss";
+  # sourceExecutableName is the name of the binary in the compiled output, over
+  # which we have no control
+  sourceExecutableName = executableName;
 
   # to get hash values use nix-build -A vscode-oss.yarnPrefetchCache --argstr system <system>
   vscodePlatforms = rec {
@@ -83,7 +86,7 @@ let
     # };
     aarch64-darwin = {
       name = "darwin-arm64";
-      yarnCacheSha256 = "sha256-06cfWaKO8Psr7b5vafiOi0gJvNlNQUHwwmOoj7yifjs=";
+      yarnCacheSha256 = "sha256-66cfWaKO8Psr7b5vafiOi0gJvNlNQUHwwmOoj7yifjs=";
     };
   };
 
@@ -278,8 +281,8 @@ in stdenv.mkDerivation rec {
     chmod +x electron
     zip "$electron_config_cache/$electron_checksum/$electron_archive" electron
 
-    # our version of electron contains libffmpeg.so (TODO: check for dylib on MacOS) and gulp-atom-electron applies
-    # filter("**/*ffmpeg.*"), so we can pass the electron zip as the ffmpeg zip
+    # in nixpkgs, the linux version of electron contains libffmpeg.so and darwin's includes libffmpeg.dylib
+    # gulp-atom-electron applies filter("**/*ffmpeg.*"), so we can pass the electron zip as the ffmpeg zip
     # https://github.com/joaomoreno/gulp-atom-electron/blob/master/src/download.js?#L193,
     ln -s "$electron_config_cache/$electron_checksum/$electron_archive" "$electron_config_cache/$electron_checksum/$ffmpeg_archive"
 
@@ -315,7 +318,11 @@ in stdenv.mkDerivation rec {
     yarn gulp vscode-${platform.name}-min
   '';
 
-  installPhase = ''
+  installPhase = if stdenv.isDarwin then ''
+    mkdir -p "$out/Applications/${longName}.app" "$out/bin"
+    cp -r ./* "$out/Applications/${longName}.app"
+    ln -s "$out/Applications/${longName}.app/Contents/Resources/app/bin/${sourceExecutableName}" "$out/bin/${executableName}"
+  '' else ''
     mkdir -p $out/lib/vscode $out/bin
     cp -r ../VSCode-${platform.name}/* $out/lib/vscode
 
