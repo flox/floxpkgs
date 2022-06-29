@@ -18,10 +18,10 @@
     systems = [ "x86_64-linux" ];
 
     stabilities = {
-      stable = inputs.nixpkgs.inputs.nixpkgs-stable;
-      staging = inputs.nixpkgs.inputs.nixpkgs-staging;
-      unstable = inputs.nixpkgs.inputs.nixpkgs-unstable;
-      default = inputs.nixpkgs.inputs.nixpkgs-stable;
+      stable = inputs.nixpkgs.stable;
+      staging = inputs.nixpkgs.staging;
+      unstable = inputs.nixpkgs.unstable;
+      default = inputs.nixpkgs.stable;
     };
 
     extraPlugins = [
