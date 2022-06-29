@@ -1,6 +1,6 @@
 {
   writeShellApplication,
-  nix-editor,
+  inputs,
   alejandra,
   dasel,
   jq,
@@ -11,7 +11,7 @@
   program =
     (writeShellApplication {
       name = "update-versions";
-      runtimeInputs = [nix-editor alejandra dasel jq];
+      runtimeInputs = [inputs.nix-editor.packages.nixeditor alejandra dasel jq];
       text = ''
         wd="$1"
         cd "$wd"
