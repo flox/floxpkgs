@@ -7,8 +7,6 @@
   };
 
   config = {
-    systems = [ "x86_64-linux" ];
-
     stabilities = {
       stable = inputs.nixpkgs.stable;
       staging = inputs.nixpkgs.staging;
