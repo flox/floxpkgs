@@ -27,7 +27,7 @@
         ' -cr)
         system=''${system:-${stdenv.system}}
         if [ ! -v DRY_RUN ]; then
-          nix-editor flake.nix "outputs.__pins.versions.$system" -v "[]" -o flake.nix
+          nix-editor flake.nix "outputs.passthru.__pins.versions.$system" -v "[]" -o flake.nix
         else
           echo "$raw_versions"
           echo "dry run" >&2
@@ -46,7 +46,7 @@
             echo "adding $line as $res to $PWD/flake.nix"
             # shellcheck disable=SC2086
             if [ ! -v DRY_RUN ]; then
-              nix-editor flake.nix "outputs.__pins.versions.$system" -a "(builtins.getFlake \"''${res%%\#*}\").''${res##*#} " -o flake.nix
+              nix-editor flake.nix "outputs.passthru.__pins.versions.$system" -a "(builtins.getFlake \"''${res%%\#*}\").''${res##*#} " -o flake.nix
             fi
         done < <(echo "$raw_versions")
         alejandra -q flake.nix
