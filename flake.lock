@@ -3,17 +3,14 @@
     "capacitor": {
       "inputs": {
         "nixpkgs": "nixpkgs",
-        "root": [
-          "capacitor",
-          "nixpkgs"
-        ]
+        "root": []
       },
       "locked": {
-        "lastModified": 1656599374,
-        "narHash": "sha256-JbMqtHVvsHqbjbmeFroPkMmUN678c+swrApoPnoVUkI=",
+        "lastModified": 1656603652,
+        "narHash": "sha256-Q0lEUw3bJk5ydLu7SwWL468kIy9foz144kdgrFwrfww=",
         "ref": "minicapacitor",
-        "rev": "6db75396b32752f9484dafd34cc58dc8a184a2fb",
-        "revCount": 299,
+        "rev": "f7770dedc9d2e55d9459a708a74a19c5afde4585",
+        "revCount": 300,
         "type": "git",
         "url": "ssh://git@github.com/flox/capacitor"
       },
