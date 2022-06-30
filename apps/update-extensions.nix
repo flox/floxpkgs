@@ -30,11 +30,9 @@
         fi
 
         res=$({
-        echo "'''"
         # shellcheck disable=SC2086
         ${./generate_extensions.sh} $raw_extensions | jq -sc .[]
-        echo "'''"
-        } | flox eval --file - --apply builtins.fromJSON)
+        })
 
         # Reset pins
         if [ ! -v DRY_RUN ]; then
@@ -43,6 +41,13 @@
         while read -r line; do
         # TODO: detect if in the correct dir
         echo "storing into '$PWD/flake.nix':"
+        echo "$line"
+        line=$(
+        {
+        echo "'''"
+        echo "$line"
+        echo "'''"
+        }| flox eval --file - --apply builtins.fromJSON)
         echo "$line"
         if [ ! -v DRY_RUN ]; then
           nix-editor flake.nix "outputs.passthru.__pins.vscode-extensions" -a "$line" -o flake.nix
