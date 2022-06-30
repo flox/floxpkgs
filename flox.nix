@@ -3,7 +3,10 @@
 {
   # Limit the systems to fewer or more than default by ucommenting
   packages = {
-    flox = {inputs, lib, ...}: inputs.flox.defaultPackage;
+    # TODO: consolidate channels in CLI and capacitor tree structure to avoid duplication
+    flox = {
+      flox = {inputs, lib, ...}: inputs.flox.defaultPackage;
+    };
   };
 
   config = {
