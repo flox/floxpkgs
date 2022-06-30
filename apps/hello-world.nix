@@ -1,4 +1,4 @@
-{writeShellApplication, curl, bat, name, data ? {host="asdf";port=2;}, ... }:
+{writeShellApplication, curl, bat, name ? "hello", data ? {host="asdf";port=2;}, ... }:
 {
   type = "app";
   program = (writeShellApplication {

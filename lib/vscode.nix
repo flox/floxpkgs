@@ -1,3 +1,4 @@
+{}:
 rec {
   # check pkgs.vscode-extensions ? extension
   isNixpkgsExtension = pkgs: extension:
@@ -25,4 +26,3 @@ rec {
     else
       pkgs.vscode;
 }
-

@@ -1,18 +1,18 @@
-_: toml: pins: {pkgs, ...}: let
+# Capacitor API (using callPackage > requires self to be named explicitly)
+capacitorContext @ {self}:
+toml: pins:
+context @ {pkgs, ...}: let
   data =
-    _.self.lib.flox-env {
-      inherit (_) mach-nix;
-      lib = _.self.lib;
-    }
+    capacitorContext.self.lib.flox-env 
     pkgs
     toml
     pins;
 in
-  _.self.lib.mkNakedShell {
-    inherit (_) devshell;
+  capacitorContext.self.lib.mkNakedShell {
+    inherit (capacitorContext.inputs.devshell.pacakges) devshell;
     inherit data;
     inherit pkgs;
     inherit pins;
-    floxpkgs = _.self;
-    lib = _.self.lib;
+    floxpkgs = capacitorContext.self;
+    lib = capacitorContext.self.lib;
   }
