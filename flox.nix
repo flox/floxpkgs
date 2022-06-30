@@ -6,14 +6,6 @@
     flox = {inputs, lib, ...}: inputs.flox.defaultPackage;
   };
 
-  apps = {
-    test = {
-      type= "app";
-      program = "";
-    };
-  };
-  
-
   config = {
     systems = [ "x86_64-linux" ];
 
