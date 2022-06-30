@@ -152,11 +152,11 @@
         "nixpkgs": "nixpkgs_4"
       },
       "locked": {
-        "lastModified": 1656077202,
-        "narHash": "sha256-n8K+dUaWVT6/7qg4gBLXQbrWcbwuhCKl+U5pHAg15/0=",
+        "lastModified": 1656618964,
+        "narHash": "sha256-WUcPVGIlv9YOTqe6ZKwj+WI0ooorphYp85WT8mBNfeI=",
         "ref": "tng",
-        "rev": "53884497bf6e236ef05b11ed58bfbe1e20f5adc2",
-        "revCount": 178,
+        "rev": "41f1a7462711a0973f41ad66db848c45b09ddaca",
+        "revCount": 182,
         "type": "git",
         "url": "ssh://git@github.com/flox/flox"
       },
@@ -568,11 +568,11 @@
     "pypi-deps-db": {
       "flake": false,
       "locked": {
-        "lastModified": 1656492047,
-        "narHash": "sha256-2/bgL6sVngLLj30Ds0CY+nbCV5raqGxeXGZUc10XTys=",
+        "lastModified": 1656577845,
+        "narHash": "sha256-yRx/HegABmQ1Y5+6BKeGBdrhOi5F8e/IJvdCcVQS+yw=",
         "owner": "DavHau",
         "repo": "pypi-deps-db",
-        "rev": "5e4ba3a3db0c8451b13da1ab77378525d6d120c8",
+        "rev": "56335c35b32b95e4767dfe607a705a030ca5563b",
         "type": "github"
       },
       "original": {
