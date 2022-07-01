@@ -3,19 +3,21 @@
     "capacitor": {
       "inputs": {
         "nixpkgs": "nixpkgs",
-        "root": []
+        "root": [
+          "default"
+        ]
       },
       "locked": {
-        "lastModified": 1656603652,
-        "narHash": "sha256-Q0lEUw3bJk5ydLu7SwWL468kIy9foz144kdgrFwrfww=",
-        "ref": "minicapacitor",
-        "rev": "f7770dedc9d2e55d9459a708a74a19c5afde4585",
-        "revCount": 300,
+        "lastModified": 1656682644,
+        "narHash": "sha256-tRqrINlGd+gY33laL6DoJ7LgF9jeWYwGDzZo8ANFVAg=",
+        "ref": "lazy-plugins",
+        "rev": "7e417fa0a29b393bc472cff1eaa56ff932235aae",
+        "revCount": 302,
         "type": "git",
         "url": "ssh://git@github.com/flox/capacitor"
       },
       "original": {
-        "ref": "minicapacitor",
+        "ref": "lazy-plugins",
         "type": "git",
         "url": "ssh://git@github.com/flox/capacitor"
       }
@@ -568,11 +570,11 @@
     "pypi-deps-db": {
       "flake": false,
       "locked": {
-        "lastModified": 1656577845,
-        "narHash": "sha256-yRx/HegABmQ1Y5+6BKeGBdrhOi5F8e/IJvdCcVQS+yw=",
+        "lastModified": 1656663864,
+        "narHash": "sha256-DsDBaqGdB2Xlu+0o27lUTGh+ACzVcmiF0IUqKfmD6kY=",
         "owner": "DavHau",
         "repo": "pypi-deps-db",
-        "rev": "56335c35b32b95e4767dfe607a705a030ca5563b",
+        "rev": "4bf56e8aec8cc5afc3200ab64443c2ccbd260805",
         "type": "github"
       },
       "original": {
@@ -584,6 +586,7 @@
     "root": {
       "inputs": {
         "capacitor": "capacitor",
+        "default": [],
         "devshell": "devshell",
         "flox": "flox",
         "mach-nix": "mach-nix",

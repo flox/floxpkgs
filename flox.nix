@@ -21,6 +21,13 @@
       (inputs.capacitor.plugins.allLocalResources {})
       (inputs.capacitor.plugins.templates {})
       (inputs.capacitor.plugins.nixpkgs)
+      (inputs.capacitor.plugins.plugins { dir = ./plugins; })
     ];
   };
+
+  passthru.defaultPlugins = [
+    (inputs.capacitor.plugins.allLocalResources {})
+    (inputs.capacitor.plugins.templates {})
+    (inputs.capacitor.plugins.nixpkgs)
+  ];
 }
