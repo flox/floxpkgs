@@ -1,12 +1,12 @@
 {
   description = "Template using specific versions";
 
-  inputs.capacitor.url = "git+ssh://git@github.com/flox/capacitor?ref=minicapacitor";
+  inputs.capacitor.url = "git+ssh://git@github.com/flox/capacitor?ref=lazy-plugins";
   inputs.capacitor.inputs.root.follows = "/";
 
   inputs.nixpkgs.url = "git+ssh://git@github.com/flox/nixpkgs-flox";
 
-  inputs.floxpkgs.url = "git+ssh://git@github.com/flox/floxpkgs?ref=minicapacitor";
+  inputs.floxpkgs.url = "git+ssh://git@github.com/flox/floxpkgs?ref=plugins";
   inputs.floxpkgs.inputs.capacitor.follows = "capacitor";
   inputs.floxpkgs.inputs.nixpkgs.follows = "nixpkgs";
   inputs.floxpkgs.inputs.default.follows = "/";
@@ -20,16 +20,8 @@
   outputs = _:
     _.capacitor _ ({ lib, inputs, self, ... }: {
       devShells.default = inputs.floxpkgs.lib.mkFloxShell ./flox.toml self.__pins;
-      
-      config.stabilities = {
-        stable = inputs.nixpkgs.stable;
-        staging = inputs.nixpkgs.staging;
-        unstable = inputs.nixpkgs.unstable;
-        default = inputs.nixpkgs.stable;
-      };
-
-      # packages.default = {nixpkgs',...}: nixpkgs'.hello;
-
+     
+      config.extraPlugins = [ inputs.floxpkgs.plugins.stabilities ] ++ inputs.floxpkgs.defaultPlugins; 
 
       # AUTO-MANAGED AFTER THIS POINT ##################################
       # AUTO-MANAGED AFTER THIS POINT ##################################
