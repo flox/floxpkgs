@@ -97,6 +97,7 @@ in
         else {}
         ))
         paths;
+    passthru.elements = calledFloxEnv.passthru.elements;
     passthru.programs = calledFloxEnv.passthru.programs;
     passthru.data = data;
     passthru.pins = pins;
