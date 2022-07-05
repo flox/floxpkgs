@@ -1,0 +1,16 @@
+#!/usr/bin/expect
+set err 1
+set timeout 200
+spawn flox init
+expect "Choose template by number:"
+send "1\r"
+expect {
+   -re "wrote" {
+    set err 0
+    exp_continue
+  }
+
+  -re "$"
+}
+expect eof
+exit $err
