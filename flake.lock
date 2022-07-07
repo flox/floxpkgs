@@ -1,4 +1,4 @@
-{
+i{
   "nodes": {
     "capacitor": {
       "inputs": {
@@ -522,11 +522,11 @@
     "pypi-deps-db": {
       "flake": false,
       "locked": {
-        "lastModified": 1657183463,
-        "narHash": "sha256-d6TO3UzzsgdIPsGNA6FUeSqgAMk/3ybWZMdSPmlxs3M=",
+        "lastModified": 1657008999,
+        "narHash": "sha256-f2nFZ9VoctCyEi4QnYhqKifnKt20IIRV14OI6CdkBxc=",
         "owner": "DavHau",
         "repo": "pypi-deps-db",
-        "rev": "1566b6581d10ce29e3197133972859b82cf195e8",
+        "rev": "e20f4b3c78d9d6cfd03985e2a044c7f9daa7489b",
         "type": "github"
       },
       "original": {
