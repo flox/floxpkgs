@@ -1,13 +1,13 @@
 rec {
-  inputs.capacitor.url = "git+ssh://git@github.com/flox/capacitor?ref=minicapacitor";
+  inputs.capacitor.url = "github:flox/capacitor/minicapacitor";
   inputs.capacitor.inputs.root.follows = "/";
 
-  inputs.nixpkgs.url = "git+ssh://git@github.com/flox/nixpkgs-flox";
+  inputs.nixpkgs.url = "github:flox/nixpkgs-flox";
 
   # Declaration of external resources
   # =================================
 
-  inputs.flox.url = "git+ssh://git@github.com/flox/flox?ref=tng";
+  inputs.flox.url = "github:flox/flox/tng";
   inputs.nix-editor.url = "github:vlinkz/nix-editor";
 
   inputs.devshell.url = "github:numtide/devshell";
