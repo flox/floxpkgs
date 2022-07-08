@@ -6,7 +6,7 @@
 
   inputs.nixpkgs.url = "git+ssh://git@github.com/flox/nixpkgs-flox";
 
-  inputs.floxpkgs.url = "git+ssh://git@github.com/flox/floxpkgs?ref=minicapacitor";
+  inputs.floxpkgs.url = "git+ssh://git@github.com/flox/floxpkgs";
   inputs.floxpkgs.inputs.capacitor.follows = "capacitor";
   inputs.floxpkgs.inputs.nixpkgs.follows = "nixpkgs";
   inputs.floxpkgs.inputs.default.follows = "/";
