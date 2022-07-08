@@ -1,5 +1,5 @@
 rec {
-  inputs.capacitor.url = "git+ssh://git@github.com/flox/capacitor?ref=minicapacitor";
+  inputs.capacitor.url = "git+ssh://git@github.com/flox/capacitor?ref=v0";
   inputs.capacitor.inputs.root.follows = "/";
 
   inputs.nixpkgs.url = "git+ssh://git@github.com/flox/nixpkgs-flox";
