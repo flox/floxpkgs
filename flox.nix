@@ -5,7 +5,7 @@
   packages = {
     # TODO: consolidate channels in CLI and capacitor tree structure to avoid duplication
     flox = {
-      flox = {inputs, lib, ...}: inputs.flox.defaultPackage;
+      flox = {inputs, lib, ...}: inputs.flox.legacyPackages.default;
     };
   };
 
