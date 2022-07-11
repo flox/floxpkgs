@@ -1,6 +1,6 @@
 #!/usr/bin/expect
 set err 1
-set timeout 200
+set timeout -1
 spawn flox init
 expect "Choose template by number:"
 send "1\r"
