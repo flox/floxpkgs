@@ -10,7 +10,7 @@ expect {
     exp_continue
   }
 
-  -re "$"
+  -re ""
 }
 expect eof
 exit $err
