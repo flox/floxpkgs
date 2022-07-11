@@ -10,7 +10,6 @@ expect {
     exp_continue
   }
 
-  -re ""
+  eof {exit $err}
 }
-expect eof
-exit $err
+wait

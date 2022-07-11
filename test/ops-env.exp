@@ -10,8 +10,6 @@ expect {
     exp_continue
   }
 
- "λ"
+  eof {exit $err}
 }
-send "exit\r"
-expect eof
-exit $err
+wait
