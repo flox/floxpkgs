@@ -1,0 +1,22 @@
+[programs]
+
+bats = {}
+curl = { version = "7.7" }
+unzip = {}
+
+gnugrep = {}
+coreutils = {}
+
+
+[hooks]
+postShellHook = '''
+
+#EXAMPLE_VAR="foo"
+#echo "Hello World"
+
+echo \# Show versions of packages providing binaries with a bit of color
+find @DEVSHELL_DIR@/bin -exec realpath {} \; | \
+    cut -d- -f2- | cut -d/ -f1 | sort -u | \
+    grep -P --colour=always '(?:^|(?<=[-]))[0-9.]*|$'
+echo
+'''
