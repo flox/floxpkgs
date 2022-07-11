@@ -9,7 +9,7 @@ let floxpkgs = self; in
   ...
 }: let
   calledFloxEnv = data.func data.attrs;
-  finalPaths = [calledFloxEnv] ++ pins.versions.${pkgs.system};
+  finalPaths = [calledFloxEnv] ++ (pins.versions.${pkgs.system} or []);
 in
   (floxpkgs.inputs.devshell.legacyPackages.${pkgs.system}.mkNakedShell rec {
     name = "ops-env";
@@ -79,7 +79,7 @@ in
   // {
     passthru.paths =
       builtins.filter (x: !(builtins.isString x && !builtins.hasContext x))
-      (calledFloxEnv.passthru.paths ++ pins.versions.${pkgs.system});
+      (calledFloxEnv.passthru.paths ++ (pins.versions.${pkgs.system} or []));
     passthru.pure-paths =
       let paths = builtins.filter (x: !(builtins.isString x && !builtins.hasContext x))
                   (calledFloxEnv.passthru.paths);
