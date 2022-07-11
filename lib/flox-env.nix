@@ -14,7 +14,7 @@ pkgs': toml: pins: let
   };
   data = {
     func = floxEnv;
-    attrs = builtins.fromTOML (builtins.readFile toml);
+    attrs = if builtins.isAttrs toml then toml else builtins.fromTOML (builtins.readFile toml);
   };
   pkgs = tie.pkgs;
   floxEnv = {programs, ...}: let
