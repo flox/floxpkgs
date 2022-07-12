@@ -12,4 +12,5 @@ expect {
 
   eof {exit $err}
 }
-wait
+send "exit\r"
+eof {exit $err}
