@@ -6,11 +6,11 @@
         "root": []
       },
       "locked": {
-        "lastModified": 1657289882,
+        "lastModified": 1657288928,
         "narHash": "sha256-Co6nvb8gmjrQKucsZKG3nZdUR0A0/gUDjU16fWDLOSY=",
         "ref": "v0",
-        "rev": "28034cd98aad9f960b09607523cc81adac9c5b83",
-        "revCount": 1,
+        "rev": "46235b6a83f6d877bc6a9d3e3919df65c06974d4",
+        "revCount": 2,
         "type": "git",
         "url": "ssh://git@github.com/flox/capacitor"
       },
