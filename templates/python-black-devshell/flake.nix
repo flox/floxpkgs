@@ -1,7 +1,7 @@
 rec {
   description = "Python Black example template using devshell";
 
-  inputs.capacitor.url = "git+ssh://git@github.com/flox/capacitor?ref=ysndr";
+  inputs.capacitor.url = "git+ssh://git@github.com/flox/capacitor?ref=master";
   inputs.capacitor.inputs.root.follows = "/";
 
   inputs.nixpkgs.url = "git+ssh://git@github.com/flox/nixpkgs-flox";
