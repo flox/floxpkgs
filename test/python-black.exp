@@ -1,0 +1,17 @@
+#!/usr/bin/expect
+set err 1
+set timeout -1
+spawn flox develop
+expect "λ"
+send "bats python-black.bats\r"
+expect {
+   -re "0 failures" {
+    set err 0
+    send "exit\r"
+    exp_continue
+  }
+
+  eof {exit $err}
+}
+send "exit\r"
+eof {exit $err}
