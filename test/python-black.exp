@@ -2,7 +2,7 @@
 set err 1
 set timeout -1
 spawn flox develop
-expect "λ"
+expect "$"
 send "bats python-black.bats\r"
 expect {
    -re "0 failures" {
