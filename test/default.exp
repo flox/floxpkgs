@@ -1,7 +1,7 @@
 #!/usr/bin/expect
 set err 1
 set timeout -1
-spawn flox develop
+spawn flox develop --refresh
 expect "λ"
 send "bats default.bats\r"
 expect {
