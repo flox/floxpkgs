@@ -18,7 +18,9 @@ pkgs': toml: pins: let
   };
   pkgs = tie.pkgs;
   floxEnv = {programs, ...}: let
-    python = floxpkgs.inputs.mach-nix.lib.${pkgs.system}.mkPython programs.python;
+    python = floxpkgs.inputs.mach-nix.lib.${pkgs.system}.mkPython (programs.python // {
+      ignoreDataOutdated = true;
+    });
     handler = {
       python = python;
       vscode =
