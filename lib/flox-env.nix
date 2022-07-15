@@ -18,7 +18,6 @@ pkgs': toml: pins: let
   };
   pkgs = tie.pkgs;
     floxEnv = {programs, ...}: let
-    python = floxpkgs.inputs.mach-nix.lib.${pkgs.system}.mkPython programs.python;
     python = let
       mach = import (floxpkgs.inputs.mach-nix + "/default.nix") {
         inherit pkgs;
