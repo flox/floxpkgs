@@ -33,7 +33,7 @@ pkgs': toml: pins: let
       handler = {
         python = python;
         vscode =
-          lib.vscode.configuredVscode
+          floxpkgs.lib.vscode.configuredVscode
           pkgs
           programs.vscode
           pins.vscode-extensions;
