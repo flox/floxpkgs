@@ -1,0 +1,11 @@
+diff --git a/build/npm/postinstall.js b/build/npm/postinstall.js
+index 187f123cd18..8e489fbac76 100644
+--- a/build/npm/postinstall.js
++++ b/build/npm/postinstall.js
+@@ -72,6 +72,3 @@ for (let dir of dirs) {
+ 
+ 	yarnInstall(dir, opts);
+ }
+-
+-cp.execSync('git config pull.rebase merges');
+-cp.execSync('git config blame.ignoreRevsFile .git-blame-ignore');

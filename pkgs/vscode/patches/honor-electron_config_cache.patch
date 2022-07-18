@@ -1,0 +1,12 @@
+diff --git a/node_modules/gulp-atom-electron/src/download.js b/node_modules/gulp-atom-electron/src/download.js
+index 9bb00e0..c93c514 100644
+--- a/node_modules/gulp-atom-electron/src/download.js
++++ b/node_modules/gulp-atom-electron/src/download.js
+@@ -104,6 +104,7 @@ async function download(opts) {
+         if (bar) bar.update(progress.percent);
+       },
+     },
++    cacheRoot: process.env.electron_config_cache,
+   };
+ 
+   bar = new ProgressBar(
