@@ -8,6 +8,7 @@ expect {
    -re "0 failures" {
     set err 0
     send "exit\r"
+    exp_continue
   }
 
   eof {exit $err}
