@@ -5,7 +5,7 @@ spawn $env(FLOXPATH)/result/bin/flox develop --refresh
 expect "λ"
 send "bats default.bats\r"
 expect {
-   -re "0 failures" {
+   -re "*0 failures*" {
     set err 0
     send "exit\r"
     exp_continue
