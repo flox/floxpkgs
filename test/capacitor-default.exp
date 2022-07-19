@@ -5,7 +5,7 @@ spawn flox develop --refresh --override-input capacitor github:flox/capacitor?re
 expect "λ" 
 send "bats default.bats\r"
 expect {
-   -re "0 failures" {
+   "*0 failures*" {
     set err 0
     send "exit\r"
     exp_continue
