@@ -1,7 +1,7 @@
 #!/usr/bin/expect
 set err 1
 set timeout -1
-spawn flox develop --refresh --override-input github:flox/capacitor?rev=$env(GITHUB_SHA)
+spawn flox develop --refresh --override-input capacitor github:flox/capacitor?rev=$env(GITHUB_SHA)
 expect {
     "λ" {
       set err 0
