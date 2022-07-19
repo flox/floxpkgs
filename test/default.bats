@@ -65,7 +65,3 @@ setup() {
   [[ "$status" -eq 0 ]]
 
 }
-@test "flox search" {
-  run flox search "kubectl Kubernetes"
-  [[ "$output" =~ "kubernetes" ]]
-}
