@@ -1,5 +1,5 @@
 rec {
-  description = "Python Black example template";
+  description = "Python alternative example template";
   inputs.capacitor.url = "git+ssh://git@github.com/flox/capacitor";
   inputs.capacitor.inputs.root.follows = "/";
   inputs.capacitor.inputs.nixpkgs.follows = "nixpkgs";
@@ -13,16 +13,17 @@ rec {
         auto.usingWith inputs (
           {pkgs, ...}:
             with pkgs;
-              pkgs.python39Packages.buildPythonPackage {
-                name = "anjuna";
+              pkgs.python39Packages.buildPythonPackage rec {
+                name = "alternative";
                 nativeBuildInputs =
                   [
                     bats
                     docker-client
                     unzip
                     kubectl
-                    gnugrep
                     coreutils
+                    gnugrep
+                    findutils
                   ]
                   ++ {
                     x86_64-linux = [
@@ -59,7 +60,6 @@ rec {
                 # =======Environmental Variables=======
                 #
                 # You can set env vars for common frameworks like Django, Flask, etc here
-                PROJECT_DIR = "$HOME/devenv";
                 HOSTNAME = "localhost";
 
                 # ========Shell Commands===============
@@ -67,6 +67,12 @@ rec {
                 # You may add shell commands that will run in flox develop
                 postShellHook = ''
                   echo "Welcome to the Flox Dev Env Project Environment!"
+                  echo \# Show versions of packages providing binaries with a bit of color
+                  find ${builtins.concatStringsSep " " (map (x: "${x}/bin") nativeBuildInputs)} -exec realpath {} \; | \
+                      cut -d- -f2- | cut -d/ -f1 | sort -u | \
+                      grep -P --colour=always '(?:^|(?<=[-]))[0-9.]*|$'
+                  echo
+
                 '';
               }
         )
