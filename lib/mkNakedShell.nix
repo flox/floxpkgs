@@ -4,11 +4,11 @@ let floxpkgs = self; in
 # User API
 {
   data,
-  pins,
+  pins ? {},
   pkgs,
   ...
 }: let
-  calledFloxEnv = data.func data.attrs;
+  calledFloxEnv = (data.func or (x: pkgs.buildEnv {name = "wrapper"; paths = x.programs;} )) data.attrs;
   finalPaths = [calledFloxEnv] ++ (pins.versions.${pkgs.system} or []);
 in
   (floxpkgs.inputs.devshell.legacyPackages.${pkgs.system}.mkNakedShell rec {
