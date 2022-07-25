@@ -11,6 +11,9 @@
   inputs.floxpkgs.inputs.nixpkgs.follows = "nixpkgs";
   inputs.floxpkgs.inputs.default.follows = "/";
 
+  inputs.nixpkgs-catalog_aarch64-darwin.url = "";
+  inputs.nixpkgs-catalog_aarch64-darwin.flake = false;
+
   # TODO: preferred method below would only need this. (https://github.com/NixOS/nix/issues/5790)
   # inputs.floxpkgs.url = "git+ssh://git@github.com/flox/floxpkgs";
   # inputs.floxpkgs.inputs.capacitor.inputs.root.follows = "/";
@@ -27,6 +30,14 @@
         unstable = inputs.nixpkgs.unstable;
         default = inputs.nixpkgs.stable;
       };
+
+      config.extraPlugins = [
+        # (inputs.floxpkgs.plugins.catalog {
+        #   system = "aarch64-darwin"; 
+        #   catalog = inputs.nixpkgs-catalog_aarch64-darwin;
+        #   path = "nixpkgs";
+        # })
+      ];
 
       # packages.default = {nixpkgs',...}: nixpkgs'.hello;
 

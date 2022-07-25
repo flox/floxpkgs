@@ -1,4 +1,4 @@
-{inputs, ...}:
+{inputs, ...} @ context:
 # Define package set structure
 {
   # Limit the systems to fewer or more than default by ucommenting
@@ -19,6 +19,7 @@
       (inputs.capacitor.plugins.plugins { dir = ./plugins; })
       (inputs.capacitor.plugins.templates {})
       (inputs.capacitor.plugins.nixpkgs)
+      # (import ./plugins/catalog.nix context {system = "aarch64-darwin"; catalog = /* catalog intput*/ {}; path = "floxpkgs"; })
     ];
   };
 }
