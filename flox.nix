@@ -16,6 +16,7 @@
 
     extraPlugins = [
       (inputs.capacitor.plugins.allLocalResources {})
+      (inputs.capacitor.plugins.plugins { dir = ./plugins; })
       (inputs.capacitor.plugins.templates {})
       (inputs.capacitor.plugins.nixpkgs)
     ];
