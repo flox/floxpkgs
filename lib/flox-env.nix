@@ -42,6 +42,32 @@ in
             config
             pins.vscode-extensions;
 
+          catalog = programs: let
+            defaultVersion = with builtins;
+              path: let
+                # TODO shouldn't include recurseForDerivations
+                versionsWithUnderScores = attrNames (lib.getAttrFromPath
+                  path
+                  nixpkgs-flox.catalog.${pkgs.system});
+                versions = map (version: replaceStrings ["_"] ["."] version) versionsWithUnderScores;
+                sortedVersions = sort (v1: v2: (compareVersions v1 v2) == 1) versions;
+              in
+                replaceStrings ["."] ["_"] (head sortedVersions);
+            ensureStabilityAndVersion = with builtins;
+              path:
+                if length path == 2
+                then path ++ [(defaultVersion path)]
+                else if length path == 1
+                then ensureStabilityAndVersion (path ++ ["stable"])
+                else path;
+            pathsToLeaves =
+              lib.collect builtins.isList (lib.mapAttrsRecursiveCond (attr: attr != {}) (path: _: path) programs);
+            # TODO remove this? Unsure why it's necessary, but without it, sub-attributes of catalog can't be found
+            nixpkgs-flox = builtins.getFlake (builtins.unsafeDiscardStringContext inputs.nixpkgs.outPath);
+          in
+            # return a list of fake derivations retrieved from the catalog
+            builtins.map (path: lib.getAttrFromPath (ensureStabilityAndVersion path) nixpkgs-flox.catalog.${pkgs.system}) pathsToLeaves;
+
           # insert exceptions here
           __functor = self: key: config:
             if builtins.hasAttr key self
@@ -51,7 +77,7 @@ in
             else pkgs.${key};
         };
       in
-        lib.mapAttrsToList handler programs;
+        lib.flatten (lib.mapAttrsToList handler programs);
     in
       (pkgs.buildEnv {
         name = "flox-env";
