@@ -22,34 +22,33 @@ in
     };
     pkgs = tie.pkgs;
     floxEnv = {programs, ...}: let
-      python = let
+      python = config: let
         mach = import (floxpkgs.inputs.mach-nix + "/default.nix") {
           inherit pkgs;
           dataOutdated = false;
           pypiData = floxpkgs.inputs.mach-nix.inputs.pypi-deps-db;
         };
       in
-        mach.mkPython (programs.python
+        mach.mkPython (config
           // {
             ignoreDataOutdated = true;
           });
       paths = let
         handler = {
           python = python;
-          vscode =
+          vscode = config:
             floxpkgs.lib.vscode.configuredVscode
             pkgs
-            programs.vscode
+            config
             pins.vscode-extensions;
 
-          # insert excpetions here
-          __functor = self: key: attr:
-            self.${key}
-            or (
-              if attr ? version
-              then "${key}@${attr.version}"
-              else pkgs.${key}
-            );
+          # insert exceptions here
+          __functor = self: key: config:
+            if builtins.hasAttr key self
+            then self.${key} config
+            else if config ? version
+            then "${key}@${config.version}"
+            else pkgs.${key};
         };
       in
         lib.mapAttrsToList handler programs;
