@@ -3,62 +3,91 @@
   self,
   inputs,
   lib,
-}:
-let floxpkgs = self; in
-# User API
-pkgs': toml: pins: let
-  tie = {
-    pkgs = pkgs';
-    mach = floxpkgs.inputs.mach-nix.lib.${pkgs.system};
-    vscodeLib = lib.vscode;
-  };
-  data = {
-    func = floxEnv;
-    attrs = if builtins.isAttrs toml then toml else builtins.fromTOML (builtins.readFile toml);
-  };
-  pkgs = tie.pkgs;
-    floxEnv = {programs, ...}: let
-    python = let
-      mach = import (floxpkgs.inputs.mach-nix + "/default.nix") {
-        inherit pkgs;
-        dataOutdated = false;
-        pypiData = floxpkgs.inputs.mach-nix.inputs.pypi-deps-db;
-      };
-    in
-      mach.mkPython (programs.python
-        // {
-          ignoreDataOutdated = true;
-        });
-    paths = let
-      handler = {
-        python = python;
-        vscode =
-          floxpkgs.lib.vscode.configuredVscode
-          pkgs
-          programs.vscode
-          pins.vscode-extensions;
-
-        # insert excpetions here
-        __functor = self: key: attr:
-          self.${key}
-          or (
-            if attr ? version
-            then "${key}@${attr.version}"
-            else pkgs.${key}
-          );
-      };
-    in
-      lib.mapAttrsToList handler programs;
-  in
-    (pkgs.buildEnv {
-      name = "flox-env";
-      inherit paths;
-    })
-    // {
-      passthru = {
-        inherit programs paths;
-        python.expr = python.expr;
-      };
-    };
+}: let
+  floxpkgs = self;
 in
-  data
+  # User API
+  pkgs': toml: pins: let
+    tie = {
+      pkgs = pkgs';
+      mach = floxpkgs.inputs.mach-nix.lib.${pkgs.system};
+      vscodeLib = lib.vscode;
+    };
+    data = {
+      func = floxEnv;
+      attrs =
+        if builtins.isAttrs toml
+        then toml
+        else builtins.fromTOML (builtins.readFile toml);
+    };
+    pkgs = tie.pkgs;
+    floxEnv = {programs, ...}: let
+      python = config: let
+        mach = import (floxpkgs.inputs.mach-nix + "/default.nix") {
+          inherit pkgs;
+          dataOutdated = false;
+          pypiData = floxpkgs.inputs.mach-nix.inputs.pypi-deps-db;
+        };
+      in
+        mach.mkPython (config
+          // {
+            ignoreDataOutdated = true;
+          });
+      paths = let
+        handler = {
+          python = python;
+          vscode = config:
+            floxpkgs.lib.vscode.configuredVscode
+            pkgs
+            config
+            pins.vscode-extensions;
+
+          catalog = programs: let
+            defaultVersion = with builtins;
+              path: let
+                # TODO shouldn't include recurseForDerivations
+                versionsWithUnderScores = attrNames (lib.getAttrFromPath
+                  path
+                  nixpkgs-flox.catalog.${pkgs.system});
+                versions = map (version: replaceStrings ["_"] ["."] version) versionsWithUnderScores;
+                sortedVersions = sort (v1: v2: (compareVersions v1 v2) == 1) versions;
+              in
+                replaceStrings ["."] ["_"] (head sortedVersions);
+            ensureStabilityAndVersion = with builtins;
+              path:
+                if length path == 2
+                then path ++ [(defaultVersion path)]
+                else if length path == 1
+                then ensureStabilityAndVersion (path ++ ["stable"])
+                else path;
+            pathsToLeaves =
+              lib.collect builtins.isList (lib.mapAttrsRecursiveCond (attr: attr != {}) (path: _: path) programs);
+            # TODO remove this? Unsure why it's necessary, but without it, sub-attributes of catalog can't be found
+            nixpkgs-flox = builtins.getFlake (builtins.unsafeDiscardStringContext inputs.nixpkgs.outPath);
+          in
+            # return a list of fake derivations retrieved from the catalog
+            builtins.map (path: lib.getAttrFromPath (ensureStabilityAndVersion path) nixpkgs-flox.catalog.${pkgs.system}) pathsToLeaves;
+
+          # insert exceptions here
+          __functor = self: key: config:
+            if builtins.hasAttr key self
+            then self.${key} config
+            else if config ? version
+            then "${key}@${config.version}"
+            else pkgs.${key};
+        };
+      in
+        lib.flatten (lib.mapAttrsToList handler programs);
+    in
+      (pkgs.buildEnv {
+        name = "flox-env";
+        inherit paths;
+      })
+      // {
+        passthru = {
+          inherit programs paths;
+          python.expr = python.expr;
+        };
+      };
+  in
+    data
