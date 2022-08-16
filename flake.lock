@@ -1,5 +1,26 @@
 {
   "nodes": {
+    "builtfilter": {
+      "inputs": {
+        "capacitor": [
+          "capacitor"
+        ]
+      },
+      "locked": {
+        "lastModified": 1657894473,
+        "narHash": "sha256-4LStjo9jFZszuhUyupZIGCJ5uTtd8fUlkzopinhIHsE=",
+        "ref": "builtfilter-rs",
+        "rev": "8d647509102dd7111d7d3d4de464c581a01ef162",
+        "revCount": 17,
+        "type": "git",
+        "url": "ssh://git@github.com/flox/builtfilter"
+      },
+      "original": {
+        "ref": "builtfilter-rs",
+        "type": "git",
+        "url": "ssh://git@github.com/flox/builtfilter"
+      }
+    },
     "capacitor": {
       "inputs": {
         "nixpkgs": "nixpkgs",
@@ -419,6 +440,7 @@
     },
     "root": {
       "inputs": {
+        "builtfilter": "builtfilter",
         "capacitor": "capacitor",
         "devshell": "devshell",
         "flox": "flox",
