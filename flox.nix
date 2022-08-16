@@ -3,7 +3,7 @@
 {
   # Limit the systems to fewer or more than default by ucommenting
   packages = {
-   
+    builtfilter = {inputs, ...}: inputs.builtfilter.legacyPackages.builtfilter-rs;
   };
 
   config = {
