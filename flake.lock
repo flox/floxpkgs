@@ -69,11 +69,11 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1658746384,
-        "narHash": "sha256-CCJcoMOcXyZFrV1ag4XMTpAPjLWb4Anbv+ktXFI1ry0=",
+        "lastModified": 1660811669,
+        "narHash": "sha256-V6lmsaLNFz41myppL0yxglta92ijkSvpZ+XVygAh+bU=",
         "owner": "numtide",
         "repo": "devshell",
-        "rev": "0ffc7937bb5e8141af03d462b468bd071eb18e1b",
+        "rev": "c2feacb46ee69949124c835419861143c4016fb5",
         "type": "github"
       },
       "original": {
@@ -146,11 +146,11 @@
     "flox": {
       "flake": false,
       "locked": {
-        "lastModified": 1659363975,
-        "narHash": "sha256-5CpcF/i/k4qalmqZ2pifdkw7O2NIl6RxWz37maRe4J0=",
+        "lastModified": 1660832646,
+        "narHash": "sha256-qYH+Dqb+uN2yKRCAjmFlkQH7RiUPejVIwmsPTa3pz4k=",
         "ref": "tng",
-        "rev": "3ebe6236b5a04657f97e44f70f21148bcc6c52a9",
-        "revCount": 204,
+        "rev": "8b69e4ecff1a0af05fd17ed38a689e421973c50b",
+        "revCount": 205,
         "type": "git",
         "url": "ssh://git@github.com/flox/flox"
       },
@@ -192,11 +192,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1659091740,
-        "narHash": "sha256-aNtnezQfUX1QS/bFno2H5661qIY/Rn7BmHnspuuyI+4=",
+        "lastModified": 1660767432,
+        "narHash": "sha256-aFZSd2aAO10IaVLCaff+oXsibm+m2BDlrxapEesW14E=",
         "owner": "DavHau",
         "repo": "mach-nix",
-        "rev": "f15ea8677df951cb4fe608945fd98725dcd033b3",
+        "rev": "b5614640bc3379408d90db9e375b47345fbc21eb",
         "type": "github"
       },
       "original": {
@@ -393,11 +393,11 @@
         "nixpkgs.catalog.x86_64-linux": "nixpkgs.catalog.x86_64-linux"
       },
       "locked": {
-        "lastModified": 1660673307,
-        "narHash": "sha256-RUH4yjV6P85Fzc020/iO3v0ORbG9dlr1+qQJl1qf2pk=",
+        "lastModified": 1660747073,
+        "narHash": "sha256-9iVCqAxK6mLAb2ItIWnp+DR9SQe0/841sa5u1fDhrRo=",
         "ref": "refs/heads/master",
-        "rev": "74c8630a3b7965b7a024707e40ed9d685b6a8359",
-        "revCount": 81,
+        "rev": "c63065c65a93aecb66be8546652b635f79e8e880",
+        "revCount": 83,
         "type": "git",
         "url": "ssh://git@github.com/flox/nixpkgs-flox"
       },
@@ -425,11 +425,11 @@
     "pypi-deps-db": {
       "flake": false,
       "locked": {
-        "lastModified": 1660639261,
-        "narHash": "sha256-m+13X54HOwUUpeahGUe+xywerPaU0LwtBGBy9ahfVLs=",
+        "lastModified": 1660811860,
+        "narHash": "sha256-ENcR8bScxsPCAg37xJoILDRnk+rl3iTSaH5IeeCzVtk=",
         "owner": "DavHau",
         "repo": "pypi-deps-db",
-        "rev": "f014c49221a49dae6f4c5f72b51b8b8486dbf326",
+        "rev": "d14f7f768f62625784466698735f5a98ed544efa",
         "type": "github"
       },
       "original": {
