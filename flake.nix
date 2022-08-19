@@ -11,8 +11,15 @@ rec {
   inputs.flox.flake = false;
 
   inputs.nix-editor.url = "github:vlinkz/nix-editor";
+  inputs.nix-editor.inputs.nixpkgs.follows = "nixpkgs";
+  # nix has a bug where it can't add a follows two inputs deep, so add this hack to make naersk
+  # follow nixpkgs
+  inputs.naersk.url = "github:nix-community/naersk";
+  inputs.naersk.inputs.nixpkgs.follows = "nixpkgs";
+  inputs.nix-editor.inputs.naersk.follows = "naersk";
 
   inputs.devshell.url = "github:numtide/devshell";
+  inputs.devshell.inputs.nixpkgs.follows = "nixpkgs";
   inputs.mach-nix.url = "github:DavHau/mach-nix";
   inputs.mach-nix.inputs.nixpkgs.follows = "nixpkgs";
   inputs.mach-nix.inputs.pypi-deps-db.follows = "pypi-deps-db";
