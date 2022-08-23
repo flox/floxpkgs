@@ -15,6 +15,7 @@
     };
 
     extraPlugins = [
+      (inputs.flox-extras.plugins.catalog {catalogDirectory = inputs.catalog + "/render/x86_64-linux"; system = "x86_64-linux";})
       (inputs.capacitor.plugins.allLocalResources {})
       (inputs.capacitor.plugins.templates {})
       (inputs.capacitor.plugins.nixpkgs)

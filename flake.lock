@@ -63,6 +63,22 @@
         "type": "github"
       }
     },
+    "catalog": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1661266233,
+        "narHash": "sha256-jqxONgdOWltditqRTE/3rUuu573xAezp7bKcwotfOwI=",
+        "owner": "samrose",
+        "repo": "floxpkgs-publish",
+        "rev": "1f1baeb963d00770bd61771885eb18365d6c5d2e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "samrose",
+        "repo": "floxpkgs-publish",
+        "type": "github"
+      }
+    },
     "devshell": {
       "inputs": {
         "flake-utils": "flake-utils",
@@ -163,6 +179,26 @@
       }
     },
     "flox-extras": {
+      "inputs": {
+        "capacitor": [
+          "capacitor"
+        ]
+      },
+      "locked": {
+        "lastModified": 1660756526,
+        "narHash": "sha256-XS2IJ9jGSwB8iVXMMlgp/7K2C230vPe2KeuZNmaJTFM=",
+        "ref": "refs/heads/master",
+        "rev": "b79addf15c7a683a4b253410e27fbdbff152db6d",
+        "revCount": 13,
+        "type": "git",
+        "url": "ssh://git@github.com/flox/flox-extras"
+      },
+      "original": {
+        "type": "git",
+        "url": "ssh://git@github.com/flox/flox-extras"
+      }
+    },
+    "flox-extras_2": {
       "inputs": {
         "capacitor": [
           "nixpkgs",
@@ -343,7 +379,7 @@
     "nixpkgs_2": {
       "inputs": {
         "capacitor": "capacitor_2",
-        "flox-extras": "flox-extras",
+        "flox-extras": "flox-extras_2",
         "nixpkgs": [
           "nixpkgs",
           "nixpkgs-stable"
@@ -387,11 +423,11 @@
     "pypi-deps-db": {
       "flake": false,
       "locked": {
-        "lastModified": 1660902259,
-        "narHash": "sha256-cwUn5zmUXtOR1FyUjbzV56gC+xupSvypxosyz0w5o8k=",
+        "lastModified": 1661244612,
+        "narHash": "sha256-NkIRtkU+xjObO+Np1fra0X1kYK+Q2xzzLic91obRjfQ=",
         "owner": "DavHau",
         "repo": "pypi-deps-db",
-        "rev": "66490c419d52ed149e8b65ed8505eeca755f33ff",
+        "rev": "4bcaf526de8cbcad2c1eb3bc0160363ce370086b",
         "type": "github"
       },
       "original": {
@@ -404,8 +440,10 @@
       "inputs": {
         "builtfilter": "builtfilter",
         "capacitor": "capacitor",
+        "catalog": "catalog",
         "devshell": "devshell",
         "flox": "flox",
+        "flox-extras": "flox-extras",
         "mach-nix": "mach-nix",
         "naersk": "naersk",
         "nix-editor": "nix-editor",
