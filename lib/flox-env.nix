@@ -3,6 +3,7 @@
   self,
   inputs,
   lib,
+  args,
 }: let
   floxpkgs = self;
 in
@@ -62,11 +63,10 @@ in
                 else path;
             pathsToLeaves =
               lib.collect builtins.isList (lib.mapAttrsRecursiveCond (attr: attr != {}) (path: _: path) programs);
-            # TODO remove this? Unsure why it's necessary, but without it, sub-attributes of catalog can't be found
-            nixpkgs-flox = builtins.getFlake (builtins.unsafeDiscardStringContext inputs.nixpkgs.outPath);
           in
             # return a list of fake derivations retrieved from the catalog
-            builtins.map (path: lib.getAttrFromPath (ensureStabilityAndVersion path) nixpkgs-flox.catalog.${pkgs.system}) pathsToLeaves;
+            # TODO use inputs once system is correctly detected
+            builtins.map (path: lib.getAttrFromPath (ensureStabilityAndVersion path) args.nixpkgs.catalog.${pkgs.system}) pathsToLeaves;
 
           # insert exceptions here
           __functor = self: key: config:
