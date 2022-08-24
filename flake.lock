@@ -66,17 +66,18 @@
     "catalog": {
       "flake": false,
       "locked": {
-        "lastModified": 1661266233,
-        "narHash": "sha256-jqxONgdOWltditqRTE/3rUuu573xAezp7bKcwotfOwI=",
-        "owner": "samrose",
-        "repo": "floxpkgs-publish",
-        "rev": "1f1baeb963d00770bd61771885eb18365d6c5d2e",
-        "type": "github"
+        "lastModified": 1661282972,
+        "narHash": "sha256-ow4SiSeaW+04/x0N+Mjde3dXGmcuLtsqjHliBPGlmho=",
+        "ref": "publish",
+        "rev": "10bbbe2911ed5ccf11e018b9c2cb43d77eb071ca",
+        "revCount": 131,
+        "type": "git",
+        "url": "ssh://git@github.com/flox/floxpkgs"
       },
       "original": {
-        "owner": "samrose",
-        "repo": "floxpkgs-publish",
-        "type": "github"
+        "ref": "publish",
+        "type": "git",
+        "url": "ssh://git@github.com/flox/floxpkgs"
       }
     },
     "devshell": {

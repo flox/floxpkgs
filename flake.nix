@@ -5,7 +5,7 @@ rec {
   inputs.flox-extras.url = "git+ssh://git@github.com/flox/flox-extras";
   inputs.flox-extras.inputs.capacitor.follows = "capacitor";
 
-  inputs.catalog.url = "github:samrose/floxpkgs-publish";
+  inputs.catalog.url = "git+ssh://git@github.com/flox/floxpkgs?ref=publish";
   inputs.catalog.flake = false;
 
   inputs.nixpkgs.url = "git+ssh://git@github.com/flox/nixpkgs-flox";
