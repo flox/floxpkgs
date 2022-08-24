@@ -165,11 +165,11 @@
     "flox": {
       "flake": false,
       "locked": {
-        "lastModified": 1661354048,
-        "narHash": "sha256-XXLMtiEd+TLnSXqXcx1E39tJ8vjIJmeaxwj3ExX8akM=",
+        "lastModified": 1661363014,
+        "narHash": "sha256-uEsAZPqwCGCuOzcbTQ8iL4DvAFSHUBV/UsGV9r+/gSs=",
         "ref": "tng",
-        "rev": "3ca8082aa4052e6b17cfe0d87980423f079c360c",
-        "revCount": 240,
+        "rev": "ac24885a183704cdffc37e96f451c905f7ed64c5",
+        "revCount": 241,
         "type": "git",
         "url": "ssh://git@github.com/flox/flox"
       },
