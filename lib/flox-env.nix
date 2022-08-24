@@ -69,6 +69,9 @@ in
             # TODO use inputs once system is correctly detected
             builtins.map (path: lib.getAttrFromPath (ensureStabilityAndVersion path) args.nixpkgs.catalog.${pkgs.system}) (pathsToLeaves programs);
 
+          floxpkgs = programs:
+            builtins.map (path: lib.getAttrFromPath path self.catalog.${pkgs.system}.floxpkgs) (pathsToLeaves programs);
+
           # insert exceptions here
           __functor = self: key: config:
             if builtins.hasAttr key self
