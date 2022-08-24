@@ -66,11 +66,11 @@
     "catalog": {
       "flake": false,
       "locked": {
-        "lastModified": 1661282972,
-        "narHash": "sha256-ow4SiSeaW+04/x0N+Mjde3dXGmcuLtsqjHliBPGlmho=",
+        "lastModified": 1661378783,
+        "narHash": "sha256-pdV/v/iZ/1ag8oXtkNZ1ndMFJOdQz8jhq2x8sxJ48EM=",
         "ref": "publish",
-        "rev": "10bbbe2911ed5ccf11e018b9c2cb43d77eb071ca",
-        "revCount": 131,
+        "rev": "3138a916bec20ac3af54422d173c5aa7b9d17a2c",
+        "revCount": 134,
         "type": "git",
         "url": "ssh://git@github.com/flox/floxpkgs"
       },
@@ -231,11 +231,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1660767432,
-        "narHash": "sha256-aFZSd2aAO10IaVLCaff+oXsibm+m2BDlrxapEesW14E=",
+        "lastModified": 1661359648,
+        "narHash": "sha256-BRz30Xg/g535oRJA3xEcXf0KM6GTJPugt2lgaom3D6g=",
         "owner": "DavHau",
         "repo": "mach-nix",
-        "rev": "b5614640bc3379408d90db9e375b47345fbc21eb",
+        "rev": "6cd3929b1561c3eef68f5fc6a08b57cf95c41ec1",
         "type": "github"
       },
       "original": {
@@ -424,11 +424,11 @@
     "pypi-deps-db": {
       "flake": false,
       "locked": {
-        "lastModified": 1661244612,
-        "narHash": "sha256-NkIRtkU+xjObO+Np1fra0X1kYK+Q2xzzLic91obRjfQ=",
+        "lastModified": 1661373510,
+        "narHash": "sha256-sF8VgjKVet5sr3ed80dNP7Icy1FWWEUFeUfpsk1igBM=",
         "owner": "DavHau",
         "repo": "pypi-deps-db",
-        "rev": "4bcaf526de8cbcad2c1eb3bc0160363ce370086b",
+        "rev": "15bc71252817cde43426ba3c65b4c217f285b550",
         "type": "github"
       },
       "original": {
