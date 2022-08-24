@@ -35,7 +35,10 @@ in
             ignoreDataOutdated = true;
           });
       paths = let
-        handler = {
+        handler = let
+          pathsToLeaves = programs:
+            lib.collect builtins.isList (lib.mapAttrsRecursiveCond (attr: attr != {}) (path: _: path) programs);
+        in {
           python = python;
           vscode = config:
             floxpkgs.lib.vscode.configuredVscode
@@ -61,12 +64,10 @@ in
                 else if length path == 1
                 then ensureStabilityAndVersion (path ++ ["stable"])
                 else path;
-            pathsToLeaves =
-              lib.collect builtins.isList (lib.mapAttrsRecursiveCond (attr: attr != {}) (path: _: path) programs);
           in
             # return a list of fake derivations retrieved from the catalog
             # TODO use inputs once system is correctly detected
-            builtins.map (path: lib.getAttrFromPath (ensureStabilityAndVersion path) args.nixpkgs.catalog.${pkgs.system}) pathsToLeaves;
+            builtins.map (path: lib.getAttrFromPath (ensureStabilityAndVersion path) args.nixpkgs.catalog.${pkgs.system}) (pathsToLeaves programs);
 
           # insert exceptions here
           __functor = self: key: config:
