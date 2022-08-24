@@ -1,0 +1,177 @@
+{
+  "element": {
+    "storePaths": [
+      "/nix/store/vj029zicd37sq9piarlqmr9dlkyrsjp7-python3-3.10.5-env"
+    ],
+    "active": true,
+    "attrPath": [
+      "x86_64-linux",
+      "stable",
+      "python-ops"
+    ]
+  },
+  "cache": [
+    {
+      "cacheUrl": "https://flox-store-public.s3.us-east-1.amazonaws.com?trusted=1",
+      "state": "hit",
+      "narinfo": [
+        {
+          "valid": true,
+          "path": "/nix/store/vj029zicd37sq9piarlqmr9dlkyrsjp7-python3-3.10.5-env",
+          "url": "nar/0ygwympjdmds0xnsvw6avlnrp7j5vsi3wl9p2qika30lj7cjidya.nar.xz",
+          "references": [
+            "/nix/store/122ybghzjsg5ach0mdnz56270cjpi55a-python3.10-outcome-1.1.0",
+            "/nix/store/2jv2y2zmaxbj8bsgpjkp51rykdkcx06v-python3.10-py-1.11.0",
+            "/nix/store/2zskajz26vc74r56j5n9z6hixqqv5z49-python3.10-charset-normalizer-2.0.12",
+            "/nix/store/3bfpqb77kswn7nrznskcjafb857c8hll-python3.10-tomli-2.0.1",
+            "/nix/store/3yb24qama7mmqn2q5kjaf6im1ccnzyan-python3.10-sortedcontainers-2.4.0",
+            "/nix/store/4307y979jgpxnaafkqi4v5j5l2i975wl-python3.10-pyu2f-0.1.5a",
+            "/nix/store/4k3y7v65b7qh7z3mmc3kbz49rvxb9l16-python3.10-websocket-client-1.3.2",
+            "/nix/store/4sk7cq15l2khj098w3c56y5mfi0q3fka-python3.10-pyasn1-0.4.8",
+            "/nix/store/5aqiv81v2l6cz28f7nldjsydd81ixirq-python3.10-sniffio-1.2.0",
+            "/nix/store/5dv5adncyxhahyjyxmg3lhqgkrzipwi6-python3.10-packaging-21.3",
+            "/nix/store/5n0n79zxpikzj3cdx9ympanlap9pwp68-python3.10-pip-22.1.2",
+            "/nix/store/5ndm1xyqbwld4msw092kf0mw6wmwxrq1-python3.10-brotli-1.0.9",
+            "/nix/store/5qjm0s0k81cjl630rjv1d8jniyq2i3yl-python3.10-certifi-2022.06.15",
+            "/nix/store/65rvy0ip8ck9cffwwn9qp40x9pa29h9f-python3.10-pyasn1-modules-0.2.8",
+            "/nix/store/7kydqg5jllc0y5xvl6468qcj4myhggrx-python3.10-async-timeout-4.0.2",
+            "/nix/store/8kh1hgcp3hr7cx98qjzkfsx3qhc9kmgf-python3.10-cryptography-37.0.2",
+            "/nix/store/95z1d985n4mvd0zwz1dn6j18qjh8a2ms-python3.10-pyjwt-2.4.0",
+            "/nix/store/9f666z7n0bpifjbpmjchja2jb7ik097x-python3.10-allure-python-commons-test-2.9.45",
+            "/nix/store/9zmxmlpl7j539jhwwz1pvgdbsyp68sa0-python3.10-cachetools-5.2.0",
+            "/nix/store/9zv4ira7zaj43l4qs8fmfwmpqcgzal5j-python3.10-requests-2.28.1",
+            "/nix/store/b5b7p7j066jap7bycpjmb3gfxk7kymj8-python3.10-trio-0.20.0",
+            "/nix/store/bb4gizrh2bkfvcijx76sbkqar1gp1zbl-python3.10-PyHamcrest-2.0.3",
+            "/nix/store/c1qwjv446kg0y1vwp817hxl6vd199h7g-python3.10-six-1.16.0",
+            "/nix/store/c6n6q5yswxv82i524q3165f3fwrmzcmw-python3.10-blinker-1.4",
+            "/nix/store/cimqddkrm6s3b90mcg1ssr7w419n1aag-python3.10-setuptools-61.2.0",
+            "/nix/store/ddhcwc8k9ma093n5vlpa9l617p4q2cax-python3-3.10.5",
+            "/nix/store/dl25daz4m4dmwswv7chn6j91kybrb0fc-python3.10-allure-pytest-2.9.45",
+            "/nix/store/fzm9k13ksk06fnwivjhsl2yd4m0r13zk-python3.10-python-dateutil-2.8.2",
+            "/nix/store/hsj5gw2zc6096acwn7kv2p2q23lvsa8v-python3.10-iniconfig-1.1.1",
+            "/nix/store/ihir0z0q69qh74839rcbs23c1p09bj99-python3.10-async-generator-1.10",
+            "/nix/store/iwhgikb74zczr4y53gjjr2kw9983yz05-python3.10-kubernetes-24.2.0",
+            "/nix/store/j68ggbjcfriw4l17arkmsdvpdql8xm5l-python3.10-urllib3-1.26.9",
+            "/nix/store/j93s80sh0nw3zi4c8xq059xf5dvsdhcc-python3.10-typing-extensions-4.1.1",
+            "/nix/store/l5c1v0i2qyxn1fjc8zl33fs060wgmqpn-python3.10-pysocks-1.7.1",
+            "/nix/store/l5gj38zpsq9njj9lrq1qadv1n4r90bc6-python3.10-requests-oauthlib-1.3.1",
+            "/nix/store/ll1g13msjqimlp11f8nnmh9lpbm76nh5-python3.10-attrs-21.4.0",
+            "/nix/store/mhhlymrg2m70r8h94cwhv2d7a0c8l7g6-glibc-2.34-210",
+            "/nix/store/r3ffx22l0n6hqgnkgwpinxvld4wg0knd-python3.10-idna-3.3",
+            "/nix/store/r73ab07zdsrbs9qc8gzp1x9sy3xgjdmg-python3.10-python-socks-2.0.3",
+            "/nix/store/r84h8x2yf2k49zw79szk2vq91l9hh4ls-python3.10-cffi-1.15.0",
+            "/nix/store/s21b6wmh4saqk2w8cdifzaqhfjhygc5k-python3.10-rsa-4.8",
+            "/nix/store/s30m884vach46va8p4184rp8v3xw35v9-python3.10-allure-python-commons-2.9.45",
+            "/nix/store/sj98833fcnvf2220h578fbxni9clagzl-python3.10-adal-1.2.7",
+            "/nix/store/sp6l7jxpvvcal90d97k4q279klipkyzk-python3.10-brotlicffi-1.0.9.2",
+            "/nix/store/sqz96habnj6zwklv2h5hwpmxv0aqnpgp-python3.10-pluggy-1.0.0",
+            "/nix/store/v3nqcmbakm5w35cmsjr7njnn2r0c0b6s-python3.10-pycparser-2.21",
+            "/nix/store/vj029zicd37sq9piarlqmr9dlkyrsjp7-python3-3.10.5-env",
+            "/nix/store/wd66pmi6x2mv5056amjajl0bk5z5ir29-python3.10-oauthlib-3.2.0",
+            "/nix/store/wlgij8sxysm7pgxhsg5dv5prlzpcvjym-python3.10-pyparsing-3.0.9",
+            "/nix/store/wpmnc66nppkm44xiaml8h2lgnaz5zzng-python3.10-google-auth-2.6.6",
+            "/nix/store/xjmm9xg5sq47q63cbf447qalz9fmwp0v-gcc-11.3.0-lib",
+            "/nix/store/xnyf0h4bxqw9060rdxl7yimp4w3xarhx-python3.10-pytest-7.1.1",
+            "/nix/store/xyzdk3qclzj8idzqiwm8zizcyizxzd16-python3.10-curio-1.5",
+            "/nix/store/zpnx1hvy51616f5wnqqn5r69xqd8l09d-python3.10-pyyaml-6.0"
+          ],
+          "deriver": "/nix/store/glyc5m9i0nmh4br3ig143bazj40rf3pk-python3-3.10.5-env.drv",
+          "signatures": [
+            "floxkey:4KlcEZ3ef9gQRR4ZzqIKmLl6yntZl+7zbKUW1pkmsCRn9vZVQ4YtfQGj0ANl5tF9bewvhrQ7PVp1cwh/mFY2CA=="
+          ],
+          "downloadSize": 19184,
+          "downloadHash": "sha256-yrco2ZEUDDUjFjdRPqLeRZ6bLd3K8K1tB7rVJm/1/Hk=",
+          "narHash": "sha256-NTB2QHK7w6d7rMxcphnh9NjSmj7ROGOFH8YS0P6JTBY=",
+          "narSize": 1133032
+        }
+      ]
+    }
+  ],
+  "source": {
+    "locked": {
+      "lastModified": 1661282972,
+      "narHash": "sha256-ow4SiSeaW+04/x0N+Mjde3dXGmcuLtsqjHliBPGlmho=",
+      "owner": "flox",
+      "repo": "floxpkgs",
+      "rev": "10bbbe2911ed5ccf11e018b9c2cb43d77eb071ca",
+      "type": "github"
+    },
+    "original": {
+      "owner": "flox",
+      "ref": "publish",
+      "repo": "floxpkgs",
+      "type": "github"
+    }
+  },
+  "build": {},
+  "eval": {
+    "attrPath": [
+      "x86_64-linux",
+      "stable",
+      "python-ops"
+    ],
+    "drvPath": "/nix/store/glyc5m9i0nmh4br3ig143bazj40rf3pk-python3-3.10.5-env.drv",
+    "meta": {
+      "available": true,
+      "broken": false,
+      "description": "A high-level dynamically-typed programming language",
+      "homepage": "http://python.org",
+      "insecure": false,
+      "license": {
+        "deprecated": false,
+        "free": true,
+        "fullName": "Python Software Foundation License version 2",
+        "redistributable": true,
+        "shortName": "psfl",
+        "spdxId": "Python-2.0",
+        "url": "https://spdx.org/licenses/Python-2.0.html"
+      },
+      "longDescription": "Python is a remarkably powerful dynamic programming language that\nis used in a wide variety of application domains. Some of its key\ndistinguishing features include: clear, readable syntax; strong\nintrospection capabilities; intuitive object orientation; natural\nexpression of procedural code; full modularity, supporting\nhierarchical packages; exception-based error handling; and very\nhigh level dynamic data types.\n",
+      "maintainers": [
+        {
+          "email": "fridh@fridh.nl",
+          "github": "FRidh",
+          "githubId": 2129135,
+          "name": "Frederik Rietdijk"
+        }
+      ],
+      "name": "python3-3.10.5",
+      "outputsToInstall": [
+        "out"
+      ],
+      "platforms": [
+        "aarch64-linux",
+        "armv5tel-linux",
+        "armv6l-linux",
+        "armv7a-linux",
+        "armv7l-linux",
+        "i686-linux",
+        "m68k-linux",
+        "mipsel-linux",
+        "mips64el-linux",
+        "powerpc64-linux",
+        "powerpc64le-linux",
+        "riscv32-linux",
+        "riscv64-linux",
+        "s390-linux",
+        "s390x-linux",
+        "x86_64-linux",
+        "x86_64-darwin",
+        "i686-darwin",
+        "aarch64-darwin",
+        "armv7a-darwin"
+      ],
+      "position": "/nix/store/9qqx4gk4qnqaqb102iwvhhwn2basmbdq-source/pkgs/development/interpreters/python/cpython/default.nix:507",
+      "unfree": false,
+      "unsupported": false
+    },
+    "name": "python3-3.10.5-env",
+    "outputs": {
+      "out": "/nix/store/vj029zicd37sq9piarlqmr9dlkyrsjp7-python3-3.10.5-env"
+    },
+    "pname": "python3",
+    "stability": "stable",
+    "system": "x86_64-linux",
+    "version": "3.10.5-env"
+  }
+}
