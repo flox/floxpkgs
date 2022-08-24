@@ -1,4 +1,4 @@
-{inputs, ...}:
+{inputs, lib,...}:
 # Define package set structure
 {
   # Limit the systems to fewer or more than default by ucommenting
@@ -15,9 +15,17 @@
     };
 
     extraPlugins = [
+      (inputs.flox-extras.plugins.catalog { 
+        catalogDirectory = inputs.catalog + "/render/x86_64-linux"; 
+        system = "x86_64-linux";
+        path = ["floxpkgs"];
+      })
       (inputs.capacitor.plugins.allLocalResources {})
       (inputs.capacitor.plugins.templates {})
       (inputs.capacitor.plugins.nixpkgs)
     ];
   };
+
+  passthru.catalog = (lib.mapAttrs (system: catalogForSystem: lib.recurseIntoAttrs {nixpkgs = catalogForSystem;}) inputs.nixpkgs.catalog);
+
 }
