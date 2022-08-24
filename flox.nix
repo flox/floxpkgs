@@ -26,6 +26,6 @@
     ];
   };
 
-  passthru.catalog = (lib.mapAttrs (system: catalogForSystem: {nixpkgs = catalogForSystem;}) inputs.nixpkgs.catalog);
+  passthru.catalog = (lib.mapAttrs (system: catalogForSystem: lib.recurseIntoAttrs {nixpkgs = catalogForSystem;}) inputs.nixpkgs.catalog);
 
 }
