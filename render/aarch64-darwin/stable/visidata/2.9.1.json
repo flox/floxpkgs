@@ -1,0 +1,187 @@
+{
+  "element": {
+    "storePaths": [
+      "/nix/store/8fsfv7y88llw4fkqizsvp0frbxlglgb6-visidata-2.9.1"
+    ],
+    "attrPath": [
+      "aarch64-darwin",
+      "stable",
+      "visidata"
+    ],
+    "active": true
+  },
+  "cache": [
+    {
+      "cacheUrl": "https://flox-store-public.s3.us-east-1.amazonaws.com?trusted=1",
+      "state": "hit",
+      "narinfo": [
+        {
+          "valid": true,
+          "path": "/nix/store/8fsfv7y88llw4fkqizsvp0frbxlglgb6-visidata-2.9.1",
+          "signatures": [
+            "cache.nixos.org-1:ukMvOwnoFjxU1TtPZ9wTK3d1o2tObalO9/y0DGRNe2YCGPW8BEDbswaL6XNpI0N+Ao58iVfv70k/y9+BX1CnDQ==",
+            "flox:bnZwVwvg1T8KzacPXMWhzybRda++6FOWqn5Zhp+GzQe+JkHcg9wvJZkJmViGBwIl/dQMJQMyZXgEYIeGd+aXDQ=="
+          ],
+          "deriver": "/nix/store/ykdgs1w3ayvsw4g5kvb1rz02x3dnjpgs-visidata-2.9.1.drv",
+          "downloadSize": 411416,
+          "narSize": 1747384,
+          "references": [
+            "/nix/store/0fx3wxpcizpzrlv7md5h31w174kg0yhs-python3.10-lxml-4.9.0",
+            "/nix/store/0m5x79nvk7pv9mc4d7p93jz1xkhp8y4z-python3.10-openpyxl-3.0.9",
+            "/nix/store/0q6vp4a0lr398ari8z226rgqh9wdyvhm-python3.10-h5py-3.6.0",
+            "/nix/store/2c14awk5jkmc1bq98yn1djkfgxcxz8mr-python3.10-odfpy-1.4.1",
+            "/nix/store/3aq01mwzf6khqimajn5albinn0rmbs1f-python3.10-certifi-2022.06.15",
+            "/nix/store/4xq69aarc4pax17250nyv22hkfaqvjpl-python3.10-zstandard-0.17.0",
+            "/nix/store/54lvyr3a36zm6y5m9a6ffcnyv0p5h1zi-python3.10-setuptools-61.2.0",
+            "/nix/store/6g22k103sax389a8dxvj2k2gfz0w6svb-python3.10-pysocks-1.7.1",
+            "/nix/store/7d3as9shjsz455ja50jl76qwpzadb488-python3.10-vobject-0.9.6.1",
+            "/nix/store/7jbb2jajd97sbhbpd0lbp3m38p25fmvj-python3.10-cffi-1.15.0",
+            "/nix/store/7qmmp838q6bz6155rwd15qk6s6v3wkms-python3.10-wcwidth-0.2.5",
+            "/nix/store/7wpd407lc0pkzw9g4nl70ix2kqg6vhj1-python3.10-pytz-2022.1",
+            "/nix/store/8fsfv7y88llw4fkqizsvp0frbxlglgb6-visidata-2.9.1",
+            "/nix/store/ayp6mbb39ddp58qza14s1fy8aplz94c8-python3.10-et_xmlfile-1.0.1",
+            "/nix/store/b475f3i34dmm7p5gq8832yq6sl75iw3p-python3.10-six-1.16.0",
+            "/nix/store/b5wy2gwvqpgc9iwqhnbrw6xmm7i1zz4q-bash-5.1-p16",
+            "/nix/store/dljbh37drgj42h3vzkic9j7galsmh1vf-python3.10-cryptography-37.0.2",
+            "/nix/store/f2w3h0w1mvl8zi4mxn5l3vqsh2xsimip-python3.10-requests-2.28.1",
+            "/nix/store/fba4k1zarrvfwhqv3964b8n21mn30shb-python3.10-pyshp-2.3.0",
+            "/nix/store/ffm38hai6g6w8zrczz9f021gjrkvjgwb-python3.10-python-dateutil-2.8.2",
+            "/nix/store/gijrav18cvdl7s2ympiapdnfqwrp1a1h-python3.10-pycparser-2.21",
+            "/nix/store/h54gvg4al93gwlmhbd1xkm7agzrz8nmm-python3.10-pdfminer-six-20220524",
+            "/nix/store/hnf9g54mamx5vwgg5cpk4zd5axyi1djb-python3.10-jdcal-1.4.1",
+            "/nix/store/jpk2ciw1b5qgjjvz5xzxvvx197p38by8-python3.10-dnslib-0.9.20",
+            "/nix/store/jyjdwbimjgcibzcd2zpsqfanrlz95a3y-python3.10-psycopg2-2.9.3",
+            "/nix/store/kfvcjy4f6nzdmrnidj8i1f1h67pq24kh-python3.10-dpkt-1.9.7.2",
+            "/nix/store/kvzjkpfi76adhiigfh99ni3gffqi6bdy-python3.10-pyyaml-6.0",
+            "/nix/store/m5v0pnvgf7a09akxncaqdjf52lygzmk4-python3.10-brotlicffi-1.0.9.2",
+            "/nix/store/n4r1lx086nvyplxawqw16g8xcw1mrb82-python3.10-idna-3.3",
+            "/nix/store/qdlin9dzc39gxs2w2qmpi5qjv5862mil-python3-3.10.5",
+            "/nix/store/ql9c41dbij96lahnsj6d340ksjx3ly3m-python3.10-brotli-1.0.9",
+            "/nix/store/r3w0rjgid3xpm2q762dnsgsz5mj22bqy-python3.10-pandas-1.4.2",
+            "/nix/store/rcwyan4n8f049sbs9vqjnl9dhaqf63s4-python3.10-urllib3-1.26.9",
+            "/nix/store/vc1h81vp4axd8pfq10d8ld7gvy712r87-python3.10-charset-normalizer-2.0.12",
+            "/nix/store/vgrllr42wf4f80d17a0r0b3r5q60c6r4-python3.10-fonttools-4.33.3",
+            "/nix/store/wh049ps3f2v2lzqz13bsdybfl6xjpj8q-python3.10-numpy-1.21.6",
+            "/nix/store/x0a8amld5c2ph4fgn45wy52ddrclzwzm-python3.10-defusedxml-0.7.1",
+            "/nix/store/x43ykw2xi2n8akyqjcm2c1gm5ilcw0hh-python3.10-xlrd-2.0.1",
+            "/nix/store/zm6kj9rn80g35h6qbvshjc6gxa32brp5-python3.10-tabulate-0.8.9"
+          ],
+          "narHash": "sha256-84uwpQZM0VaaqwIZo/ZhnyW+Vev96soELJEK9IKxFtc=",
+          "downloadHash": "sha256-IgE9xpX5x64wi8Xq9X8TFx7uGljROQ9kXD7X6AKNSfg=",
+          "url": "nar/1y29il1fimrybij0yffib0dfw7hp2dzzbsn5icqaxizrjp33s092.nar.xz"
+        }
+      ]
+    }
+  ],
+  "source": {
+    "locked": {
+      "lastModified": 1661467626,
+      "narHash": "sha256-r24kx9EB6w/rCZ7i1/ZnY6ixGJ932kpLH05ebFV9QYY=",
+      "type": "git",
+      "url": "file:///private/tmp/floxpkgs"
+    },
+    "original": {
+      "type": "git",
+      "url": "file:///private/tmp/floxpkgs"
+    }
+  },
+  "eval": {
+    "attrPath": [
+      "aarch64-darwin",
+      "stable",
+      "visidata"
+    ],
+    "drvPath": "/nix/store/ykdgs1w3ayvsw4g5kvb1rz02x3dnjpgs-visidata-2.9.1.drv",
+    "meta": {
+      "available": true,
+      "broken": false,
+      "changelog": "https://github.com/saulpw/visidata/blob/v2.9.1/CHANGELOG.md",
+      "description": "Interactive terminal multitool for tabular data",
+      "homepage": "http://visidata.org/",
+      "insecure": false,
+      "isBuildPythonPackage": [
+        "aarch64-linux",
+        "armv5tel-linux",
+        "armv6l-linux",
+        "armv7a-linux",
+        "armv7l-linux",
+        "i686-linux",
+        "m68k-linux",
+        "mipsel-linux",
+        "mips64el-linux",
+        "powerpc64-linux",
+        "powerpc64le-linux",
+        "riscv32-linux",
+        "riscv64-linux",
+        "s390-linux",
+        "s390x-linux",
+        "x86_64-linux",
+        "x86_64-darwin",
+        "i686-darwin",
+        "aarch64-darwin",
+        "armv7a-darwin"
+      ],
+      "license": {
+        "deprecated": true,
+        "free": true,
+        "fullName": "GNU General Public License v3.0",
+        "redistributable": true,
+        "shortName": "gpl3",
+        "spdxId": "GPL-3.0",
+        "url": "https://spdx.org/licenses/GPL-3.0.html"
+      },
+      "maintainers": [
+        {
+          "email": "7c6f434c@mail.ru",
+          "github": "7c6f434c",
+          "githubId": 1891350,
+          "name": "Michael Raskin"
+        },
+        {
+          "email": "markus1189@gmail.com",
+          "github": "markus1189",
+          "githubId": 591567,
+          "name": "Markus Hauck"
+        }
+      ],
+      "name": "visidata-2.9.1",
+      "outputsToInstall": [
+        "out"
+      ],
+      "platforms": [
+        "aarch64-linux",
+        "armv5tel-linux",
+        "armv6l-linux",
+        "armv7a-linux",
+        "armv7l-linux",
+        "i686-linux",
+        "m68k-linux",
+        "mipsel-linux",
+        "mips64el-linux",
+        "powerpc64-linux",
+        "powerpc64le-linux",
+        "riscv32-linux",
+        "riscv64-linux",
+        "s390-linux",
+        "s390x-linux",
+        "x86_64-linux",
+        "x86_64-darwin",
+        "i686-darwin",
+        "aarch64-darwin",
+        "armv7a-darwin"
+      ],
+      "position": "/nix/store/jvw5ynijzz5nhacfqc2qax2kvchkkr1z-source/pkgs/visidata/default.nix:79",
+      "unfree": false,
+      "unsupported": false
+    },
+    "name": "visidata-2.9.1",
+    "outputs": {
+      "out": "/nix/store/8fsfv7y88llw4fkqizsvp0frbxlglgb6-visidata-2.9.1"
+    },
+    "pname": "visidata",
+    "stability": "stable",
+    "system": "aarch64-darwin",
+    "version": "2.9.1"
+  },
+  "build": {}
+}
