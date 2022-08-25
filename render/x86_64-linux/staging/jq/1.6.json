@@ -1,19 +1,19 @@
 {
   "element": {
     "storePaths": [
-      "/nix/store/080wwkzl68l6mql5yaj36gwfk2qflg3g-jq-1.6-bin",
-      "/nix/store/cx4v0cfwpyzp1kjkxl81swnh2cl3ccg8-jq-1.6-dev",
-      "/nix/store/xxs4hkda67zda0pppds2ihfhc8zzkwyj-jq-1.6-doc",
-      "/nix/store/n2yw6lbi4a80zbkvsf6rqxkbw3ws2c4l-jq-1.6-lib",
-      "/nix/store/55dklwdf2k0qyhk28lxh07bjgvkl6j1p-jq-1.6-man",
-      "/nix/store/g4x9ds4940y9jppcf94vz7b2wxcb0nk2-jq-1.6"
+      "/nix/store/kmm63rfd6pjxj7g1zgy7642laq8jjrlq-jq-1.6-bin",
+      "/nix/store/vwq7wycz4q3hm4gqjp4cqblcwicm4725-jq-1.6-dev",
+      "/nix/store/jd5ddxxr3p6njd9345xkgifv63afgn5c-jq-1.6-doc",
+      "/nix/store/v1v3wk60pwdxbbsr5iz1rzqvs3sv18sc-jq-1.6-lib",
+      "/nix/store/3z9ajaygzaqqjsd1wdy16j33h4wckawb-jq-1.6-man",
+      "/nix/store/5djhakmfxa8iid9p9i8zxy2pk9mj93n5-jq-1.6"
     ],
-    "active": true,
     "attrPath": [
       "x86_64-linux",
-      "stable",
+      "staging",
       "jq"
-    ]
+    ],
+    "active": true
   },
   "cache": [
     {
@@ -22,13 +22,30 @@
       "narinfo": []
     }
   ],
+  "source": {
+    "locked": {
+      "lastModified": 1661378783,
+      "narHash": "sha256-pdV/v/iZ/1ag8oXtkNZ1ndMFJOdQz8jhq2x8sxJ48EM=",
+      "owner": "flox",
+      "repo": "floxpkgs",
+      "rev": "3138a916bec20ac3af54422d173c5aa7b9d17a2c",
+      "type": "github"
+    },
+    "original": {
+      "owner": "flox",
+      "ref": "publish",
+      "repo": "floxpkgs",
+      "type": "github"
+    }
+  },
+  "build": {},
   "eval": {
     "attrPath": [
       "x86_64-linux",
-      "stable",
+      "staging",
       "jq"
     ],
-    "drvPath": "/nix/store/g1s41f4yw72xsd8zshgxl84vwf6d4h3i-jq-1.6.drv",
+    "drvPath": "/nix/store/vizccs42d720swc0vjxbpwbi6n2ykpsg-jq-1.6.drv",
     "meta": {
       "available": true,
       "broken": false,
@@ -111,33 +128,16 @@
     },
     "name": "jq-1.6",
     "outputs": {
-      "bin": "/nix/store/080wwkzl68l6mql5yaj36gwfk2qflg3g-jq-1.6-bin",
-      "dev": "/nix/store/cx4v0cfwpyzp1kjkxl81swnh2cl3ccg8-jq-1.6-dev",
-      "doc": "/nix/store/xxs4hkda67zda0pppds2ihfhc8zzkwyj-jq-1.6-doc",
-      "lib": "/nix/store/n2yw6lbi4a80zbkvsf6rqxkbw3ws2c4l-jq-1.6-lib",
-      "man": "/nix/store/55dklwdf2k0qyhk28lxh07bjgvkl6j1p-jq-1.6-man",
-      "out": "/nix/store/g4x9ds4940y9jppcf94vz7b2wxcb0nk2-jq-1.6"
+      "bin": "/nix/store/kmm63rfd6pjxj7g1zgy7642laq8jjrlq-jq-1.6-bin",
+      "dev": "/nix/store/vwq7wycz4q3hm4gqjp4cqblcwicm4725-jq-1.6-dev",
+      "doc": "/nix/store/jd5ddxxr3p6njd9345xkgifv63afgn5c-jq-1.6-doc",
+      "lib": "/nix/store/v1v3wk60pwdxbbsr5iz1rzqvs3sv18sc-jq-1.6-lib",
+      "man": "/nix/store/3z9ajaygzaqqjsd1wdy16j33h4wckawb-jq-1.6-man",
+      "out": "/nix/store/5djhakmfxa8iid9p9i8zxy2pk9mj93n5-jq-1.6"
     },
     "pname": "jq",
-    "stability": "stable",
+    "stability": "staging",
     "system": "x86_64-linux",
     "version": "1.6"
-  },
-  "source": {
-    "locked": {
-      "lastModified": 1661378783,
-      "narHash": "sha256-pdV/v/iZ/1ag8oXtkNZ1ndMFJOdQz8jhq2x8sxJ48EM=",
-      "owner": "flox",
-      "repo": "floxpkgs",
-      "rev": "3138a916bec20ac3af54422d173c5aa7b9d17a2c",
-      "type": "github"
-    },
-    "original": {
-      "owner": "flox",
-      "ref": "publish",
-      "repo": "floxpkgs",
-      "type": "github"
-    }
-  },
-  "build": {}
+  }
 }

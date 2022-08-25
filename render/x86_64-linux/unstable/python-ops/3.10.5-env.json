@@ -1,0 +1,107 @@
+{
+  "element": {
+    "storePaths": [
+      "/nix/store/qn6a8qhndr5ag7a508xlqcjahq0p3b26-python3-3.10.5-env"
+    ],
+    "active": true,
+    "attrPath": [
+      "x86_64-linux",
+      "unstable",
+      "python-ops"
+    ]
+  },
+  "cache": [
+    {
+      "cacheUrl": "https://flox-store-public.s3.us-east-1.amazonaws.com?trusted=1",
+      "state": "miss",
+      "narinfo": []
+    }
+  ],
+  "build": {},
+  "eval": {
+    "attrPath": [
+      "x86_64-linux",
+      "unstable",
+      "python-ops"
+    ],
+    "drvPath": "/nix/store/zwcm7gl8y9bjws45m1198kwxx46jmiyh-python3-3.10.5-env.drv",
+    "meta": {
+      "available": true,
+      "broken": false,
+      "description": "A high-level dynamically-typed programming language",
+      "homepage": "http://python.org",
+      "insecure": false,
+      "license": {
+        "deprecated": false,
+        "free": true,
+        "fullName": "Python Software Foundation License version 2",
+        "redistributable": true,
+        "shortName": "psfl",
+        "spdxId": "Python-2.0",
+        "url": "https://spdx.org/licenses/Python-2.0.html"
+      },
+      "longDescription": "Python is a remarkably powerful dynamic programming language that\nis used in a wide variety of application domains. Some of its key\ndistinguishing features include: clear, readable syntax; strong\nintrospection capabilities; intuitive object orientation; natural\nexpression of procedural code; full modularity, supporting\nhierarchical packages; exception-based error handling; and very\nhigh level dynamic data types.\n",
+      "maintainers": [
+        {
+          "email": "fridh@fridh.nl",
+          "github": "FRidh",
+          "githubId": 2129135,
+          "name": "Frederik Rietdijk"
+        }
+      ],
+      "name": "python3-3.10.5",
+      "outputsToInstall": [
+        "out"
+      ],
+      "platforms": [
+        "aarch64-linux",
+        "armv5tel-linux",
+        "armv6l-linux",
+        "armv7a-linux",
+        "armv7l-linux",
+        "i686-linux",
+        "m68k-linux",
+        "mipsel-linux",
+        "mips64el-linux",
+        "powerpc64-linux",
+        "powerpc64le-linux",
+        "riscv32-linux",
+        "riscv64-linux",
+        "s390-linux",
+        "s390x-linux",
+        "x86_64-linux",
+        "x86_64-darwin",
+        "i686-darwin",
+        "aarch64-darwin",
+        "armv7a-darwin"
+      ],
+      "position": "/nix/store/gk9ag5wlkhwi4qbn56fx77g3v41n2a5g-source/pkgs/development/interpreters/python/cpython/default.nix:507",
+      "unfree": false,
+      "unsupported": false
+    },
+    "name": "python3-3.10.5-env",
+    "outputs": {
+      "out": "/nix/store/qn6a8qhndr5ag7a508xlqcjahq0p3b26-python3-3.10.5-env"
+    },
+    "pname": "python3",
+    "stability": "unstable",
+    "system": "x86_64-linux",
+    "version": "3.10.5-env"
+  },
+  "source": {
+    "locked": {
+      "lastModified": 1661378783,
+      "narHash": "sha256-pdV/v/iZ/1ag8oXtkNZ1ndMFJOdQz8jhq2x8sxJ48EM=",
+      "owner": "flox",
+      "repo": "floxpkgs",
+      "rev": "3138a916bec20ac3af54422d173c5aa7b9d17a2c",
+      "type": "github"
+    },
+    "original": {
+      "owner": "flox",
+      "ref": "publish",
+      "repo": "floxpkgs",
+      "type": "github"
+    }
+  }
+}

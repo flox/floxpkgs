@@ -1,0 +1,65 @@
+{
+  "element": {
+    "storePaths": [
+      "/nix/store/51gacmqs5famrhgq7f2nnbk1scrkg5xa-flox-0.0.2-r212"
+    ],
+    "active": true,
+    "attrPath": [
+      "x86_64-linux",
+      "staging",
+      "flox"
+    ]
+  },
+  "cache": [
+    {
+      "cacheUrl": "https://flox-store-public.s3.us-east-1.amazonaws.com?trusted=1",
+      "state": "miss",
+      "narinfo": []
+    }
+  ],
+  "build": {},
+  "source": {
+    "locked": {
+      "lastModified": 1661378783,
+      "narHash": "sha256-pdV/v/iZ/1ag8oXtkNZ1ndMFJOdQz8jhq2x8sxJ48EM=",
+      "owner": "flox",
+      "repo": "floxpkgs",
+      "rev": "3138a916bec20ac3af54422d173c5aa7b9d17a2c",
+      "type": "github"
+    },
+    "original": {
+      "owner": "flox",
+      "ref": "publish",
+      "repo": "floxpkgs",
+      "type": "github"
+    }
+  },
+  "eval": {
+    "attrPath": [
+      "x86_64-linux",
+      "staging",
+      "flox"
+    ],
+    "drvPath": "/nix/store/k979zmlp92fsn1rf608y098c5spxwsir-flox-0.0.2-r212.drv",
+    "meta": {
+      "available": true,
+      "broken": false,
+      "insecure": false,
+      "name": "flox-0.0.2-r212",
+      "outputsToInstall": [
+        "out"
+      ],
+      "position": "/nix/store/40nz8qcma443z2lvp64ryah09i96qyhs-source/default.nix:67",
+      "unfree": false,
+      "unsupported": false
+    },
+    "name": "flox-0.0.2-r212",
+    "outputs": {
+      "out": "/nix/store/51gacmqs5famrhgq7f2nnbk1scrkg5xa-flox-0.0.2-r212"
+    },
+    "pname": "flox",
+    "stability": "staging",
+    "system": "x86_64-linux",
+    "version": "0.0.2-r212"
+  }
+}
