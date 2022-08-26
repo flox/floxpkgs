@@ -1,4 +1,9 @@
-{self, inputs, lib,...}:
+{
+  self,
+  inputs,
+  lib,
+  ...
+}:
 # Define package set structure
 {
   # Limit the systems to fewer or more than default by ucommenting
@@ -28,16 +33,18 @@
         })) ["x86_64-linux" "aarch64-darwin"]);
   };
 
-  passthru.catalog = 
-    lib.genAttrs 
+  passthru.catalog =
+    lib.genAttrs
     self.__reflect.systems
     (
-      system: 
-        lib.genAttrs 
-        self.__reflect.stabilities
+      system:
+        lib.recurseIntoAttrs
         (
-          stability: lib.recurseIntoAttrs { ${system} =  lib.recurseIntoAttrs { ${stability} = ((inputs.nixpkgs.catalog.${stability} or {}).${stability} or {}); }; }
+          lib.genAttrs
+          self.__reflect.stabilities
+          (
+            stability: (lib.recurseIntoAttrs ({nixpkgs = (inputs.nixpkgs.catalog.${system} or {}).${stability} or {};}))
+          )
         )
     );
-
 }
