@@ -36,7 +36,7 @@
         lib.genAttrs 
         self.__reflect.stabilities
         (
-          stability: lib.recurseIntoAttrs { ${system} =  lib.recurseIntoAttrs { ${stability} = inputs.nixpkgs.catalog.${stability}.${stability}; }; }
+          stability: lib.recurseIntoAttrs { ${system} =  lib.recurseIntoAttrs { ${stability} = ((inputs.nixpkgs.catalog.${stability} or {}).${stability} or {}); }; }
         )
     );
 
