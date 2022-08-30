@@ -4,6 +4,8 @@
 
 
   inputs.capacitor.follows = "floxpkgs/capacitor";
+  inputs.capacitor.inputs.root.follows = "floxpkgs";
+
   inputs.nixpkgs.url = "github:flox/nixpkgs-flox";
   # .url = "github:flox/capacitor?ref=v0";
     
