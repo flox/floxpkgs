@@ -2,19 +2,22 @@
 
   description = "Index flake for floxkgs";
 
-  inputs.capacitor.url = "github:flox/capacitor?ref=v0";
+
+  inputs.capacitor.follows = "floxpkgs/capacitor";
+  inputs.nixpkgs.url = "github:flox/nixpkgs-flox";
+  # .url = "github:flox/capacitor?ref=v0";
+    
+
   inputs.floxpkgs = {
-    url = "github:flox/floxpkgs";
+    url = "/Volumes/Projects/Flox/flox/floxpkgs";
     inputs.index.follows = "/";
-    inputs.capacitor.follows = "capacitor";
+    inputs.nixpkgs.follows = "nixpkgs";
   };
 
 
   # User added or managed inputs
   inputs = {
-    nixpkgs = {
-      url = "github:flox/nixpkgs-flox";
-    };
+   
 
     flox = {
       url = "github:flox/flox";
