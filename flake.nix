@@ -9,7 +9,8 @@
     
 
   inputs.floxpkgs = {
-    url = "/Volumes/Projects/Flox/flox/floxpkgs";
+    # needs to be set by us
+    url = "github:flox/floxpkgs";
     inputs.index.follows = "/";
     inputs.nixpkgs.follows = "nixpkgs";
   };
