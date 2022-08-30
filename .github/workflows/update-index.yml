@@ -1,0 +1,38 @@
+on:
+  workflow_dispatch:
+
+jobs:
+  update_inputs:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v3
+      with:
+        ref: index
+    - name: "Install nix"
+      uses: cachix/install-nix-action@v17
+      with:
+        extra_nix_config: |
+          access-tokens = github.com=${{ secrets.NIX_GIT_TOKEN }}
+    - name: Git Configure
+      run: |
+          git config --global user.name 'Flox Updater'
+          git config --global user.email 'developers@floxdev.com'
+
+          # TODO: import and use flox?
+          git config --global url."https://${{ secrets.NIX_GIT_TOKEN }}@github.com".insteadOf ssh://git@github.com
+
+    - name: Update Flake
+      run: |
+        nix flake update --show-trace -vv
+    - name: "Commit flake.lock file"
+      run: |
+          if [[ $(git diff --exit-code -- flake.lock) ]]; then
+            git add flake.lock
+            git commit -m "flake.lock: automatic update"
+            git push
+          else
+            echo '::warning file={flake.lock},title={Lockfile Unchanged}::{Index was updated but the lock file did not change.}'
+          fi
+
+        
