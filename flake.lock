@@ -237,11 +237,11 @@
         "pypi-deps-db": "pypi-deps-db"
       },
       "locked": {
-        "lastModified": 1661872772,
-        "narHash": "sha256-VXPZul8CIAhW/ofihy/TGbFxJe5q6pDWTOgqWhrX+ig=",
+        "lastModified": 1661873156,
+        "narHash": "sha256-fDmahpkjV8Wo9/pY23k2SRKBNpYyy4q9Hs0HVxmDnL0=",
         "owner": "flox",
         "repo": "floxpkgs",
-        "rev": "0a28b568c24fd409c8ed4ef5cf82cfc4daffe583",
+        "rev": "3946b55f6c04acf5f62cefca6f93bf9c74b3dd8a",
         "type": "github"
       },
       "original": {
