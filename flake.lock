@@ -25,7 +25,9 @@
       "inputs": {
         "nixpkgs": "nixpkgs",
         "root": [
-          "floxpkgs"
+          "floxpkgs",
+          "capacitor",
+          "nixpkgs"
         ]
       },
       "locked": {
@@ -237,11 +239,11 @@
         "pypi-deps-db": "pypi-deps-db"
       },
       "locked": {
-        "lastModified": 1661870660,
-        "narHash": "sha256-dAbYnZgKPg4WOKPGFMjPJDxB4IFs1C7lIu9QskAONCQ=",
+        "lastModified": 1661871686,
+        "narHash": "sha256-Q6jhCrVJDTDQSTYLBmoAhpaH4JovF9OvJpRAOs6i6pA=",
         "owner": "flox",
         "repo": "floxpkgs",
-        "rev": "76eccd38bfc6a42661af0bf18786df5fb6d54847",
+        "rev": "d756af59411c520a98ef2cb8b20c209a191ffd98",
         "type": "github"
       },
       "original": {
