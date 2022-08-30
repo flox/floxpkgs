@@ -1,8 +1,11 @@
+name: "Update Index"
+
 on:
   workflow_dispatch:
 
 jobs:
   update_inputs:
+    name: "Update and sync index flake"
     runs-on: ubuntu-latest
     steps:
     - name: Checkout Repository

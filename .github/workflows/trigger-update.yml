@@ -1,15 +1,18 @@
+name: "Trigger Update of floxpkgs/index"
+
 on:
   push:
   workflow_dispatch:
 
 jobs:
   update_inputs:
+    name: "Issue Update Request"
     env:
       INDEX: ${{ github.repository_owner }}/floxpkgs
 
     runs-on: ubuntu-latest
     steps:
-    - name: Send Trigger
+    - name: Send Trigger to ${{ env.INDEX }}
       # TODO: find out which token to use?
       run: |
         curl \
