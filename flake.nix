@@ -22,6 +22,11 @@
       inputs.capacitor.follows = "capacitor";
     };
 
+    flox-extras = {
+      url = "github:flox/flox-extras";
+      inputs.capacitor.follows = "capacitor";
+    };
+
     builtfilter = {
       url = "github:flox/builtfilter?ref=builtfilter-rs";
       inputs.capacitor.follows = "capacitor";
