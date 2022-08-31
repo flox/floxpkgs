@@ -1,0 +1,12 @@
+# Note: the format for this file is subject to change
+
+# You can add arbitrary bash commands to setup your environment here
+postShellHook = '''
+    export VAR=foo
+'''
+
+[programs.catalog]
+# You can specify plain package names
+coreutils = {}
+# or add a version specifier (make sure to add quotes because of the "@")
+"gnumake@4.3" = {}
