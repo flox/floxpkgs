@@ -2,6 +2,10 @@ name: "Update Index"
 
 on:
   workflow_dispatch:
+  
+concurrency: 
+  group: flake-update
+  cancel-in-progress: true
 
 jobs:
   update_inputs:
