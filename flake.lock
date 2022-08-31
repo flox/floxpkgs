@@ -323,11 +323,11 @@
     },
     "nixpkgs-staging": {
       "locked": {
-        "lastModified": 1659487974,
-        "narHash": "sha256-CVGOtR/Wyq3TVCjf8/kdnYD5G2JwUKUQVtd+5WIDTuY=",
+        "lastModified": 1661239211,
+        "narHash": "sha256-pNJzBlSNpWEiFJZnLF2oETYq8cGWx1DJPW33aMtG6n8=",
         "owner": "flox",
         "repo": "nixpkgs",
-        "rev": "12363fb6d89859a37cd7e27f85288599f13e49d9",
+        "rev": "5e804cd8a27f835a402b22e086e36e797716ef8b",
         "type": "github"
       },
       "original": {
@@ -356,7 +356,7 @@
     "nixpkgs.catalog.aarch64-darwin": {
       "flake": false,
       "locked": {
-        "narHash": "sha256-XHau5N7Jrb30x0WiSF2gh4TFYzx1MiS2fAvJarLDxOg=",
+        "narHash": "sha256-8eYii1ypjM7DEOUNrrO0NRAcRuN66ocDswC7QGDiSsQ=",
         "type": "tarball",
         "url": "https://catalog.floxsdlc.com/nixpkgs/catalog.aarch64-darwin.tar.gz"
       },
@@ -368,7 +368,7 @@
     "nixpkgs.catalog.x86_64-linux": {
       "flake": false,
       "locked": {
-        "narHash": "sha256-D7TDjw9k7IgxNIpooHLqNf35zRtSei0CIZIeMhVa0Vs=",
+        "narHash": "sha256-DB9Hl0sY2WKDnIXQqclMpsrfd10ogCL9zCqZAuzj9fs=",
         "type": "tarball",
         "url": "https://catalog.floxsdlc.com/nixpkgs/catalog.x86_64-linux.tar.gz"
       },
@@ -392,11 +392,11 @@
         "nixpkgs.catalog.x86_64-linux": "nixpkgs.catalog.x86_64-linux"
       },
       "locked": {
-        "lastModified": 1661857124,
-        "narHash": "sha256-OE5HhARrZiHLwIRDLOeCE+eVklVREaxY3bqn4bXcpyw=",
+        "lastModified": 1661878664,
+        "narHash": "sha256-GP2LaOpR9yKGZqldTWb1K5fakbmcA9zT/3G5nvZCRt4=",
         "ref": "master",
-        "rev": "7c15426138846db2ca8b2ab0fa600dca13af4402",
-        "revCount": 89,
+        "rev": "4d46fb7247047c1d89b9291f5a79ba8b598943cc",
+        "revCount": 90,
         "type": "git",
         "url": "ssh://git@github.com/flox/nixpkgs-flox"
       },
@@ -424,11 +424,11 @@
     "pypi-deps-db": {
       "flake": false,
       "locked": {
-        "lastModified": 1661848859,
-        "narHash": "sha256-WyG2LtIc+4Oz61SD9xyK8d7AbntUjkA5lFRu7aPch6M=",
+        "lastModified": 1661935973,
+        "narHash": "sha256-Ngmf2Q0jHTRiRPmqC1+4GdmuC5xYL/0csQkVifcgU7k=",
         "owner": "DavHau",
         "repo": "pypi-deps-db",
-        "rev": "9a3733e0865f1bb31180ddebda9a3aace24e3f75",
+        "rev": "f62d8906d4558ed593fd3115f788ebf902b466bf",
         "type": "github"
       },
       "original": {
