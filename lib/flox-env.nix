@@ -47,30 +47,46 @@ in
             pins.vscode-extensions;
 
           catalog = programs: let
-            defaultVersion = with builtins;
-              path: let
-                # TODO shouldn't include recurseForDerivations
-                versionsWithUnderScores = attrNames (lib.getAttrFromPath
-                  path
-                  nixpkgs-flox.catalog.${pkgs.system});
-                versions = map (version: replaceStrings ["_"] ["."] version) versionsWithUnderScores;
-                sortedVersions = sort (v1: v2: (compareVersions v1 v2) == 1) versions;
+            # Allow user to optionally specify stability, channel, and version
+            getCatalogAttrFromPath = with builtins;
+              path: catalog: let
+                # default to stable is user doesn't specify stability
+                withStability =
+                  if catalog ? ${head path}
+                  then withChannel (tail path) catalog.${head path}
+                  else withChannel path catalog.stable;
+                # default to nixpkgs if user doesn't specify channel
+                withChannel = path: stability:
+                  if stability ? ${head path}
+                  then withVersion (tail path) stability.${head path}
+                  else withVersion path stability.nixpkgs;
+                # translate version into an attrPath if it's provided. Otherwise, fallback to the
+                # way the evalCatalog provides latest
+                withVersion = path: channel: let
+                  rightmostAttr = elemAt path (length path - 1);
+                  splitRightmostAttr = lib.splitString "@" rightmostAttr;
+                in
+                  # we have an @version
+                  if length splitRightmostAttr == 2
+                  then let
+                    # because of nested attributes, we have to sure we preserve any part of the
+                    # attrPath between channel and the rightmost attribute
+                    allAttrsButRightmost =
+                      if length path > 1
+                      then lib.sublist 0 (length path - 2) path
+                      else [];
+                    versionWithUnderscores = replaceStrings ["."] ["_"] (elemAt splitRightmostAttr 1);
+                  in
+                    lib.getAttrFromPath (allAttrsButRightmost ++ [(head splitRightmostAttr) versionWithUnderscores]) channel
+                  # no version
+                  else if length splitRightmostAttr == 1
+                  then lib.getAttrFromPath path channel
+                  else throw "can't handle multiple '@' characters in ${rightmostAttr}";
               in
-                replaceStrings ["."] ["_"] (head sortedVersions);
-            ensureStabilityAndVersion = with builtins;
-              path:
-                if length path == 2
-                then path ++ [(defaultVersion path)]
-                else if length path == 1
-                then ensureStabilityAndVersion (path ++ ["stable"])
-                else path;
+                withStability;
           in
             # return a list of fake derivations retrieved from the catalog
-            # TODO use inputs once system is correctly detected
-            builtins.map (path: lib.getAttrFromPath (ensureStabilityAndVersion path) args.nixpkgs.catalog.${pkgs.system}) (pathsToLeaves programs);
-
-          floxpkgs = programs:
-            builtins.map (path: lib.getAttrFromPath path self.catalog.${pkgs.system}.floxpkgs) (pathsToLeaves programs);
+            builtins.map (path: getCatalogAttrFromPath path floxpkgs.evalCatalog.${pkgs.system}) (pathsToLeaves programs);
 
           # insert exceptions here
           __functor = self: key: config:
