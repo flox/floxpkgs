@@ -188,7 +188,7 @@
       "locked": {
         "lastModified": 1662056546,
         "narHash": "sha256-jW8qQJk30mePbp3aGB1LGpzSReG4TTSqS0laV0D8Ihg=",
-        "ref": "master",
+        "ref": "refs/heads/master",
         "rev": "f7f83b596cd29cf50c742d08274da0fcd3549c15",
         "revCount": 25,
         "type": "git",
@@ -394,7 +394,7 @@
       "locked": {
         "lastModified": 1661957894,
         "narHash": "sha256-midFrYnSam0+nivm4XiBLXm6eg32IUMmtLgto5ySKA0=",
-        "ref": "master",
+        "ref": "refs/heads/master",
         "rev": "0d86659e80eb0155cb874b6781cb1ca80ca1e2e1",
         "revCount": 93,
         "type": "git",
