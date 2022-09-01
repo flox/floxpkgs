@@ -186,11 +186,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1661954919,
-        "narHash": "sha256-6yYlpM3Q4IWm41qnidNtovyMQut6rZ33r0zH4AR6tow=",
+        "lastModified": 1662056546,
+        "narHash": "sha256-jW8qQJk30mePbp3aGB1LGpzSReG4TTSqS0laV0D8Ihg=",
         "ref": "master",
-        "rev": "dbec30bbf97c21724a0d963ae79be01d55a3ff8a",
-        "revCount": 24,
+        "rev": "f7f83b596cd29cf50c742d08274da0fcd3549c15",
+        "revCount": 25,
         "type": "git",
         "url": "ssh://git@github.com/flox/flox-extras"
       },
