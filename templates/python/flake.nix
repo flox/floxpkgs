@@ -1,4 +1,6 @@
 {
+  description = "Python template";
+
   inputs.capacitor.url = "git+ssh://git@github.com/flox/capacitor?ref=v0";
   inputs.capacitor.inputs.root.follows = "/";
   inputs.capacitor.inputs.nixpkgs.follows = "nixpkgs/nixpkgs-stable";
@@ -24,7 +26,7 @@
           lib.optionalAttrs
           (builtins.pathExists ./flox.toml)
           (inputs.floxpkgs.lib.mkFloxShell ./flox.toml {});
-        description = "Python template";
+
         config.extraPlugins = [
           (inputs.capacitor.plugins.allLocalResources {})
         ];

@@ -1,4 +1,6 @@
 {
+  description = "Rust template";
+
   inputs.capacitor.url = "git+ssh://git@github.com/flox/capacitor?ref=v0";
   inputs.capacitor.inputs.root.follows = "/";
   inputs.capacitor.inputs.nixpkgs.follows = "nixpkgs/nixpkgs-stable";
@@ -20,8 +22,6 @@
         lib,
         ...
       }: {
-        description = "Rust template";
-
         devShells.default =
           lib.optionalAttrs
           (builtins.pathExists ./flox.toml)
