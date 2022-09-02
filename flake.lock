@@ -353,30 +353,6 @@
         "type": "github"
       }
     },
-    "nixpkgs.catalog.aarch64-darwin": {
-      "flake": false,
-      "locked": {
-        "narHash": "sha256-FxwxLGta+qzT6VjZHSSH9O7h8O77TL5rupl4eI7fyaI=",
-        "type": "tarball",
-        "url": "https://catalog.floxsdlc.com/nixpkgs/catalog.aarch64-darwin.tar.gz"
-      },
-      "original": {
-        "type": "tarball",
-        "url": "https://catalog.floxsdlc.com/nixpkgs/catalog.aarch64-darwin.tar.gz"
-      }
-    },
-    "nixpkgs.catalog.x86_64-linux": {
-      "flake": false,
-      "locked": {
-        "narHash": "sha256-uF9EPCN7jw4oDkobAAukbzzL6Tk/Nzx+nxUQl8e3J4I=",
-        "type": "tarball",
-        "url": "https://catalog.floxsdlc.com/nixpkgs/catalog.x86_64-linux.tar.gz"
-      },
-      "original": {
-        "type": "tarball",
-        "url": "https://catalog.floxsdlc.com/nixpkgs/catalog.x86_64-linux.tar.gz"
-      }
-    },
     "nixpkgs_2": {
       "inputs": {
         "capacitor": "capacitor_2",
@@ -388,15 +364,15 @@
         "nixpkgs-stable": "nixpkgs-stable",
         "nixpkgs-staging": "nixpkgs-staging",
         "nixpkgs-unstable": "nixpkgs-unstable",
-        "nixpkgs.catalog.aarch64-darwin": "nixpkgs.catalog.aarch64-darwin",
-        "nixpkgs.catalog.x86_64-linux": "nixpkgs.catalog.x86_64-linux"
+        "nixpkgs__catalog__aarch64-darwin": "nixpkgs__catalog__aarch64-darwin",
+        "nixpkgs__catalog__x86_64-linux": "nixpkgs__catalog__x86_64-linux"
       },
       "locked": {
-        "lastModified": 1662063372,
-        "narHash": "sha256-pZQsKYFuXUxd0SvMdsqDbrTWqrzTAlzKAjNg/tWwOZY=",
+        "lastModified": 1662154186,
+        "narHash": "sha256-gCRYZyhbFi08jMKwJ0P2DJpwe2NdNQuDQueqzcmV0xY=",
         "ref": "master",
-        "rev": "43a1099d39e04c65de8f40cc1af788d5a371a582",
-        "revCount": 94,
+        "rev": "e42b124a86c282091ded4893b62d03867079601a",
+        "revCount": 95,
         "type": "git",
         "url": "ssh://git@github.com/flox/nixpkgs-flox"
       },
@@ -421,14 +397,48 @@
         "type": "github"
       }
     },
+    "nixpkgs__catalog__aarch64-darwin": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1662151970,
+        "narHash": "sha256-7lpMdMAqZP3+phO0Hzmo8bXAXi4CXS7Yf4ZFnCQ6+oo=",
+        "owner": "flox",
+        "repo": "nixpkgs-catalog",
+        "rev": "b5cc216c939b51634f070db3f88c25d95edd4164",
+        "type": "github"
+      },
+      "original": {
+        "owner": "flox",
+        "ref": "aarch64-darwin",
+        "repo": "nixpkgs-catalog",
+        "type": "github"
+      }
+    },
+    "nixpkgs__catalog__x86_64-linux": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1662153485,
+        "narHash": "sha256-bLwicVAqR4Bm8aN+e76Cxs4fmJ0L4/JPH3GRJjaaIFs=",
+        "owner": "flox",
+        "repo": "nixpkgs-catalog",
+        "rev": "a033b93ded3a01527875d47d35d15a9489ed780f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "flox",
+        "ref": "x86_64-linux",
+        "repo": "nixpkgs-catalog",
+        "type": "github"
+      }
+    },
     "pypi-deps-db": {
       "flake": false,
       "locked": {
-        "lastModified": 1662107682,
-        "narHash": "sha256-O01QIOj2CqGmjpT51/nYc3oA+Y9B3WNRqHPUvh0RX6s=",
+        "lastModified": 1662151117,
+        "narHash": "sha256-bn/hYVLiNgsFJ3rNoqvjdfvDFiGkH6Q5iQuO65QM4pc=",
         "owner": "DavHau",
         "repo": "pypi-deps-db",
-        "rev": "bc219f25d08f1b55f61ef5465bdc66e220c80e0d",
+        "rev": "42e3f25db736be6f5802be53b3fba72a7b49f918",
         "type": "github"
       },
       "original": {
