@@ -9,6 +9,7 @@ rec {
   inputs.catalog.flake = false;
 
   inputs.nixpkgs.url = "git+ssh://git@github.com/flox/nixpkgs-flox";
+  inputs.nixpkgs.inputs.flox-extras.follows = "flox-extras";
 
   # Declaration of external resources
   # =================================

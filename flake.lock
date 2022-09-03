@@ -188,7 +188,7 @@
       "locked": {
         "lastModified": 1662221424,
         "narHash": "sha256-TV4hAeMIg7lHkmkV6/J5sHqhcs0c6bg0G+j92GMhvzg=",
-        "ref": "master",
+        "ref": "refs/heads/master",
         "rev": "b32a3389281f2f7ee66d0f14a9b64ba5cfe934e2",
         "revCount": 26,
         "type": "git",
@@ -197,27 +197,6 @@
       "original": {
         "type": "git",
         "url": "ssh://git@github.com/flox/flox-extras"
-      }
-    },
-    "flox-extras_2": {
-      "inputs": {
-        "capacitor": [
-          "nixpkgs",
-          "capacitor"
-        ]
-      },
-      "locked": {
-        "lastModified": 1662056546,
-        "narHash": "sha256-jW8qQJk30mePbp3aGB1LGpzSReG4TTSqS0laV0D8Ihg=",
-        "owner": "flox",
-        "repo": "flox-extras",
-        "rev": "f7f83b596cd29cf50c742d08274da0fcd3549c15",
-        "type": "github"
-      },
-      "original": {
-        "owner": "flox",
-        "repo": "flox-extras",
-        "type": "github"
       }
     },
     "mach-nix": {
@@ -356,7 +335,9 @@
     "nixpkgs_2": {
       "inputs": {
         "capacitor": "capacitor_2",
-        "flox-extras": "flox-extras_2",
+        "flox-extras": [
+          "flox-extras"
+        ],
         "nixpkgs": [
           "nixpkgs",
           "nixpkgs-stable"
@@ -371,7 +352,7 @@
       "locked": {
         "lastModified": 1662218644,
         "narHash": "sha256-tEP3x4R37JgDgfC5CylcpZ5zZg3oauVc3Z1fsGUT/Ww=",
-        "ref": "master",
+        "ref": "refs/heads/master",
         "rev": "f109f1bc8b232246a0df438a44b9e433f8526973",
         "revCount": 98,
         "type": "git",
