@@ -27,9 +27,17 @@
           (builtins.pathExists ./flox.toml)
           (inputs.floxpkgs.lib.mkFloxShell ./flox.toml {});
 
-        config.extraPlugins = [
-          (inputs.capacitor.plugins.allLocalResources {})
-        ];
+        config = {
+          stabilities = {
+            stable = inputs.nixpkgs.stable;
+            staging = inputs.nixpkgs.staging;
+            unstable = inputs.nixpkgs.unstable;
+            default = inputs.nixpkgs.stable;
+          };
+          extraPlugins = [
+            (inputs.capacitor.plugins.allLocalResources {})
+          ];
+        };
       }
     );
 }
