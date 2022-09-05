@@ -14,12 +14,29 @@ in
       mach = floxpkgs.inputs.mach-nix.lib.${pkgs.system};
       vscodeLib = lib.vscode;
     };
+    floxEnvModule = {
+      lib,
+      config,
+      ...
+    }: {
+      options.programs = with lib;
+        mkOption {
+          type = types.attrsOf types.anything;
+          default = {};
+        };
+    };
+    floxTOMLModule = {
+      programs = builtins.fromTOML (builtins.readFile toml);
+    };
+    evaluatedModules = lib.evalModules {
+      modules = [floxEnvModule floxTOMLModule];
+    };
     data = {
       func = floxEnv;
       attrs =
         if builtins.isAttrs toml
         then toml
-        else builtins.fromTOML (builtins.readFile toml);
+        else evaluatedModules.config.programs;
     };
     pkgs = tie.pkgs;
     floxEnv = {programs, ...}: let
