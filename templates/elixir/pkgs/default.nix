@@ -9,7 +9,6 @@ let
 
   src = ../.;
 
-  MIX_ENV="prod";
   # flox will create a "fixed output derivation" based on
   # the total package of fetched mix dependencies
   mixFodDeps = packages.fetchMixDeps {
