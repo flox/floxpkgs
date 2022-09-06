@@ -21,7 +21,8 @@ let
   };
 
 in packages.mixRelease {
-  inherit src pname version mixFodDeps MIX_ENV;
+  MIX_ENV="prod";
+  inherit src pname version mixFodDeps;
   # for phoenix framework you can uncomment the lines below
   #postBuild = ''
 
