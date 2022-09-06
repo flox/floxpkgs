@@ -1,20 +1,20 @@
 rec {
-  inputs.capacitor.url = "git+ssh://git@github.com/flox/capacitor?ref=v0";
+  inputs.capacitor.url = "github:flox/capacitor?ref=v0";
   inputs.capacitor.inputs.root.follows = "/";
   
-  inputs.flox-extras.url = "git+ssh://git@github.com/flox/flox-extras";
+  inputs.flox-extras.url = "github:flox/flox-extras";
   inputs.flox-extras.inputs.capacitor.follows = "capacitor";
 
-  inputs.catalog.url = "git+ssh://git@github.com/flox/floxpkgs?ref=publish";
+  inputs.catalog.url = "github:flox/floxpkgs?ref=publish";
   inputs.catalog.flake = false;
 
-  inputs.nixpkgs.url = "git+ssh://git@github.com/flox/nixpkgs-flox";
+  inputs.nixpkgs.url = "github:flox/nixpkgs-flox";
   inputs.nixpkgs.inputs.flox-extras.follows = "flox-extras";
 
   # Declaration of external resources
   # =================================
 
-  inputs.flox.url = "git+ssh://git@github.com/flox/flox?ref=tng";
+  inputs.flox.url = "github:flox/flox?ref=tng";
   inputs.flox.flake = false;
 
   inputs.nix-editor.url = "github:vlinkz/nix-editor";
@@ -32,7 +32,7 @@ rec {
   inputs.mach-nix.inputs.pypi-deps-db.follows = "pypi-deps-db";
   inputs.pypi-deps-db.url = "github:DavHau/pypi-deps-db";
   inputs.pypi-deps-db.flake = false;
-  inputs.builtfilter.url = "git+ssh://git@github.com/flox/builtfilter?ref=builtfilter-rs";
+  inputs.builtfilter.url = "github:flox/builtfilter?ref=builtfilter-rs";
   inputs.builtfilter.inputs.capacitor.follows = "capacitor";
   # =================================
 
