@@ -20,12 +20,6 @@ let
     #sha256 = "";
   };
 
-  configurePhase = ''
-    runHook preConfigure
-    mix deps.compile --no-deps-check
-    runHook postConfigure
-  '';
-
 in packages.mixRelease {
   inherit src pname version mixFodDeps MIX_ENV;
   # for phoenix framework you can uncomment the lines below
