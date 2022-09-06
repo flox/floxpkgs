@@ -12,7 +12,7 @@
   inputs.floxpkgs.inputs.capacitor.follows = "capacitor";
   inputs.floxpkgs.inputs.nixpkgs.follows = "nixpkgs";
 
-  nixConfig.bash-prompt = "[flox]\\e\[38;5;172mλ \\e\[m";
+  nixConfig.bash-prompt = "[flox] \\[\\033[38;5;172m\\]λ \\[\\033[0m\\]";
 
   outputs = args @ {capacitor, ...}:
     capacitor args (
