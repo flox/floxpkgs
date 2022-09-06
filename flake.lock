@@ -167,16 +167,16 @@
       "locked": {
         "lastModified": 1662458213,
         "narHash": "sha256-SHdBT8dTd0Mi2feesX6yJUhMrtAF2j6mJwk3zJEHH+w=",
-        "owner": "flox",
-        "repo": "flox",
+        "ref": "tng",
         "rev": "b3852575f78c410ab4cbdc740ebb7299c81cce3f",
-        "type": "github"
+        "revCount": 293,
+        "type": "git",
+        "url": "ssh://git@github.com/flox/flox"
       },
       "original": {
-        "owner": "flox",
         "ref": "tng",
-        "repo": "flox",
-        "type": "github"
+        "type": "git",
+        "url": "ssh://git@github.com/flox/flox"
       }
     },
     "flox-extras": {
