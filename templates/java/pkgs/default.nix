@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
   dontConfigure = true;
 
   buildPhase = ''
-      runHook preBuild
+    runHook preBuild
     ant
     runHook postBuild
   '';
