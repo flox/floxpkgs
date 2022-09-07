@@ -20,8 +20,8 @@ in
       inherit version src;
       pname = "mix-deps-${pname}";
       # nix will complain and tell you the right value to replace this with
-      #sha256 = lib.fakeSha256;
-      sha256 = "sha256-CYOhCqyuH2PtI7dAED+gqn1IJRbfYZZlSeG1wWtwJFs=";
+      sha256 = lib.fakeSha256;
+      #sha256 = "real sha256 here";
       # if you have build time environment variables add them here
       #MY_VAR="value";
     };
