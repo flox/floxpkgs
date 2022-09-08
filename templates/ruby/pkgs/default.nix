@@ -3,7 +3,8 @@
   bundlerEnv,
   ruby,
 }: let
-  # the magic which will include gemset.nix
+  # running the bundix command
+  # will generate the gemset.nix file below
   gems = bundlerEnv {
     name = "my-package-env";
     inherit ruby;
