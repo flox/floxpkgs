@@ -16,7 +16,7 @@ rec {
   # Declaration of external resources
   # =================================
 
-  inputs.flox.url = "git+ssh://git@github.com/flox/flox?ref=tng";
+  inputs.flox.url = "git+ssh://git@github.com/flox/flox";
   inputs.flox.flake = false;
 
   inputs.nix-editor.url = "github:vlinkz/nix-editor";
