@@ -1,5 +1,5 @@
 rec {
-  nixConfig.extra-substituters = ["https://flox-store-public.s3.us-east-1.amazonaws.com?trusted=1"];
+  nixConfig.extra-substituters = ["https://cache.floxdev.com?trusted=1"];
 
   inputs.capacitor.url = "github:flox/capacitor?ref=v0";
   inputs.capacitor.inputs.root.follows = "/";
