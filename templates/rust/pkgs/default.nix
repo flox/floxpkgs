@@ -23,7 +23,9 @@ rustPlatform.buildRustPackage rec {
     ++ lib.optional hostPlatform.isDarwin [
       # If you're getting linker errors about missing libraries, you can add them here
       libiconv
-      # If you're getting linker errors about missing frameworks, you can add apple frameworks here
+      # If you're getting linker errors about missing frameworks, you can add apple frameworks here.
+      # You can search for frameworks by running
+      # flox search darwin.apple_sdk.frameworks
       darwin.apple_sdk.frameworks.Security
     ];
 }
