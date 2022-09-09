@@ -18,7 +18,6 @@
     capacitor args (
       {
         inputs,
-        self,
         lib,
         ...
       }: {
