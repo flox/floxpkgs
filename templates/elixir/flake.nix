@@ -1,5 +1,5 @@
 {
-  description = "Python template";
+  description = "Elixir template";
 
   inputs.capacitor.url = "git+ssh://git@github.com/flox/capacitor?ref=v0";
   inputs.capacitor.inputs.root.follows = "/";

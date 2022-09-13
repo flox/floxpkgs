@@ -1,10 +1,9 @@
 rec {
-
-  nixConfig.extra-substituters = [ "https://flox-store-public.s3.us-east-1.amazonaws.com?trusted=1" ];
+  nixConfig.extra-substituters = ["https://cache.floxdev.com?trusted=1"];
 
   inputs.capacitor.url = "github:flox/capacitor?ref=v0";
   inputs.capacitor.inputs.root.follows = "/";
-  
+
   inputs.flox-extras.url = "github:flox/flox-extras";
   inputs.flox-extras.inputs.capacitor.follows = "capacitor";
 
@@ -17,7 +16,7 @@ rec {
   # Declaration of external resources
   # =================================
 
-  inputs.flox.url = "git+ssh://git@github.com/flox/flox?ref=tng";
+  inputs.flox.url = "git+ssh://git@github.com/flox/flox?ref=main";
   inputs.flox.flake = false;
 
   inputs.nix-editor.url = "github:vlinkz/nix-editor";
