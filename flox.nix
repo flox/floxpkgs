@@ -29,7 +29,7 @@
         (system: (inputs.flox-extras.plugins.catalog {
           catalogDirectory = inputs.catalog + "/render/${system}";
           inherit system;
-          path = ["floxpkgs"];
+          path = ["flox"];
         })) ["x86_64-linux" "aarch64-darwin"]);
   };
 
