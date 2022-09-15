@@ -1,5 +1,5 @@
 {
-  description = "template to create shell with developer tools rather than build-time tools";
+  description = "Elixir template";
 
   inputs.capacitor.url = "git+ssh://git@github.com/flox/capacitor?ref=v0";
   inputs.capacitor.inputs.root.follows = "/";

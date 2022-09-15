@@ -18,9 +18,14 @@
   nixConfig.bash-prompt = "[flox] \\[\\033[38;5;172m\\]λ \\[\\033[0m\\]";
 
   outputs = _:
-    _.capacitor _ ({ lib, inputs, self, ... }: {
+    _.capacitor _ ({
+      lib,
+      inputs,
+      self,
+      ...
+    }: {
       devShells.default = inputs.floxpkgs.lib.mkFloxShell ./flox.toml self.__pins;
-      
+
       config.stabilities = {
         stable = inputs.nixpkgs.stable;
         staging = inputs.nixpkgs.staging;
@@ -29,7 +34,6 @@
       };
 
       # packages.default = {nixpkgs',...}: nixpkgs'.hello;
-
 
       # AUTO-MANAGED AFTER THIS POINT ##################################
       # AUTO-MANAGED AFTER THIS POINT ##################################

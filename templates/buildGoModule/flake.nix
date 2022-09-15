@@ -1,5 +1,5 @@
 {
-  description = "Rust template";
+  description = "Go template";
 
   inputs.capacitor.url = "git+ssh://git@github.com/flox/capacitor?ref=v0";
   inputs.capacitor.inputs.root.follows = "/";
@@ -18,7 +18,6 @@
     capacitor args (
       {
         inputs,
-        self,
         lib,
         ...
       }: {

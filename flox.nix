@@ -43,7 +43,7 @@
           lib.genAttrs
           self.__reflect.stabilities
           (
-            stability: (lib.recurseIntoAttrs ({nixpkgs = (inputs.nixpkgs.catalog.${system} or {}).${stability} or {};}))
+            stability: (lib.recurseIntoAttrs {nixpkgs = (inputs.nixpkgs.catalog.${system} or {}).${stability} or {};})
           )
         )
     );
