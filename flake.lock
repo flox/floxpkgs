@@ -66,11 +66,11 @@
     "catalog": {
       "flake": false,
       "locked": {
-        "lastModified": 1662473883,
-        "narHash": "sha256-5dLkCYD20h08M48lKz0jWx4L0GPSUhurw/RmTAcViD4=",
+        "lastModified": 1662718220,
+        "narHash": "sha256-q2bBfVIga3M25qsSKXG87SnsXu8OerCKyvdENvYJBTo=",
         "owner": "flox",
         "repo": "floxpkgs",
-        "rev": "c7e22c1e6c1e8e495ef41a9df670131d9bb42e5b",
+        "rev": "acbb70bcf34caf518629aa7157df2117181e2201",
         "type": "github"
       },
       "original": {
@@ -165,16 +165,16 @@
     "flox": {
       "flake": false,
       "locked": {
-        "lastModified": 1662555485,
-        "narHash": "sha256-9Tim0XRIHgFZTzN+Tvgx6GueohSEHdhoBgpxHbYPpXc=",
-        "ref": "tng",
-        "rev": "07c4676867c2b7ec2015073a67a5392e528d0d0a",
-        "revCount": 295,
+        "lastModified": 1663159484,
+        "narHash": "sha256-/pVU3Tj+xyiM/fdkA4jvAKVcnfe9oH3VJwbxmwki3Qw=",
+        "ref": "main",
+        "rev": "5b6401f9570a998dad2fa658452c2c7c04c0069e",
+        "revCount": 5,
         "type": "git",
         "url": "ssh://git@github.com/flox/flox"
       },
       "original": {
-        "ref": "tng",
+        "ref": "main",
         "type": "git",
         "url": "ssh://git@github.com/flox/flox"
       }
@@ -210,11 +210,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1661359648,
-        "narHash": "sha256-BRz30Xg/g535oRJA3xEcXf0KM6GTJPugt2lgaom3D6g=",
+        "lastModified": 1662635943,
+        "narHash": "sha256-1OBBlBzZ894or8eHZjyADOMnGH89pPUKYGVVS5rwW/0=",
         "owner": "DavHau",
         "repo": "mach-nix",
-        "rev": "6cd3929b1561c3eef68f5fc6a08b57cf95c41ec1",
+        "rev": "65266b5cc867fec2cb6a25409dd7cd12251f6107",
         "type": "github"
       },
       "original": {
@@ -255,11 +255,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1658124629,
-        "narHash": "sha256-IizAm0Tb9aAa/9lHUpF2zW9S1gxB3APOC8JKfI+7Gd0=",
+        "lastModified": 1663221522,
+        "narHash": "sha256-xIEI5/uaUKvPr8zuMYAshtmKqrztVH2XTV9ux2r+Azc=",
         "owner": "vlinkz",
         "repo": "nix-editor",
-        "rev": "aa7c02f23b4ef689447709a37863ef17f412793e",
+        "rev": "e6c71430c77d1148b6d80016c171d514f85411d4",
         "type": "github"
       },
       "original": {
@@ -433,11 +433,11 @@
     "pypi-deps-db": {
       "flake": false,
       "locked": {
-        "lastModified": 1662541226,
-        "narHash": "sha256-W6/t2r8aQCM4x9bqK+N4GYlUqZaKdmVDmJ4mGSkTB54=",
+        "lastModified": 1663231642,
+        "narHash": "sha256-7Xfkw+U2k8XoWVQz0b35RjFluFwaz6Dc7a/Xz4/pC3A=",
         "owner": "DavHau",
         "repo": "pypi-deps-db",
-        "rev": "f3be095e44a6766dd2765fc05fa8639fd7b26d50",
+        "rev": "170ef8f2d0ae0b21c38ea6158b3418547d16bd2d",
         "type": "github"
       },
       "original": {

@@ -1,5 +1,5 @@
 {
-  description = "template to create shell with developer tools rather than build-time tools";
+  description = "Generic template for any other language";
 
   inputs.capacitor.url = "git+ssh://git@github.com/flox/capacitor?ref=v0";
   inputs.capacitor.inputs.root.follows = "/";
@@ -26,17 +26,9 @@
           (builtins.pathExists ./flox.toml)
           (inputs.floxpkgs.lib.mkFloxShell ./flox.toml {});
 
-        config = {
-          stabilities = {
-            stable = inputs.nixpkgs.stable;
-            staging = inputs.nixpkgs.staging;
-            unstable = inputs.nixpkgs.unstable;
-            default = inputs.nixpkgs.stable;
-          };
-          extraPlugins = [
-            (inputs.capacitor.plugins.allLocalResources {})
-          ];
-        };
+        config.extraPlugins = [
+          (inputs.capacitor.plugins.allLocalResources {})
+        ];
       }
     );
 }

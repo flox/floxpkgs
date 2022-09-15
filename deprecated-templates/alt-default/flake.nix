@@ -27,22 +27,21 @@ rec {
                     coreutils
                     gnugrep
                     findutils
-                    (_.floxpkgs.lib.vscode.configuredVscode pkgs { extensions = ["ms-python.python" "ms-python.pylint"]; }
-                    [
-                    {
-                      name = "python";
-                      publisher = "ms-python";
-                      sha256 = "1nw9ns0dml7wlyzmsqvykbbs2f0i9v9kpg3qlin7g834nn9nnjql";
-                      version = "2022.9.11681004";
-                    }
-                    {
-                      name = "pylint";
-                      publisher = "ms-python";
-                      sha256 = "1vhy3jh2wx4bx48sn1k584bgnwjq0m4ckp7wkkh0frc6acpilp2k";
-                      version = "2022.3.11671003";
-                    }
-                  ])
-
+                    (_.floxpkgs.lib.vscode.configuredVscode pkgs {extensions = ["ms-python.python" "ms-python.pylint"];}
+                      [
+                        {
+                          name = "python";
+                          publisher = "ms-python";
+                          sha256 = "1nw9ns0dml7wlyzmsqvykbbs2f0i9v9kpg3qlin7g834nn9nnjql";
+                          version = "2022.9.11681004";
+                        }
+                        {
+                          name = "pylint";
+                          publisher = "ms-python";
+                          sha256 = "1vhy3jh2wx4bx48sn1k584bgnwjq0m4ckp7wkkh0frc6acpilp2k";
+                          version = "2022.3.11671003";
+                        }
+                      ])
 
                     bashInteractive
                   ]

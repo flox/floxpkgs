@@ -1,5 +1,5 @@
 {
-  description = "Generic template for any other language";
+  description = "Python template";
 
   inputs.capacitor.url = "git+ssh://git@github.com/flox/capacitor?ref=v0";
   inputs.capacitor.inputs.root.follows = "/";
@@ -18,7 +18,6 @@
     capacitor args (
       {
         inputs,
-        self,
         lib,
         ...
       }: {
@@ -27,9 +26,17 @@
           (builtins.pathExists ./flox.toml)
           (inputs.floxpkgs.lib.mkFloxShell ./flox.toml {});
 
-        config.extraPlugins = [
-          (inputs.capacitor.plugins.allLocalResources {})
-        ];
+        config = {
+          stabilities = {
+            stable = inputs.nixpkgs.stable;
+            staging = inputs.nixpkgs.staging;
+            unstable = inputs.nixpkgs.unstable;
+            default = inputs.nixpkgs.stable;
+          };
+          extraPlugins = [
+            (inputs.capacitor.plugins.allLocalResources {})
+          ];
+        };
       }
     );
 }
