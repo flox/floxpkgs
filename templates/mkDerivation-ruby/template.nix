@@ -1,0 +1,1 @@
+{ description = "Ruby mkDerivation template"; }
