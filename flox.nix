@@ -19,18 +19,15 @@
       default = inputs.nixpkgs.stable;
     };
 
-    extraPlugins =
-      [
-        (inputs.capacitor.plugins.allLocalResources {})
-        (inputs.capacitor.plugins.templates {})
-        (inputs.capacitor.plugins.nixpkgs)
-      ]
-      ++ (builtins.map
-        (system: (inputs.flox-extras.plugins.catalog {
-          catalogDirectory = inputs.catalog + "/render/${system}";
-          inherit system;
-          path = ["floxpkgs"];
-        })) ["x86_64-linux" "aarch64-darwin"]);
+    extraPlugins = [
+      (inputs.capacitor.plugins.allLocalResources {})
+      (inputs.capacitor.plugins.templates {})
+      (inputs.capacitor.plugins.nixpkgs)
+      (inputs.flox-extras.plugins.catalog {
+        catalogDirectory = inputs.catalog + "/render";
+        path = ["floxpkgs"];
+      })
+    ];
   };
 
   passthru.catalog =
