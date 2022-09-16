@@ -32,19 +32,4 @@
           path = ["floxpkgs"];
         })) ["x86_64-linux" "aarch64-darwin"]);
   };
-
-  passthru.catalog =
-    lib.genAttrs
-    self.__reflect.systems
-    (
-      system:
-        lib.recurseIntoAttrs
-        (
-          lib.genAttrs
-          self.__reflect.stabilities
-          (
-            stability: (lib.recurseIntoAttrs {nixpkgs = (inputs.nixpkgs.catalog.${system} or {}).${stability} or {};})
-          )
-        )
-    );
 }
