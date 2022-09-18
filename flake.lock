@@ -49,11 +49,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1658930237,
-        "narHash": "sha256-76FK9k0zEmzhDVZJdrFxEqO3gx/NkrBt0y5L+dhE/hc=",
+        "lastModified": 1663269718,
+        "narHash": "sha256-rxN4lUmC/m9gD8yLXnY0d1AbeEgjG8DjflrjhViT4xM=",
         "owner": "flox",
         "repo": "capacitor",
-        "rev": "f0bae6897c812bf11dbb8842bc13940305f386f3",
+        "rev": "44e9fc3a57938bacb089dfda83031a0e52bf4cb2",
         "type": "github"
       },
       "original": {
@@ -88,11 +88,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1660811669,
-        "narHash": "sha256-V6lmsaLNFz41myppL0yxglta92ijkSvpZ+XVygAh+bU=",
+        "lastModified": 1663445644,
+        "narHash": "sha256-+xVlcK60x7VY1vRJbNUEAHi17ZuoQxAIH4S4iUFUGBA=",
         "owner": "numtide",
         "repo": "devshell",
-        "rev": "c2feacb46ee69949124c835419861143c4016fb5",
+        "rev": "e3dc3e21594fe07bdb24bdf1c8657acaa4cb8f66",
         "type": "github"
       },
       "original": {
@@ -286,11 +286,11 @@
     },
     "nixpkgs-stable": {
       "locked": {
-        "lastModified": 1658826464,
-        "narHash": "sha256-94ZTF0uIX/iZdiD4RJ5f933ak/OM4XLl7hF+gCa4Iuk=",
+        "lastModified": 1661239211,
+        "narHash": "sha256-pNJzBlSNpWEiFJZnLF2oETYq8cGWx1DJPW33aMtG6n8=",
         "owner": "flox",
         "repo": "nixpkgs",
-        "rev": "ce49cb7792a7ffd65ef352dda1110a4e4a204eac",
+        "rev": "5e804cd8a27f835a402b22e086e36e797716ef8b",
         "type": "github"
       },
       "original": {
@@ -302,11 +302,11 @@
     },
     "nixpkgs-staging": {
       "locked": {
-        "lastModified": 1661239211,
-        "narHash": "sha256-pNJzBlSNpWEiFJZnLF2oETYq8cGWx1DJPW33aMtG6n8=",
+        "lastModified": 1662019588,
+        "narHash": "sha256-oPEjHKGGVbBXqwwL+UjsveJzghWiWV0n9ogo1X6l4cw=",
         "owner": "flox",
         "repo": "nixpkgs",
-        "rev": "5e804cd8a27f835a402b22e086e36e797716ef8b",
+        "rev": "2da64a81275b68fdad38af669afeda43d401e94b",
         "type": "github"
       },
       "original": {
@@ -318,11 +318,11 @@
     },
     "nixpkgs-unstable": {
       "locked": {
-        "lastModified": 1661720780,
-        "narHash": "sha256-AJNGyaB2eKZAYaPNjBZOzap87yL+F9ZLaFzzMkvega0=",
+        "lastModified": 1662019588,
+        "narHash": "sha256-oPEjHKGGVbBXqwwL+UjsveJzghWiWV0n9ogo1X6l4cw=",
         "owner": "flox",
         "repo": "nixpkgs",
-        "rev": "a63021a330d8d33d862a8e29924b42d73037dd37",
+        "rev": "2da64a81275b68fdad38af669afeda43d401e94b",
         "type": "github"
       },
       "original": {
@@ -350,11 +350,11 @@
         "nixpkgs__catalog__x86_64-linux": "nixpkgs__catalog__x86_64-linux"
       },
       "locked": {
-        "lastModified": 1662218644,
-        "narHash": "sha256-tEP3x4R37JgDgfC5CylcpZ5zZg3oauVc3Z1fsGUT/Ww=",
+        "lastModified": 1663500605,
+        "narHash": "sha256-TF9ByF5cpgH8xuIjO2oGqxeDYyQRTND3DHtyRjo4jt0=",
         "owner": "flox",
         "repo": "nixpkgs-flox",
-        "rev": "f109f1bc8b232246a0df438a44b9e433f8526973",
+        "rev": "6ae9403d7ddcaf673225beeca980829650c26113",
         "type": "github"
       },
       "original": {
@@ -365,11 +365,11 @@
     },
     "nixpkgs_3": {
       "locked": {
-        "lastModified": 1658826464,
-        "narHash": "sha256-94ZTF0uIX/iZdiD4RJ5f933ak/OM4XLl7hF+gCa4Iuk=",
+        "lastModified": 1661239211,
+        "narHash": "sha256-pNJzBlSNpWEiFJZnLF2oETYq8cGWx1DJPW33aMtG6n8=",
         "owner": "flox",
         "repo": "nixpkgs",
-        "rev": "ce49cb7792a7ffd65ef352dda1110a4e4a204eac",
+        "rev": "5e804cd8a27f835a402b22e086e36e797716ef8b",
         "type": "github"
       },
       "original": {
@@ -433,11 +433,11 @@
     "pypi-deps-db": {
       "flake": false,
       "locked": {
-        "lastModified": 1663318957,
-        "narHash": "sha256-DwuFfXKIkBE1+C6gCRal1CbFtJICeWIlWb2xaaPVj+g=",
+        "lastModified": 1663489154,
+        "narHash": "sha256-PSJijSlwR3RNUTSYNnj9rjiHuCH5KJbT8OGQ7SHzO0Y=",
         "owner": "DavHau",
         "repo": "pypi-deps-db",
-        "rev": "0bf0cbf75cb9e09499222c47ac09b7a9df15b93d",
+        "rev": "0c57c69680266494cbb3587b3d04c0b2e5c32f9f",
         "type": "github"
       },
       "original": {
