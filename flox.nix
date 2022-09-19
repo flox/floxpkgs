@@ -12,13 +12,6 @@
   };
 
   config = {
-    stabilities = {
-      stable = inputs.nixpkgs.stable;
-      staging = inputs.nixpkgs.staging;
-      unstable = inputs.nixpkgs.unstable;
-      default = inputs.nixpkgs.stable;
-    };
-
     extraPlugins = [
       (inputs.capacitor.plugins.allLocalResources {})
       (inputs.capacitor.plugins.templates {})
