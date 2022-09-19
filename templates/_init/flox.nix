@@ -18,12 +18,6 @@
           path = [self.__reflect.finalFlake.config.owner];
         }
       )
+      (inputs.capacitor.plugins.allLocalResources {})
     ];
-  passthru.catalog =
-    lib.foldl
-    lib.recursiveUpdate
-    {}
-    (map (flake: flake.catalog) [
-      inputs.floxpkgs
-    ]);
 }

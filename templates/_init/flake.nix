@@ -17,7 +17,7 @@
   inputs.floxpkgs.url = "github:flox/floxpkgs";
   inputs.capacitor.url = "github:flox/capacitor?ref=v0";
   inputs.capacitor.inputs.root.follows = "/";
-  inputs.flox-extras.url = "github:flox/flox-extras/feature/allCatalogs";
+  inputs.flox-extras.url = "github:flox/flox-extras";
   inputs.flox-extras.inputs.capacitor.follows = "capacitor";
   # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 }
