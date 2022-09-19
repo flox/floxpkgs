@@ -15,7 +15,6 @@
       (
         inputs.flox-extras.plugins.allCatalogs {
           catalogsDirectory = self.outPath + "/catalog";
-          path = [self.__reflect.finalFlake.config.owner];
         }
       )
       (inputs.capacitor.plugins.allLocalResources {})
