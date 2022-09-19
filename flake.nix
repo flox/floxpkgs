@@ -1,7 +1,7 @@
 rec {
   nixConfig.extra-substituters = ["https://cache.floxdev.com?trusted=1"];
 
-  inputs.capacitor.url = "github:flox/capacitor?ref=v0";
+  inputs.capacitor.url = "github:flox/decapacitor?ref=refact/remove-stabilities";
   inputs.capacitor.inputs.root.follows = "/";
 
   inputs.flox-extras.url = "github:flox/flox-extras";
