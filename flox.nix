@@ -15,7 +15,6 @@
     extraPlugins = [
       (inputs.capacitor.plugins.allLocalResources {})
       (inputs.capacitor.plugins.templates {})
-      (inputs.capacitor.plugins.nixpkgs)
       (inputs.flox-extras.plugins.catalog {
         catalogDirectory = inputs.catalog + "/render";
         path = ["floxpkgs"];
