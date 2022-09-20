@@ -1,13 +1,19 @@
 # Replace "stdenv" with the namespace or name of your language's builder
-{stdenv}:
+{ self, stdenv }:
 # Replace "stdenv.mkDerivation" with your language's builder
 stdenv.mkDerivation {
-  name = "my-package";
-  src = ../.;
+  pname = "my-package";
+  version = "0.0.0";
+  src = self + "/.";
 
-  # Add any dependencies your software needs at runtime to propagatedBuildInputs
+  # Add runtime dependencies to buildInputs.
+  buildInputs = [];
+
+  # Add runtime dependencies required by packages that
+  # depend on this package to propagatedBuildInputs.
   propagatedBuildInputs = [];
 
-  # Add any dependencies your software only needs at buildtime to buildInputs
-  buildInputs = [];
+  # Add buildtime dependencies (not required at runtime)
+  # to nativeBuildInputs.
+  nativeBuildInputs = [];
 }
