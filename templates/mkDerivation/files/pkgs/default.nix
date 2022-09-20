@@ -4,7 +4,7 @@
 stdenv.mkDerivation {
   pname = "my-package";
   version = "0.0.0";
-  src = self + "/.";
+  src = self; # + "/src";
 
   # Add runtime dependencies to buildInputs.
   buildInputs = [];
