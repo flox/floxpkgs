@@ -5,7 +5,8 @@
 rustPlatform.buildRustPackage rec {
   pname = "my-package";
   version = "0.0.0";
-  src = ../.;
+  src = self; # + "/src";
+  
   cargoLock = {
     lockFile = ../Cargo.lock;
     # The hash of each dependency that uses a git source must be specified.

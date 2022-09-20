@@ -8,7 +8,7 @@
 stdenv.mkDerivation rec {
   pname = "my-package";
   version = "0.0.0";
-  src = ../.;
+  src = self; # + "/src";
   nativeBuildInputs = [ant jdk makeWrapper];
 
   dontConfigure = true;
