@@ -1,4 +1,4 @@
-{slef, python3Packages}:
+{self, python3Packages}:
 python3Packages.buildPythonPackage {
   pname = "my-package";
   version = "0.0.0";
