@@ -1,4 +1,5 @@
 {
+  self,
   lib,
   stdenv,
   jdk,

@@ -1,4 +1,5 @@
 {
+  self,
   buildGoModule,
   lib,
 }:
