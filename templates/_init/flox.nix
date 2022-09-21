@@ -11,10 +11,10 @@
   # DO NOT EDIT
   config.extraPlugins = [
       (
-        inputs.flox-extras.plugins.catalog {
+        inputs.floxpkgs.flox-extras.plugins.catalog {
           catalogDirectory = self.outPath + "/catalog";
         }
       )
-      (inputs.capacitor.plugins.allLocalResources {})
+      (inputs.floxpkgs.capacitor.plugins.allLocalResources {})
     ];
 }
