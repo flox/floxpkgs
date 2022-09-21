@@ -14,11 +14,17 @@
   config = {
     extraPlugins = [
       (inputs.capacitor.plugins.allLocalResources {})
-      (inputs.capacitor.plugins.templates {})
       (inputs.flox-extras.plugins.catalog {
         catalogDirectory = inputs.catalog + "/render";
         path = ["floxpkgs"];
       })
+      (inputs.capacitor.plugins.templates {})
     ];
   };
+
+  # reexport of capacitor
+  passthru.capacitor = inputs.capacitor;
+  # reexport of flox-extras
+  # TODO: integrate into floxpkgs
+  passthru.flox-extras = inputs.flox-extras;
 }
