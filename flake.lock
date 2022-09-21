@@ -27,17 +27,17 @@
         "root": []
       },
       "locked": {
-        "lastModified": 1663269718,
-        "narHash": "sha256-rxN4lUmC/m9gD8yLXnY0d1AbeEgjG8DjflrjhViT4xM=",
+        "lastModified": 1663602778,
+        "narHash": "sha256-5reuwp2isWjw7Q2c/cM2f/k408AyuHj5wDuMJpD7lSI=",
         "owner": "flox",
-        "repo": "capacitor",
-        "rev": "44e9fc3a57938bacb089dfda83031a0e52bf4cb2",
+        "repo": "decapacitor",
+        "rev": "e3fc38a8327e03319647bb842b7d1375a06fa95a",
         "type": "github"
       },
       "original": {
         "owner": "flox",
-        "ref": "v0",
-        "repo": "capacitor",
+        "ref": "refact/remove-stabilities",
+        "repo": "decapacitor",
         "type": "github"
       }
     },

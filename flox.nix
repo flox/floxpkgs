@@ -12,36 +12,19 @@
   };
 
   config = {
-    stabilities = {
-      stable = inputs.nixpkgs.stable;
-      staging = inputs.nixpkgs.staging;
-      unstable = inputs.nixpkgs.unstable;
-      default = inputs.nixpkgs.stable;
-    };
-
     extraPlugins = [
       (inputs.capacitor.plugins.allLocalResources {})
-      (inputs.capacitor.plugins.templates {})
-      (inputs.capacitor.plugins.nixpkgs)
       (inputs.flox-extras.plugins.catalog {
         catalogDirectory = inputs.catalog + "/render";
         path = ["floxpkgs"];
       })
+      (inputs.capacitor.plugins.templates {})
     ];
   };
 
-  passthru.catalog =
-    lib.genAttrs
-    self.__reflect.systems
-    (
-      system:
-        lib.recurseIntoAttrs
-        (
-          lib.genAttrs
-          self.__reflect.stabilities
-          (
-            stability: (lib.recurseIntoAttrs {nixpkgs = (inputs.nixpkgs.catalog.${system} or {}).${stability} or {};})
-          )
-        )
-    );
+  # reexport of capacitor
+  passthru.capacitor = inputs.capacitor;
+  # reexport of flox-extras
+  # TODO: integrate into floxpkgs
+  passthru.flox-extras = inputs.flox-extras;
 }

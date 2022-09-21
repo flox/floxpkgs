@@ -1,4 +1,5 @@
 {
+  self,
   stdenv,
   bundlerEnv,
   ruby,
@@ -14,8 +15,9 @@
   };
 in
   stdenv.mkDerivation rec {
-    name = "my-package";
-    src = ../.;
+    pname = "my-package";
+    version = "0.0.0";
+    src = self; # + "/src";
     buildInputs = [gems ruby];
     installPhase = ''
       mkdir -p $out/bin  $out/share/${name}

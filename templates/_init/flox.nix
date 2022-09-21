@@ -7,23 +7,14 @@
 # Define package set structure
 {
 
-  config.owner = "USER"; # < change this value to match your namespace
-
   # Template Configuration:
   # DO NOT EDIT
   config.extraPlugins = [
       (
-        inputs.flox-extras.plugins.allCatalogs {
-          catalogsDirectory = self.outPath + "/catalog";
-          path = [self.__reflect.finalFlake.config.owner];
+        inputs.flox-extras.plugins.catalog {
+          catalogDirectory = self.outPath + "/catalog";
         }
       )
+      (inputs.capacitor.plugins.allLocalResources {})
     ];
-  passthru.catalog =
-    lib.foldl
-    lib.recursiveUpdate
-    {}
-    (map (flake: flake.catalog) [
-      inputs.floxpkgs
-    ]);
 }

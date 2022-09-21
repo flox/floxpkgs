@@ -1,4 +1,5 @@
 {
+  self,
   lib,
   beam,
   ...
@@ -7,12 +8,11 @@
   packages = beam.packagesWith beam.interpreters.erlang;
 in
   packages.mixRelease rec {
-    MIX_ENV = "prod";
-
     pname = "my-package";
     version = "0.0.0";
+    src = self; # + "/src";
 
-    src = ../.;
+    MIX_ENV = "prod";
 
     # flox will create a "fixed output derivation" based on
     # the total package of fetched mix dependencies

@@ -1,11 +1,13 @@
 {
+  self,
   lib,
   buildBazelPackage,
 }:
 buildBazelPackage rec {
   pname = "my-package";
   version = "0.0.0";
-  src = ../.;
+  src = self; # + "/src";
+
   bazelTarget = "main:my-package";
   buildAttrs = {
     installPhase = ''

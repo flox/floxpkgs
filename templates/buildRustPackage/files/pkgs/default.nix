@@ -1,13 +1,17 @@
 {
+  self,
+  lib,
   rustPlatform,
   # you can add imports here
+  openssl,
 }:
 rustPlatform.buildRustPackage rec {
   pname = "my-package";
   version = "0.0.0";
-  src = ../.;
+  src = self; # + "/src";
+
   cargoLock = {
-    lockFile = ../Cargo.lock;
+    lockFile = self + "/Cargo.lock";
     # The hash of each dependency that uses a git source must be specified.
     # The hash can be found by setting it to lib.fakeSha256 as shown below and running flox build.
     # The build will fail but output the expected sha, which can then be added here
