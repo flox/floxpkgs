@@ -5,8 +5,8 @@
   hostPlatform,
   # you can add imports here
   openssl,
-  libiconv
-  darwin
+  libiconv,
+  darwin,
 }:
 rustPlatform.buildRustPackage rec {
   pname = "my-package";
