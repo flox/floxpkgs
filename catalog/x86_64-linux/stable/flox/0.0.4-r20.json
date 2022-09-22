@@ -11,15 +11,12 @@
   },
   "cache": [
     {
-      "cacheUrl": "https://flox-store-public.s3.us-east-1.amazonaws.com?trusted=1",
+      "cacheUrl": "https://cache.floxdev.com?trusted=1",
       "state": "hit",
       "narinfo": [
         {
           "valid": true,
           "path": "/nix/store/i588d6rd9953p3j0kq66vxbaalldf2xb-flox-0.0.4-r20",
-          "url": "nar/17kds2fhqhx9zz3pgrnj2s37a42nn9cgzfrnbfxswndxa24n0mh4.nar.xz",
-          "narHash": "sha256-th8e79N0balkuBFY/pAejjsWGvC7MXNJ69YM+bF/x8s=",
-          "downloadSize": 44288,
           "references": [
             "/nix/store/02jz0kvb6604mbs1smrzm3jh8bmkywc6-glibc-locales-2.35-163",
             "/nix/store/0b6zhyagwcps9qq67sd0qwmsshnjsqs0-findutils-4.9.0",
@@ -46,14 +43,16 @@
             "/nix/store/w54nfkdk8ldyi4s4yl82hpsyscnjbfzz-nix-2.10.3",
             "/nix/store/z56cn68vv1wd8izxlg0v78xnxix45p6m-nss-cacert-3.80"
           ],
+          "narHash": "sha256-th8e79N0balkuBFY/pAejjsWGvC7MXNJ69YM+bF/x8s=",
+          "url": "nar/17kds2fhqhx9zz3pgrnj2s37a42nn9cgzfrnbfxswndxa24n0mh4.nar.xz",
           "downloadHash": "sha256-BFZgiVC9Wa67Wza7/1iyVhB1hhbS5nfH/6lDDJ3QbZ4=",
-          "narSize": 178136,
-          "deriver": "/nix/store/01x6ikygycg75xv8v3m77bbbn00iw0yb-flox-0.0.4-r20.drv"
+          "downloadSize": 44288,
+          "deriver": "/nix/store/01x6ikygycg75xv8v3m77bbbn00iw0yb-flox-0.0.4-r20.drv",
+          "narSize": 178136
         }
       ]
     }
   ],
-  "build": {},
   "eval": {
     "attrPath": [
       "x86_64-linux",
@@ -84,6 +83,7 @@
     "version": "0.0.4-r20",
     "stability": "stable"
   },
+  "build": {},
   "source": {
     "locked": {
       "lastModified": 1663880701,
