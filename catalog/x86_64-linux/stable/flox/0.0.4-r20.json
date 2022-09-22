@@ -1,0 +1,64 @@
+{
+  "build": {},
+  "element": {
+    "active": true,
+    "attrPath": [
+      "x86_64-linux",
+      "flox"
+    ],
+    "originalUrl": null,
+    "storePaths": [
+      "/nix/store/i588d6rd9953p3j0kq66vxbaalldf2xb-flox-0.0.4-r20"
+    ],
+    "url": null
+  },
+  "eval": {
+    "attrPath": [
+      "x86_64-linux",
+      "flox"
+    ],
+    "drvPath": "/nix/store/01x6ikygycg75xv8v3m77bbbn00iw0yb-flox-0.0.4-r20.drv",
+    "meta": {
+      "available": true,
+      "broken": false,
+      "insecure": false,
+      "name": "flox-0.0.4-r20",
+      "outputsToInstall": [
+        "out"
+      ],
+      "position": "/nix/store/l6wavyz6qj9p8dvnaq3invcfrhvm8106-source/default.nix:72",
+      "unfree": false,
+      "unsupported": false
+    },
+    "name": "flox-0.0.4-r20",
+    "namespace": [
+      "flox"
+    ],
+    "outputs": {
+      "out": "/nix/store/i588d6rd9953p3j0kq66vxbaalldf2xb-flox-0.0.4-r20"
+    },
+    "pname": "flox",
+    "system": "x86_64-linux",
+    "version": "0.0.4-r20",
+    "stability": "stable"
+  },
+  "source": {
+    "locked": {
+      "lastModified": 1663880701,
+      "narHash": "sha256-g0Z3mSR8d/oaMvQQkys/8HJWCAOxGf0+4NUNnGiq5x8=",
+      "ref": "refs/heads/master",
+      "rev": "df9ac7f4632b6a7bf891c6878bd8ddd3cd90f1e2",
+      "revCount": 480,
+      "type": "git",
+      "url": "file:///home/brantley/floxpkgs/flox-internal"
+    },
+    "original": {
+      "type": "git",
+      "url": "file:///home/brantley/floxpkgs/flox-internal"
+    },
+    "remote": {
+      "type": "git",
+      "url": "file:///home/brantley/floxpkgs/flox-internal"
+    }
+  }
+}
