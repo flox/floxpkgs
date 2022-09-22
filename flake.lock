@@ -65,11 +65,11 @@
     "catalog": {
       "flake": false,
       "locked": {
-        "lastModified": 1663766937,
-        "narHash": "sha256-LHY4rCBl+FpMfPUx/ZlUs0kB0DOW982lMfXMDItLhDU=",
+        "lastModified": 1663890333,
+        "narHash": "sha256-7YlLbKmGiBUAvC767A1RmRMoB6NNi5iQSvoWEJXtiB0=",
         "owner": "flox",
         "repo": "floxpkgs",
-        "rev": "fe286f105c067c62658c4ae1a0375f187971de8d",
+        "rev": "d2d5081dcfd5dcc6537db480c0432dba84df802b",
         "type": "github"
       },
       "original": {
