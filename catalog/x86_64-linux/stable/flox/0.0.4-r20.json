@@ -1,17 +1,59 @@
 {
-  "build": {},
   "element": {
-    "active": true,
+    "storePaths": [
+      "/nix/store/i588d6rd9953p3j0kq66vxbaalldf2xb-flox-0.0.4-r20"
+    ],
     "attrPath": [
       "x86_64-linux",
       "flox"
     ],
-    "originalUrl": null,
-    "storePaths": [
-      "/nix/store/i588d6rd9953p3j0kq66vxbaalldf2xb-flox-0.0.4-r20"
-    ],
-    "url": null
+    "active": true
   },
+  "cache": [
+    {
+      "cacheUrl": "https://flox-store-public.s3.us-east-1.amazonaws.com?trusted=1",
+      "state": "hit",
+      "narinfo": [
+        {
+          "valid": true,
+          "path": "/nix/store/i588d6rd9953p3j0kq66vxbaalldf2xb-flox-0.0.4-r20",
+          "url": "nar/17kds2fhqhx9zz3pgrnj2s37a42nn9cgzfrnbfxswndxa24n0mh4.nar.xz",
+          "narHash": "sha256-th8e79N0balkuBFY/pAejjsWGvC7MXNJ69YM+bF/x8s=",
+          "downloadSize": 44288,
+          "references": [
+            "/nix/store/02jz0kvb6604mbs1smrzm3jh8bmkywc6-glibc-locales-2.35-163",
+            "/nix/store/0b6zhyagwcps9qq67sd0qwmsshnjsqs0-findutils-4.9.0",
+            "/nix/store/0g64jbw14hrpm8i3wrz2ymzjd96hjms7-dasel-1.26.0",
+            "/nix/store/2zz1bi38cs7pd70m9iwzqdi09gz13q8v-gum-0.4.0",
+            "/nix/store/3j918i1nbwhby0y38bn2r438rjhh8f4d-bash-5.1-p16",
+            "/nix/store/58j90mqwjl80169xzrrkcdifqqp2mrqv-jq-1.6-bin",
+            "/nix/store/5m5yyd3qz0bx0afavchqximz3y7q86m4-ansifilter-2.18",
+            "/nix/store/6f66prpgx1qx4n6k450sxs3d157ia1ps-glibc-2.35-163",
+            "/nix/store/6xg8qd02kjq0yx8sggzd76jqmzk37i52-bash-interactive-5.1-p16",
+            "/nix/store/73x2v14nz9w7f901g9g1v2pzss5s2zf5-diffutils-3.8",
+            "/nix/store/94dcwpn80bwj1k1cpbjfxa1kv4bk2xyn-parallel-20220322",
+            "/nix/store/b0d82v962qv75d5m2iqia2i4jwaghbbn-gawk-5.1.1",
+            "/nix/store/g70646ycrn5mlgmgv8dcxasks2n60gq3-gnused-4.8",
+            "/nix/store/gslial2kcvz7g881kaf3i9df49rfb5ck-git-minimal-2.37.1",
+            "/nix/store/gym7p1ycj8zqy54mmry9f6s8l0x71gcg-getent-glibc-2.35-163",
+            "/nix/store/hpz0wykcsfknskfwyqm2lkjw06drmhz4-gnugrep-3.7",
+            "/nix/store/i086601hwyznlnwhclazpv1i9vjlv356-gh-2.14.4",
+            "/nix/store/i588d6rd9953p3j0kq66vxbaalldf2xb-flox-0.0.4-r20",
+            "/nix/store/m5n32vy7rbfrqcxigw1p6wyx3cj7smg9-coreutils-9.1",
+            "/nix/store/mby2nzrcmq2nga7sfhnfinx721809iff-gzip-1.12",
+            "/nix/store/n37l96hnz68756dx66gdzqjg925xmhzm-util-linux-minimal-2.38-bin",
+            "/nix/store/n4g2sq10z103w5v2b25ymic09sy4cakl-man-db-2.10.2",
+            "/nix/store/w54nfkdk8ldyi4s4yl82hpsyscnjbfzz-nix-2.10.3",
+            "/nix/store/z56cn68vv1wd8izxlg0v78xnxix45p6m-nss-cacert-3.80"
+          ],
+          "downloadHash": "sha256-BFZgiVC9Wa67Wza7/1iyVhB1hhbS5nfH/6lDDJ3QbZ4=",
+          "narSize": 178136,
+          "deriver": "/nix/store/01x6ikygycg75xv8v3m77bbbn00iw0yb-flox-0.0.4-r20.drv"
+        }
+      ]
+    }
+  ],
+  "build": {},
   "eval": {
     "attrPath": [
       "x86_64-linux",
