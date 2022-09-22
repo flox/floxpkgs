@@ -27,11 +27,11 @@
         "root": []
       },
       "locked": {
-        "lastModified": 1663325882,
-        "narHash": "sha256-UMojTauKcNi226FC2u1zsDMsDcGg2tHJUzqFcpYVzuo=",
+        "lastModified": 1663842328,
+        "narHash": "sha256-5reuwp2isWjw7Q2c/cM2f/k408AyuHj5wDuMJpD7lSI=",
         "owner": "flox",
         "repo": "capacitor",
-        "rev": "ef4cf55c6bd6d243a617d0a9826ca531f50b5585",
+        "rev": "1133de9277a703ff2009628fa641989283b088c0",
         "type": "github"
       },
       "original": {
