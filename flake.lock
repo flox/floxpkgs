@@ -27,17 +27,16 @@
         "root": []
       },
       "locked": {
-        "lastModified": 1663602778,
-        "narHash": "sha256-5reuwp2isWjw7Q2c/cM2f/k408AyuHj5wDuMJpD7lSI=",
+        "lastModified": 1663325882,
+        "narHash": "sha256-UMojTauKcNi226FC2u1zsDMsDcGg2tHJUzqFcpYVzuo=",
         "owner": "flox",
-        "repo": "decapacitor",
-        "rev": "e3fc38a8327e03319647bb842b7d1375a06fa95a",
+        "repo": "capacitor",
+        "rev": "ef4cf55c6bd6d243a617d0a9826ca531f50b5585",
         "type": "github"
       },
       "original": {
         "owner": "flox",
-        "ref": "refact/remove-stabilities",
-        "repo": "decapacitor",
+        "repo": "capacitor",
         "type": "github"
       }
     },
@@ -49,11 +48,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1663269718,
-        "narHash": "sha256-rxN4lUmC/m9gD8yLXnY0d1AbeEgjG8DjflrjhViT4xM=",
+        "lastModified": 1663325882,
+        "narHash": "sha256-UMojTauKcNi226FC2u1zsDMsDcGg2tHJUzqFcpYVzuo=",
         "owner": "flox",
         "repo": "capacitor",
-        "rev": "44e9fc3a57938bacb089dfda83031a0e52bf4cb2",
+        "rev": "ef4cf55c6bd6d243a617d0a9826ca531f50b5585",
         "type": "github"
       },
       "original": {
@@ -351,11 +350,11 @@
         "nixpkgs__catalog__x86_64-linux": "nixpkgs__catalog__x86_64-linux"
       },
       "locked": {
-        "lastModified": 1663790561,
-        "narHash": "sha256-DIiOOWS9I2di5al5lqZQtnktW5w9gOTl6piBqTkJEto=",
+        "lastModified": 1663790626,
+        "narHash": "sha256-07kZfRQBrQ0/PAV0wFDoYqh3PqXsfEWFYWGOGfxCKJU=",
         "owner": "flox",
         "repo": "nixpkgs-flox",
-        "rev": "a7e6fb4bbd452fb89abb17ef2ab43581cabb4849",
+        "rev": "16d226b8b569e1843239292e7fe60906982e73c5",
         "type": "github"
       },
       "original": {
@@ -451,11 +450,11 @@
     "pypi-deps-db": {
       "flake": false,
       "locked": {
-        "lastModified": 1663751027,
-        "narHash": "sha256-VwWELEFDPa2hShGxcX2ahlywzzqfr3tPxj8Azkl8OJY=",
+        "lastModified": 1663843461,
+        "narHash": "sha256-5yAwWLiSYPUAo0DBZ9ay+k5UeFwlBvz7q9WbzW6dM3E=",
         "owner": "DavHau",
         "repo": "pypi-deps-db",
-        "rev": "c6a6acdbc1320cbb36d0fee0be00a0c5baf76ad9",
+        "rev": "2ab9568af026122585854aa21867510beaed504f",
         "type": "github"
       },
       "original": {
