@@ -38,4 +38,9 @@
         }
         (config context)
     );
+
+  passthru."hydraJobsStable" = self.hydraJobs; 
+  passthru."hydraJobsUnstable" = inputs.self-unstable.hydraJobs; 
+  passthru."hydraJobsStaging" =  inputs.self-staging.hydraJobs; 
+
 }

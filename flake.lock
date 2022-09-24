@@ -475,7 +475,9 @@
         "naersk": "naersk",
         "nix-editor": "nix-editor",
         "nixpkgs": "nixpkgs_2",
-        "pypi-deps-db": "pypi-deps-db"
+        "pypi-deps-db": "pypi-deps-db",
+        "self-staging": [],
+        "self-unstable": []
       }
     }
   },
