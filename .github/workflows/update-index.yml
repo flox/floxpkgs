@@ -31,15 +31,5 @@ jobs:
 
     - name: Update Flake
       run: |
-        nix flake update --show-trace -vv
-    - name: "Commit flake.lock file"
-      run: |
-          if [[ $(git diff --exit-code -- flake.lock) ]]; then
-            git add flake.lock
-            git commit -m "flake.lock: automatic update"
-            git push
-          else
-            echo '::warning file={flake.lock},title={Lockfile Unchanged}::{Index was updated but the lock file did not change.}'
-          fi
-
-        
+        nix flake update --commit-lock-file --show-trace -vv
+        git push
