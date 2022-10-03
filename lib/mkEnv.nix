@@ -104,11 +104,6 @@ in
     if [[ "$SHELL" == "/noshell" || "$SHELL" == "/sbin/nologin" ]]; then
       export SHELL=${bashPath}
     fi
-    # using nix develop on OSX does not use /noshell
-    # https://github.com/numtide/devshell/blob/5a93060a2b3a3d98acfea0596109cb9ac9c04fa7/nix/mkNakedShell.nix#L54
-    if [[ "$SHELL" == "/sbin/nologin" ]]; then
-      export SHELL=${bashPath}
-    fi
     # Load the environment
     source "${profile}/env.bash"
   '';

@@ -33,13 +33,6 @@ rec {
   inputs.naersk.inputs.nixpkgs.follows = "nixpkgs";
   inputs.nix-editor.inputs.naersk.follows = "naersk";
 
-  inputs.devshell.url = "github:numtide/devshell";
-  inputs.devshell.inputs.nixpkgs.follows = "nixpkgs";
-  inputs.mach-nix.url = "github:DavHau/mach-nix";
-  inputs.mach-nix.inputs.nixpkgs.follows = "nixpkgs";
-  inputs.mach-nix.inputs.pypi-deps-db.follows = "pypi-deps-db";
-  inputs.pypi-deps-db.url = "github:DavHau/pypi-deps-db";
-  inputs.pypi-deps-db.flake = false;
   inputs.builtfilter.url = "github:flox/builtfilter?ref=builtfilter-rs";
   inputs.builtfilter.inputs.capacitor.follows = "capacitor";
   # =================================
