@@ -1,5 +1,7 @@
 {
+  self,
   callPackage,
   capacitated,
   ...
-}: capacitated.flox.packages.flox
+}:
+capacitated.flox.packages.flox // {fromCatalog = self.evalCatalog.stable.flox;}
