@@ -185,11 +185,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1664381547,
-        "narHash": "sha256-ydNg9+5VaEcb4KWE5BEiZcXsDkDZrQzcFJnjHu7ssV4=",
+        "lastModified": 1665157056,
+        "narHash": "sha256-iBs3/ekRdNCFI4VClOXaibLZMHp1f76zmL5DaKfWJVY=",
         "owner": "flox",
         "repo": "flox-extras",
-        "rev": "2bb55286710e989b4c7b85eabf105c0c9a713622",
+        "rev": "3241fb149e3107fb0b69600eb2095fb2976461e9",
         "type": "github"
       },
       "original": {
