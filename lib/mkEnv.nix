@@ -58,7 +58,7 @@ let rest = builtins.removeAttrs args [
           derivations = map (x: ["true" 5 1 x]) args.packages;
         };
         manifestJSON  = builtins.toJSON {
-          elements = map (v: v.element or (builtins.debugger "")) args.packages;
+          elements = map (v: v.element or {storePaths=[(builtins.unsafeDiscardStringContext v)];}) args.packages;
           version= 2;
         };
        manifestFile = builtins.toFile "profile" manifestJSON;
