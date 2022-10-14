@@ -1,0 +1,67 @@
+{
+  "build": {},
+  "element": {
+    "active": true,
+    "attrPath": [
+      "packages",
+      "aarch64-darwin",
+      "flox"
+    ],
+    "originalUrl": null,
+    "storePaths": [
+      "/nix/store/hhlwdglfk36h5myf7qj69vfqh4ap7ay8-flox-0.0.6-r43"
+    ],
+    "url": "github:flox/floxpkgs?rev=04711bb921919786968b05fc6eae4f89ca2bbe02"
+  },
+  "eval": {
+    "attrPath": [
+      "packages",
+      "aarch64-darwin",
+      "flox"
+    ],
+    "drvPath": "/nix/store/r4vva5r7sghxp0z3qd2ly1b7kbv8ipbc-flox-0.0.6-r43.drv",
+    "meta": {
+      "available": true,
+      "broken": false,
+      "insecure": false,
+      "name": "flox-0.0.6-r43",
+      "outputsToInstall": [
+        "out"
+      ],
+      "position": "/nix/store/0a8il80wn1fbvmbz9gn5l0kw1b47nj1c-source/default.nix:78",
+      "unfree": false,
+      "unsupported": false
+    },
+    "name": "flox-0.0.6-r43",
+    "namespace": [
+      "flox"
+    ],
+    "outputs": {
+      "out": "/nix/store/hhlwdglfk36h5myf7qj69vfqh4ap7ay8-flox-0.0.6-r43"
+    },
+    "pname": "flox",
+    "system": "aarch64-darwin",
+    "version": "0.0.6-r43",
+    "stability": "stable"
+  },
+  "source": {
+    "locked": {
+      "lastModified": 1665773080,
+      "narHash": "sha256-3QB79oR/Zt7zdu9a24ckEO8UXqAamtloSgr+Ffcq25E=",
+      "owner": "flox",
+      "repo": "floxpkgs",
+      "rev": "04711bb921919786968b05fc6eae4f89ca2bbe02",
+      "type": "github"
+    },
+    "original": {
+      "owner": "flox",
+      "repo": "floxpkgs",
+      "type": "github"
+    },
+    "remote": {
+      "owner": "flox",
+      "repo": "floxpkgs",
+      "type": "github"
+    }
+  }
+}
