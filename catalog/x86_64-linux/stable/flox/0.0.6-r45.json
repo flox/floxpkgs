@@ -1,0 +1,66 @@
+{
+  "build": {},
+  "element": {
+    "active": true,
+    "attrPath": [
+      "packages",
+      "x86_64-linux",
+      "flox"
+    ],
+    "originalUrl": null,
+    "storePaths": [
+      "/nix/store/il50aanfxh7988jhw8wjna176s3liy3g-flox-0.0.6-r45"
+    ],
+    "url": "git+ssh://git@github.com/flox/flox.git?rev=30007db6f09ae8d6bb5e50cc5b47d3f2f57533f3"
+  },
+  "eval": {
+    "attrPath": [
+      "packages",
+      "x86_64-linux",
+      "flox"
+    ],
+    "drvPath": "/nix/store/5y1ys31ws24bb65nmvpwqdmmx8n9az5p-flox-0.0.6-r45.drv",
+    "meta": {
+      "available": true,
+      "broken": false,
+      "insecure": false,
+      "name": "flox-0.0.6-r45",
+      "outputsToInstall": [
+        "out"
+      ],
+      "position": "/nix/store/41iljvqpp6mh3x52k6rkrgkl2lk8vlnj-source/default.nix:78",
+      "unfree": false,
+      "unsupported": false
+    },
+    "name": "flox-0.0.6-r45",
+    "namespace": [
+      "flox"
+    ],
+    "outputs": {
+      "out": "/nix/store/il50aanfxh7988jhw8wjna176s3liy3g-flox-0.0.6-r45"
+    },
+    "pname": "flox",
+    "system": "x86_64-linux",
+    "version": "0.0.6-r45",
+    "stability": "stable"
+  },
+  "source": {
+    "locked": {
+      "lastModified": 1666945532,
+      "narHash": "sha256-3CC8MIhuiB4h/njGuPv6G7ptrRekvQc4tvuM0Uw0DVw=",
+      "owner": "flox",
+      "repo": "floxpkgs",
+      "rev": "30007db6f09ae8d6bb5e50cc5b47d3f2f57533f3",
+      "type": "github"
+    },
+    "original": {
+      "id": "flox",
+      "type": "indirect"
+    },
+    "remote": {
+      "rev": "30007db6f09ae8d6bb5e50cc5b47d3f2f57533f3",
+      "type": "git",
+      "url": "ssh://git@github.com/flox/flox.git"
+    }
+  }
+}
