@@ -1,0 +1,67 @@
+{
+  "build": {},
+  "element": {
+    "active": true,
+    "attrPath": [
+      "packages",
+      "x86_64-darwin",
+      "flox"
+    ],
+    "originalUrl": null,
+    "storePaths": [
+      "/nix/store/n5f033mim7rwqz3z18x67vk0gpqfgd3p-flox-0.0.6-r45"
+    ],
+    "url": "git+https://github.com/flox/flox.git?rev=9ce190a1e6fe3bf94d742001d6253aa3d6e752a0"
+  },
+  "eval": {
+    "attrPath": [
+      "packages",
+      "x86_64-darwin",
+      "flox"
+    ],
+    "drvPath": "/nix/store/6k3i75plw55h7481yigw7ak0pc1i6w1g-flox-0.0.6-r45.drv",
+    "meta": {
+      "available": true,
+      "broken": false,
+      "insecure": false,
+      "name": "flox-0.0.6-r45",
+      "outputsToInstall": [
+        "out"
+      ],
+      "position": "/nix/store/41iljvqpp6mh3x52k6rkrgkl2lk8vlnj-source/default.nix:78",
+      "unfree": false,
+      "unsupported": false
+    },
+    "name": "flox-0.0.6-r45",
+    "namespace": [
+      "flox"
+    ],
+    "outputs": {
+      "out": "/nix/store/n5f033mim7rwqz3z18x67vk0gpqfgd3p-flox-0.0.6-r45"
+    },
+    "pname": "flox",
+    "system": "x86_64-darwin",
+    "version": "0.0.6-r45",
+    "stability": "stable"
+  },
+  "source": {
+    "locked": {
+      "lastModified": 1667061553,
+      "narHash": "sha256-3cWx9wpwRnnmNCjXplnsi2vKgLq4dNXqeNLrKfj9KKU=",
+      "ref": "refs/heads/master",
+      "rev": "9ce190a1e6fe3bf94d742001d6253aa3d6e752a0",
+      "revCount": 323,
+      "type": "git",
+      "url": "file:///Users/brantley/floxpkgs/floxpkgs"
+    },
+    "original": {
+      "type": "git",
+      "url": "file:///Users/brantley/floxpkgs/floxpkgs"
+    },
+    "remote": {
+      "rev": "9ce190a1e6fe3bf94d742001d6253aa3d6e752a0",
+      "type": "git",
+      "url": "https://github.com/flox/flox.git"
+    }
+  }
+}
