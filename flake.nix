@@ -25,14 +25,6 @@ rec {
   inputs.flox.url = "git+ssh://git@github.com/flox/flox?ref=main";
   inputs.flox.flake = false;
 
-  inputs.nix-editor.url = "github:vlinkz/nix-editor";
-  inputs.nix-editor.inputs.nixpkgs.follows = "nixpkgs";
-  # nix has a bug where it can't add a follows two inputs deep, so add this hack to make naersk
-  # follow nixpkgs
-  inputs.naersk.url = "github:nix-community/naersk";
-  inputs.naersk.inputs.nixpkgs.follows = "nixpkgs";
-  inputs.nix-editor.inputs.naersk.follows = "naersk";
-
   inputs.builtfilter.url = "github:flox/builtfilter?ref=builtfilter-rs";
   inputs.builtfilter.inputs.capacitor.follows = "capacitor";
   # =================================
