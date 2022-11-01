@@ -13,12 +13,6 @@ rec {
   inputs.nixpkgs.url = "github:flox/nixpkgs-flox";
   inputs.nixpkgs.inputs.flox-extras.follows = "flox-extras";
 
-
-  inputs.self-unstable.follows = "/";
-  inputs.self-unstable.inputs.nixpkgs.url = "github:flox/nixpkgs-flox/unstable";
-  inputs.self-staging.follows = "/";
-  inputs.self-staging.inputs.nixpkgs.url = "github:flox/nixpkgs-flox/staging";
-
   # Declaration of external resources
   # =================================
 
