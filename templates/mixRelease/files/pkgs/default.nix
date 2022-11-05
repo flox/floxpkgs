@@ -3,6 +3,7 @@
   lib,
   beam,
   mix2nix,
+  getRev ? inputs.flox-floxpkgs.lib.getRev
   ...
 }: let
   # You can specify the OTP version by appending R + version number to the "erlang" attribute,
@@ -13,7 +14,7 @@
 in
   beamPackages.mixRelease rec {
     pname = "my-package";
-    version = "0.0.0";
+    version = "0.0.0-${getRev self}";
     src = self; # + "/src";
 
     MIX_ENV = "prod";

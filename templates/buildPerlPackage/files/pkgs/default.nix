@@ -2,9 +2,10 @@
   self,
   lib,
   perlPackages,
+  withRev
 }:
 perlPackages.buildPerlPackage rec {
-  pname = "my-package";
+  pname = withRev "my-package";
   version = "0.0.0";
   src = self; # + "/src";
 

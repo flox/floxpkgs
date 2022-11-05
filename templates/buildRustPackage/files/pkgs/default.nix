@@ -8,10 +8,11 @@
   pkg-config,
   libiconv,
   darwin,
+  withRev
 }:
 rustPlatform.buildRustPackage rec {
   pname = "my-package";
-  version = "0.0.0";
+  version = withRev "0.0.0";
   src = self; # + "/src";
 
   cargoLock = {

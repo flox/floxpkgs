@@ -2,10 +2,11 @@
   self,
   lib,
   buildBazelPackage,
+  withRev
 }:
 buildBazelPackage rec {
   pname = "my-package";
-  version = "0.0.0";
+  version = withRev "0.0.0";
   src = self; # + "/src";
 
   bazelTarget = "main:my-package";
