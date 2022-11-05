@@ -3,6 +3,7 @@
   stdenv,
   bundlerEnv,
   ruby,
+  withRev
 }: let
   # running the bundix command
   # will generate the gemset.nix file below
@@ -16,7 +17,7 @@
 in
   stdenv.mkDerivation rec {
     pname = "my-package";
-    version = "0.0.0";
+    version = withRev "0.0.0";
     src = self; # + "/src";
     buildInputs = [gems ruby];
     installPhase = ''

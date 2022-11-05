@@ -5,10 +5,11 @@
   jdk,
   ant,
   makeWrapper,
+  withRev
 }:
 stdenv.mkDerivation rec {
   pname = "my-package";
-  version = "0.0.0";
+  version = withRev "0.0.0";
   src = self; # + "/src";
   nativeBuildInputs = [ant jdk makeWrapper];
 

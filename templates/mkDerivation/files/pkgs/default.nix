@@ -1,9 +1,9 @@
 # Replace "stdenv" with the namespace or name of your language's builder
-{ self, stdenv }:
+{ self, stdenv, withRev }:
 # Replace "stdenv.mkDerivation" with your language's builder
 stdenv.mkDerivation {
   pname = "my-package";
-  version = "0.0.0";
+  version = withRev "0.0.0";
   src = self; # + "/src";
 
   # Add runtime dependencies to buildInputs.

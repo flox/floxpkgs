@@ -1,6 +1,6 @@
-{self, mkYarnPackage}: let
+{self, mkYarnPackage, withRev}: let
   pname = "my-package";
-  version = "0.0.0";
+  version = withRev "0.0.0";
   src = self; # + "/src";
 in
   mkYarnPackage {
