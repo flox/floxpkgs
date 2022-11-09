@@ -6,15 +6,15 @@ in
   mkYarnPackage {
     inherit pname version src;
     packageJSON = src + "/package.json";
-    yarnLock = src + "../yarn.lock";
+    yarnLock = src + "/yarn.lock";
 
     buildPhase = ''
-      yarn --offline build
+      # example yarn --offline build
     '';
 
     installPhase = ''
-      cp -R deps/${pname}/dist $out
+      # example cp -R deps/${pname}/dist $out
     '';
 
-    distPhase = "true";
+    # example distPhase = "true";
   }
