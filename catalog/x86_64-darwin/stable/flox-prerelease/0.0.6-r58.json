@@ -1,0 +1,67 @@
+{
+  "build": {},
+  "element": {
+    "active": true,
+    "attrPath": [
+      "packages",
+      "x86_64-darwin",
+      "flox-prerelease"
+    ],
+    "originalUrl": null,
+    "storePaths": [
+      "/nix/store/clm98qbm57nc2wpww2jg6rgn20nwkhbs-flox-prerelease-0.0.6-r58"
+    ],
+    "url": "git+ssh://git@github.com/flox/floxpkgs-internal.git?rev=2fab66642747b282877d7b4ca18fcd8b89dd3287"
+  },
+  "eval": {
+    "attrPath": [
+      "packages",
+      "x86_64-darwin",
+      "flox-prerelease"
+    ],
+    "drvPath": "/nix/store/nsxbghybj9xy43y9mpx2d0jjb3427rsz-flox-prerelease-0.0.6-r58.drv",
+    "meta": {
+      "available": true,
+      "broken": false,
+      "insecure": false,
+      "name": "flox-prerelease-0.0.6-r58",
+      "outputsToInstall": [
+        "out"
+      ],
+      "position": "/nix/store/i4q90bxmh73dgq4igi19fmf9xyhax2lx-source/default.nix:92",
+      "unfree": false,
+      "unsupported": false
+    },
+    "name": "flox-prerelease-0.0.6-r58",
+    "namespace": [
+      "flox-prerelease"
+    ],
+    "outputs": {
+      "out": "/nix/store/clm98qbm57nc2wpww2jg6rgn20nwkhbs-flox-prerelease-0.0.6-r58"
+    },
+    "pname": "flox-prerelease",
+    "system": "x86_64-darwin",
+    "version": "0.0.6-r58",
+    "stability": "stable"
+  },
+  "source": {
+    "locked": {
+      "lastModified": 1668084622,
+      "narHash": "sha256-olwuOizrb/Ls/AgB2wlBty0Kp8qQkdzWaByroK9w78I=",
+      "ref": "master",
+      "rev": "2fab66642747b282877d7b4ca18fcd8b89dd3287",
+      "revCount": 740,
+      "type": "git",
+      "url": "ssh://git@github.com/flox/floxpkgs-internal"
+    },
+    "original": {
+      "id": "flox-internal",
+      "type": "indirect"
+    },
+    "remote": {
+      "rev": "2fab66642747b282877d7b4ca18fcd8b89dd3287",
+      "type": "git",
+      "url": "ssh://git@github.com/flox/floxpkgs-internal.git"
+    }
+  }
+}
