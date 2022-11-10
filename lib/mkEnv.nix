@@ -107,4 +107,4 @@ in
     # Load the environment
     source "${profile}/env.bash"
   '';
-} // rest // args.env )) // { inherit meta passthru; } // passthru
+} // rest // (args.env or {}))) // { inherit meta passthru; } // passthru
