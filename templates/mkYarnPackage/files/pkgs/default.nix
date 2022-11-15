@@ -1,6 +1,10 @@
-{self, mkYarnPackage, withRev}: let
+{
+  self,
+  mkYarnPackage,
+  inputs,
+}: let
   pname = "my-package";
-  version = withRev "0.0.0";
+  version = "0.0.0-${inputs.flox-flxopkgs.lib.getRev self}";
   src = self; # + "/src";
 in
   mkYarnPackage {

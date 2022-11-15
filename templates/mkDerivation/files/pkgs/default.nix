@@ -1,9 +1,13 @@
 # Replace "stdenv" with the namespace or name of your language's builder
-{ self, stdenv, withRev }:
+{
+  self,
+  stdenv,
+  inputs,
+}:
 # Replace "stdenv.mkDerivation" with your language's builder
 stdenv.mkDerivation {
   pname = "my-package";
-  version = withRev "0.0.0";
+  version = "0.0.0-${inputs.flox-floxpkgs.lib.getRev self}";
   src = self; # + "/src";
 
   # Add runtime dependencies to buildInputs.
