@@ -1,15 +1,14 @@
 {
   self,
-  lib,
   stdenv,
   jdk,
   ant,
   makeWrapper,
-  withRev
+  inputs,
 }:
 stdenv.mkDerivation rec {
   pname = "my-package";
-  version = withRev "0.0.0";
+  version = "0.0.0-${inputs.flox-flxopkgs.lib.getRev self}";
   src = self; # + "/src";
   nativeBuildInputs = [ant jdk makeWrapper];
 
