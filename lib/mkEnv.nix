@@ -69,12 +69,15 @@ let rest = builtins.removeAttrs args [
           args = ["-c" "echo ${env}; ${coreutils}/bin/mkdir $out; ${coreutils}/bin/cp ${manifestFile} $out/manifest.json"];
         };
     in
-        buildEnv {
+        buildEnv ({
           name = "wrapper";
           paths = args.packages ++ [manifest envBash];
 
-          postBuild = "rm $out/env.bash ; substitute ${envBash}/env.bash $out/env.bash --subst-var-by DEVSHELL_DIR $out";
-        };
+          postBuild = ''
+            rm $out/env.bash ; substitute ${envBash}/env.bash $out/env.bash --subst-var-by DEVSHELL_DIR $out
+            ${args.postBuild or ""}
+          '';
+        } // (builtins.removeAttrs rest ["postShellHook" "shellHook" "preShellHook" "postBuild"]));
 in
 (derivation ({
   inherit name system;
