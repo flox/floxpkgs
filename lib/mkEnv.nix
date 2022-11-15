@@ -45,7 +45,7 @@ let rest = builtins.removeAttrs args [
   envToBash = name: value: "export ${name}=${lib.escapeShellArg (toString value)}";
   envBash = writeTextDir "env.bash" ''
     export PATH="@DEVSHELL_DIR@/bin:$PATH"
-    ${builtins.concatStringsSep "\n" (builtins.attrValues (builtins.mapAttrs envToBash args.env ))}
+    ${builtins.concatStringsSep "\n" (builtins.attrValues (builtins.mapAttrs envToBash (args.env or {})))}
     ${args.postShellHook or ""}
   '';
   profile =
