@@ -1,4 +1,4 @@
-rec {
+{
   nixConfig.extra-substituters = ["https://cache.floxdev.com?trusted=1"];
 
   inputs.capacitor.url = "github:flox/capacitor";

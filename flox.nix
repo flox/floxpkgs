@@ -18,7 +18,7 @@
 {
   # Limit the systems to fewer or more than default by ucommenting
   packages = {
-    builtfilter = {inputs, ...}: inputs.builtfilter.legacyPackages.builtfilter-rs;
+    builtfilter = {capacitated, ...}: capacitated.builtfilter.packages.builtfilter-rs;
   };
 
   config = {
