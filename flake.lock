@@ -316,7 +316,25 @@
         "catalog": "catalog",
         "flox": "flox",
         "flox-extras": "flox-extras",
-        "nixpkgs": "nixpkgs_2"
+        "nixpkgs": "nixpkgs_2",
+        "tracelinks": "tracelinks"
+      }
+    },
+    "tracelinks": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1669460024,
+        "narHash": "sha256-if6MlsEuV7vx7vf0uSLYXW6z3zn6UPT2rK4JFpHpnwc=",
+        "ref": "main",
+        "rev": "1f270ee174851a65640071e3ae809e3b5a755571",
+        "revCount": 6,
+        "type": "git",
+        "url": "ssh://git@github.com/flox/tracelinks"
+      },
+      "original": {
+        "ref": "main",
+        "type": "git",
+        "url": "ssh://git@github.com/flox/tracelinks"
       }
     }
   },

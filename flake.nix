@@ -19,6 +19,9 @@ rec {
   inputs.flox.url = "git+ssh://git@github.com/flox/flox?ref=main";
   inputs.flox.flake = false;
 
+  inputs.tracelinks.url = "git+ssh://git@github.com/flox/tracelinks?ref=main";
+  inputs.tracelinks.flake = false;
+
   inputs.builtfilter.url = "github:flox/builtfilter?ref=builtfilter-rs";
   inputs.builtfilter.inputs.capacitor.follows = "capacitor";
   # =================================
