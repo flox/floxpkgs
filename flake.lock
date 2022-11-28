@@ -23,15 +23,14 @@
     },
     "capacitor": {
       "inputs": {
-        "nixpkgs": "nixpkgs",
-        "root": []
+        "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "lastModified": 1665065733,
-        "narHash": "sha256-rc3RbwGSkcvhW/UUQ+CzoY/C66yPlTIlwv8M+m4NHvo=",
+        "lastModified": 1669663840,
+        "narHash": "sha256-o6wroA4plpeOdfaE+n6irO1wI5aNSuVA5ZzAaiI5hLo=",
         "owner": "flox",
         "repo": "capacitor",
-        "rev": "830a026092dbed052442af65f0a5f03a458076e5",
+        "rev": "cd0505a5a75056797a929bdc3a3b6782d1318f0c",
         "type": "github"
       },
       "original": {
