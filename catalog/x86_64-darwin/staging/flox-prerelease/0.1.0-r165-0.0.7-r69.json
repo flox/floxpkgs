@@ -29,6 +29,7 @@
   "element": {
     "active": true,
     "attrPath": [
+      "packages",
       "x86_64-darwin",
       "flox-prerelease"
     ],
@@ -39,6 +40,7 @@
   },
   "eval": {
     "attrPath": [
+      "packages",
       "x86_64-darwin",
       "flox-prerelease"
     ],
