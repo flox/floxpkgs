@@ -10,11 +10,10 @@
   materialize = lib.capacitor.capacitate.capacitate.materialize;
 in
   {
-    capacitate,
     context,
     ...
   }: let
-    floxEnvsMapper = {
+    floxEnvsMapper = context: {
       namespace,
       system,
       outerPath,
@@ -34,5 +33,5 @@ in
       path = [system] ++ namespace;
     };
   in {
-    floxEnvs = materialize floxEnvsMapper (capacitate.composeSelf sourceType).self;
+    floxEnvs = materialize (floxEnvsMapper context) (context.closures sourceType);
   }
