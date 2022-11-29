@@ -26,11 +26,11 @@
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "lastModified": 1669663840,
-        "narHash": "sha256-o6wroA4plpeOdfaE+n6irO1wI5aNSuVA5ZzAaiI5hLo=",
+        "lastModified": 1669738558,
+        "narHash": "sha256-K4207Ki8LscvpFtoHBNdzdiQCESSRv9V8tHV7gfuSuw=",
         "owner": "flox",
         "repo": "capacitor",
-        "rev": "cd0505a5a75056797a929bdc3a3b6782d1318f0c",
+        "rev": "a01d973e7ee2131afe3e539f7c497112d6d01225",
         "type": "github"
       },
       "original": {
