@@ -2,16 +2,12 @@
   nixConfig.extra-substituters = ["https://cache.floxdev.com?trusted=1"];
 
   inputs.capacitor.url = "github:flox/capacitor";
-  inputs.capacitor.inputs.root.follows = "/";
-
-  inputs.flox-extras.url = "github:flox/flox-extras";
-  inputs.flox-extras.inputs.capacitor.follows = "capacitor";
 
   inputs.catalog.url = "github:flox/floxpkgs?ref=publish";
   inputs.catalog.flake = false;
 
   inputs.nixpkgs.url = "github:flox/nixpkgs-flox";
-  inputs.nixpkgs.inputs.flox-extras.follows = "flox-extras";
+  inputs.nixpkgs.inputs.floxpkgs.follows = "";
 
   # Declaration of external resources
   # =================================

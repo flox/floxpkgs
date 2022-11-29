@@ -24,20 +24,19 @@
   config = {
     extraPlugins = [
       (inputs.capacitor.plugins.allLocalResources {})
-      (inputs.flox-extras.plugins.catalog {})
+      (import ./plugins/catalog.nix { inherit self lib; } {})
+      (inputs.capacitor.plugins.plugins { dir = ./plugins; })
+
       (inputs.capacitor.plugins.templates {})
     ];
   };
 
   # reexport of capacitor
   passthru.capacitor = inputs.capacitor;
-  # reexport of flox-extras
-  # TODO: integrate into floxpkgs
-  passthru.flox-extras = inputs.flox-extras;
   # define default plugins
   passthru.defaultPlugins = [
     (inputs.capacitor.plugins.allLocalResources {})
-    (inputs.flox-extras.plugins.catalog {})
+    (import ./plugins/catalog.nix {inherit self lib;} {})
   ];
 
   passthru.project = args: config:
