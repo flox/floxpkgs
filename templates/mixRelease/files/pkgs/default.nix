@@ -2,37 +2,35 @@
   self,
   lib,
   beam,
+  mix2nix,
   ...
 }: let
-  # beam.interpreters.erlangR23 is available if you need a particular version
-  packages = beam.packagesWith beam.interpreters.erlang;
+  # You can specify the OTP version by appending R + version number to the "erlang" attribute,
+  # for example: beam.interpreters.erlangR23
+  beamPackages = beam.packagesWith beam.interpreters.erlang;
+  # Same here, you can specify the Elixir version by modifying "elixir" to "elixir_1_13", for example.
+  elixir = beamPackages.elixir;
 in
-  packages.mixRelease rec {
+  beamPackages.mixRelease rec {
     pname = "my-package";
     version = "0.0.0";
     src = self; # + "/src";
 
     MIX_ENV = "prod";
 
-    # flox will create a "fixed output derivation" based on
-    # the total package of fetched mix dependencies
-    mixFodDeps = packages.fetchMixDeps {
-      inherit version src;
-      pname = "mix-deps-${pname}";
-      # nix will complain and tell you the right value to replace this with
-      sha256 = lib.fakeSha256;
-      #sha256 = "real sha256 here";
-      # if you have build time environment variables add them here
-      #MY_VAR="value";
-    };
+    buildInputs = [ mix2nix elixir ];
 
-    #postBuild = ''
+    # At the root of your project directory, run "mix2nix > deps.nix" to create this file.
+    mixNixDeps = import ./../deps.nix { inherit lib beamPackages; };
 
     # for phoenix framework you can uncomment the lines below
     # for external task you need a workaround for the no deps check flag
     # https://github.com/phoenixframework/phoenix/issues/2690
-    #mix do deps.loadpaths --no-deps-check, phx.digest
-    #mix phx.digest --no-deps-check
+
+    #postBuild = ''
+    #
+    # mix do deps.loadpaths --no-deps-check, phx.digest
+    # mix phx.digest --no-deps-check
     # mix do deps.loadpaths --no-deps-check
     #'';
   }
