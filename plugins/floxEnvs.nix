@@ -32,6 +32,8 @@ in
       };
       path = [system] ++ namespace;
     };
+    result = materialize (floxEnvsMapper context) (context.closures sourceType);
   in {
-    floxEnvs = materialize (floxEnvsMapper context) (context.closures sourceType);
+    floxEnvs = result;
+    devShells = result;
   }

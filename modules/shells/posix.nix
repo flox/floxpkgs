@@ -47,22 +47,21 @@ with lib; {
         mapAttrsToList (n: v: ''export ${n}="${concatStringsSep ":" v}"'') allValuesLists;
     in
       concatStringsSep "\n" exportVariables;
-    activateScript = builtins.toFile "activate" ''
-      ${exportedEnvVars}
+      activateScript = pkgs.writeTextFile {
+        name =  "activate";
+        executable = true;
+        destination = "/activate";
+        text = ''
+          ${exportedEnvVars}
 
-      ${stringAliases}
+          ${stringAliases}
 
-      ${config.shell.hook}
-    '';
+          ${config.shell.hook}
+        '';
+      };
   in {
-    toplevel = pkgs.stdenvNoCC.mkDerivation {
-      name = "floxEnv";
-      buildCommand = ''
-        mkdir $out
-        ln -s ${config.system.path} $out/sw
-        ln -s ${config.newCatalogPath} $out/catalog.json
-        ln -s ${activateScript} $out/activate
-      '';
+    toplevel = pkgs.callPackage ../../lib/mkEnv.nix {} {
+      packages = config.environment.systemPackages ++ [ config.newCatalogPath activateScript ];
     };
   };
 }

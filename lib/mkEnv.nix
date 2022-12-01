@@ -108,6 +108,6 @@ in
       export SHELL=${bashPath}
     fi
     # Load the environment
-    source "${profile}/env.bash"
+    source "${profile}/activate"
   '';
 } // rest // (args.env or {}))) // { inherit meta passthru; } // passthru

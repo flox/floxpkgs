@@ -149,7 +149,11 @@
       newFakeCatalog;
   in {
     environment.systemPackages = packagesList;
-    newCatalogPath = builtins.toFile "catalog.json" (builtins.unsafeDiscardStringContext (builtins.toJSON newCatalog));
+    newCatalogPath = pkgs.writeTextFile {
+      name = "catalog.json";
+      destination = "/catalog.json";
+      text = (builtins.unsafeDiscardStringContext (builtins.toJSON newCatalog));
+    };
 
     system.path = pkgs.buildEnv {
       name = "system-path";
