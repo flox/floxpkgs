@@ -1,13 +1,13 @@
 {
   writeShellApplication,
   substituteAll,
-  podman,
+  pkgs,
   bashInteractive,
 }:
 writeShellApplication {
   name = "podman-runner";
 
-  runtimeInputs = [podman bashInteractive];
+  runtimeInputs = [pkgs.podman bashInteractive];
 
   text = builtins.readFile (substituteAll {
     src = ./src/runner.sh;
