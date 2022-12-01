@@ -58,9 +58,7 @@
     },
     "flox": {
       "inputs": {
-        "floxpkgs": [
-          "floxpkgs"
-        ]
+        "floxpkgs": []
       },
       "locked": {
         "lastModified": 1669914909,
