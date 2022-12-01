@@ -258,18 +258,20 @@
       }
     },
     "tracelinks": {
-      "flake": false,
+      "inputs": {
+        "floxpkgs": []
+      },
       "locked": {
-        "lastModified": 1669918276,
-        "narHash": "sha256-v57ArMMo8/844fG9uHC+uC++yqSlWBsX88TU7wQvrA0=",
-        "ref": "main",
-        "rev": "d59b1958c9fe44af898c09428766b4e93483d607",
-        "revCount": 7,
+        "lastModified": 1669919769,
+        "narHash": "sha256-BxN0D6q2p8B46I7EiKdZRf7zfoIy+E+tLnVNyK/sWDY=",
+        "ref": "fix/overlay-trees",
+        "rev": "825088723474ed7e6b93b19a2305500b4222a670",
+        "revCount": 8,
         "type": "git",
         "url": "ssh://git@github.com/flox/tracelinks"
       },
       "original": {
-        "ref": "main",
+        "ref": "fix/overlay-trees",
         "type": "git",
         "url": "ssh://git@github.com/flox/tracelinks"
       }
