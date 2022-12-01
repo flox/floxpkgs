@@ -24,10 +24,6 @@
       type = types.path;
     };
 
-    toplevel = mkOption {
-      type = types.package;
-    };
-
     manifestPath = mkOption {
       internal = true;
       type = types.path;
@@ -158,17 +154,7 @@
     system.path = pkgs.buildEnv {
       name = "system-path";
       paths = config.environment.systemPackages;
-      ignoreCollisions = true;
-    };
-
-    toplevel = pkgs.stdenvNoCC.mkDerivation {
-      name = "floxEnv";
-      buildCommand = ''
-        mkdir $out
-        ln -s ${config.system.path} $out/sw
-        ln -s ${config.newCatalogPath} $out/catalog.json
-        touch $out/activate
-      '';
+      ignoreCollisions = false;
     };
   };
 }

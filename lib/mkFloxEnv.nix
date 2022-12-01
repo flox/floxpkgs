@@ -16,7 +16,9 @@
           inherit system self;
         };
       }
-      (self + "/modules/flox-env.nix")
+      (self + "/modules/common.nix")
+      (self + "/modules/options.nix")
+      (self + "/modules/shells/posix.nix")
     ]
     ++ modules;
 })
