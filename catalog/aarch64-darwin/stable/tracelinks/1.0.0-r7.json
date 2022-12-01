@@ -1,0 +1,76 @@
+{
+  "build": {},
+  "cache": [
+    {
+      "cacheUrl": "https://cache.floxdev.com",
+      "narinfo": [],
+      "state": "miss"
+    }
+  ],
+  "element": {
+    "active": true,
+    "attrPath": [
+      "packages",
+      "aarch64-darwin",
+      "tracelinks"
+    ],
+    "storePaths": [
+      "/nix/store/84idlxl8psp53q8iv81p1c6wgwlhcrn9-tracelinks-1.0.0-r7"
+    ],
+    "url": "git+ssh://git@github.com/flox/floxpkgs?ref=master&rev=e2eedf736f78e1ed5c33a85f16cf9c2d3aa76b3f"
+  },
+  "eval": {
+    "attrPath": [
+      "packages",
+      "aarch64-darwin",
+      "tracelinks"
+    ],
+    "drvPath": "/nix/store/pksbyldy256xk1mk4ifnp691zbnwdmhj-tracelinks-1.0.0-r7.drv",
+    "meta": {
+      "available": true,
+      "broken": false,
+      "insecure": false,
+      "name": "tracelinks-1.0.0-r7",
+      "outputsToInstall": [
+        "out"
+      ],
+      "position": "/nix/store/swy9si8ccvzf2vkzmg89rvc018vkr92c-source/pkgs/tracelinks/default.nix:12",
+      "unfree": false,
+      "unsupported": false
+    },
+    "name": "tracelinks-1.0.0-r7",
+    "namespace": [
+      "tracelinks"
+    ],
+    "outputs": {
+      "out": "/nix/store/84idlxl8psp53q8iv81p1c6wgwlhcrn9-tracelinks-1.0.0-r7"
+    },
+    "pname": "tracelinks",
+    "stability": "stable",
+    "system": "aarch64-darwin",
+    "version": "1.0.0-r7"
+  },
+  "source": {
+    "locked": {
+      "lastModified": 1669918731,
+      "narHash": "sha256-EHU5zoBzCbigzHsfLjKn2D5DiTtH0I0JsLOjwzGVgyQ=",
+      "ref": "master",
+      "rev": "e2eedf736f78e1ed5c33a85f16cf9c2d3aa76b3f",
+      "revCount": 478,
+      "type": "git",
+      "url": "ssh://git@github.com/flox/floxpkgs"
+    },
+    "original": {
+      "ref": "master",
+      "rev": "e2eedf736f78e1ed5c33a85f16cf9c2d3aa76b3f",
+      "type": "git",
+      "url": "ssh://git@github.com/flox/floxpkgs"
+    },
+    "remote": {
+      "ref": "master",
+      "rev": "e2eedf736f78e1ed5c33a85f16cf9c2d3aa76b3f",
+      "type": "git",
+      "url": "ssh://git@github.com/flox/floxpkgs"
+    }
+  }
+}
