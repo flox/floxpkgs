@@ -260,11 +260,11 @@
     "tracelinks": {
       "flake": false,
       "locked": {
-        "lastModified": 1669460807,
-        "narHash": "sha256-LkPQb2+duqRpqjgkqYdGOdHl9LFhxM0wVOF3jDDDxbE=",
+        "lastModified": 1669918276,
+        "narHash": "sha256-v57ArMMo8/844fG9uHC+uC++yqSlWBsX88TU7wQvrA0=",
         "ref": "main",
-        "rev": "ea385051604f097a10063fa411559c5c47f37cb9",
-        "revCount": 6,
+        "rev": "d59b1958c9fe44af898c09428766b4e93483d607",
+        "revCount": 7,
         "type": "git",
         "url": "ssh://git@github.com/flox/tracelinks"
       },
