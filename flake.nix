@@ -13,7 +13,7 @@
   # =================================
 
   inputs.flox.url = "git+ssh://git@github.com/flox/flox?ref=main";
-  inputs.flox.flake = false;
+  inputs.flox.inputs.floxpkgs.follows = "/";
 
   inputs.tracelinks.url = "git+ssh://git@github.com/flox/tracelinks?ref=fix/overlay-trees";
   inputs.tracelinks.inputs.floxpkgs.follows = "/";

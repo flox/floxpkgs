@@ -1,10 +1,5 @@
 {
   callPackage,
-  inputs,
-  withRev,
+  capacitated,
   ...
-}:
-callPackage inputs.flox {
-  revision = "-r${toString inputs.flox.revCount or "dirty"}";
-  inherit withRev;
-}
+}: capacitated.flox.packages.flox

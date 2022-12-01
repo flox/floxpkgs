@@ -57,7 +57,11 @@
       }
     },
     "flox": {
-      "flake": false,
+      "inputs": {
+        "floxpkgs": [
+          "floxpkgs"
+        ]
+      },
       "locked": {
         "lastModified": 1669914909,
         "narHash": "sha256-PfWB7i4E76Krsq/6ekqMpa1dVXBysz/2T3+1UVfWezs=",
