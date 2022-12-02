@@ -10,6 +10,7 @@ with lib; {
   options = {
     shell = {
       aliases = mkOption {
+        default = {};
         example = {
           ll = "ls -l";
         };
