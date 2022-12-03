@@ -5,42 +5,42 @@
       "cacheUrl": "https://cache.floxdev.com",
       "narinfo": [
         {
-          "deriver": "/nix/store/8wq7fraaqsg4zyivpi36w95y589my1sv-flox-0.0.7-r76.drv",
-          "downloadHash": "sha256-XJ8NBZpH80MVOKSmk8pjwIO9VJqHeqSaBI3TDKoEJwA=",
-          "downloadSize": 54136,
-          "narHash": "sha256-7UpLtYtqUyce3KrHQCdytcz+WK3OSObzPCGxYZYQKYk=",
+          "deriver": "/nix/store/h1dm58g3p35aw1qd7mv6x8x54snwl0k5-flox-0.0.7-r76.drv",
+          "downloadHash": "sha256-IdtU09wvjoZvlyilm22qO4z6wHDls5eT0PUFfzFprlg=",
+          "downloadSize": 54144,
+          "narHash": "sha256-dC5bxGagMrlEgl3acOcGHxll/yG8hlISE/qq5NvQU6Y=",
           "narSize": 270592,
-          "path": "/nix/store/qvfslp3zix6zv2bl56lgbw9dld9zpw8q-flox-0.0.7-r76",
+          "path": "/nix/store/4haql7b2inwrj25cs7p6sj5n8mbkx3fp-flox-0.0.7-r76",
           "references": [
-            "/nix/store/0fzm92j0gh824110iyhdv58w4c6zfb6z-bash-interactive-5.1-p16",
-            "/nix/store/0r6hsy5lc0vazgklljhiln3wmsgy4fb2-man-db-2.10.2",
-            "/nix/store/1gwr5ilpwg03sv5gq3nxrac1617wlm37-gnused-4.8",
-            "/nix/store/1n2yniwkpcqf48id37dhbs05z82ajpli-ansifilter-2.18",
-            "/nix/store/506mhflawx5s2b1kc5h3psbiwi4sa324-nix-2.11.0",
-            "/nix/store/7vswk3w7sqgsyk1c8mplrmwdads6ywjf-curl-7.85.0-bin",
-            "/nix/store/8b1j79yzac1jlg177r6d5y1k6wqj2c68-getent-getent-netbsd-9.2",
-            "/nix/store/ap0j5jn01p2a25ybna48cyicl25lnhjr-parallel-20220322",
-            "/nix/store/bfzjmm0k2sifl8s1ngghj1jgxm0zgjs9-adv_cmds-119-locale",
-            "/nix/store/bkzskp30i813zmvcg6bd9hicyz31wcsg-less-608",
-            "/nix/store/f6y03fhrzmpmyv6hhkxx4ajhdr83gk6q-diffutils-3.8",
-            "/nix/store/gdw7ag38biq5hhr5cbjhxflw3j7kwc2d-git-minimal-2.38.0",
-            "/nix/store/hdsw3p6x2j0xyma338gshm8cjl8hphc8-util-linux-1003.1-2008",
-            "/nix/store/hq124gh2gvvh62i03wzkghii7z2cdg6i-jq-1.6-bin",
-            "/nix/store/hv3mbahcvvdd4pfxhg05ji5ay9whn3gs-coreutils-9.1",
-            "/nix/store/i8fxp1h5knvgkj0fz1c29jdg7v1d9mb4-findutils-4.9.0",
-            "/nix/store/m550h9jrw5l3mijr8lkf6v4a6kxgfdil-nss-cacert-3.83",
-            "/nix/store/mchwk4fdhjqvaab4q2p5yhms3fqgkryp-gnugrep-3.7",
-            "/nix/store/q3lvr6jhg2xx29s377sz3yzxmb567vvb-apple-framework-CoreFoundation-11.0.0",
-            "/nix/store/qmvwfbwhnaz2zmwn3qvl78w52gg4inpg-gh-2.18.1",
-            "/nix/store/qvfslp3zix6zv2bl56lgbw9dld9zpw8q-flox-0.0.7-r76",
-            "/nix/store/vmgg17bpzamydjkcvnmwch7l6cgwmbb5-gawk-5.1.1",
-            "/nix/store/vqjqrxadirdgw8vr3g7gdhl5yh6db4z3-gum-0.8.0",
-            "/nix/store/y2x17894rwd66csvk0cikhwnd1sypdlj-dasel-1.27.3",
-            "/nix/store/ypjgqgmvvvkwx7505qfilv0v07z1hx4g-bash-5.1-p16",
-            "/nix/store/z04k7yhf3ysj832ywav0w1zlf9xmvdqj-gzip-1.12",
-            "/nix/store/z3ymvgyhahqr174yib4x37mvgi23g35p-libossp-uuid-1.6.2"
+            "/nix/store/3p1w2iczs0sqvq9882nkv5nzk9s5hvd4-util-linux-1003.1-2008",
+            "/nix/store/41pldfmh46n907zzvaffdx86h395jcjk-less-608",
+            "/nix/store/49wn01k9yikhjlxc1ym5b6civ29zz3gv-bash-5.1-p16",
+            "/nix/store/4haql7b2inwrj25cs7p6sj5n8mbkx3fp-flox-0.0.7-r76",
+            "/nix/store/6j9wxvfiz19vyw0a1vmkmz4k7zwqaakq-ansifilter-2.18",
+            "/nix/store/6ywfhql24ql4k43h66z4as0ngw8fsinh-adv_cmds-119-locale",
+            "/nix/store/8m6z0nnvg98zv7vb37j9lpj8rxpnfhx2-apple-framework-CoreFoundation-11.0.0",
+            "/nix/store/ahzz1clw7sf1lxa83m4n4zfisx4ahxp9-gzip-1.12",
+            "/nix/store/biz5jcc8acnjsj2jb7j90i39g9br3p87-nix-2.11.0",
+            "/nix/store/bxcw00s9cn6amc77g7jsciiyidmd74ip-gawk-5.1.1",
+            "/nix/store/d974l5s9307zqcxl39fkx7mb0x47ns90-libossp-uuid-1.6.2",
+            "/nix/store/f4cjaq1ikgcp4q69rmjg954gpfngn3ms-gum-0.8.0",
+            "/nix/store/jc5xwdbxwkkyf6dzbqi50zv4ln85m4sh-man-db-2.10.2",
+            "/nix/store/kcg2s3q8fqslprb4567v4zmd9l7jxclb-findutils-4.9.0",
+            "/nix/store/kvrd49dfkadaw6iik004pdyrjrvy9fm7-bash-interactive-5.1-p16",
+            "/nix/store/makx8xb122d0ildfqbc00hgj8393wm1n-curl-7.86.0-bin",
+            "/nix/store/mflryjc3aflsfsgarvlpp69q89qbpchm-getent-getent-netbsd-9.2",
+            "/nix/store/n022v0nm8ypgibkh9l4vbqhrjckwfplc-dasel-1.27.3",
+            "/nix/store/nran2s5ihfjmpvhf832dqz3msr73hbhc-gnugrep-3.7",
+            "/nix/store/pl497357lkfpvdr8v4pfan16k7jna2l2-nss-cacert-3.83",
+            "/nix/store/qzar1xgvxlbm9k8ip7yqaicf8f02rsps-jq-1.6-bin",
+            "/nix/store/r5dzspgg00v7676jj4i8i8q23nl0rb7r-gh-2.20.2",
+            "/nix/store/rzhswbp88206cjl2q4p4k2jhk88si883-git-minimal-2.38.1",
+            "/nix/store/v6ihvpa7b1mj58sbimfqyrg205mrd7xv-gnused-4.8",
+            "/nix/store/v8y9sd43ygc27x4808asaymbk5nn4ild-coreutils-9.1",
+            "/nix/store/v9rpags3ciy01rxpslxpq0qcvaxy2gf6-diffutils-3.8",
+            "/nix/store/vx27vap4ddbvf6anmzfk23a3gy8pw789-parallel-20220322"
           ],
-          "url": "nar/00170jm0rlwd0jda8yl7k9abv0y0cg5979m470al7ws7k82hv7sw.nar.xz",
+          "url": "nar/0n5fd4qpy1gms29rgcz5f30gm31vm9nrp998jxpqd3igvk9m9nr1.nar.xz",
           "valid": true
         }
       ],
@@ -55,9 +55,9 @@
       "flox"
     ],
     "storePaths": [
-      "/nix/store/qvfslp3zix6zv2bl56lgbw9dld9zpw8q-flox-0.0.7-r76"
+      "/nix/store/4haql7b2inwrj25cs7p6sj5n8mbkx3fp-flox-0.0.7-r76"
     ],
-    "url": "git+ssh://git@github.com/flox/floxpkgs-internal?ref=master&rev=06ba389d39d4f0db00b024dc3af2a4d0d01b2dd8"
+    "url": "git+ssh://git@github.com/flox/floxpkgs-internal?ref=master&rev=3b9af8f9fa43cc7cfb488702c7d92d9bd557ddb8"
   },
   "eval": {
     "attrPath": [
@@ -65,7 +65,7 @@
       "aarch64-darwin",
       "flox"
     ],
-    "drvPath": "/nix/store/8wq7fraaqsg4zyivpi36w95y589my1sv-flox-0.0.7-r76.drv",
+    "drvPath": "/nix/store/h1dm58g3p35aw1qd7mv6x8x54snwl0k5-flox-0.0.7-r76.drv",
     "meta": {
       "available": true,
       "broken": false,
@@ -83,7 +83,7 @@
       "flox"
     ],
     "outputs": {
-      "out": "/nix/store/qvfslp3zix6zv2bl56lgbw9dld9zpw8q-flox-0.0.7-r76"
+      "out": "/nix/store/4haql7b2inwrj25cs7p6sj5n8mbkx3fp-flox-0.0.7-r76"
     },
     "pname": "flox",
     "stability": "staging",
@@ -92,23 +92,23 @@
   },
   "source": {
     "locked": {
-      "lastModified": 1669990250,
-      "narHash": "sha256-BbqHaFKtY5lUIuJPJtemkIDKMtdKcctsVyOO618kcmk=",
+      "lastModified": 1670076720,
+      "narHash": "sha256-xho+7WMagdCHF0Vf89eEqESBWAAUom4BFTwccMMAHtA=",
       "ref": "master",
-      "rev": "06ba389d39d4f0db00b024dc3af2a4d0d01b2dd8",
-      "revCount": 879,
+      "rev": "3b9af8f9fa43cc7cfb488702c7d92d9bd557ddb8",
+      "revCount": 885,
       "type": "git",
       "url": "ssh://git@github.com/flox/floxpkgs-internal"
     },
     "original": {
       "ref": "master",
-      "rev": "06ba389d39d4f0db00b024dc3af2a4d0d01b2dd8",
+      "rev": "3b9af8f9fa43cc7cfb488702c7d92d9bd557ddb8",
       "type": "git",
       "url": "ssh://git@github.com/flox/floxpkgs-internal"
     },
     "remote": {
       "ref": "master",
-      "rev": "06ba389d39d4f0db00b024dc3af2a4d0d01b2dd8",
+      "rev": "3b9af8f9fa43cc7cfb488702c7d92d9bd557ddb8",
       "type": "git",
       "url": "ssh://git@github.com/flox/floxpkgs-internal"
     }
