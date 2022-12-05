@@ -47,21 +47,21 @@ with lib; {
         mapAttrsToList (n: v: ''export ${n}="${concatStringsSep ":" v}"'') allValuesLists;
     in
       concatStringsSep "\n" exportVariables;
-      activateScript = pkgs.writeTextFile {
-        name =  "activate";
-        executable = true;
-        destination = "/activate";
-        text = ''
-          ${exportedEnvVars}
+    activateScript = pkgs.writeTextFile {
+      name = "activate";
+      executable = true;
+      destination = "/activate";
+      text = ''
+        ${exportedEnvVars}
 
-          ${stringAliases}
+        ${stringAliases}
 
-          ${config.shell.hook}
-        '';
-      };
+        ${config.shell.hook}
+      '';
+    };
   in {
     toplevel = pkgs.callPackage ../../lib/mkEnv.nix {} {
-      packages = config.environment.systemPackages ++ [ config.newCatalogPath activateScript ];
+      packages = config.environment.systemPackages ++ [config.newCatalogPath activateScript];
     };
   };
 }
