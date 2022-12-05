@@ -44,7 +44,7 @@ with lib; {
       allValuesLists =
         mapAttrs (n: toList) config.variables;
       exportVariables =
-        mapAttrsToList (n: v: ''export ${n}="${concatStringsSep ":" v}"'') allValuesLists;
+        mapAttrsToList (n: v: ''export ${n}=${escapeShellArg (concatStringsSep ":" v)}'') allValuesLists;
     in
       concatStringsSep "\n" exportVariables;
     activateScript = pkgs.writeTextFile {
