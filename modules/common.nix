@@ -68,12 +68,21 @@
       then {}
       else builtins.fromJSON (builtins.readFile config.catalogPath);
 
-    getCatalogPath = channelName: packageName: packageConfig: [
+    getCatalogPath = channelName: packageName: packageConfig: let
+      version =
+        if packageConfig ? version
+        then
+          builtins.replaceStrings
+          ["."]
+          ["_"]
+          packageConfig.version
+        else "latest";
+    in [
       channelName
       system
       packageConfig.stability or "stable"
       packageName
-      packageConfig.version or "latest"
+      version
     ];
 
     newFakeCatalog =
@@ -152,7 +161,7 @@
     newCatalogPath = pkgs.writeTextFile {
       name = "catalog.json";
       destination = "/catalog.json";
-      text = (builtins.unsafeDiscardStringContext (builtins.toJSON newCatalog));
+      text = builtins.unsafeDiscardStringContext (builtins.toJSON newCatalog);
     };
 
     system.path = pkgs.buildEnv {
