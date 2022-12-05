@@ -20,8 +20,9 @@ in
 
     buildInputs = [ mix2nix elixir ];
 
-    # At the root of your project directory, run "mix2nix > deps.nix" to create this file.
-    mixNixDeps = import ./../../deps.nix { inherit lib beamPackages; };
+    # At the root of your project directory, run "mix2nix > deps.nix" to create the deps.nix file.
+    # Then, uncomment the mixNixDeps line below.
+    #mixNixDeps = import ./../../deps.nix { inherit lib beamPackages; };
 
     # for phoenix framework you can uncomment the lines below
     # for external task you need a workaround for the no deps check flag
