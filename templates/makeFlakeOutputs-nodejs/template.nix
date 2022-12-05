@@ -1,0 +1,1 @@
+{description = "Nodejs package template";}
