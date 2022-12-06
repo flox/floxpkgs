@@ -9,17 +9,22 @@
 }: let
   materialize = lib.capacitor.capacitate.capacitate.materialize;
 in
-  {
-    context,
-    ...
-  }: let
+  {context, ...}: let
     floxEnvsMapper = context: {
       namespace,
       system,
       outerPath,
       ...
     }: let
-      floxEnvDir = builtins.concatStringsSep "/" ([context.self.outPath dir] ++ outerPath);
+      floxEnvDir = let
+        # if dir is a string, assume that it's in the root flake. If it's a path, leave as is (which
+        # supports flakes in sub-directories)
+        fullDir =
+          if builtins.isPath dir
+          then [dir]
+          else [context.self.outPath dir];
+      in
+        builtins.concatStringsSep "/" (fullDir ++ outerPath);
       floxNixPath = "${floxEnvDir}/flox.nix";
       catalogPath = "${floxEnvDir}/catalog.json";
     in {
