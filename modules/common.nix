@@ -68,7 +68,15 @@
       then {}
       else builtins.fromJSON (builtins.readFile config.catalogPath);
 
-    getCatalogPath = channelName: packageName: packageConfig: let
+    getCatalogPath = channelName: packageName: packageConfig: [
+      channelName
+      system
+      packageConfig.stability or "stable"
+      packageName
+      packageConfig.version or "latest"
+    ];
+
+    getEvalCatalogPath = packageName: packageConfig: let
       version =
         if packageConfig ? version
         then
@@ -78,7 +86,6 @@
           packageConfig.version
         else "latest";
     in [
-      channelName
       system
       packageConfig.stability or "stable"
       packageName
@@ -132,11 +139,12 @@
             catalogPath = getCatalogPath channelName packageAttrSet.name packageAttrSet.value;
           in let
             catalogPathWithoutChannel = builtins.tail catalogPath;
+            evalCatalogPath = getEvalCatalogPath packageAttrSet.name packageAttrSet.value;
           in
             # this function returns just the entries for this channel, and the caller adds channelName to the complete catalog
             lib.setAttrByPath catalogPathWithoutChannel (
-              if lib.hasAttrByPath catalogPathWithoutChannel channelEvalCatalog
-              then lib.getAttrFromPath catalogPathWithoutChannel channelEvalCatalog
+              if lib.hasAttrByPath evalCatalogPath channelEvalCatalog
+              then lib.getAttrFromPath evalCatalogPath channelEvalCatalog
               else throw "Channel ${channelName} does not contain ${builtins.concatStringsSep "." catalogPathWithoutChannel}"
             )
         )
