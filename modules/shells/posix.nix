@@ -62,6 +62,7 @@ with lib; {
   in {
     toplevel = pkgs.callPackage ../../lib/mkEnv.nix {} {
       packages = config.environment.systemPackages ++ [config.newCatalogPath activateScript];
+      manifestPath = config.manifestPath;
     };
   };
 }
