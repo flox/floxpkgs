@@ -3,20 +3,18 @@
 # Running this utility will produce the `gradle-env.nix` and `gradle-env.json` needed for `flox build` and `flox develop`
 # to succeed with this project. See the How-to Guides/Language Guides section of https://beta.floxdev.com/docs/ for
 # more details
-{
-  self,
+{ self,
   callPackage,
   pkgs,
   ...
 }: let
-  buildGradle = callPackage self + "/gradle-env.nix" {};
+  buildGradle = callPackage ../../gradle-env.nix {};
   src = self;
 in
   buildGradle {
     pname = "my-package";
-    buildInputs = [gradle openjdk];
     nativeBuildInputs = with pkgs; [makeWrapper openjdk];
-    envSpec = src + "/gradle-env.json";
+    envSpec = ../../gradle-env.json;
     src = self;
     gradleFlags = ["distTar"];
 
@@ -30,3 +28,4 @@ in
       popd
     '';
   }
+
