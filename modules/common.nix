@@ -164,7 +164,36 @@
       lib.mapAttrsRecursiveCond (x: ! (lib.isDerivation x))
       (_: fakeDerivation: fakeDerivation.meta.element or "this catalog doesn't add element to meta")
       newFakeCatalog;
+    # turn packagesList into a backwards compatible manifest.json
+    manifestJSON = builtins.toJSON {
+      version = 2;
+      elements =
+      lib.flatten
+        (lib.mapAttrsToList (
+          _: systemPackages:
+            lib.mapAttrsToList (system: stabilityPackages:
+              lib.mapAttrsToList (
+                stability: packagePackages:
+                  lib.mapAttrsToList (
+                    package: versionPackages:
+                      lib.mapAttrsToList (
+                        version: fakeDerivation: {
+                          inherit (fakeDerivation.meta.element.element) originalUrl url outputs storePaths;
+                          active = true;
+                          attrPath = lib.concatStringsSep "." ["evalCatalog" system stability package];
+                        }
+                      )
+                      versionPackages
+                  )
+                  packagePackages
+              )
+              stabilityPackages)
+            systemPackages
+        )
+        newFakeCatalog);
+    };
   in {
+    manifestPath = builtins.toFile "profile" manifestJSON;
     environment.systemPackages = packagesList;
     newCatalogPath = pkgs.writeTextFile {
       name = "catalog.json";

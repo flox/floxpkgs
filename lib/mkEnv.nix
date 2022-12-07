@@ -31,6 +31,7 @@ args@{ name ? "floxShell"
 , meta ? { }
 , passthru ? { }
 , env ? {}
+, manifestPath
 , ...
 }:
 # TODO: let packages' = if builtins.isList builtins.isSet
@@ -41,6 +42,7 @@ let rest = builtins.removeAttrs args [
   "meta"
   "passthru"
   "env"
+  "manifestPath"
 ];
   envToBash = name: value: "export ${name}=${lib.escapeShellArg (toString value)}";
   envBash = writeTextDir "env.bash" ''
@@ -57,16 +59,11 @@ let rest = builtins.removeAttrs args [
           manifest = "/dummy";
           derivations = map (x: ["true" 5 1 x]) args.packages;
         };
-        manifestJSON  = builtins.toJSON {
-          elements = map (v: v.element or {storePaths=[(builtins.unsafeDiscardStringContext v)];}) args.packages;
-          version= 2;
-        };
-       manifestFile = builtins.toFile "profile" manifestJSON;
        manifest = derivation {
           name = "profile";
           inherit system;
           builder = "/bin/sh";
-          args = ["-c" "echo ${env}; ${coreutils}/bin/mkdir $out; ${coreutils}/bin/cp ${manifestFile} $out/manifest.json"];
+          args = ["-c" "echo ${env}; ${coreutils}/bin/mkdir $out; ${coreutils}/bin/cp ${manifestPath} $out/manifest.json"];
         };
     in
         buildEnv ({
