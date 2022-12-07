@@ -14,6 +14,7 @@
 in
   buildGradle {
     pname = "my-package";
+    buildInputs = [gradle openjdk];
     nativeBuildInputs = with pkgs; [makeWrapper openjdk];
     envSpec = src + "/gradle-env.json";
     src = self;
