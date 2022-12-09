@@ -170,7 +170,7 @@
       elements =
         lib.flatten
         (lib.mapAttrsToList (
-            _: systemPackages:
+            channel: systemPackages:
               lib.mapAttrsToList (system: stabilityPackages:
                 lib.mapAttrsToList (
                   stability: packagePackages:
@@ -178,9 +178,10 @@
                       package: versionPackages:
                         lib.mapAttrsToList (
                           version: fakeDerivation: {
-                            inherit (fakeDerivation.meta.element.element) originalUrl url outputs storePaths;
+                            inherit (fakeDerivation.meta.element.element) url outputs storePaths;
                             active = true;
                             attrPath = lib.concatStringsSep "." ["evalCatalog" system stability package];
+                            originalUrl = "flake:${channel}";
                           }
                         )
                         versionPackages
