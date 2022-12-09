@@ -63,6 +63,9 @@
   };
 
   config = let
+    # helper
+    notDerivation = x: ! (lib.isDerivation x);
+
     catalog =
       if config.catalogPath == null
       then {}
@@ -155,16 +158,38 @@
       {}
       (alreadyInCatalog ++ fromChannel);
 
+    # we could check uniqueness in O(n log n) by first sorting all elements by storePaths, but I don't think that's
+    # worth my time at the moment
+    uniqueFakeCatalog =
+      lib.mapAttrsRecursiveCond notDerivation (
+        attrPath1: fakeDerivation1:
+        # we need to throw if fakeDerivation1 is not unique, but if it is unique, we don't need the
+        # result of this computation, so use deepSeq
+          builtins.deepSeq (lib.mapAttrsRecursiveCond notDerivation (
+              attrPath2: fakeDerivation2:
+                if attrPath1 == attrPath2
+                then null
+                else if
+                  (builtins.sort builtins.lessThan fakeDerivation1.meta.element.element.storePaths)
+                  == (builtins.sort builtins.lessThan fakeDerivation2.meta.element.element.storePaths)
+                then throw "package ${builtins.concatStringsSep "." attrPath1} is identical to package ${builtins.concatStringsSep "." attrPath2}"
+                else null
+            )
+            newFakeCatalog)
+          fakeDerivation1
+      )
+      newFakeCatalog;
+
     # extract a list of fake derivations
     packagesList =
-      lib.collect lib.isDerivation newFakeCatalog;
+      lib.collect lib.isDerivation uniqueFakeCatalog;
 
     # get rid of the fake derivations; we just need meta.element
     newCatalog =
-      lib.mapAttrsRecursiveCond (x: ! (lib.isDerivation x))
+      lib.mapAttrsRecursiveCond notDerivation
       (_: fakeDerivation: fakeDerivation.meta.element or "this catalog doesn't add element to meta")
-      newFakeCatalog;
-    # turn newFakeCatalog into a backwards compatible manifest.json
+      uniqueFakeCatalog;
+    # turn uniqueFakeCatalog into a backwards compatible manifest.json
     manifestJSON = builtins.toJSON {
       version = 2;
       elements =
@@ -191,7 +216,7 @@
                 stabilityPackages)
               systemPackages
           )
-          newFakeCatalog);
+          uniqueFakeCatalog);
     };
   in {
     manifestPath = builtins.toFile "profile" manifestJSON;
