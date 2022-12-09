@@ -3,6 +3,7 @@
   config,
   lib,
   pkgs,
+  self,
   ...
 }:
 with lib; {
@@ -60,7 +61,8 @@ with lib; {
       '';
     };
   in {
-    toplevel = pkgs.callPackage ../../lib/mkEnv.nix {} {
+    toplevel = self.lib.mkEnv {
+      inherit pkgs;
       packages = config.environment.systemPackages ++ [config.newCatalogPath activateScript];
       manifestPath = config.manifestPath;
     };
