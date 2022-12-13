@@ -44,7 +44,7 @@
   ];
 
   passthru.project = args: config:
-    inputs.capacitor args (
+    inputs.capacitor ({ nixpkgs = inputs.nixpkgs; } // args) (
       context:
         lib.recursiveUpdate {
           config.plugins = inputs.capacitor.defaultPlugins ++ self.defaultPlugins;
