@@ -139,10 +139,11 @@ in
           export SHELL=${bashPath}
         fi
         # Load the environment
+        if [ -f "${profile}/env.bash" ]; then
+          source "${profile}/env.bash"
+        fi
         if [ -f "${profile}/activate" ]; then
           source "${profile}/activate"
-        elif [ -f "${profile}/env.bash" ]; then
-          source "${profile}/env.bash"
         fi
       '';
     }

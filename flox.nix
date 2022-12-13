@@ -37,6 +37,10 @@
   passthru.defaultPlugins = [
     (inputs.capacitor.plugins.allLocalResources {})
     (import ./plugins/catalog.nix {inherit self lib;} {})
+    (import ./plugins/floxEnvs.nix {inherit self lib;} {
+      sourceType="packages";
+      dir="pkgs";
+    })
   ];
 
   passthru.project = args: config:
