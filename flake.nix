@@ -38,6 +38,5 @@ rec {
   inputs.builtfilter.inputs.capacitor.follows = "capacitor";
   # =================================
 
-  nixConfig.bash-prompt = "[flox] \\[\\033[38;5;172m\\]λ \\[\\033[0m\\]";
   outputs = args @ {capacitor, ...}: capacitor args (import ./flox.nix);
 }
