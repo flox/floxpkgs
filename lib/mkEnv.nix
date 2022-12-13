@@ -60,7 +60,7 @@ let
       builder = "builtin:buildenv";
       inherit system;
       manifest = "/dummy";
-      derivations = map (x: ["true" 5 1 x]) args.packages;
+      derivations = map (x: ["true" (x.meta.priority or 5) 1 x]) args.packages;
     };
     manifestJSON = builtins.toJSON {
       elements =
@@ -74,7 +74,7 @@ let
               // {
                 active = true;
                 attrPath = builtins.concatStringsSep "." el.attrPath;
-                priority = 5;
+                priority = v.meta.priority or 5;
               }
             else {
               active = true;
