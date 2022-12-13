@@ -10,7 +10,7 @@
   meta ? {},
   passthru ? {},
   env ? {},
-  manifestPath,
+  manifestPath ? null,
   pkgs,
   ...
 }:
@@ -62,11 +62,41 @@ let
       manifest = "/dummy";
       derivations = map (x: ["true" 5 1 x]) args.packages;
     };
+    manifestJSON = builtins.toJSON {
+      elements =
+        map (
+          v:
+            if v ? meta.element.element
+            then let
+              el = v.meta.element.element;
+            in
+              el
+              // {
+                active = true;
+                attrPath = builtins.concatStringsSep "." el.attrPath;
+                priority = 5;
+              }
+            else {
+              active = true;
+              storePaths = [(builtins.unsafeDiscardStringContext v)];
+            }
+        )
+        args.packages;
+      version = 2;
+    };
+    manifestFile = builtins.toFile "profile" manifestJSON;
     manifest = derivation {
       name = "profile";
       inherit system;
       builder = "/bin/sh";
-      args = ["-c" "echo ${env}; ${coreutils}/bin/mkdir $out; ${coreutils}/bin/cp ${manifestPath} $out/manifest.json"];
+      args = [
+        "-c"
+        "echo ${env}; ${coreutils}/bin/mkdir $out; ${coreutils}/bin/cp ${
+          if manifestPath == null
+          then manifestFile
+          else manifestPath
+        } $out/manifest.json"
+      ];
     };
   in
     buildEnv ({
