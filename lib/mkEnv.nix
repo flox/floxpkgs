@@ -87,6 +87,7 @@ let
       mkdir -p "$projectRoot/.flox"
 
       # Create symlink with gc and generations in .flox/
+      rm -f "$projectRoot"/.flox/default* || true
       nix --no-warn-dirty build @DEVSHELL_DIR@ --profile "$projectRoot/.flox/default"
       # Create mutable path
       export PATH="$projectRoot/.flox/default/bin:$PATH"
