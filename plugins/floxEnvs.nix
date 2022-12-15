@@ -16,6 +16,7 @@ in
       outerPath,
       ...
     }: let
+      path = [system] ++ namespace;
       floxEnvDir = let
         # if dir is a string, assume that it's in the root flake. If it's a path, leave as is (which
         # supports flakes in sub-directories)
@@ -32,10 +33,11 @@ in
       # for now just treat flox.nix as a module, although at some point we might want to do something like
       # context.auto.callPackageWith injectedArgs floxNixPath {};
       value = self.lib.mkFloxEnv {
-        inherit system;
+        inherit system context;
+        attrPath = path;
         modules = [floxNixPath] ++ lib.optional (builtins.pathExists catalogPath) {inherit catalogPath;};
       };
-      path = [system] ++ namespace;
+      inherit path;
     };
     result = materialize (floxEnvsMapper context) (context.closures sourceType);
   in {

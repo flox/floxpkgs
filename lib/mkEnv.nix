@@ -5,13 +5,16 @@
 }: args @ {
   name ? "floxShell",
   # A path to a buildEnv that will be loaded by the shell.
-  # We assume that the buildEnv contains an ./env.bash script.
+  # We assume that the buildEnv contains an ./activate script.
   packages ? [],
   meta ? {},
   passthru ? {},
   env ? {},
+  aliases ? {},
   manifestPath ? null,
   pkgs,
+  attrPath ? [],
+  context ? null,
   ...
 }:
 # TODO: let packages' = if builtins.isList builtins.isSet
@@ -45,14 +48,54 @@ let
     "meta"
     "passthru"
     "env"
+    "aliases"
     "manifestPath"
     "pkgs"
+    "postShellHook"
+    "context"
+    "attrPath"
   ];
   envToBash = name: value: "export ${name}=${lib.escapeShellArg (toString value)}";
-  envBash = writeTextDir "env.bash" ''
+
+  stringAliases = builtins.concatStringsSep "\n" (
+    lib.mapAttrsFlatten (k: v: "alias ${k}=${lib.escapeShellArg v}")
+    (lib.filterAttrs (k: v: v != null) aliases)
+  );
+
+  exportedEnvVars = let
+    allValuesLists =
+      lib.mapAttrs (n: lib.toList) args.env;
+    exportVariables =
+      lib.mapAttrsToList (n: v: ''export ${n}=${lib.escapeShellArg (lib.concatStringsSep ":" v)}'') allValuesLists;
+  in
+    builtins.concatStringsSep "\n" exportVariables;
+
+  envBash = writeTextDir "activate" ''
     export PATH="@DEVSHELL_DIR@/bin:$PATH"
-    ${builtins.concatStringsSep "\n" (builtins.attrValues (builtins.mapAttrs envToBash (args.env or {})))}
+
+    ${stringAliases}
+
+    ${exportedEnvVars}
+
     ${args.postShellHook or ""}
+
+    # TODO: assumes git and subflakes will require a correction
+    projectRoot="$(git rev-parse --show-toplevel || true)"
+
+    # Ensure we are in the project directory in question
+    if [ -n "$projectRoot" ] && [ "${context.self.outPath or ""}" == "$(nix --no-warn-dirty eval .#__reflect.context.self.outPath --raw 2>/dev/null )" ]; then
+      mkdir -p "$projectRoot/.flox"
+
+      # Create symlink with gc and generations in .flox/
+      nix --no-warn-dirty build @DEVSHELL_DIR@ --profile "$projectRoot/.flox/default"
+      # Create mutable path
+      export PATH="$projectRoot/.flox/default/bin:$PATH"
+
+      # behind a flag due to PATH ordering issues
+      if [ -n "$FLOX_LAYERED" ]; then
+        exec flox develop ".#packages.${builtins.concatStringsSep "." attrPath}"
+      fi
+    fi
   '';
   profile = let
     env = derivation {
@@ -104,7 +147,7 @@ let
         paths = args.packages ++ [manifest envBash];
 
         postBuild = ''
-          rm $out/env.bash ; substitute ${envBash}/env.bash $out/env.bash --subst-var-by DEVSHELL_DIR $out
+          rm $out/activate ; substitute ${envBash}/activate $out/activate --subst-var-by DEVSHELL_DIR $out
           ${args.postBuild or ""}
         '';
       }
@@ -139,9 +182,6 @@ in
           export SHELL=${bashPath}
         fi
         # Load the environment
-        if [ -f "${profile}/env.bash" ]; then
-          source "${profile}/env.bash"
-        fi
         if [ -f "${profile}/activate" ]; then
           source "${profile}/activate"
         fi
@@ -149,5 +189,17 @@ in
     }
     // rest
     // (args.env or {})))
-  // {inherit meta passthru;}
+  // {
+    inherit meta passthru;
+    packages = builtins.listToAttrs (builtins.map (p: {
+      # Seems like the catalog has some "null" names
+      name = let
+        n = p.pname or p.name or "unamed";
+      in
+        if n == null
+        then "unamed"
+        else n;
+      value = p;
+    }) (args.packages or []));
+  }
   // passthru

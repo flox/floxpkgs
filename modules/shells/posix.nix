@@ -4,6 +4,8 @@
   lib,
   pkgs,
   self,
+  context,
+  attrPath,
   ...
 }:
 with lib; {
@@ -34,36 +36,13 @@ with lib; {
     };
   };
 
-  config = let
-    stringAliases = concatStringsSep "\n" (
-      mapAttrsFlatten (k: v: "alias ${k}=${escapeShellArg v}")
-      (filterAttrs (k: v: v != null) config.shell.aliases)
-    );
-
-    exportedEnvVars = let
-      # make foo = "bar" -> foo = ["bar"]
-      allValuesLists =
-        mapAttrs (n: toList) config.variables;
-      exportVariables =
-        mapAttrsToList (n: v: ''export ${n}=${escapeShellArg (concatStringsSep ":" v)}'') allValuesLists;
-    in
-      concatStringsSep "\n" exportVariables;
-    activateScript = pkgs.writeTextFile {
-      name = "activate";
-      executable = true;
-      destination = "/activate";
-      text = ''
-        ${exportedEnvVars}
-
-        ${stringAliases}
-
-        ${config.shell.hook}
-      '';
-    };
-  in {
+  config = {
     toplevel = self.lib.mkEnv {
-      inherit pkgs;
-      packages = config.environment.systemPackages ++ [config.newCatalogPath activateScript];
+      inherit pkgs context attrPath;
+      env = config.variables or {};
+      aliases = config.shell.aliases or {};
+      postShellHook = config.shell.hook or "";
+      packages = config.environment.systemPackages ++ [config.newCatalogPath];
       manifestPath = config.manifestPath;
     };
   };
