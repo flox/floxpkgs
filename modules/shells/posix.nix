@@ -6,6 +6,10 @@
   self,
   ...
 }:
+let
+  escapeShellArg' = arg: "\"${lib.replaceStrings ["'"] ["'\\''"] (toString arg)}\"";
+
+in
 with lib; {
   # common options for POSIX compatible shells
   options = {
@@ -36,7 +40,7 @@ with lib; {
 
   config = let
     stringAliases = concatStringsSep "\n" (
-      mapAttrsFlatten (k: v: "alias ${k}=${escapeShellArg v}")
+      mapAttrsFlatten (k: v: "alias ${k}=${escapeShellArg' v}")
       (filterAttrs (k: v: v != null) config.shell.aliases)
     );
 
@@ -45,7 +49,7 @@ with lib; {
       allValuesLists =
         mapAttrs (n: toList) config.environmentVariables;
       exportVariables =
-        mapAttrsToList (n: v: ''export ${n}=${escapeShellArg (concatStringsSep ":" v)}'') allValuesLists;
+        mapAttrsToList (n: v: ''export ${n}=${escapeShellArg' (concatStringsSep ":" v)}'') allValuesLists;
     in
       concatStringsSep "\n" exportVariables;
     activateScript = pkgs.writeTextFile {
