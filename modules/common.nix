@@ -158,12 +158,9 @@
 
     # partially apply generateFakeCatalog to the appropriate getters
     packagesWithDerivation =
-      builtins.concatLists (lib.mapAttrsToList (getDerivationsForPackages getFlakeCatalogPath getFlakeFlakePath) groupedChannels.flakes)
-      ++ builtins.concatLists (lib.mapAttrsToList (getDerivationsForPackages getChannelCatalogPath getChannelFlakePath) groupedChannels.channels);
-    storePaths =
-      if groupedChannels ? storePaths
-      then builtins.attrNames groupedChannels.storePaths
-      else [];
+      builtins.concatLists (lib.mapAttrsToList (getDerivationsForPackages getFlakeCatalogPath getFlakeFlakePath) (groupedChannels.flakes or {}))
+      ++ builtins.concatLists (lib.mapAttrsToList (getDerivationsForPackages getChannelCatalogPath getChannelFlakePath) (groupedChannels.channels or {}));
+    storePaths = builtins.attrNames (groupedChannels.storePaths or {});
 
     getDerivationsForPackages = catalogPathGetter: flakePathGetter: channelName: channelPackages: let
       # in order to support nested packages, we have to recurse until no attributes are attribute
@@ -242,6 +239,7 @@
         # we need to throw if packageWithDerivation1 is not unique, but if it is unique, we don't need the
         # result of this computation, so use deepSeq
         # compare against all packages from flakes and channels
+        # TODO use genericClosure instead?
           builtins.deepSeq (builtins.map (
               packageWithDerivation2:
                 if packageWithDerivation1.attrPath == packageWithDerivation2.attrPath
