@@ -85,7 +85,7 @@
         packageConfig.version or "latest"
       ];
 
-    getChannelFlakePath = packageAttrPath: packageConfig: let
+    getChannelFlakePaths = packageAttrPath: packageConfig: let
       version =
         if packageConfig ? version
         then [
@@ -94,16 +94,18 @@
           ["_"]
           packageConfig.version
         ]
-        # TODO confirm we don't need latest
         else [];
-    in
-      [
-        "evalCatalog"
-        system
-        packageConfig.stability or "stable"
-      ]
-      ++ packageAttrPath
-      ++ version;
+    in [
+      (
+        [
+          "evalCatalog"
+          system
+          packageConfig.stability or "stable"
+        ]
+        ++ packageAttrPath
+        ++ version
+      )
+    ];
 
     getFlakeCatalogPath = channelName: packageAttrPath: _:
       [
@@ -112,12 +114,18 @@
       ]
       ++ packageAttrPath;
 
-    getFlakeFlakePath = packageAttrPath: _:
-      [
-        "legacyPackages"
-        system
-      ]
-      ++ packageAttrPath;
+    getFlakeFlakePaths = packageAttrPath: _: [
+      ([
+          "packages"
+          system
+        ]
+        ++ packageAttrPath)
+      ([
+          "legacyPackages"
+          system
+        ]
+        ++ packageAttrPath)
+    ];
 
     # utility function - should be in lib?
     # f is a function that takes a name and value and returns a string categorizing that name and
@@ -157,12 +165,14 @@
       config.packages;
 
     # partially apply generateFakeCatalog to the appropriate getters
+    channelPackagesWithDerivation =
+      builtins.concatLists (lib.mapAttrsToList (getDerivationsForPackages getChannelCatalogPath getChannelFlakePaths) (groupedChannels.channels or {}));
     packagesWithDerivation =
-      builtins.concatLists (lib.mapAttrsToList (getDerivationsForPackages getFlakeCatalogPath getFlakeFlakePath) (groupedChannels.flakes or {}))
-      ++ builtins.concatLists (lib.mapAttrsToList (getDerivationsForPackages getChannelCatalogPath getChannelFlakePath) (groupedChannels.channels or {}));
+      channelPackagesWithDerivation
+      ++ builtins.concatLists (lib.mapAttrsToList (getDerivationsForPackages getFlakeCatalogPath getFlakeFlakePaths) (groupedChannels.flakes or {}));
     storePaths = builtins.attrNames (groupedChannels.storePaths or {});
 
-    getDerivationsForPackages = catalogPathGetter: flakePathGetter: channelName: channelPackages: let
+    getDerivationsForPackages = catalogPathGetter: flakePathsGetter: channelName: channelPackages: let
       # in order to support nested packages, we have to recurse until no attributes are attribute
       # sets, or there is a "config" attribute set
       isNotPackageConfig = attrs: ! attrs ? "config" && builtins.any (value: builtins.isAttrs value) (builtins.attrValues attrs);
@@ -185,7 +195,7 @@
       partitioned =
         builtins.partition (
           packageAttrSet:
-            lib.hasAttrByPath (catalogPathGetter channelName packageAttrSet.attrPath packageAttrSet.value) catalog
+            lib.hasAttrByPath (catalogPathGetter channelName packageAttrSet.attrPath packageAttrSet.packageConfig) catalog
         )
         packageAttrSetsList;
 
@@ -199,7 +209,7 @@
             catalogData = derivation.meta.element;
             inherit (packageAttrSet) attrPath;
             inherit channelName catalogPath;
-            flakePath = flakePathGetter packageAttrSet.attrPath packageAttrSet.packageConfig;
+            manifestAttrPath = lib.concatStringsSep "." catalogData.element.attrPath;
           }
         )
         partitioned.right;
@@ -209,21 +219,38 @@
         builtins.map (
           packageAttrSet: let
             catalogPath = catalogPathGetter channelName packageAttrSet.attrPath packageAttrSet.packageConfig;
-            flakePath = flakePathGetter packageAttrSet.attrPath packageAttrSet.packageConfig;
+            flakePaths = flakePathsGetter packageAttrSet.attrPath packageAttrSet.packageConfig;
+            # find the first flake path that exists in fetchedFlake
+            flakePath = let
+              maybeFlakePath =
+                builtins.foldl' (
+                  foundFlakePath: flakePath:
+                    if foundFlakePath != []
+                    then foundFlakePath
+                    else if lib.hasAttrByPath flakePath fetchedFlake
+                    then flakePath
+                    else []
+                ) []
+                flakePaths;
+            in
+              if maybeFlakePath != []
+              then maybeFlakePath
+              else let
+                flakePathsToPrint = builtins.concatStringsSep " or " (builtins.map (flakePath: builtins.concatStringsSep "." flakePath) flakePaths);
+              in
+                throw "Channel ${channelName} does not contain ${flakePathsToPrint}";
           in
             # this function returns just the entries for this channel, and the caller adds channelName to the complete catalog
             rec {
-              derivation =
-                if lib.hasAttrByPath flakePath fetchedFlake
-                then lib.getAttrFromPath flakePath fetchedFlake
-                else throw "Channel ${channelName} does not contain ${builtins.concatStringsSep "." flakePath}";
+              derivation = lib.getAttrFromPath flakePath fetchedFlake;
               catalogData =
                 if derivation ? meta.element
                 then derivation.meta.element
                 # todo readPackage
                 else null;
               inherit (packageAttrSet) attrPath;
-              inherit channelName catalogPath flakePath;
+              inherit channelName catalogPath;
+              manifestAttrPath = lib.concatStringsSep "." flakePath;
             }
         )
         partitioned.wrong;
@@ -284,7 +311,8 @@
           lib.setAttrByPath
           packageWithDerivation.catalogPath
           packageWithDerivation.catalogData)
-        packagesWithDerivation);
+        # TODO add flake packages
+        channelPackagesWithDerivation);
 
     # For flake:
     # {
@@ -314,9 +342,13 @@
     packageManifestElements = builtins.map (packageWithDerivation:
       {
         active = true;
-        attrPath = lib.concatStringsSep "." packageWithDerivation.flakePath;
-        # TODO conditionally add flake:
-        originalUrl = "flake:${packageWithDerivation.channelName}";
+        attrPath = packageWithDerivation.manifestAttrPath;
+        originalUrl = let
+          channel = packageWithDerivation.channelName;
+        in
+          if builtins.length (lib.splitString ":" channel) > 1
+          then channel
+          else "flake:${channel}";
       }
       // (
         if packageWithDerivation.catalogData != null
