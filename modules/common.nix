@@ -273,6 +273,7 @@
     # extract a list of derivations
     packagesList =
       builtins.map (packageWithDerivation: packageWithDerivation.derivation) uniquePackagesWithDerivation
+      # types.package calls builtins.storePath
       ++ storePaths;
 
     # store paths are not added to the catalog
