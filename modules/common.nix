@@ -89,10 +89,12 @@
       version =
         if packageConfig ? version
         then [
-          builtins.replaceStrings
-          ["."]
-          ["_"]
-          packageConfig.version
+          (
+            builtins.replaceStrings
+            ["."]
+            ["_"]
+            packageConfig.version
+          )
         ]
         else [];
     in [
