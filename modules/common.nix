@@ -152,6 +152,9 @@
       )
       listWithKeys;
 
+    # do this here so we don't fetch it for every package we need it
+    catalog-ingest = builtins.getFlake "${builtins.unsafeDiscardStringContext self.inputs.flox}/lib/catalog-ingest";
+
     groupedChannels =
       groupAttrSetBy (
         channelName: _:
@@ -206,11 +209,11 @@
           packageAttrSet: let
             catalogPath = catalogPathGetter channelName packageAttrSet.attrPath packageAttrSet.packageConfig;
           in rec {
-            derivation =
+            drv =
               self.lib.mkFakeDerivation (lib.getAttrFromPath catalogPath catalog);
-            catalogData = derivation.meta.element;
+            catalogData = drv.meta.element;
             inherit (packageAttrSet) attrPath;
-            inherit channelName catalogPath;
+            inherit catalogPath;
             manifestAttrPath = lib.concatStringsSep "." catalogData.element.attrPath;
           }
         )
@@ -244,14 +247,20 @@
           in
             # this function returns just the entries for this channel, and the caller adds channelName to the complete catalog
             rec {
-              derivation = lib.getAttrFromPath flakePath fetchedFlake;
+              drv = lib.getAttrFromPath flakePath fetchedFlake;
               catalogData =
-                if derivation ? meta.element
+                if drv ? meta.element
                 then derivation.meta.element
-                # todo readPackage
-                else null;
+                else
+                  catalog-ingest.lib.readPackage {
+                    # TODO use namespace and attrPath instead of passing entire flakePath as attrPath
+                    attrPath = flakePath;
+                    flakeRef = channelName;
+                    useFloxEnvChanges = true;
+                  } {analyzeOutput = true;}
+                  drv;
               inherit (packageAttrSet) attrPath;
-              inherit channelName catalogPath;
+              inherit catalogPath;
               manifestAttrPath = lib.concatStringsSep "." flakePath;
             }
         )
@@ -301,7 +310,7 @@
 
     # extract a list of derivations
     packagesList =
-      builtins.map (packageWithDerivation: packageWithDerivation.derivation) uniquePackagesWithDerivation
+      builtins.map (packageWithDerivation: packageWithDerivation.drv) uniquePackagesWithDerivation
       # types.package calls builtins.storePath
       ++ storePaths;
 
@@ -314,7 +323,7 @@
           packageWithDerivation.catalogPath
           packageWithDerivation.catalogData)
         # TODO add flake packages
-        channelPackagesWithDerivation);
+        packagesWithDerivation);
 
     # For flake:
     # {
@@ -341,30 +350,17 @@
     #   ],
     #   "url": "github:flox/nixpkgs-flox/5cdedb611cf745c734b0268346e940a8b1e33b45"
     # },
-    packageManifestElements = builtins.map (packageWithDerivation:
-      {
-        active = true;
-        attrPath = packageWithDerivation.manifestAttrPath;
-        originalUrl = let
-          channel = packageWithDerivation.channelName;
-        in
-          if builtins.length (lib.splitString ":" channel) > 1
-          then channel
-          else "flake:${channel}";
-      }
-      // (
-        if packageWithDerivation.catalogData != null
-        then {
-          inherit (packageWithDerivation.catalogData.element) url outputs storePaths;
+    packageManifestElements =
+      builtins.map (
+        packageWithDerivation: {
+          active = true;
+          attrPath = packageWithDerivation.manifestAttrPath;
+          # inherit (packageWithDerivation) originalUrl;
+          inherit (packageWithDerivation.catalogData.element) originalUrl url storePaths;
+          outputs = packageWithDerivation.catalogData.element.outputs or null;
         }
-        # TODO readPackage
-        else {
-          url = "url";
-          outputs = null;
-          storePaths = ["storePath"];
-        }
-      ))
-    packagesWithDerivation;
+      )
+      packagesWithDerivation;
     storePathManifestElements =
       builtins.map (storePath: {
         active = true;
