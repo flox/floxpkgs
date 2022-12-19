@@ -212,6 +212,10 @@
             drv =
               self.lib.mkFakeDerivation (lib.getAttrFromPath catalogPath catalog);
             catalogData = drv.meta.element;
+            # for informative error messages
+            inherit channelName;
+            # for informative error messages
+            inherit (packageAttrSet) attrPath;
             inherit catalogPath;
           }
         )
@@ -372,13 +376,13 @@
             or packageWithDerivation.catalogData.element;
         in {
           active = true;
-          # inherit (packageWithDerivation) originalUrl;
-          inherit (element) url storePaths;
+          inherit (element) url originalUrl storePaths;
           attrPath = builtins.concatStringsSep "." element.attrPath;
           outputs = element.outputs or null;
         }
       )
-      packagesWithDerivation;
+      # manifest.json needs to have a non-random ordering for flox list
+      (builtins.sort (packageWithDerivation1: packageWithDerivation2: packageWithDerivation1.catalogPath < packageWithDerivation2.catalogPath) packagesWithDerivation);
     storePathManifestElements =
       builtins.map (storePath: {
         active = true;
