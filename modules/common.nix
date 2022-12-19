@@ -212,13 +212,12 @@
             drv =
               self.lib.mkFakeDerivation (lib.getAttrFromPath catalogPath catalog);
             catalogData = drv.meta.element;
-            inherit (packageAttrSet) attrPath;
             inherit catalogPath;
-            manifestAttrPath = lib.concatStringsSep "." catalogData.element.attrPath;
           }
         )
         partitioned.right;
       fromChannel = let
+        # todo let readPackage fetch the flake (technically right now there's a race condition)
         fetchedFlake = builtins.getFlake channelName;
       in
         builtins.map (
@@ -250,7 +249,19 @@
               drv = lib.getAttrFromPath flakePath fetchedFlake;
               catalogData =
                 if drv ? meta.element
-                then derivation.meta.element
+                then let
+                  publishCatalogData =
+                    catalog-ingest.lib.readPackage {
+                      attrPath = flakePath;
+                      flakeRef = channelName;
+                      useFloxEnvChanges = true;
+                    } {analyzeOutput = false;}
+                    drv;
+                in
+                  drv.meta.element
+                  // {
+                    publish_element = publishCatalogData.element;
+                  }
                 else
                   catalog-ingest.lib.readPackage {
                     # TODO use namespace and attrPath instead of passing entire flakePath as attrPath
@@ -259,9 +270,11 @@
                     useFloxEnvChanges = true;
                   } {analyzeOutput = true;}
                   drv;
+              # for informative error messages
+              inherit channelName;
+              # for informative error messages
               inherit (packageAttrSet) attrPath;
               inherit catalogPath;
-              manifestAttrPath = lib.concatStringsSep "." flakePath;
             }
         )
         partitioned.wrong;
@@ -280,7 +293,7 @@
         # TODO use genericClosure instead?
           builtins.deepSeq (builtins.map (
               packageWithDerivation2:
-                if packageWithDerivation1.attrPath == packageWithDerivation2.attrPath
+                if packageWithDerivation1.catalogPath == packageWithDerivation2.catalogPath
                 then null
                 # TODO compare against flake packages for uniqueness
                 else if packageWithDerivation1.catalogData != null && packageWithDerivation2.catalogData != null
@@ -288,7 +301,7 @@
                   if
                     (builtins.sort builtins.lessThan packageWithDerivation1.catalogData.element.storePaths)
                     == (builtins.sort builtins.lessThan packageWithDerivation2.catalogData.element.storePaths)
-                  then throw "package ${builtins.concatStringsSep "." packageWithDerivation1.attrPath} is identical to package ${builtins.concatStringsSep "." packageWithDerivation2.attrPath}"
+                  then throw "package ${builtins.concatStringsSep "." packageWithDerivation1.attrPath} from ${packageWithDerivation1.channelName} is identical to package ${builtins.concatStringsSep "." packageWithDerivation2.attrPath} from ${packageWithDerivation2.channelName}"
                   else null
                 else null
             )
@@ -352,12 +365,17 @@
     # },
     packageManifestElements =
       builtins.map (
-        packageWithDerivation: {
+        packageWithDerivation: let
+          element =
+            # if this is a publish of a publish, use it
+            packageWithDerivation.catalogData.publish_element
+            or packageWithDerivation.catalogData.element;
+        in {
           active = true;
-          attrPath = packageWithDerivation.manifestAttrPath;
           # inherit (packageWithDerivation) originalUrl;
-          inherit (packageWithDerivation.catalogData.element) originalUrl url storePaths;
-          outputs = packageWithDerivation.catalogData.element.outputs or null;
+          inherit (element) url storePaths;
+          attrPath = builtins.concatStringsSep "." element.attrPath;
+          outputs = element.outputs or null;
         }
       )
       packagesWithDerivation;
