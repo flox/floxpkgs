@@ -245,33 +245,44 @@
                 flakePathsToPrint = builtins.concatStringsSep " or " (builtins.map (flakePath: builtins.concatStringsSep "." flakePath) flakePaths);
               in
                 throw "Channel ${channelName} does not contain ${flakePathsToPrint}";
-          in
-            # this function returns just the entries for this channel, and the caller adds channelName to the complete catalog
-            rec {
-              drv = lib.getAttrFromPath flakePath fetchedFlake;
-              catalogData =
-                if drv ? meta.element
-                then let
-                  publishCatalogData =
-                    catalog-ingest.lib.readPackage {
-                      attrPath = flakePath;
-                      flakeRef = channelName;
-                      useFloxEnvChanges = true;
-                    } {analyzeOutput = false;}
-                    drv;
-                in
-                  drv.meta.element
-                  // {
-                    publish_element = publishCatalogData.element;
-                  }
-                else
+            maybeFakeDerivation = lib.getAttrFromPath flakePath fetchedFlake;
+            catalogData =
+              if maybeFakeDerivation ? meta.element
+              then let
+                publishCatalogData =
                   catalog-ingest.lib.readPackage {
-                    # TODO use namespace and attrPath instead of passing entire flakePath as attrPath
                     attrPath = flakePath;
                     flakeRef = channelName;
                     useFloxEnvChanges = true;
-                  } {analyzeOutput = true;}
-                  drv;
+                  } {analyzeOutput = false;}
+                  maybeFakeDerivation;
+              in
+                maybeFakeDerivation.meta.element
+                // {
+                  publish_element = publishCatalogData.element;
+                }
+              else
+                catalog-ingest.lib.readPackage {
+                  # TODO use namespace and attrPath instead of passing entire flakePath as attrPath
+                  attrPath = flakePath;
+                  flakeRef = channelName;
+                  useFloxEnvChanges = true;
+                } {analyzeOutput = true;}
+                maybeFakeDerivation;
+
+            fakeDerivation =
+              if maybeFakeDerivation ? meta.element
+              then maybeFakeDerivation
+              # we have to wrap derivations from flakes in a fake derivation, because that's what
+              # will happen once they are put in the catalog. And the floxEnv must be identical for
+              # the locking and locked build
+              else self.lib.mkFakeDerivation catalogData;
+          in
+            # this function returns just the entries for this channel, and the caller adds channelName to the complete catalog
+            rec {
+              drv = fakeDerivation;
+              # has publish_element, which fakeDerivation.meta.element does not
+              inherit catalogData;
               # for informative error messages
               inherit channelName;
               # for informative error messages
