@@ -325,9 +325,11 @@
       )
       packagesWithDerivation;
 
+    sortedPackagesWithDerivation = builtins.sort (packageWithDerivation1: packageWithDerivation2: packageWithDerivation1.catalogPath < packageWithDerivation2.catalogPath) uniquePackagesWithDerivation;
+
     # extract a list of derivations
     packagesList =
-      builtins.map (packageWithDerivation: packageWithDerivation.drv) uniquePackagesWithDerivation
+      builtins.map (packageWithDerivation: packageWithDerivation.drv) sortedPackagesWithDerivation
       # types.package calls builtins.storePath
       ++ storePaths;
 
@@ -382,7 +384,7 @@
         }
       )
       # manifest.json needs to have a non-random ordering for flox list
-      (builtins.sort (packageWithDerivation1: packageWithDerivation2: packageWithDerivation1.catalogPath < packageWithDerivation2.catalogPath) packagesWithDerivation);
+      sortedPackagesWithDerivation;
     storePathManifestElements =
       builtins.map (storePath: {
         active = true;
