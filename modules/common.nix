@@ -170,10 +170,8 @@
       config.packages;
 
     # partially apply generateFakeCatalog to the appropriate getters
-    channelPackagesWithDerivation =
-      builtins.concatLists (lib.mapAttrsToList (getDerivationsForPackages getChannelCatalogPath getChannelFlakePaths) (groupedChannels.channels or {}));
     packagesWithDerivation =
-      channelPackagesWithDerivation
+      builtins.concatLists (lib.mapAttrsToList (getDerivationsForPackages getChannelCatalogPath getChannelFlakePaths) (groupedChannels.channels or {}))
       ++ builtins.concatLists (lib.mapAttrsToList (getDerivationsForPackages getFlakeCatalogPath getFlakeFlakePaths) (groupedChannels.flakes or {}));
     storePaths = builtins.attrNames (groupedChannels.storePaths or {});
 
@@ -339,7 +337,6 @@
           lib.setAttrByPath
           packageWithDerivation.catalogPath
           packageWithDerivation.catalogData)
-        # TODO add flake packages
         sortedPackagesWithDerivation);
 
     # For flake:
