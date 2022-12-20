@@ -302,7 +302,7 @@
                 else if
                   (builtins.sort builtins.lessThan packageWithDerivation1.catalogData.element.storePaths)
                   == (builtins.sort builtins.lessThan packageWithDerivation2.catalogData.element.storePaths)
-                then throw "package ${builtins.concatStringsSep "." packageWithDerivation1.attrPath} from ${packageWithDerivation1.channelName} is identical to package ${builtins.concatStringsSep "." packageWithDerivation2.attrPath} from ${packageWithDerivation2.channelName}"
+                then throw "package ${builtins.concatStringsSep "." packageWithDerivation1.catalogPath} is identical to package ${builtins.concatStringsSep "." packageWithDerivation2.catalogPath}"
                 else null
             )
             packagesWithDerivation)
@@ -311,7 +311,7 @@
             (builtins.map (
                 storePath:
                   if packageWithDerivation1.catalogData.element.storePaths == [storePath]
-                  then throw "package ${builtins.concatStringsSep "." packageWithDerivation1.attrPath} is identical to store path ${storePath}"
+                  then throw "package ${builtins.concatStringsSep "." packageWithDerivation1.catalogPath} is identical to store path ${storePath}"
                   else null
               )
               storePaths)
