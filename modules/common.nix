@@ -299,14 +299,10 @@
               packageWithDerivation2:
                 if packageWithDerivation1.catalogPath == packageWithDerivation2.catalogPath
                 then null
-                # TODO compare against flake packages for uniqueness
-                else if packageWithDerivation1.catalogData != null && packageWithDerivation2.catalogData != null
-                then
-                  if
-                    (builtins.sort builtins.lessThan packageWithDerivation1.catalogData.element.storePaths)
-                    == (builtins.sort builtins.lessThan packageWithDerivation2.catalogData.element.storePaths)
-                  then throw "package ${builtins.concatStringsSep "." packageWithDerivation1.attrPath} from ${packageWithDerivation1.channelName} is identical to package ${builtins.concatStringsSep "." packageWithDerivation2.attrPath} from ${packageWithDerivation2.channelName}"
-                  else null
+                else if
+                  (builtins.sort builtins.lessThan packageWithDerivation1.catalogData.element.storePaths)
+                  == (builtins.sort builtins.lessThan packageWithDerivation2.catalogData.element.storePaths)
+                then throw "package ${builtins.concatStringsSep "." packageWithDerivation1.attrPath} from ${packageWithDerivation1.channelName} is identical to package ${builtins.concatStringsSep "." packageWithDerivation2.attrPath} from ${packageWithDerivation2.channelName}"
                 else null
             )
             packagesWithDerivation)
@@ -314,8 +310,7 @@
           (builtins.deepSeq
             (builtins.map (
                 storePath:
-                # TODO compare against flake packages for uniqueness
-                  if packageWithDerivation1.catalogData != null && packageWithDerivation1.catalogData.element.storePaths == [storePath]
+                  if packageWithDerivation1.catalogData.element.storePaths == [storePath]
                   then throw "package ${builtins.concatStringsSep "." packageWithDerivation1.attrPath} is identical to store path ${storePath}"
                   else null
               )
@@ -327,11 +322,14 @@
 
     sortedPackagesWithDerivation = builtins.sort (packageWithDerivation1: packageWithDerivation2: packageWithDerivation1.catalogPath < packageWithDerivation2.catalogPath) uniquePackagesWithDerivation;
 
+    # since storePaths are specified in the attrPath, we don't need to check for uniqueness
+    sortedStorePaths = builtins.sort (storePath1: storePath2: storePath1 < storePath2) storePaths;
+
     # extract a list of derivations
     packagesList =
       builtins.map (packageWithDerivation: packageWithDerivation.drv) sortedPackagesWithDerivation
       # types.package calls builtins.storePath
-      ++ storePaths;
+      ++ sortedStorePaths;
 
     # store paths are not added to the catalog
     newCatalog =
@@ -342,7 +340,7 @@
           packageWithDerivation.catalogPath
           packageWithDerivation.catalogData)
         # TODO add flake packages
-        packagesWithDerivation);
+        sortedPackagesWithDerivation);
 
     # For flake:
     # {
@@ -392,7 +390,7 @@
           storePath
         ];
       })
-      storePaths;
+      sortedStorePaths;
 
     manifestJSON = builtins.toJSON {
       version = 2;
