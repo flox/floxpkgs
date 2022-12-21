@@ -9,7 +9,8 @@
 {
   attrPath ? [],
   namespace ? [],
-  channel ? "unknown",
+  flakeRef ? null,
+  useFloxEnvChanges ? false,
 }:
 # Second argument
 # enable (implicit) building
@@ -22,12 +23,30 @@
 } @ buildOptions: drv: let
   inherit (self.lib) inspectBuild;
 
-  element = {
+  element = rec {
     active = true;
-    attrPath = attrPath;
-    originalUrl = null;
-    url = null;
-    storePaths = lib.attrValues eval.outputs;
+    inherit attrPath;
+    # normalize to include "flake:", which is included in manifest.json
+    originalUrl =
+      if flakeRef == null || builtins.match ".*:.*" flakeRef == []
+      then flakeRef
+      else "flake:${flakeRef}";
+    url =
+      if useFloxEnvChanges
+      then let
+        flake =
+          builtins.getFlake flakeRef;
+        # this assumes that either flakeRef is not indirect, or if it is indirect, the flake it
+        # resolves to contains a branch
+      in "${originalUrl}/${flake.rev}"
+      else null;
+    storePaths =
+      if useFloxEnvChanges && drv.meta ? outputsToInstall
+      then
+        # only include outputsToInstall
+        (builtins.map (outputName: eval.outputs.${outputName})
+          drv.meta.outputsToInstall)
+      else lib.attrValues eval.outputs;
   };
 
   eval = {
@@ -42,7 +61,10 @@
       else if drv ? version && drv.version != "" && drv.version != null
       then drv.version
       else "unknown";
-    outputs = lib.genAttrs drv.outputs (output: builtins.unsafeDiscardStringContext drv.${output}.outPath);
+    outputs = let
+      outputs = drv.outputs or ["out"];
+    in
+      lib.genAttrs outputs (output: builtins.unsafeDiscardStringContext drv.${output}.outPath);
   };
 in {
   inherit element eval;
