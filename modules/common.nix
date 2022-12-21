@@ -152,9 +152,6 @@
       )
       listWithKeys;
 
-    # do this here so we don't fetch it for every package we need it
-    catalog-ingest = builtins.getFlake "${builtins.unsafeDiscardStringContext self.inputs.flox}/lib/catalog-ingest";
-
     groupedChannels =
       groupAttrSetBy (
         channelName: _:
@@ -250,7 +247,7 @@
               if maybeFakeDerivation ? meta.element
               then let
                 publishCatalogData =
-                  catalog-ingest.lib.readPackage {
+                  self.lib.readPackage {
                     attrPath = flakePath;
                     flakeRef = channelName;
                     useFloxEnvChanges = true;
@@ -262,7 +259,7 @@
                   publish_element = publishCatalogData.element;
                 }
               else
-                catalog-ingest.lib.readPackage {
+                self.lib.readPackage {
                   # TODO use namespace and attrPath instead of passing entire flakePath as attrPath
                   attrPath = flakePath;
                   flakeRef = channelName;
