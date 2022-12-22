@@ -43,7 +43,7 @@ with lib; {
     exportedEnvVars = let
       # make foo = "bar" -> foo = ["bar"]
       allValuesLists =
-        mapAttrs (n: toList) config.variables;
+        mapAttrs (n: toList) config.environmentVariables;
       exportVariables =
         mapAttrsToList (n: v: ''export ${n}=${escapeShellArg (concatStringsSep ":" v)}'') allValuesLists;
     in
