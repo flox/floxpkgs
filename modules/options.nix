@@ -6,7 +6,7 @@
 }:
 with lib; {
   options = {
-    variables = mkOption {
+    environmentVariables = mkOption {
       default = {};
       example = {
         EDITOR = "nvim";
