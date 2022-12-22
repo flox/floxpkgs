@@ -67,12 +67,12 @@
         "rev": "8773bf45bae559705c996c6a88cbe86849a926b9",
         "revCount": 92,
         "type": "git",
-        "url": "ssh://git@github.com/flox/flox"
+        "url": "ssh://git@github.com/flox/flox-bash"
       },
       "original": {
         "ref": "main",
         "type": "git",
-        "url": "ssh://git@github.com/flox/flox"
+        "url": "ssh://git@github.com/flox/flox-bash"
       }
     },
     "nixpkgs": {
