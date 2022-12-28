@@ -4,6 +4,7 @@
   pkgs,
   system,
   self,
+  context,
   ...
 }: {
   options = with lib; {
@@ -155,6 +156,9 @@
     groupedChannels =
       groupAttrSetBy (
         channelName: _:
+          if channelName == "self"
+          then "self"
+          else
           if lib.isStorePath channelName
           then "storePaths"
           else let
@@ -169,7 +173,9 @@
     # partially apply generateFakeCatalog to the appropriate getters
     packagesWithDerivation =
       builtins.concatLists (lib.mapAttrsToList (getDerivationsForPackages getChannelCatalogPath getChannelFlakePaths) (groupedChannels.channels or {}))
-      ++ builtins.concatLists (lib.mapAttrsToList (getDerivationsForPackages getFlakeCatalogPath getFlakeFlakePaths) (groupedChannels.flakes or {}));
+      ++ builtins.concatLists (lib.mapAttrsToList (getDerivationsForPackages getFlakeCatalogPath getFlakeFlakePaths) (groupedChannels.flakes or {}))
+      # ++ builtins.concatLists (lib.mapAttrsToList (getDerivationsForPackages getSelfCatalogPath getSelfFlakePaths) (groupedChannels.self or {}))
+      ;
     storePaths = builtins.attrNames (groupedChannels.storePaths or {});
 
     getDerivationsForPackages = catalogPathGetter: flakePathsGetter: channelName: channelPackages: let
@@ -217,7 +223,10 @@
         partitioned.right;
       fromChannel = let
         # todo let readPackage fetch the flake (technically right now there's a race condition)
-        fetchedFlake = builtins.getFlake channelName;
+        fetchedFlake =
+           if channelName == "self"
+           then self
+           else builtins.getFlake channelName;
       in
         builtins.map (
           packageAttrSet: let
@@ -333,6 +342,9 @@
 
     # extract a list of derivations
     packagesList =
+      (lib.mapAttrsToList (packageName: _:
+      context.self.packages.${system}.${packageName} or (throw "error: ${packageName} does not exist") ) (groupedChannels.self.self or {}))
+      ++
       builtins.map (packageWithDerivation: packageWithDerivation.drv) sortedPackagesWithDerivation
       # types.package calls builtins.storePath
       ++ sortedStorePaths;
