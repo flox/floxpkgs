@@ -131,6 +131,26 @@ in {
         ++ packageAttrPath)
     ];
 
+    getSelfCatalogPath = channelName: packageAttrPath: _:
+      [
+        channelName
+        system
+      ]
+      ++ packageAttrPath;
+
+    getSelfFlakePaths = packageAttrPath: _: [
+      ([
+          "packages"
+          system
+        ]
+        ++ packageAttrPath)
+      ([
+          "legacyPackages"
+          system
+        ]
+        ++ packageAttrPath)
+    ];
+
     # utility function - should be in lib?
     # f is a function that takes a name and value and returns a string categorizing that name and
     # value
@@ -173,7 +193,9 @@ in {
     # partially apply generateFakeCatalog to the appropriate getters
     packagesWithDerivation =
       builtins.concatLists (lib.mapAttrsToList (getDerivationsForPackages getChannelCatalogPath getChannelFlakePaths) (groupedChannels.channels or {}))
-      ++ builtins.concatLists (lib.mapAttrsToList (getDerivationsForPackages getFlakeCatalogPath getFlakeFlakePaths) (groupedChannels.flakes or {}));
+      ++ builtins.concatLists (lib.mapAttrsToList (getDerivationsForPackages getFlakeCatalogPath getFlakeFlakePaths) (groupedChannels.flakes or {}))
+      ++ builtins.concatLists (lib.mapAttrsToList (getDerivationsForPackages getSelfCatalogPath getSelfFlakePaths) (groupedChannels.self or {}))
+      ;
     storePaths = builtins.attrNames (groupedChannels.storePaths or {});
 
     getDerivationsForPackages = catalogPathGetter: flakePathsGetter: channelName: channelPackages: let
@@ -199,7 +221,13 @@ in {
       partitioned =
         builtins.partition (
           packageAttrSet:
-            lib.hasAttrByPath (catalogPathGetter channelName packageAttrSet.attrPath packageAttrSet.packageConfig) catalog
+          let
+            attrPath = catalogPathGetter channelName packageAttrSet.attrPath packageAttrSet.packageConfig;
+            attr = lib.getAttrFromPath attrPath catalog;
+          in
+          # Do not lock elements that a are locally defined (eg: customized packages)
+          channelName != "self" &&
+          lib.hasAttrByPath attrPath catalog
         )
         packageAttrSetsList;
 
@@ -221,7 +249,10 @@ in {
         partitioned.right;
       fromChannel = let
         # todo let readPackage fetch the flake (technically right now there's a race condition)
-        fetchedFlake = builtins.getFlake channelName;
+        fetchedFlake =
+           if channelName == "self"
+           then context.self
+           else builtins.getFlake channelName;
       in
         builtins.map (
           packageAttrSet: let
@@ -253,7 +284,7 @@ in {
                 publishCatalogData =
                   floxpkgs.lib.readPackage {
                     attrPath = flakePath;
-                    flakeRef = channelName;
+                    flakeRef = if channelName == "self" then context.self else channelName;
                     useFloxEnvChanges = true;
                   } {analyzeOutput = false;}
                   maybeFakeDerivation;
@@ -266,7 +297,7 @@ in {
                 floxpkgs.lib.readPackage {
                   # TODO use namespace and attrPath instead of passing entire flakePath as attrPath
                   attrPath = flakePath;
-                  flakeRef = channelName;
+                  flakeRef = if channelName == "self" then context.self else channelName;
                   useFloxEnvChanges = true;
                 } {analyzeOutput = true;}
                 maybeFakeDerivation;
@@ -330,16 +361,9 @@ in {
                   else null
               )
               storePaths)
-            # compare against self packages
-            (builtins.deepSeq (builtins.mapAttrs (
-                  name: drv:
-                    if packageWithDerivation1.catalogData.element.storePaths == floxpkgs.lib.getStorePaths drv
-                    then throw "package ${builtins.concatStringsSep "." packageWithDerivation1.catalogPath} is identical to package ${name} in this project"
-                    else null
-                )
-                selfPackages)
               # pass packageWithDerivation1 through the map - in other words, do nothing
-              packageWithDerivation1))
+              packageWithDerivation1
+              )
         # don't care if a store path and self package are identical
       )
       packagesWithDerivation;
@@ -351,8 +375,7 @@ in {
 
     # extract a list of derivations
     packagesList =
-      builtins.attrValues selfPackages
-      ++ builtins.map (packageWithDerivation: packageWithDerivation.drv) sortedPackagesWithDerivation
+      builtins.map (packageWithDerivation: packageWithDerivation.drv) sortedPackagesWithDerivation
       # types.package calls builtins.storePath
       ++ sortedStorePaths;
 

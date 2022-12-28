@@ -9,7 +9,7 @@
 {
   attrPath ? [],
   namespace ? [],
-  flakeRef ? null,
+  flakeRef ? null,  # Normally a type
   useFloxEnvChanges ? false,
 }:
 # Second argument
@@ -28,10 +28,17 @@
     inherit attrPath;
     # normalize to include "flake:", which is included in manifest.json
     originalUrl =
-      if flakeRef == null || builtins.match ".*:.*" flakeRef == []
+      if flakeRef?outPath
+      then "." # TODO: use outPath?
+      else
+      (if flakeRef == null || builtins.match ".*:.*" flakeRef == []
       then flakeRef
-      else "flake:${flakeRef}";
+      else "flake:${flakeRef}");
     url =
+      # TODO; clean up this abuse of the type system
+      if flakeRef?outPath
+      then ""
+      else
       if useFloxEnvChanges
       then let
         flake =
