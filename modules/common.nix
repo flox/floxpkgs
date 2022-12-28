@@ -1,12 +1,13 @@
 {
   config,
   lib,
-  pkgs,
   system,
-  self,
   context,
   ...
-}: {
+}: let
+  floxpkgs = context.inputs.flox-floxpkgs;
+  pkgs = context.nixpkgs.legacyPackages.${system};
+in {
   options = with lib; {
     packages = mkOption {
       # TODO actual type
@@ -158,8 +159,7 @@
         channelName: _:
           if channelName == "self"
           then "self"
-          else
-          if lib.isStorePath channelName
+          else if lib.isStorePath channelName
           then "storePaths"
           else let
             fetchedChannel = builtins.getFlake channelName;
@@ -173,9 +173,7 @@
     # partially apply generateFakeCatalog to the appropriate getters
     packagesWithDerivation =
       builtins.concatLists (lib.mapAttrsToList (getDerivationsForPackages getChannelCatalogPath getChannelFlakePaths) (groupedChannels.channels or {}))
-      ++ builtins.concatLists (lib.mapAttrsToList (getDerivationsForPackages getFlakeCatalogPath getFlakeFlakePaths) (groupedChannels.flakes or {}))
-      # ++ builtins.concatLists (lib.mapAttrsToList (getDerivationsForPackages getSelfCatalogPath getSelfFlakePaths) (groupedChannels.self or {}))
-      ;
+      ++ builtins.concatLists (lib.mapAttrsToList (getDerivationsForPackages getFlakeCatalogPath getFlakeFlakePaths) (groupedChannels.flakes or {}));
     storePaths = builtins.attrNames (groupedChannels.storePaths or {});
 
     getDerivationsForPackages = catalogPathGetter: flakePathsGetter: channelName: channelPackages: let
@@ -211,7 +209,7 @@
             catalogPath = catalogPathGetter channelName packageAttrSet.attrPath packageAttrSet.packageConfig;
           in rec {
             drv =
-              self.lib.mkFakeDerivation (lib.getAttrFromPath catalogPath catalog);
+              floxpkgs.lib.mkFakeDerivation (lib.getAttrFromPath catalogPath catalog);
             catalogData = drv.meta.element;
             # for informative error messages
             inherit channelName;
@@ -223,10 +221,7 @@
         partitioned.right;
       fromChannel = let
         # todo let readPackage fetch the flake (technically right now there's a race condition)
-        fetchedFlake =
-           if channelName == "self"
-           then self
-           else builtins.getFlake channelName;
+        fetchedFlake = builtins.getFlake channelName;
       in
         builtins.map (
           packageAttrSet: let
@@ -256,7 +251,7 @@
               if maybeFakeDerivation ? meta.element
               then let
                 publishCatalogData =
-                  self.lib.readPackage {
+                  floxpkgs.lib.readPackage {
                     attrPath = flakePath;
                     flakeRef = channelName;
                     useFloxEnvChanges = true;
@@ -268,7 +263,7 @@
                   publish_element = publishCatalogData.element;
                 }
               else
-                self.lib.readPackage {
+                floxpkgs.lib.readPackage {
                   # TODO use namespace and attrPath instead of passing entire flakePath as attrPath
                   attrPath = flakePath;
                   flakeRef = channelName;
@@ -282,7 +277,7 @@
               # we have to wrap derivations from flakes in a fake derivation, because that's what
               # will happen once they are put in the catalog. And the floxEnv must be identical for
               # the locking and locked build
-              else self.lib.mkFakeDerivation catalogData;
+              else floxpkgs.lib.mkFakeDerivation catalogData;
           in
             # this function returns just the entries for this channel, and the caller adds channelName to the complete catalog
             rec {
@@ -300,6 +295,11 @@
     in
       alreadyInCatalog ++ fromChannel;
 
+    selfPackages =
+      lib.mapAttrs
+      (packageName: _:
+        context.self.packages.${system}.${packageName} or (throw "${packageName} does not exist in this project"))
+      (groupedChannels.self.self or {});
     # we could check uniqueness in O(n log n) by first sorting all elements by storePaths, but I don't think that's
     # worth my time at the moment
     # instead, for every package, compare to every package and every store path
@@ -330,8 +330,17 @@
                   else null
               )
               storePaths)
-            # pass packageWithDerivation1 through the map - in other words, do nothing
-            packageWithDerivation1)
+            # compare against self packages
+            (builtins.deepSeq (builtins.mapAttrs (
+                  name: drv:
+                    if packageWithDerivation1.catalogData.element.storePaths == floxpkgs.lib.getStorePaths drv
+                    then throw "package ${builtins.concatStringsSep "." packageWithDerivation1.catalogPath} is identical to package ${name} in this project"
+                    else null
+                )
+                selfPackages)
+              # pass packageWithDerivation1 through the map - in other words, do nothing
+              packageWithDerivation1))
+        # don't care if a store path and self package are identical
       )
       packagesWithDerivation;
 
@@ -342,10 +351,8 @@
 
     # extract a list of derivations
     packagesList =
-      (lib.mapAttrsToList (packageName: _:
-      context.self.packages.${system}.${packageName} or (throw "error: ${packageName} does not exist") ) (groupedChannels.self.self or {}))
-      ++
-      builtins.map (packageWithDerivation: packageWithDerivation.drv) sortedPackagesWithDerivation
+      builtins.attrValues selfPackages
+      ++ builtins.map (packageWithDerivation: packageWithDerivation.drv) sortedPackagesWithDerivation
       # types.package calls builtins.storePath
       ++ sortedStorePaths;
 

@@ -32,8 +32,7 @@ in
       # for now just treat flox.nix as a module, although at some point we might want to do something like
       # context.auto.callPackageWith injectedArgs floxNixPath {};
       value = self.lib.mkFloxEnv {
-        inherit context;
-        inherit system;
+        inherit context system;
         modules = [floxNixPath] ++ lib.optional (builtins.pathExists catalogPath) {inherit catalogPath;};
       };
       path = [system] ++ namespace;

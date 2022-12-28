@@ -6,15 +6,14 @@
 }: {
   system,
   modules,
-  context
+  context,
 }:
 (lib.evalModules {
   modules =
     [
       {
         _module.args = {
-          pkgs = nixpkgs.legacyPackages.${system};
-          inherit system self context;
+          inherit system context;
         };
       }
       (self + "/modules/common.nix")
