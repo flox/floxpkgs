@@ -48,8 +48,11 @@
       in "${originalUrl}/${flake.rev}"
       else null;
     storePaths =
-      if useFloxEnvChanges
-      then self.lib.getStorePaths drv
+      if useFloxEnvChanges && drv.meta ? outputsToInstall
+      then
+        # only include outputsToInstall
+        (builtins.map (outputName: eval.outputs.${outputName})
+          drv.meta.outputsToInstall)
       else lib.attrValues eval.outputs;
   };
 
@@ -65,7 +68,10 @@
       else if drv ? version && drv.version != "" && drv.version != null
       then drv.version
       else "unknown";
-    outputs = self.lib.getOutputs drv;
+    outputs = let
+      outputs = drv.outputs or ["out"];
+    in
+      lib.genAttrs outputs (output: builtins.unsafeDiscardStringContext drv.${output}.outPath);
   };
 in {
   inherit element eval;
