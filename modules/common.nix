@@ -160,7 +160,7 @@ in {
       groupAttrSetBy (
         channelName: _:
           if channelName == "self"
-          then "self"
+          then "flakes"
           else if lib.isStorePath channelName
           then "storePaths"
           else let
@@ -175,8 +175,7 @@ in {
     # partially apply generateFakeCatalog to the appropriate getters
     packagesWithDerivation =
       builtins.concatLists (lib.mapAttrsToList (getDerivationsForPackages getChannelCatalogPath getChannelFlakePaths) (groupedChannels.channels or {}))
-      ++ builtins.concatLists (lib.mapAttrsToList (getDerivationsForPackages getFlakeCatalogPath getFlakeFlakePaths) (groupedChannels.flakes or {}))
-      ++ builtins.concatLists (lib.mapAttrsToList (getDerivationsForPackages getFlakeCatalogPath getFlakeFlakePaths) (groupedChannels.self or {}));
+      ++ builtins.concatLists (lib.mapAttrsToList (getDerivationsForPackages getFlakeCatalogPath getFlakeFlakePaths) (groupedChannels.flakes or {}));
     storePaths = builtins.attrNames (groupedChannels.storePaths or {});
 
     getDerivationsForPackages = catalogPathGetter: flakePathsGetter: channelName: channelPackages: let
@@ -201,14 +200,11 @@ in {
       # parition packages based on whether they are already in the catalog
       partitioned =
         builtins.partition (
-          packageAttrSet: let
-            attrPath = catalogPathGetter channelName packageAttrSet.attrPath packageAttrSet.packageConfig;
-            attr = lib.getAttrFromPath attrPath catalog;
-          in
-            # Do not lock elements that a are locally defined (eg: customized packages)
+          packageAttrSet:
+          # Do not lock packages from self (eg: custom packages)
             channelName
             != "self"
-            && lib.hasAttrByPath attrPath catalog
+            && lib.hasAttrByPath (catalogPathGetter channelName packageAttrSet.attrPath packageAttrSet.packageConfig) catalog
         )
         packageAttrSetsList;
 
