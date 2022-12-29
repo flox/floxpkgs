@@ -309,11 +309,6 @@ in {
     in
       alreadyInCatalog ++ fromChannel;
 
-    selfPackages =
-      lib.mapAttrs
-      (packageName: _:
-        context.self.packages.${system}.${packageName} or (throw "${packageName} does not exist in this project"))
-      (groupedChannels.self.self or {});
     # we could check uniqueness in O(n log n) by first sorting all elements by storePaths, but I don't think that's
     # worth my time at the moment
     # instead, for every package, compare to every package and every store path
@@ -348,7 +343,6 @@ in {
             # pass packageWithDerivation1 through the map - in other words, do nothing
             packageWithDerivation1
           )
-        # don't care if a store path and self package are identical
       )
       packagesWithDerivation;
 
