@@ -194,8 +194,7 @@ in {
     packagesWithDerivation =
       builtins.concatLists (lib.mapAttrsToList (getDerivationsForPackages getChannelCatalogPath getChannelFlakePaths) (groupedChannels.channels or {}))
       ++ builtins.concatLists (lib.mapAttrsToList (getDerivationsForPackages getFlakeCatalogPath getFlakeFlakePaths) (groupedChannels.flakes or {}))
-      ++ builtins.concatLists (lib.mapAttrsToList (getDerivationsForPackages getSelfCatalogPath getSelfFlakePaths) (groupedChannels.self or {}))
-      ;
+      ++ builtins.concatLists (lib.mapAttrsToList (getDerivationsForPackages getSelfCatalogPath getSelfFlakePaths) (groupedChannels.self or {}));
     storePaths = builtins.attrNames (groupedChannels.storePaths or {});
 
     getDerivationsForPackages = catalogPathGetter: flakePathsGetter: channelName: channelPackages: let
@@ -220,14 +219,14 @@ in {
       # parition packages based on whether they are already in the catalog
       partitioned =
         builtins.partition (
-          packageAttrSet:
-          let
+          packageAttrSet: let
             attrPath = catalogPathGetter channelName packageAttrSet.attrPath packageAttrSet.packageConfig;
             attr = lib.getAttrFromPath attrPath catalog;
           in
-          # Do not lock elements that a are locally defined (eg: customized packages)
-          channelName != "self" &&
-          lib.hasAttrByPath attrPath catalog
+            # Do not lock elements that a are locally defined (eg: customized packages)
+            channelName
+            != "self"
+            && lib.hasAttrByPath attrPath catalog
         )
         packageAttrSetsList;
 
@@ -250,9 +249,9 @@ in {
       fromChannel = let
         # todo let readPackage fetch the flake (technically right now there's a race condition)
         fetchedFlake =
-           if channelName == "self"
-           then context.self
-           else builtins.getFlake channelName;
+          if channelName == "self"
+          then context.self
+          else builtins.getFlake channelName;
       in
         builtins.map (
           packageAttrSet: let
@@ -279,12 +278,15 @@ in {
                 throw "Channel ${channelName} does not contain ${flakePathsToPrint}";
             maybeFakeDerivation = lib.getAttrFromPath flakePath fetchedFlake;
             catalogData =
+              # if we have a fake derivation, add some additional meta (publish_element) to mark
+              # this as a publish of a publish. This is not reachable for self so don't add special
+              # casing
               if maybeFakeDerivation ? meta.element
               then let
                 publishCatalogData =
                   floxpkgs.lib.readPackage {
                     attrPath = flakePath;
-                    flakeRef = if channelName == "self" then context.self else channelName;
+                    flakeRef = channelName;
                     useFloxEnvChanges = true;
                   } {analyzeOutput = false;}
                   maybeFakeDerivation;
@@ -297,7 +299,10 @@ in {
                 floxpkgs.lib.readPackage {
                   # TODO use namespace and attrPath instead of passing entire flakePath as attrPath
                   attrPath = flakePath;
-                  flakeRef = if channelName == "self" then context.self else channelName;
+                  flakeRef =
+                    if channelName == "self"
+                    then ""
+                    else channelName;
                   useFloxEnvChanges = true;
                 } {analyzeOutput = true;}
                 maybeFakeDerivation;
@@ -353,7 +358,8 @@ in {
             )
             packagesWithDerivation)
           # compare against storePaths
-          (builtins.deepSeq
+          (
+            builtins.deepSeq
             (builtins.map (
                 storePath:
                   if packageWithDerivation1.catalogData.element.storePaths == [storePath]
@@ -361,9 +367,9 @@ in {
                   else null
               )
               storePaths)
-              # pass packageWithDerivation1 through the map - in other words, do nothing
-              packageWithDerivation1
-              )
+            # pass packageWithDerivation1 through the map - in other words, do nothing
+            packageWithDerivation1
+          )
         # don't care if a store path and self package are identical
       )
       packagesWithDerivation;
