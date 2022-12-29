@@ -9,7 +9,7 @@
 {
   attrPath ? [],
   namespace ? [],
-  flakeRef ? null, # "" means self
+  flakeRef ? null, # "self" gets special treatment
   useFloxEnvChanges ? false,
 }:
 # Second argument
@@ -28,7 +28,7 @@
     inherit attrPath;
     # normalize to include "flake:", which is included in manifest.json
     originalUrl =
-      if flakeRef == ""
+      if flakeRef == "self"
       then "." # TODO: use outPath?
       else
         (
@@ -37,7 +37,7 @@
           else "flake:${flakeRef}"
         );
     url =
-      if flakeRef == ""
+      if flakeRef == "self"
       then ""
       else if useFloxEnvChanges
       then let

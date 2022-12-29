@@ -257,8 +257,7 @@ in {
             maybeFakeDerivation = lib.getAttrFromPath flakePath fetchedFlake;
             catalogData =
               # if we have a fake derivation, add some additional meta (publish_element) to mark
-              # this as a publish of a publish. This is not reachable for self so don't add special
-              # casing
+              # this as a publish of a publish. This is not reachable for self
               if maybeFakeDerivation ? meta.element
               then let
                 publishCatalogData =
@@ -277,10 +276,7 @@ in {
                 floxpkgs.lib.readPackage {
                   # TODO use namespace and attrPath instead of passing entire flakePath as attrPath
                   attrPath = flakePath;
-                  flakeRef =
-                    if channelName == "self"
-                    then ""
-                    else channelName;
+                  flakeRef = channelName;
                   useFloxEnvChanges = true;
                 } {analyzeOutput = true;}
                 maybeFakeDerivation;
