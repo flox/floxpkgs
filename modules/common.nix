@@ -111,6 +111,7 @@ in {
       )
     ];
 
+    # used for both flakes and self
     getFlakeCatalogPath = channelName: packageAttrPath: _:
       [
         channelName
@@ -118,27 +119,8 @@ in {
       ]
       ++ packageAttrPath;
 
+    # used for both flakes and self
     getFlakeFlakePaths = packageAttrPath: _: [
-      ([
-          "packages"
-          system
-        ]
-        ++ packageAttrPath)
-      ([
-          "legacyPackages"
-          system
-        ]
-        ++ packageAttrPath)
-    ];
-
-    getSelfCatalogPath = channelName: packageAttrPath: _:
-      [
-        channelName
-        system
-      ]
-      ++ packageAttrPath;
-
-    getSelfFlakePaths = packageAttrPath: _: [
       ([
           "packages"
           system
@@ -194,7 +176,7 @@ in {
     packagesWithDerivation =
       builtins.concatLists (lib.mapAttrsToList (getDerivationsForPackages getChannelCatalogPath getChannelFlakePaths) (groupedChannels.channels or {}))
       ++ builtins.concatLists (lib.mapAttrsToList (getDerivationsForPackages getFlakeCatalogPath getFlakeFlakePaths) (groupedChannels.flakes or {}))
-      ++ builtins.concatLists (lib.mapAttrsToList (getDerivationsForPackages getSelfCatalogPath getSelfFlakePaths) (groupedChannels.self or {}));
+      ++ builtins.concatLists (lib.mapAttrsToList (getDerivationsForPackages getFlakeCatalogPath getFlakeFlakePaths) (groupedChannels.self or {}));
     storePaths = builtins.attrNames (groupedChannels.storePaths or {});
 
     getDerivationsForPackages = catalogPathGetter: flakePathsGetter: channelName: channelPackages: let
