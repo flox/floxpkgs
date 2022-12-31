@@ -1,11 +1,11 @@
 {
   self,
   mkYarnPackage,
-  inputs,
+  lib,
 }: let
   pname = "my-package";
-  version = "0.0.0-${inputs.flox-flxopkgs.lib.getRev self}";
-  src = self; # + "/src";
+  version = "0.0.0-${lib.flox-flxopkgs.getRev self}";
+  src = self;
 in
   mkYarnPackage {
     inherit pname version src;

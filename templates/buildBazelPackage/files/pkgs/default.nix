@@ -2,11 +2,10 @@
   self,
   lib,
   buildBazelPackage,
-  inputs,
 }:
 buildBazelPackage rec {
   pname = "my-package";
-  version = "0.0.0-${inputs.flox-floxpkgs.lib.getRev self}";
+  version = "0.0.0-${lib.flox-floxpkgs.getRev self}";
   src = self; # + "/src";
 
   bazelTarget = "main:my-package";
