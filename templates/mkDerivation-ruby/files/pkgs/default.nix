@@ -3,7 +3,7 @@
   stdenv,
   bundlerEnv,
   ruby,
-  inputs,
+  lib,
 }: let
   # running the bundix command
   # will generate the gemset.nix file below
@@ -17,7 +17,7 @@
 in
   stdenv.mkDerivation rec {
     pname = "my-package";
-    version = "0.0.0-${inputs.flox-flxopkgs.lib.getRev self}";
+    version = "0.0.0-${lib.flox-flxopkgs.getRev self}";
     src = self; # + "/src";
     buildInputs = [gems ruby];
     installPhase = ''

@@ -1,11 +1,11 @@
 {
   self,
   buildGoModule,
-  inputs,
+  lib,
 }:
 buildGoModule {
   pname = "my-package";
-  version = "0.0.0-${inputs.flox-floxpkgs.lib.getRev self}";
+  version = "0.0.0-${lib.flox-floxpkgs.getRev self}";
   src = self; # + "/src";
   # vendorSha256 should be set to null if dependencies are vendored. If the dependencies aren't
   # vendored, vendorSha256 must be set to a hash of the content of all dependencies. This hash can

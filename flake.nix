@@ -14,9 +14,9 @@
   # =================================
 
   inputs.flox.url = "git+ssh://git@github.com/flox/flox-bash?ref=main";
-  inputs.flox.inputs.floxpkgs.follows = "/";
+  inputs.flox.inputs.flox-floxpkgs.follows = "/";
 
-  inputs.tracelinks.url = "git+ssh://git@github.com/flox/tracelinks?ref=fix/overlay-trees";
+  inputs.tracelinks.url = "git+ssh://git@github.com/flox/tracelinks";
   inputs.tracelinks.inputs.floxpkgs.follows = "/";
 
   inputs.builtfilter.url = "github:flox/builtfilter?ref=builtfilter-rs";

@@ -8,11 +8,10 @@
   pkg-config,
   libiconv,
   darwin,
-  inputs,
 }:
 rustPlatform.buildRustPackage rec {
   pname = "my-package";
-  version = "0.0.0-${inputs.flox-floxpkgs.lib.getRev self}";
+  version = "0.0.0-${lib.flox-floxpkgs.getRev self}";
   src = self; # + "/src";
 
   cargoLock = {
