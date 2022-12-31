@@ -13,7 +13,7 @@
 in
   beamPackages.mixRelease rec {
     pname = "my-package";
-    version = "0.0.0-${lib.flox-flxopkgs.getRev self}";
+    version = "0.0.0-${lib.flox-floxpkgs.getRev self}";
     src = self; # + "/src";
 
     MIX_ENV = "prod";
