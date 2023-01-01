@@ -10,7 +10,9 @@
       inherit name;
       runtimeInputs = [];
       text = ''
-        nix profile install --impure github:flox/floxpkgs#evalCatalog.${system}.stable.flox "$@"
+        nix \
+        --extra-experimental-features 'nix-command flakes' \
+        profile install --impure github:flox/floxpkgs#evalCatalog.${system}.stable.flox "$@"
       '';
     })
     + "/bin/${name}";
