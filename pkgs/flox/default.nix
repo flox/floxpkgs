@@ -2,6 +2,12 @@
   self,
   callPackage,
   capacitated,
+  lib,
   ...
 }:
-capacitated.flox.packages.flox // {fromCatalog = self.evalCatalog.stable.flox;}
+lib.lazyDerivation { 
+  derivation = capacitated.flox.packages.flox;
+  passthru = {
+    fromCatalog = self.evalCatalog.stable.flox;
+  };
+}
