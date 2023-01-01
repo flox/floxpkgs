@@ -34,7 +34,7 @@
     "storePaths": [
       "/nix/store/wakil0llnmkbsmjnn4f6wf81r8cg9lpf-tracelinks-1.0.0-r8"
     ],
-    "url": "git+ssh://git@github.com/flox/floxpkgs?ref=master&rev=028ea1e7a10ae277cbad8b9db04192348c1b1a3b"
+    "url": "git+ssh://git@github.com/flox/floxpkgs?ref=master&rev=d99aacb9e646514ef0c440add16fab7c920b2789"
   },
   "eval": {
     "attrPath": [
@@ -69,23 +69,23 @@
   },
   "source": {
     "locked": {
-      "lastModified": 1672424362,
-      "narHash": "sha256-MwFKdc0wzr/Eq1LwXAE5LruE+B+bkhDANyBD2sXlEGs=",
+      "lastModified": 1672530936,
+      "narHash": "sha256-dYZgMKXrvYxpCICLTfiONC7XQQCqVoD9FUMfCJJGvcs=",
       "ref": "master",
-      "rev": "028ea1e7a10ae277cbad8b9db04192348c1b1a3b",
-      "revCount": 976,
+      "rev": "d99aacb9e646514ef0c440add16fab7c920b2789",
+      "revCount": 1024,
       "type": "git",
       "url": "ssh://git@github.com/flox/floxpkgs"
     },
     "original": {
       "ref": "master",
-      "rev": "028ea1e7a10ae277cbad8b9db04192348c1b1a3b",
+      "rev": "d99aacb9e646514ef0c440add16fab7c920b2789",
       "type": "git",
       "url": "ssh://git@github.com/flox/floxpkgs"
     },
     "remote": {
       "ref": "master",
-      "rev": "028ea1e7a10ae277cbad8b9db04192348c1b1a3b",
+      "rev": "d99aacb9e646514ef0c440add16fab7c920b2789",
       "type": "git",
       "url": "ssh://git@github.com/flox/floxpkgs"
     }
