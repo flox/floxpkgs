@@ -13,6 +13,7 @@
   # mountpoint in catelog attr
   # catalog.<system>.<stability>[.<path>].<catalog entries>
   path ? [],
+  pathPrefix ? [],
   ...
 } @ args:
 # Plugin API (scope == Using flake)
@@ -128,17 +129,22 @@
     else (lib.recurseIntoAttrs attrset) // {${lib.head path} = recurseIntoAttrsPath (lib.tail path) (attrset.${lib.head path});};
 in rec {
   # Assumes: catalog of structure <system>.<stability>.<attrPAth>
-  catalog =
-    lib.mapAttrs (
-      system: catalogForSystem:
-        lib.mapAttrs
-        (stability: catalogForSystemAndStability:
-          recurseIntoAttrsPath
-          (lib.flatten [path])
-          (lib.setAttrByPath (lib.flatten [path]) catalogForSystemAndStability))
-        catalogForSystem
-    )
-    (builtins.removeAttrs catalogFakeDerivations ["recurseForDerivations"]);
+
+  catalog = let
+    value =
+      lib.mapAttrs (
+        system: catalogForSystem:
+          lib.mapAttrs
+          (stability: catalogForSystemAndStability:
+            recurseIntoAttrsPath
+            (lib.flatten [path])
+            (lib.setAttrByPath (lib.flatten [path]) catalogForSystemAndStability))
+          catalogForSystem
+      )
+      (builtins.removeAttrs catalogFakeDerivations ["recurseForDerivations"]);
+  in
+    lib.setAttrByPath pathPrefix (lib.attrByPath pathPrefix (throw "${builtins.concatStringsSep "." pathPrefix} does not exist in ${toString catalogDirectory} or ${toString catalogFile}") value);
+
   evalCatalog =
     lib.mapAttrsRecursiveCond
     (v: !(lib.isAttrs v && v ? latest))
