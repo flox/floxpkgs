@@ -13,11 +13,11 @@
   # mountpoint in catelog attr
   # catalog.<system>.<stability>[.<path>].<catalog entries>
   path ? [],
-  # pathPrefix restricts the attributes imported from a catalog to any attributes with that prefix.
+  # includePaths restricts the attributes imported from a catalog to any attributes with that prefix.
   # This allows lazy fetching of catalogDirectory or catalogFile. For example, adding a catalog with
-  # pathPrefix = x86_64-linux means that catalog won't be fetched by flox eval
+  # includePaths = x86_64-linux means that catalog won't be fetched by flox eval
   # .#catalog.aarch64-darwin
-  pathPrefix ? [],
+  includePath ? [],
   ...
 } @ args:
 # Plugin API (scope == Using flake)
@@ -147,8 +147,8 @@ in rec {
       )
       (builtins.removeAttrs catalogFakeDerivations ["recurseForDerivations"]);
   in
-    # silently ignore anything in the catalog not within pathPrefix
-    lib.setAttrByPath pathPrefix (lib.attrByPath pathPrefix (throw "${builtins.concatStringsSep "." pathPrefix} does not exist in ${toString catalogDirectory} or ${toString catalogFile}") value);
+    # silently ignore anything in the catalog not within includePath
+    lib.setAttrByPath includePath (lib.attrByPath includePath (throw "${builtins.concatStringsSep "." includePath} does not exist in ${toString catalogDirectory} or ${toString catalogFile}") value);
 
   evalCatalog =
     lib.mapAttrsRecursiveCond
