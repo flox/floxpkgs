@@ -16,7 +16,7 @@
   inputs.flox.url = "git+ssh://git@github.com/flox/flox-bash?ref=main";
   inputs.flox.inputs.flox-floxpkgs.follows = "/";
 
-  inputs.tracelinks.url = "git+ssh://git@github.com/flox/tracelinks";
+  inputs.tracelinks.url = "git+ssh://git@github.com/flox/tracelinks?ref=main";
   inputs.tracelinks.inputs.floxpkgs.follows = "/";
 
   inputs.builtfilter.url = "github:flox/builtfilter?ref=builtfilter-rs";
