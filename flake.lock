@@ -63,11 +63,11 @@
         "flox-floxpkgs": []
       },
       "locked": {
-        "lastModified": 1672982804,
-        "narHash": "sha256-+qh9GsgpduHbT3TDQB9QiDRdIWFAr+LdDJ8YZN38iIg=",
+        "lastModified": 1672987819,
+        "narHash": "sha256-MIUqi3ea0bMJVYHHyTn2a+8C6eo4tNj5acgyOjSzL7s=",
         "ref": "main",
-        "rev": "0f5afbc83e6fa74833f7d5a31a51d943628e5c54",
-        "revCount": 117,
+        "rev": "bfabd438701b185c6b739ec4249a4b5d8861e0df",
+        "revCount": 118,
         "type": "git",
         "url": "ssh://git@github.com/flox/flox-bash"
       },
