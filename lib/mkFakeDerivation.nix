@@ -2,6 +2,10 @@
 # can be substituted
 {lib}: element: let
   outputs = element.eval.outputs or (throw "unable to create mkFakeDerivation: no eval.outputs");
+  fromSource = with element.element;
+    if url == ""
+    then throw "url = \"\" so this fakeDerivation can't be built from source. Note that fakeDerivations created from self cannot be built from source"
+    else lib.getAttrFromPath attrPath (builtins.getFlake url);
   outputNames = builtins.attrNames outputs;
   defaultOutput = builtins.head outputNames;
   common =
@@ -30,7 +34,25 @@
       common
       // rec {
         inherit outputName;
-        outPath = builtins.storePath outputs.${outputName};
+        outPath =
+          # We could be
+          # 1. using an entry from the catalog that has a cache hit
+          # 2. using an entry from the catalog that does not have a cache hit and is
+          #   a. built locally
+          #   b. not built locally
+          # 3. an entry from self - not reproducible, so ultimately we'll throw an error
+          # For case 2a, it would be preferable if we could try builtins.storePath, but we can't, so
+          # just build from source
+          if element ? cache
+          then
+            if builtins.any (cacheMetadata: cacheMetadata.state == "hit") element.cache
+            then
+              builtins.fetchClosure {
+                fromStore = (builtins.head element.cache).cacheUrl;
+                fromPath = outputs.${outputName};
+              }
+            else fromSource.${outputName}
+          else fromSource.${outputName};
       };
   };
   outputsList = map outputToAttrListElement outputNames;
@@ -55,7 +77,7 @@ in
     meta = builtins.removeAttrs defaultOut.meta ["outputsToInstall"] // {inherit element;};
     pname = defaultOut.pname;
     version = defaultOut.version;
-    fromSource = with element.element; lib.getAttrFromPath attrPath (builtins.getFlake url);
+    inherit fromSource;
   }
 # TODO: fix in Nix, or unification (which does wrapping already)
 # TODO: fetchClosure
