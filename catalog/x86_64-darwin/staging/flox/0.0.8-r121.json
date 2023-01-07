@@ -1,0 +1,76 @@
+{
+  "build": {},
+  "cache": [
+    {
+      "cacheUrl": "https://cache.floxdev.com",
+      "narinfo": [],
+      "state": "miss"
+    }
+  ],
+  "element": {
+    "active": true,
+    "attrPath": [
+      "packages",
+      "x86_64-darwin",
+      "flox"
+    ],
+    "storePaths": [
+      "/nix/store/0nh7rs8kp1ll3kfs053i2ailklzmr358-flox-0.0.8-r121"
+    ],
+    "url": "git+ssh://git@github.com/flox/floxpkgs?ref=master&rev=4bd115f71dc35fe26e3fe331b2bc957f64632120"
+  },
+  "eval": {
+    "attrPath": [
+      "packages",
+      "x86_64-darwin",
+      "flox"
+    ],
+    "drvPath": "/nix/store/vzhf26klgd3929fg26wxnxbklkp9z9kx-flox-0.0.8-r121.drv",
+    "meta": {
+      "available": true,
+      "broken": false,
+      "insecure": false,
+      "name": "flox-0.0.8-r121",
+      "outputsToInstall": [
+        "out"
+      ],
+      "position": "/nix/store/rngaq05g0gad33jx5rdl31hjg8nmk9dm-source/pkgs/flox/default.nix:101",
+      "unfree": false,
+      "unsupported": false
+    },
+    "name": "flox-0.0.8-r121",
+    "namespace": [
+      "flox"
+    ],
+    "outputs": {
+      "out": "/nix/store/0nh7rs8kp1ll3kfs053i2ailklzmr358-flox-0.0.8-r121"
+    },
+    "pname": "flox",
+    "stability": "staging",
+    "system": "x86_64-darwin",
+    "version": "0.0.8-r121"
+  },
+  "source": {
+    "locked": {
+      "lastModified": 1673091574,
+      "narHash": "sha256-UnWGcOoKSQ8JWEqGnzhw0b3b9truk5ZpfLlSNLHA17w=",
+      "ref": "master",
+      "rev": "4bd115f71dc35fe26e3fe331b2bc957f64632120",
+      "revCount": 1118,
+      "type": "git",
+      "url": "ssh://git@github.com/flox/floxpkgs"
+    },
+    "original": {
+      "ref": "master",
+      "rev": "4bd115f71dc35fe26e3fe331b2bc957f64632120",
+      "type": "git",
+      "url": "ssh://git@github.com/flox/floxpkgs"
+    },
+    "remote": {
+      "ref": "master",
+      "rev": "4bd115f71dc35fe26e3fe331b2bc957f64632120",
+      "type": "git",
+      "url": "ssh://git@github.com/flox/floxpkgs"
+    }
+  }
+}
