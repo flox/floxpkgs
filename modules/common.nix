@@ -213,9 +213,9 @@ in {
           packageAttrSet: let
             catalogPath = catalogPathGetter channelName packageAttrSet.attrPath packageAttrSet.packageConfig;
           in rec {
-            drv =
+            fakeDerivation =
               floxpkgs.lib.mkFakeDerivation (lib.getAttrFromPath catalogPath catalog);
-            catalogData = drv.meta.element;
+            catalogData = fakeDerivation.meta.element;
             # for informative error messages
             inherit channelName;
             # for informative error messages
@@ -291,15 +291,16 @@ in {
           in
             # this function returns just the entries for this channel, and the caller adds channelName to the complete catalog
             rec {
-              drv = fakeDerivation;
               # has publish_element, which fakeDerivation.meta.element does not
-              inherit catalogData;
+              inherit fakeDerivation catalogData;
               # for informative error messages
               inherit channelName;
               # for informative error messages
               inherit (packageAttrSet) attrPath;
               inherit catalogPath;
             }
+            // lib.optionalAttrs (channelName == "self")
+            {drv = maybeFakeDerivation;}
         )
         partitioned.wrong;
     in
@@ -349,7 +350,8 @@ in {
 
     # extract a list of derivations
     packagesList =
-      builtins.map (packageWithDerivation: packageWithDerivation.drv) sortedPackagesWithDerivation
+      builtins.map (packageWithDerivation: packageWithDerivation.drv or packageWithDerivation.fakeDerivation)
+      sortedPackagesWithDerivation
       # types.package calls builtins.storePath
       ++ sortedStorePaths;
 
