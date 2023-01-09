@@ -47,10 +47,13 @@
           then
             if builtins.any (cacheMetadata: cacheMetadata.state == "hit") element.cache
             then
-              builtins.fetchClosure {
-                fromStore = (builtins.head element.cache).cacheUrl;
-                fromPath = outputs.${outputName};
-              }
+              if builtins ? fetchClosure
+              then
+                builtins.fetchClosure {
+                  fromStore = (builtins.head element.cache).cacheUrl;
+                  fromPath = outputs.${outputName};
+                }
+              else builtins.storePath outputs.${outputName}
             else fromSource.${outputName}
           else fromSource.${outputName};
       };
