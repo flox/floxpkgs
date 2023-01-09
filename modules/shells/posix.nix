@@ -70,10 +70,11 @@ in
         '';
       };
     in {
-      toplevel = floxpkgs.lib.mkEnv {
+      passthru.posix = floxpkgs.lib.mkEnv {
         inherit pkgs;
         packages = config.environment.systemPackages ++ [config.newCatalogPath activateScript];
         manifestPath = config.manifestPath;
       };
+      toplevel = config.passthru.posix // {passthru = config.passthru;} // config.passthru;
     };
   }
