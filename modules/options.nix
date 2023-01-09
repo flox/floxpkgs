@@ -47,5 +47,12 @@ with lib; {
     toplevel = mkOption {
       type = types.package;
     };
+    passthru = mkOption {
+      description = lib.mdDoc ''
+        Packages to expose under toplevel.passthru
+      '';
+      type = types.attrsOf types.package;
+      internal = true;
+    };
   };
 }
