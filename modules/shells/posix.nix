@@ -44,11 +44,17 @@ in
       );
 
       exportedEnvVars = let
-        # make foo = "bar" -> foo = ["bar"]
-        allValuesLists =
-          mapAttrs (n: toList) config.environmentVariables;
         exportVariables =
-          mapAttrsToList (n: v: ''export ${n}=${escapeShellArg (concatStringsSep ":" v)}'') allValuesLists;
+          if builtins.isList config.environmentVariables
+          then let
+            # double quote and replace " with \"
+            escapeShellArgToEval = arg: "\"${lib.replaceStrings [''"''] [''\"''] arg}\"";
+          in
+            builtins.concatLists (builtins.map
+              # don't escape variables defined in a list
+              (envAttrSet: mapAttrsToList (n: v: ''export ${n}=${escapeShellArgToEval v}'') envAttrSet)
+              config.environmentVariables)
+          else (mapAttrsToList (n: v: ''export ${n}=${escapeShellArg v}'') config.environmentVariables);
       in
         concatStringsSep "\n" exportVariables;
       activateScript = pkgs.writeTextFile {
