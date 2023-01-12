@@ -18,11 +18,7 @@
     })
     checkedOn;
 in
-  {
-    context,
-    capacitate,
-    ...
-  }: let
+  { context, ... }: let
     generated = context.closures "checks";
   in {
     checks = materialize (testsMapper context) generated;
