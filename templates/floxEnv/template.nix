@@ -1,1 +1,0 @@
-{ description = "Flox Project Environment"; }
