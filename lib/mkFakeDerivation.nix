@@ -40,22 +40,73 @@
           # 2. using an entry from the catalog that does not have a cache hit and is
           #   a. built locally
           #   b. not built locally
-          # 3. an entry from self - not reproducible, so ultimately we'll throw an error
+          # We shouldn't ever have an entry from self - fakeDerivations shouldn't be created with
+          # self entries, since they've already been realized, but they don't have a cache entry
+          #
           # For case 2a, it would be preferable if we could try builtins.storePath, but we can't, so
           # just build from source
-          if element ? cache
-          then
-            if builtins.any (cacheMetadata: cacheMetadata.state == "hit") element.cache
+          let
+            cacheUrl = let
+              stringOutPath = outputs.${outputName};
+            in
+              if element ? cache
+              then
+                if builtins.isList element.cache
+                # builtfilter style cache entry
+                # cache = [
+                #   {
+                #     cacheUrl = "https://cache.floxdev.com";
+                #     narinfo = [
+                #       {
+                #         path = "/nix/store/XXX";
+                #         ...
+                #       }
+                #     ];
+                #   }
+                # ];
+                then
+                  builtins.foldl' (
+                    cacheUrl: cacheMetadata:
+                      if cacheUrl != null
+                      then cacheUrl
+                      else if builtins.any (narinfo: narinfo.path == stringOutPath) cacheMetadata
+                      then cacheMetadata.cacheUrl
+                      else null
+                  )
+                  null
+                  element.cache
+                # update-catalog style cache entry
+                # cache = {
+                #   out = {
+                #     "https://cache.nixos.org" = {
+                #       # only present for invalid entries
+                #       valid = false;
+                #     };
+                #   };
+                # };
+                else if element.cache ? ${outputName}
+                then
+                  builtins.foldl' (foundCacheUrl: cacheUrl:
+                    if foundCacheUrl != null
+                    then foundCacheUrl
+                    else if element.cache.${outputName}.${cacheUrl}.valid or null == "false"
+                    then null
+                    # absence of valid means an entry is valid
+                    else cacheUrl)
+                  null (builtins.attrNames element.cache.${outputName})
+                else null
+              else null;
+          in
+            if cacheUrl != null
             then
               if builtins ? fetchClosure
               then
                 builtins.fetchClosure {
-                  fromStore = (builtins.head element.cache).cacheUrl;
-                  fromPath = outputs.${outputName};
+                  fromStore = cacheUrl;
+                  fromPath = stringOutPath;
                 }
-              else builtins.storePath outputs.${outputName}
-            else fromSource.${outputName}
-          else fromSource.${outputName};
+              else builtins.storePath stringOutPath
+            else fromSource.${outputName};
       };
   };
   outputsList = map outputToAttrListElement outputNames;
