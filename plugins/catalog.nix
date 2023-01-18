@@ -87,22 +87,12 @@
     (_: a: !(a ? element.storePaths))
     # f
     (
-      path: x:
+      path: publishData:
       # mapAttrsRecursiveCondFunc calls this function on leaves even if cond is not met (**which deviates from stdlib**), so we
       # have to double check cond
       # TODO: use `type == "flakeRender"` as condition
-        if (x ? element.storePaths)
-        then
-          (self.lib.mkFakeDerivation
-            {
-              eval =
-                (x.eval or {})
-                // {
-                  meta = {outputsToInstall = ["out"];} // (x.eval.meta or {});
-                  outputs = x.eval.outputs or {"out" = lib.head x.element.storePaths;};
-                };
-              inherit (x) element;
-            })
+        if (publishData ? element.storePaths)
+        then self.lib.mkFakeDerivation publishData
         else throw "encountered a leaf that doesn't have storePaths"
     )
     catalogData;

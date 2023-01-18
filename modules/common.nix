@@ -215,7 +215,7 @@ in {
           in rec {
             fakeDerivation =
               floxpkgs.lib.mkFakeDerivation (lib.getAttrFromPath catalogPath catalog);
-            catalogData = fakeDerivation.meta.element;
+            publishData = fakeDerivation.meta.publishData;
             # for informative error messages
             inherit channelName;
             # for informative error messages
@@ -255,10 +255,10 @@ in {
               in
                 throw "Channel ${channelName} does not contain ${flakePathsToPrint}";
             maybeFakeDerivation = lib.getAttrFromPath flakePath fetchedFlake;
-            catalogData =
+            publishData =
               # if we have a fake derivation, add some additional meta (publish_element) to mark
               # this as a publish of a publish. This is not reachable for self
-              if maybeFakeDerivation ? meta.element
+              if maybeFakeDerivation ? meta.publishData
               then let
                 publishCatalogData =
                   floxpkgs.lib.readPackage {
@@ -268,7 +268,7 @@ in {
                   } {analyzeOutput = false;}
                   maybeFakeDerivation;
               in
-                maybeFakeDerivation.meta.element
+                maybeFakeDerivation.meta.publishData
                 // {
                   publish_element = publishCatalogData.element;
                 }
@@ -287,12 +287,12 @@ in {
             #   called in this file
             # - wrap derivations from flakes in a fake derivation, because that's what
             #   will happen once they are put in the catalog
-            fakeDerivation = floxpkgs.lib.mkFakeDerivation catalogData;
+            fakeDerivation = floxpkgs.lib.mkFakeDerivation publishData;
           in
             # this function returns just the entries for this channel, and the caller adds channelName to the complete catalog
             rec {
-              # has publish_element, which fakeDerivation.meta.element does not
-              inherit fakeDerivation catalogData;
+              # has publish_element, which fakeDerivation.meta.publishData does not
+              inherit fakeDerivation publishData;
               # for informative error messages
               inherit channelName;
               # for informative error messages
@@ -321,8 +321,8 @@ in {
                 if packageWithDerivation1.catalogPath == packageWithDerivation2.catalogPath
                 then null
                 else if
-                  (builtins.sort builtins.lessThan packageWithDerivation1.catalogData.element.storePaths)
-                  == (builtins.sort builtins.lessThan packageWithDerivation2.catalogData.element.storePaths)
+                  (builtins.sort builtins.lessThan packageWithDerivation1.publishData.element.storePaths)
+                  == (builtins.sort builtins.lessThan packageWithDerivation2.publishData.element.storePaths)
                 then throw "package ${builtins.concatStringsSep "." packageWithDerivation1.catalogPath} is identical to package ${builtins.concatStringsSep "." packageWithDerivation2.catalogPath}"
                 else null
             )
@@ -332,7 +332,7 @@ in {
             builtins.deepSeq
             (builtins.map (
                 storePath:
-                  if packageWithDerivation1.catalogData.element.storePaths == [storePath]
+                  if packageWithDerivation1.publishData.element.storePaths == [storePath]
                   then throw "package ${builtins.concatStringsSep "." packageWithDerivation1.catalogPath} is identical to store path ${storePath}"
                   else null
               )
@@ -362,7 +362,7 @@ in {
         (packageWithDerivation:
           lib.setAttrByPath
           packageWithDerivation.catalogPath
-          packageWithDerivation.catalogData)
+          packageWithDerivation.publishData)
         sortedPackagesWithDerivation);
 
     # For flake:
@@ -395,8 +395,8 @@ in {
         packageWithDerivation: let
           element =
             # if this is a publish of a publish, use it
-            packageWithDerivation.catalogData.publish_element
-            or packageWithDerivation.catalogData.element;
+            packageWithDerivation.publishData.publish_element
+            or packageWithDerivation.publishData.element;
         in {
           active = true;
           inherit (element) url originalUrl storePaths;
