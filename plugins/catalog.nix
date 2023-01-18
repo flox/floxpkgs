@@ -93,16 +93,7 @@
       # TODO: use `type == "flakeRender"` as condition
         if (x ? element.storePaths)
         then
-          (self.lib.mkFakeDerivation
-            {
-              eval =
-                (x.eval or {})
-                // {
-                  meta = {outputsToInstall = ["out"];} // (x.eval.meta or {});
-                  outputs = x.eval.outputs or {"out" = lib.head x.element.storePaths;};
-                };
-              inherit (x) element;
-            })
+          (self.lib.mkFakeDerivation x)
         else throw "encountered a leaf that doesn't have storePaths"
     )
     catalogData;

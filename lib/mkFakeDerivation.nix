@@ -39,7 +39,7 @@
             cacheUrl: cacheMetadata:
               if cacheUrl != null
               then cacheUrl
-              else if builtins.any (narinfo: narinfo.path == stringOutPath) cacheMetadata
+              else if builtins.any (narinfo: narinfo.path == stringOutPath) (cacheMetadata.narinfo or [])
               then cacheMetadata.cacheUrl
               else null
           )
