@@ -66,9 +66,9 @@ let
       elements =
         map (
           v:
-            if v ? meta.element.element
+            if v ? meta.publishData.element
             then let
-              el = v.meta.element.element;
+              el = v.meta.publishData.element;
             in
               el
               // {

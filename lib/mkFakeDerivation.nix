@@ -67,7 +67,7 @@
           builtins.foldl' (foundCacheUrl: cacheUrl:
             if foundCacheUrl != null
             then foundCacheUrl
-            else if publishData.cache.${outputName}.${cacheUrl}.valid or null == "false"
+            else if publishData.cache.${outputName}.${cacheUrl}.valid or null == false
             then null
             # absence of valid means an entry is valid
             else cacheUrl)
