@@ -310,8 +310,10 @@ in {
           packageAttrSet: let
             catalogPath = catalogPathGetter channelName packageAttrSet.attrPath packageAttrSet.packageConfig;
           in rec {
-            fakeDerivation =
-              floxpkgs.lib.mkFakeDerivation (lib.getAttrFromPath catalogPath catalog);
+            fakeDerivation = floxpkgs.lib.mkFakeDerivation {
+              inherit context;
+              publishData = lib.getAttrFromPath catalogPath catalog;
+            };
             publishData = fakeDerivation.meta.publishData;
             # for informative error messages
             inherit channelName;
@@ -384,7 +386,7 @@ in {
             #   called in this file
             # - wrap derivations from flakes in a fake derivation, because that's what
             #   will happen once they are put in the catalog
-            fakeDerivation = floxpkgs.lib.mkFakeDerivation publishData;
+            fakeDerivation = floxpkgs.lib.mkFakeDerivation {inherit context publishData;};
           in
             # this function returns just the entries for this channel, and the caller adds channelName to the complete catalog
             rec {

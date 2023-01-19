@@ -92,7 +92,7 @@
       # have to double check cond
       # TODO: use `type == "flakeRender"` as condition
         if (publishData ? element.storePaths)
-        then self.lib.mkFakeDerivation publishData
+        then self.lib.mkFakeDerivation {inherit context publishData;}
         else throw "encountered a leaf that doesn't have storePaths"
     )
     catalogData;

@@ -1,6 +1,9 @@
 # mkFakeDerivation transforms data in catalog format into a fake derivation with a store path that
 # can be substituted
-{lib}: publishData: let
+{lib}: {
+  publishData,
+  context,
+}: let
   eval =
     (publishData.eval or {})
     // {
@@ -9,10 +12,47 @@
       meta = {outputsToInstall = ["out"];} // (publishData.eval.meta or {});
       outputs = publishData.eval.outputs or {"out" = lib.head publishData.element.storePaths;};
     };
-  fromSource = with publishData.element;
-    if url == ""
-    then throw "url = \"\" so this fakeDerivation can't be built from source. Note that fakeDerivations created from self cannot be built from source"
-    else lib.getAttrFromPath attrPath (builtins.getFlake url);
+  fromSource = let
+    fromNixpkgs = builtins.match "github:flox/nixpkgs/.*" publishData.element.url != null;
+    # implement allowedUnfreePackages as allowUnfreePredicate, but still honor
+    # allowUnfreePredicate
+    allowUnfreePredicate =
+      if context ? config.nixpkgs-config.allowUnfreePredicate
+      then
+        if context ? config.nixpkgs-config.allowedUnfreePackages
+        then throw "only one of allowedUnfreePackages and allowUnfreePredicate can be specified in config.nixpkgs-config"
+        else context.config.nixpkgs-config.allowUnfreePredicate
+      else if context ? config.nixpkgs-config.allowedUnfreePackages
+      then pkg: builtins.elem (lib.getName pkg) context.config.nixpkgs-config.allowedUnfreePackages
+      else _: false;
+    # based on stdenv check-meta.nix
+    hasDeniedUnfreeLicense =
+      eval.meta.unfree
+      && !(context.config.nixpkgs-config.allowUnfree or false)
+      && !(allowUnfreePredicate eval.pname);
+  in
+    if
+      fromNixpkgs
+      && hasDeniedUnfreeLicense
+    then throw "Encountered unfree package ${eval.pname} that is not allowed; add exceptions to the flake's config.nixpkgs-config"
+    else if fromNixpkgs
+    then let
+      pkgSystem =
+        if builtins.head publishData.element.attrPath != "legacyPackages"
+        then throw "first element of attrPath in nixpkgs not equal to legacyPackages"
+        else builtins.elemAt publishData.element.attrPath 1;
+      nixpkgsFlake = builtins.getFlake publishData.element.url;
+      pkgs = import nixpkgsFlake {
+        config = (builtins.removeAttrs context.config.nixpkgs-config ["allowedUnfreePackages"]) // {inherit allowUnfreePredicate;};
+        system = pkgSystem;
+      };
+    in
+      lib.getAttrFromPath (builtins.tail (builtins.tail publishData.element.attrPath)) pkgs
+    else
+      with publishData.element;
+        if url == ""
+        then throw "url = \"\" so this fakeDerivation can't be built from source. Note that fakeDerivations created from self cannot be built from source"
+        else lib.getAttrFromPath attrPath (builtins.getFlake url);
 
   # We could be
   # 1. using an entry from the catalog that has a cache hit
