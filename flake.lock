@@ -170,11 +170,11 @@
         "nixpkgs__catalog__x86_64-linux": "nixpkgs__catalog__x86_64-linux"
       },
       "locked": {
-        "lastModified": 1674068936,
-        "narHash": "sha256-aIwEBL1KECRfxQWhcX9vmROjSc1t6uP/1cxjzYl3syc=",
+        "lastModified": 1674493170,
+        "narHash": "sha256-gJlC7FM5nvHvsHLhQSVKLGJf+fibcm+QNtYNxFvjWB0=",
         "owner": "flox",
         "repo": "nixpkgs-flox",
-        "rev": "e4327de84f3aa8417e332a864c3b58c83b44832b",
+        "rev": "405965e811b6f8629d326cafda60805b75b4227f",
         "type": "github"
       },
       "original": {
