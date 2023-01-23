@@ -17,7 +17,7 @@ jobs:
       with:
         ref: master
     - name: "Install nix"
-      uses: cachix/install-nix-action@v17
+      uses: cachix/install-nix-action@v18
       with:
         extra_nix_config: |
           access-tokens = github.com=${{ secrets.NIX_GIT_TOKEN }}
