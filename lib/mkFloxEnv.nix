@@ -2,18 +2,18 @@
   lib,
   nixpkgs,
   self,
-  #  system,
 }: {
-  system,
-  modules,
   context,
+  namespace,
+  modules,
+  system,
 }:
 (lib.evalModules {
   modules =
     [
       {
         _module.args = {
-          inherit system context;
+          inherit context namespace system;
         };
       }
       (self + "/modules/common.nix")

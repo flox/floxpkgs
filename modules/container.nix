@@ -1,5 +1,6 @@
 {
   context,
+  namespace,
   system,
   config,
   lib,
@@ -11,7 +12,7 @@ in {
     name = mkOption {
       description = mdDoc ''The name of the resulting image.'';
       type = types.str;
-      default = "floxEnv";
+      default = builtins.elemAt namespace (builtins.length namespace - 1);
     };
 
     tag = mkOption {
