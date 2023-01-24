@@ -4,6 +4,7 @@
 {
   inputs,
   lib,
+  dockerTools,
 }: {
   context,
   system,
@@ -16,7 +17,7 @@
   builderArgsHaveEntrypoint = buildLayeredImageArgs ? config.entrypoint && buildLayeredImageArgs.config.entrypoint != null;
   runFloxActivate = entrypoint == null && !builderArgsHaveEntrypoint;
 in
-  pkgs.dockerTools.streamLayeredImage (lib.recursiveUpdate buildLayeredImageArgs
+  dockerTools.streamLayeredImage (lib.recursiveUpdate buildLayeredImageArgs
     {
       config = {
         entrypoint =
