@@ -31,5 +31,9 @@ in
           then ["${pkgs.bashInteractive}/bin/bash" "--rcfile" "${drv}/activate"]
           else buildLayeredImageArgs.config.entrypoint;
       };
-      contents = [drv] ++ lib.optionals runFloxActivate (with pkgs; [bashInteractive coreutils]);
+      # symlinkJoin fails when drv contains a symlinked bin directory, so wrap in an additional buildEnv
+      contents = pkgs.buildEnv {
+        name = "contents";
+        paths = [drv] ++ lib.optionals runFloxActivate (with pkgs; [bashInteractive coreutils]);
+      };
     })
