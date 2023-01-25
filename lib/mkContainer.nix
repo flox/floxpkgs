@@ -4,7 +4,6 @@
 {
   inputs,
   lib,
-  dockerTools,
 }: {
   context,
   system,
@@ -13,6 +12,7 @@
   buildLayeredImageArgs,
 }: let
   pkgs = context.nixpkgs.legacyPackages.${system};
+  dockerTools = pkgs.dockerTools;
   name = buildLayeredImageArgs.name;
   builderArgsHaveEntrypoint = buildLayeredImageArgs ? config.entrypoint && buildLayeredImageArgs.config.entrypoint != null;
   runFloxActivate = entrypoint == null && !builderArgsHaveEntrypoint;
