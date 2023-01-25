@@ -7,7 +7,7 @@
   injectedArgs ? {},
   dir ? sourceType,
 }: let
-  materialize = lib.capacitor.capacitate.capacitate.materialize;
+  materialize = lib.capacitor.capacitate.materialize;
 in
   {context, ...}: let
     floxEnvsMapper = context: {

@@ -9,6 +9,12 @@
   pkgs = context.nixpkgs.legacyPackages.${system};
 in {
   options = with lib; {
+    inline-packages = mkOption {
+      # TODO actual type
+      type = types.unspecified;
+      default = {};
+    };
+
     packages = mkOption {
       # TODO actual type
       type = types.attrsOf types.anything;
@@ -176,6 +182,30 @@ in {
     packagesWithDerivation =
       builtins.concatLists (lib.mapAttrsToList (getDerivationsForPackages getChannelCatalogPath getChannelFlakePaths) (groupedChannels.channels or {}))
       ++ builtins.concatLists (lib.mapAttrsToList (getDerivationsForPackages getFlakeCatalogPath getFlakeFlakePaths) (groupedChannels.flakes or {}));
+
+    # Inline capacitated projects exposes capacitor interface
+    inlineCapacitorPackages =
+        # Note, this does not re-expose current flake's self derivations, only re-uses its inputs
+        let self = context.self // {
+              # TODO: support sub-flakes, aka named environments
+              # outPath = context.self.outPath + "/dir";
+
+              # Fixed point operation that normally happens in call-flake.nix
+              inputs = context.self.inputs // { inherit self;};
+            } // project;
+
+            project = context.inputs.flox-floxpkgs.inputs.capacitor.lib.capacitor.capacitate.capacitate
+                    {}
+                    self.inputs
+                    (if lib.isFunction (config.inline-packages or null)
+                    then arg: (config.inline-packages arg)
+                    else _: config.inline-packages
+                    );
+
+            ## We only inject top-level packages
+            result = project.packages.${system} or {};
+      in builtins.attrValues result;
+
     storePaths = builtins.attrNames (groupedChannels.storePaths or {});
 
     getDerivationsForPackages = catalogPathGetter: flakePathsGetter: channelName: channelPackages: let
@@ -353,7 +383,8 @@ in {
       builtins.map (packageWithDerivation: packageWithDerivation.drv or packageWithDerivation.fakeDerivation)
       sortedPackagesWithDerivation
       # types.package calls builtins.storePath
-      ++ sortedStorePaths;
+      ++ sortedStorePaths
+      ++ inlineCapacitorPackages;
 
     # store paths are not added to the catalog
     newCatalog =
