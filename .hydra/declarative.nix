@@ -1,6 +1,5 @@
 {
   pkgs ? (builtins.getFlake "nixpkgs").legacyPackages.x86_64-linux,
-  pulls,
   ...
 }: let
   mkFlakeJobset = branch: stability: {
