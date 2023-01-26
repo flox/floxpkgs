@@ -207,11 +207,23 @@ in {
             then arg: (config.inline-packages arg)
             else _: config.inline-packages
           );
-
-        ## We only inject top-level packages
-        result = project.packages.${system} or {};
       in
-        builtins.attrValues result;
+        lib.mapAttrsToList (
+          name: drv: let
+            publishData =
+              floxpkgs.lib.readPackage {
+                # this is kind of meaningless
+                attrPath = ["inline-packages" "packages" system name];
+                flakeRef = "self";
+                useFloxEnvChanges = true;
+              } {analyzeOutput = true;}
+              drv;
+          in {
+            inherit drv publishData;
+          }
+        )
+        ## We only inject top-level packages
+        project.packages.${system} or (builtins.trace "empty" {});
 
     storePaths = builtins.attrNames (groupedChannels.storePaths or {});
 
@@ -391,17 +403,29 @@ in {
       sortedPackagesWithDerivation
       # types.package calls builtins.storePath
       ++ sortedStorePaths
-      ++ inlineCapacitorPackages;
+      # TODO check for duplication
+      ++ builtins.map (inlineCapacitorPackage: inlineCapacitorPackage.drv) inlineCapacitorPackages;
 
     # store paths are not added to the catalog
     newCatalog =
       builtins.foldl' lib.recursiveUpdate {}
-      (builtins.map
-        (packageWithDerivation:
-          lib.setAttrByPath
-          packageWithDerivation.catalogPath
-          packageWithDerivation.publishData)
-        sortedPackagesWithDerivation);
+      (
+        (builtins.map
+          (packageWithDerivation:
+            lib.setAttrByPath
+            packageWithDerivation.catalogPath
+            packageWithDerivation.publishData)
+          sortedPackagesWithDerivation)
+        ++ (builtins.map
+          (
+            inlineCapacitorPackage:
+              lib.setAttrByPath
+              # this is kind of meaningless
+              inlineCapacitorPackage.publishData.element.attrPath
+              inlineCapacitorPackage.publishData
+          )
+          inlineCapacitorPackages)
+      );
 
     # For flake:
     # {
@@ -453,9 +477,21 @@ in {
       })
       sortedStorePaths;
 
+    inlinePackagesManifestElements =
+      builtins.map (inlineCapacitorPackage: let
+        element = inlineCapacitorPackage.publishData.element;
+      in {
+        active = true;
+        inherit (element) url originalUrl storePaths;
+        # this is kind of meaningless
+        attrPath = builtins.concatStringsSep "." element.attrPath;
+        outputs = element.outputs or null;
+      })
+      inlineCapacitorPackages;
+
     manifestJSON = builtins.toJSON {
       version = 2;
-      elements = packageManifestElements ++ storePathManifestElements;
+      elements = packageManifestElements ++ storePathManifestElements ++ inlinePackagesManifestElements;
     };
   in {
     manifestPath = builtins.toFile "profile" manifestJSON;
