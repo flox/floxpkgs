@@ -3,27 +3,6 @@
   pulls,
   ...
 }: let
-  prs = builtins.fromJSON (builtins.readFile pulls);
-  prJobsets =
-    pkgs.lib.mapAttrs' (
-      num: info: {
-        name = "stable-PR-${num}";
-        value = {
-          enabled = 1;
-          hidden = true;
-          description = "PR ${num}: ${info.title}";
-          checkinterval = 120;
-          schedulingshares = 20;
-          enableemail = false;
-          emailoverride = "";
-          keepnr = 1;
-          type = 1;
-          flake = "git+ssh://git@github.com/flox/floxpkgs?ref=${info.head.ref}";
-          flakeattr = "hydraJobsStable";
-        };
-      }
-    )
-    prs;
   mkFlakeJobset = branch: stability: {
     description = "Packages built with nixpkgs ${pkgs.lib.toLower stability}";
     checkinterval = "600";
@@ -38,16 +17,13 @@
     flakeattr = "hydraJobs${stability}";
   };
 
-  desc =
-    prJobsets
-    // {
-      "stable" = mkFlakeJobset "master" "Stable";
-      "staging" = mkFlakeJobset "master" "Staging";
-      "unstable" = mkFlakeJobset "master" "Unstable";
-    };
+  desc = {
+    "stable" = mkFlakeJobset "master" "Stable";
+    "staging" = mkFlakeJobset "master" "Staging";
+    "unstable" = mkFlakeJobset "master" "Unstable";
+  };
 
   log = {
-    pulls = prs;
     jobsets = desc;
   };
 in {

@@ -15,11 +15,6 @@
     "nixexpr": {
       "value": "ssh://git@github.com/flox/floxpkgs master",
       "type": "git"
-    },
-    "pulls": {
-      "type": "githubpulls",
-      "value": "flox floxpkgs",
-      "emailresponsible": false
     }
   }
 }
