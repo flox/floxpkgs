@@ -42,9 +42,13 @@ in {
     config = mkOption {
       description = lib.mdDoc ''
         Run-time configuration of the container. A full list of the options
-        are available at in the
+        available is in the
         [Docker Image Specification v1.2.0](https://github.com/moby/moby/blob/master/image/spec/v1.2.md#image-json-field-descriptions).
-        Note that config.env is not supported (use environmentVariables instead)
+        Note that `config.env` is not supported (use `environmentVariables`
+        instead).
+
+        If `config.entrypoint` is not specified, flox activation will be
+        performed in a bash shell.
       '';
       type = types.anything;
       default = {};
@@ -64,9 +68,10 @@ in {
 
     extraCommands = mkOption {
       description = lib.mdDoc ''
-        Shell commands to run while building the final layer, without access to
-        most of the layer contents. Changes to this layer are "on top" of all
-        the other layers, so can create additional directories and files.
+        Shell commands to run while building the final layer when the
+        environment is transformed into a container. The commands do not have
+        access to most of the layer contents. Changes to this layer are "on top"
+        of all the other layers, so can create additional directories and files.
       '';
       type = types.lines;
       default = "";
@@ -96,14 +101,6 @@ in {
     #   '';
     #   default = false;
     # };
-
-    # entrypoint = mkOption {
-    #   description = lib.mdDoc ''
-    #     A command and its arguments to run when starting a container.
-    #   '';
-    #   type = types.nullOr (types.listOf types.str);
-    #   default = null;
-    # };
   };
   config = {
     passthru.buildLayeredImageArgs =
@@ -119,9 +116,9 @@ in {
             if builtins.isList config.environmentVariables && config.container.entrypoint != null
             then throw "ordered environment variables are not supported in containers when entrypoint is specified"
             else (lib.mapAttrsToList (n: v: ''${n}=${v}'') config.environmentVariables);
-          };
-        }
-        config.container;
+        };
+      }
+      config.container;
     passthru.streamLayeredImage = floxpkgs.lib.mkContainer config.toplevel;
   };
 }

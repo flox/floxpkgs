@@ -14,12 +14,59 @@ in {
       # TODO actual type
       type = types.unspecified;
       default = {};
+      description = lib.mdDoc ''
+        Escape hatch to inline Nix expressions for packages. The syntax is
+        identical to what can be put in a toplevel flake.nix as an argument to
+        `flox-floxpkgs.project`; see
+        [this template](https://github.com/flox/floxpkgs-template/blob/main/flake.nix)
+        for more details. In general, the top-level `packages` attribute should
+        be used instead of `inline.packages` whenever possible.
+      '';
+      example = lib.literalExpression ''
+        {
+          packages = {
+            myPython = {python3}:
+              python3.withPackages (pythonPackages: with pythonPackages; [pandas]);
+          };
+        }
+      '';
     };
 
     packages = mkOption {
       # TODO actual type
       type = types.attrsOf types.anything;
       default = {};
+      description = lib.mdDoc ''
+        Packages to include in the environment. A number of formats are
+        supported:
+
+        - `<channel>.<name>`
+
+            - `<channel>` can be any channel subscribed to; run `flox channels` to
+            list current subscriptions
+            - Optional version and stability attributes can be set. Available versions
+            and stabilities can be found with `flox search -c <channel> <name>`.
+
+        - `<self>.<name>`
+            This installs a package defined in the same project as a flox
+            environment, for example in `pkgs/my-pkg/default.nix`.
+
+        - `<flake>.<name>`
+            This supports installing packages from an arbitrary Nix flake. In
+            general, installing from a channel is more performant, but this can
+            be useful to use Nix software packaged in a flake that has not yet
+            been packaged for flox.
+      '';
+      example = {
+        nixpkgs-flox = {
+          ripgrep = {
+            version = "13.0.0";
+            stability = "unstable";
+          };
+        };
+        self.my-pkg = {};
+        "github:vlinkz/nix-editor".nixeditor = {};
+      };
     };
 
     catalogPath = mkOption {
@@ -50,25 +97,25 @@ in {
       };
     };
 
-    environment = {
-      systemPackages = mkOption {
-        type = types.listOf types.package;
-        default = [];
-        # example = literalExpression "[ pkgs.firefox pkgs.thunderbird ]";
-        # description = lib.mdDoc ''
-        #   The set of packages that appear in
-        #   /run/current-system/sw.  These packages are
-        #   automatically available to all users, and are
-        #   automatically updated every time you rebuild the system
-        #   configuration.  (The latter is the main difference with
-        #   installing them in the default profile,
-        #   {file}`/nix/var/nix/profiles/default`.
-        # '';
-      };
-    };
     #######################
     # End copied from NixOS
     #######################
+
+    packagesList = mkOption {
+      internal = true;
+      type = types.listOf types.package;
+      default = [];
+      # example = literalExpression "[ pkgs.firefox pkgs.thunderbird ]";
+      # description = lib.mdDoc ''
+      #   The set of packages that appear in
+      #   /run/current-system/sw.  These packages are
+      #   automatically available to all users, and are
+      #   automatically updated every time you rebuild the system
+      #   configuration.  (The latter is the main difference with
+      #   installing them in the default profile,
+      #   {file}`/nix/var/nix/profiles/default`.
+      # '';
+    };
   };
 
   config = let
@@ -496,17 +543,11 @@ in {
     };
   in {
     manifestPath = builtins.toFile "profile" manifestJSON;
-    environment.systemPackages = packagesList;
+    inherit packagesList;
     newCatalogPath = pkgs.writeTextFile {
       name = "catalog.json";
       destination = "/catalog.json";
       text = builtins.unsafeDiscardStringContext (builtins.toJSON newCatalog);
-    };
-
-    system.path = pkgs.buildEnv {
-      name = "system-path";
-      paths = config.environment.systemPackages;
-      ignoreCollisions = false;
     };
 
     passthru.inline = inline;

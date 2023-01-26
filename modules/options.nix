@@ -45,6 +45,7 @@ with lib; {
     };
 
     toplevel = mkOption {
+      internal = true;
       type = types.package;
     };
     passthru = mkOption {

@@ -16,10 +16,7 @@
           inherit context namespace system;
         };
       }
-      (self + "/modules/common.nix")
-      (self + "/modules/options.nix")
-      (self + "/modules/container.nix")
-      (self + "/modules/shells/posix.nix")
+      (self + "/modules")
     ]
     ++ modules;
 })
