@@ -1,0 +1,76 @@
+{
+  "build": {},
+  "cache": [
+    {
+      "cacheUrl": "https://cache.floxdev.com",
+      "narinfo": [],
+      "state": "miss"
+    }
+  ],
+  "element": {
+    "active": true,
+    "attrPath": [
+      "packages",
+      "aarch64-linux",
+      "flox"
+    ],
+    "storePaths": [
+      "/nix/store/a1bid4d9mphv4qk90x5wj4zpjmp06jgf-flox-0.0.9-r167"
+    ],
+    "url": "git+ssh://git@github.com/flox/floxpkgs?ref=master&rev=5272ad339235dfcda2588d2b6c002bd82c67d618"
+  },
+  "eval": {
+    "attrPath": [
+      "packages",
+      "aarch64-linux",
+      "flox"
+    ],
+    "drvPath": "/nix/store/kkfd5127bwl44wm44jw0bwy0cb2ssq84-flox-0.0.9-r167.drv",
+    "meta": {
+      "available": true,
+      "broken": false,
+      "insecure": false,
+      "name": "flox-0.0.9-r167",
+      "outputsToInstall": [
+        "out"
+      ],
+      "position": "/nix/store/97lw7isdr4ifdil6y37m1jzqbbhs2f8h-source/pkgs/flox/default.nix:88",
+      "unfree": false,
+      "unsupported": false
+    },
+    "name": "flox-0.0.9-r167",
+    "namespace": [
+      "flox"
+    ],
+    "outputs": {
+      "out": "/nix/store/a1bid4d9mphv4qk90x5wj4zpjmp06jgf-flox-0.0.9-r167"
+    },
+    "pname": "flox",
+    "stability": "stable",
+    "system": "aarch64-linux",
+    "version": "0.0.9-r167"
+  },
+  "source": {
+    "locked": {
+      "lastModified": 1674776579,
+      "narHash": "sha256-s1RMKglFwuwMO7FXLvJ+9VihjefgwFI743G2igIJcmE=",
+      "ref": "master",
+      "rev": "5272ad339235dfcda2588d2b6c002bd82c67d618",
+      "revCount": 1464,
+      "type": "git",
+      "url": "ssh://git@github.com/flox/floxpkgs"
+    },
+    "original": {
+      "ref": "master",
+      "rev": "5272ad339235dfcda2588d2b6c002bd82c67d618",
+      "type": "git",
+      "url": "ssh://git@github.com/flox/floxpkgs"
+    },
+    "remote": {
+      "ref": "master",
+      "rev": "5272ad339235dfcda2588d2b6c002bd82c67d618",
+      "type": "git",
+      "url": "ssh://git@github.com/flox/floxpkgs"
+    }
+  }
+}
