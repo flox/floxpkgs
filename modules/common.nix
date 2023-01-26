@@ -3,13 +3,14 @@
   lib,
   system,
   context,
+  namespace,
   ...
 }: let
   floxpkgs = context.inputs.flox-floxpkgs;
   pkgs = context.nixpkgs.legacyPackages.${system};
 in {
   options = with lib; {
-    inline-packages = mkOption {
+    inline = mkOption {
       # TODO actual type
       type = types.unspecified;
       default = {};
@@ -184,7 +185,7 @@ in {
       ++ builtins.concatLists (lib.mapAttrsToList (getDerivationsForPackages getFlakeCatalogPath getFlakeFlakePaths) (groupedChannels.flakes or {}));
 
     # Inline capacitated projects exposes capacitor interface
-    inlineCapacitorPackages =
+    inline =
       # Note, this does not re-expose current flake's self derivations, only re-uses its inputs
       let
         self =
@@ -197,33 +198,33 @@ in {
             inputs = context.self.inputs // {inherit self;};
           }
           // project;
-
         project =
           context.inputs.flox-floxpkgs.inputs.capacitor.lib.capacitor.capacitate.capacitate
           {}
           self.inputs
           (
-            if lib.isFunction (config.inline-packages or null)
-            then arg: (config.inline-packages arg)
-            else _: config.inline-packages
+            if lib.isFunction (config.inline or null)
+            then arg: (config.inline arg)
+            else _: config.inline
           );
       in
-        lib.mapAttrsToList (
-          name: drv: let
-            publishData =
-              floxpkgs.lib.readPackage {
-                # this is kind of meaningless
-                attrPath = ["inline-packages" "packages" system name];
-                flakeRef = "self";
-                useFloxEnvChanges = true;
-              } {analyzeOutput = true;}
-              drv;
-          in {
-            inherit drv publishData;
-          }
-        )
-        ## We only inject top-level packages
-        project.packages.${system} or (builtins.trace "empty" {});
+        project;
+    inlineCapacitorPackages =
+      lib.mapAttrsToList (
+        name: drv: let
+          publishData =
+            floxpkgs.lib.readPackage {
+              attrPath = ["floxEnvs" system] ++ namespace ++ ["inline" "packages" system name];
+              flakeRef = "self";
+              useFloxEnvChanges = true;
+            } {analyzeOutput = true;}
+            drv;
+        in {
+          inherit drv publishData;
+        }
+      )
+      ## We only inject top-level packages
+      inline.packages.${system} or (builtins.trace "empty" {});
 
     storePaths = builtins.attrNames (groupedChannels.storePaths or {});
 
@@ -507,5 +508,7 @@ in {
       paths = config.environment.systemPackages;
       ignoreCollisions = false;
     };
+
+    passthru.inline = inline;
   };
 }
