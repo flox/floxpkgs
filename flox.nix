@@ -31,6 +31,10 @@
     ];
   };
 
+  # reexport of catalogs
+  passthru.catalogs = {
+    nixpkgs = { inherit (inputs.nixpkgs) evalCatalog catalog; };
+  };
   # reexport of capacitor
   passthru.capacitor = inputs.capacitor;
   # define default plugins
