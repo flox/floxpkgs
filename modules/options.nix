@@ -51,7 +51,7 @@ with lib; {
       description = lib.mdDoc ''
         Packages to expose under toplevel.passthru
       '';
-      type = types.attrsOf types.package;
+      type = types.attrs;
       internal = true;
     };
   };

@@ -4,36 +4,25 @@
 {
   inputs,
   lib,
-}: {
-  context,
-  system,
-  drv,
-  entrypoint ? null,
-  buildLayeredImageArgs,
-}: let
-  pkgs = context.nixpkgs.legacyPackages.${system};
-  name = buildLayeredImageArgs.name;
-  builderArgsHaveEntrypoint = buildLayeredImageArgs ? config.entrypoint && buildLayeredImageArgs.config.entrypoint != null;
-  runFloxActivate = entrypoint == null && !builderArgsHaveEntrypoint;
-in
-  pkgs.dockerTools.streamLayeredImage (lib.recursiveUpdate buildLayeredImageArgs
+}: drv: let
+  pkgs = inputs.nixpkgs.legacyPackages.${drv.system}.pkgs;
+  buildLayeredImageArgs =
+    lib.recursiveUpdate
     {
-      config = {
-        entrypoint =
-          if
-            entrypoint
-            != null
-          then
-            if builderArgsHaveEntrypoint
-            then throw "cannot specify both entrypoint and config.entrypoint"
-            else entrypoint
-          else if runFloxActivate
-          then ["${pkgs.bashInteractive}/bin/bash" "--rcfile" "${drv}/activate"]
-          else buildLayeredImageArgs.config.entrypoint;
-      };
+      name = drv.name;
       # symlinkJoin fails when drv contains a symlinked bin directory, so wrap in an additional buildEnv
       contents = pkgs.buildEnv {
         name = "contents";
-        paths = [drv] ++ lib.optionals runFloxActivate (with pkgs; [bashInteractive coreutils]);
+        paths = [drv pkgs.bashInteractive pkgs.coreutils];
       };
-    })
+      config = {
+        # By default, match the existing semantics of Nixpkgs
+        Entrypoint = [
+          "${drv.outPath}/bin/${drv.meta.mainProgram
+            or (with builtins; parseDrvName (unsafeDiscardStringContext drv.name)).name}"
+        ];
+      };
+    }
+    (drv.meta.buildLayeredImageArgs or {});
+in
+  inputs.nixpkgs.legacyPackages.${drv.system}.pkgs.dockerTools.streamLayeredImage buildLayeredImageArgs
