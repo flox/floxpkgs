@@ -3,13 +3,14 @@
   lib,
   system,
   context,
+  namespace,
   ...
 }: let
   floxpkgs = context.inputs.flox-floxpkgs;
   pkgs = context.nixpkgs.legacyPackages.${system};
 in {
   options = with lib; {
-    inline-packages = mkOption {
+    inline = mkOption {
       # TODO actual type
       type = types.unspecified;
       default = {};
@@ -184,27 +185,46 @@ in {
       ++ builtins.concatLists (lib.mapAttrsToList (getDerivationsForPackages getFlakeCatalogPath getFlakeFlakePaths) (groupedChannels.flakes or {}));
 
     # Inline capacitated projects exposes capacitor interface
+    inline =
+      # Note, this does not re-expose current flake's self derivations, only re-uses its inputs
+      let
+        self =
+          context.self
+          // {
+            # TODO: support sub-flakes, aka named environments
+            # outPath = context.self.outPath + "/dir";
+
+            # Fixed point operation that normally happens in call-flake.nix
+            inputs = context.self.inputs // {inherit self;};
+          }
+          // project;
+        project =
+          context.inputs.flox-floxpkgs.inputs.capacitor.lib.capacitor.capacitate.capacitate
+          {}
+          self.inputs
+          (
+            if lib.isFunction (config.inline or null)
+            then arg: (config.inline arg)
+            else _: config.inline
+          );
+      in
+        project;
     inlineCapacitorPackages =
-        # Note, this does not re-expose current flake's self derivations, only re-uses its inputs
-        let self = context.self // {
-              # TODO: support sub-flakes, aka named environments
-              # outPath = context.self.outPath + "/dir";
-
-              # Fixed point operation that normally happens in call-flake.nix
-              inputs = context.self.inputs // { inherit self;};
-            } // project;
-
-            project = context.inputs.flox-floxpkgs.inputs.capacitor.lib.capacitor.capacitate.capacitate
-                    {}
-                    self.inputs
-                    (if lib.isFunction (config.inline-packages or null)
-                    then arg: (config.inline-packages arg)
-                    else _: config.inline-packages
-                    );
-
-            ## We only inject top-level packages
-            result = project.packages.${system} or {};
-      in builtins.attrValues result;
+      lib.mapAttrsToList (
+        name: drv: let
+          publishData =
+            floxpkgs.lib.readPackage {
+              attrPath = ["floxEnvs" system] ++ namespace ++ ["inline" "packages" system name];
+              flakeRef = "self";
+              useFloxEnvChanges = true;
+            } {analyzeOutput = true;}
+            drv;
+        in {
+          inherit drv publishData;
+        }
+      )
+      ## We only inject top-level packages
+      inline.packages.${system} or (builtins.trace "empty" {});
 
     storePaths = builtins.attrNames (groupedChannels.storePaths or {});
 
@@ -384,17 +404,29 @@ in {
       sortedPackagesWithDerivation
       # types.package calls builtins.storePath
       ++ sortedStorePaths
-      ++ inlineCapacitorPackages;
+      # TODO check for duplication
+      ++ builtins.map (inlineCapacitorPackage: inlineCapacitorPackage.drv) inlineCapacitorPackages;
 
     # store paths are not added to the catalog
     newCatalog =
       builtins.foldl' lib.recursiveUpdate {}
-      (builtins.map
-        (packageWithDerivation:
-          lib.setAttrByPath
-          packageWithDerivation.catalogPath
-          packageWithDerivation.publishData)
-        sortedPackagesWithDerivation);
+      (
+        (builtins.map
+          (packageWithDerivation:
+            lib.setAttrByPath
+            packageWithDerivation.catalogPath
+            packageWithDerivation.publishData)
+          sortedPackagesWithDerivation)
+        ++ (builtins.map
+          (
+            inlineCapacitorPackage:
+              lib.setAttrByPath
+              # this is kind of meaningless
+              inlineCapacitorPackage.publishData.element.attrPath
+              inlineCapacitorPackage.publishData
+          )
+          inlineCapacitorPackages)
+      );
 
     # For flake:
     # {
@@ -446,9 +478,21 @@ in {
       })
       sortedStorePaths;
 
+    inlinePackagesManifestElements =
+      builtins.map (inlineCapacitorPackage: let
+        element = inlineCapacitorPackage.publishData.element;
+      in {
+        active = true;
+        inherit (element) url originalUrl storePaths;
+        # this is kind of meaningless
+        attrPath = builtins.concatStringsSep "." element.attrPath;
+        outputs = element.outputs or null;
+      })
+      inlineCapacitorPackages;
+
     manifestJSON = builtins.toJSON {
       version = 2;
-      elements = packageManifestElements ++ storePathManifestElements;
+      elements = packageManifestElements ++ storePathManifestElements ++ inlinePackagesManifestElements;
     };
   in {
     manifestPath = builtins.toFile "profile" manifestJSON;
@@ -464,5 +508,7 @@ in {
       paths = config.environment.systemPackages;
       ignoreCollisions = false;
     };
+
+    passthru.inline = inline;
   };
 }
