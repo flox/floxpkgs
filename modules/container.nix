@@ -7,6 +7,7 @@
   ...
 }: let
   floxpkgs = context.inputs.flox-floxpkgs;
+  pkgs = context.nixpkgs.legacyPackages.${system};
 in {
   options.container = with lib; {
     name = mkOption {
@@ -96,37 +97,31 @@ in {
     #   default = false;
     # };
 
-    entrypoint = mkOption {
-      description = lib.mdDoc ''
-        A command and its arguments to run when starting a container.
-      '';
-      type = types.nullOr (types.listOf types.str);
-      default = null;
-    };
+    # entrypoint = mkOption {
+    #   description = lib.mdDoc ''
+    #     A command and its arguments to run when starting a container.
+    #   '';
+    #   type = types.nullOr (types.listOf types.str);
+    #   default = null;
+    # };
   };
   config = {
-    passthru.streamLayeredImage = let
-      environmentVariables =
-        if builtins.isList config.environmentVariables && config.container.entrypoint != null
-        then throw "ordered environment variables are not supported in containers when entrypoint is specified"
-        else (lib.mapAttrsToList (n: v: ''${n}=${v}'') config.environmentVariables);
-    in
-      floxpkgs.lib.mkContainer {
-        inherit context system;
-        drv = config.passthru.posix;
-        buildLayeredImageArgs =
-          lib.recursiveUpdate
-          (builtins.removeAttrs config.container ["entrypoint"])
-          {
-            config.env =
-              if (config.container.entrypoint != null)
-              then environmentVariables
-              # The default entrypoint (flox activation) will pull in
-              # environmentVariables, and discard config.env for consistency
-              # even if there is a different entrypoint
-              else [];
+    passthru.buildLayeredImageArgs =
+      lib.recursiveUpdate {
+        config = {
+          # Note: this does not include the logic regarding tty, interactive, etc.
+          # Note: no "-c" means users need to include it if trying to run a
+          # command, then "-ci" is necessary to keep running the rcfile.
+          # Including "-c" means one cannot only start an activated shell
+          # without double-activation in Cmd
+          Entrypoint = ["${pkgs.bashInteractive}/bin/bash" "--rcfile" "${config.toplevel.outPath}/activate"];
+          Env =
+            if builtins.isList config.environmentVariables && config.container.entrypoint != null
+            then throw "ordered environment variables are not supported in containers when entrypoint is specified"
+            else (lib.mapAttrsToList (n: v: ''${n}=${v}'') config.environmentVariables);
           };
-        entrypoint = config.container.entrypoint;
-      };
+        }
+        config.container;
+    passthru.streamLayeredImage = floxpkgs.lib.mkContainer config.toplevel;
   };
 }

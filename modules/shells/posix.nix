@@ -74,6 +74,7 @@ in
         inherit pkgs;
         packages = config.environment.systemPackages ++ [config.newCatalogPath activateScript];
         manifestPath = config.manifestPath;
+        meta.buildLayeredImageArgs = config.passthru.buildLayeredImageArgs;
       };
       toplevel = config.passthru.posix // {passthru = config.passthru;} // config.passthru;
     };
