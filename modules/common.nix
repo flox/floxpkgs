@@ -185,26 +185,33 @@ in {
 
     # Inline capacitated projects exposes capacitor interface
     inlineCapacitorPackages =
-        # Note, this does not re-expose current flake's self derivations, only re-uses its inputs
-        let self = context.self // {
-              # TODO: support sub-flakes, aka named environments
-              # outPath = context.self.outPath + "/dir";
+      # Note, this does not re-expose current flake's self derivations, only re-uses its inputs
+      let
+        self =
+          context.self
+          // {
+            # TODO: support sub-flakes, aka named environments
+            # outPath = context.self.outPath + "/dir";
 
-              # Fixed point operation that normally happens in call-flake.nix
-              inputs = context.self.inputs // { inherit self;};
-            } // project;
+            # Fixed point operation that normally happens in call-flake.nix
+            inputs = context.self.inputs // {inherit self;};
+          }
+          // project;
 
-            project = context.inputs.flox-floxpkgs.inputs.capacitor.lib.capacitor.capacitate.capacitate
-                    {}
-                    self.inputs
-                    (if lib.isFunction (config.inline-packages or null)
-                    then arg: (config.inline-packages arg)
-                    else _: config.inline-packages
-                    );
+        project =
+          context.inputs.flox-floxpkgs.inputs.capacitor.lib.capacitor.capacitate.capacitate
+          {}
+          self.inputs
+          (
+            if lib.isFunction (config.inline-packages or null)
+            then arg: (config.inline-packages arg)
+            else _: config.inline-packages
+          );
 
-            ## We only inject top-level packages
-            result = project.packages.${system} or {};
-      in builtins.attrValues result;
+        ## We only inject top-level packages
+        result = project.packages.${system} or {};
+      in
+        builtins.attrValues result;
 
     storePaths = builtins.attrNames (groupedChannels.storePaths or {});
 
