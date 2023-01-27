@@ -26,7 +26,8 @@ def render_types(obj):
     if '_type' not in obj: return obj
 
     _type = obj['_type']
-    if _type == 'literalExpression' or _type == 'literalDocBook':
+
+    if _type in ['literalExpression', 'literalDocBook', 'mdDoc', 'literalMD']:
         return obj['text']
 
     if _type == 'derivation':
@@ -49,14 +50,14 @@ def generate_commonmark(options):
         if 'default' in value:
             print('*_Default_*')
             print('```')
-            print(json.dumps(value['default'], ensure_ascii=False, separators=(',', ':')))
+            print(value['default'])
             print('```')
         print()
         print()
         if 'example' in value:
             print('*_Example_*')
             print('```')
-            print(json.dumps(value['example'], ensure_ascii=False, separators=(',', ':')))
+            print(value['example'])
             print('```')
         print()
         print()

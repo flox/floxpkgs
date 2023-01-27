@@ -101,10 +101,13 @@ in rec {
       > $out
   '';
 
+  rawOptionsJSON = builtins.toFile "options.json"
+        (builtins.unsafeDiscardStringContext (builtins.toJSON optionsNix));
+
   optionsCommonMark = pkgs.runCommand "options.md" {} ''
     ${pkgs.python3Minimal}/bin/python ${./generateDoc.py} \
       --format commonmark \
-      ${optionsJSON}/share/doc/nixos/options.json \
+      ${rawOptionsJSON} \
       > $out
   '';
 
