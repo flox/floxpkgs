@@ -224,7 +224,7 @@ in {
         }
       )
       ## We only inject top-level packages
-      inline.packages.${system} or (builtins.trace "empty" {});
+      inline.packages.${system} or {};
 
     storePaths = builtins.attrNames (groupedChannels.storePaths or {});
 
