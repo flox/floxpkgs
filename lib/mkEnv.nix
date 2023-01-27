@@ -98,12 +98,23 @@ let
         } $out/manifest.json"
       ];
     };
+
+    pre-wrapper = (derivation {
+      name = "wrapper";
+      system = system;
+      builder = "builtin:buildenv";
+      manifest = "unused";
+      derivations =
+        map (x: ["true" (x.meta.priority or 5) 1 x]) (args.packages ++ [envBash]);
+    });
   in
+    # note: this allows for an input-addressed approach for and environment to self-activate
     buildEnv ({
         name = "wrapper";
-        paths = args.packages ++ [manifest envBash];
+        paths = [manifest pre-wrapper];
 
         postBuild = ''
+          rm $out/manifest.nix
           rm $out/env.bash ; substitute ${envBash}/env.bash $out/env.bash --subst-var-by DEVSHELL_DIR $out
           ${args.postBuild or ""}
         '';

@@ -28,6 +28,10 @@
       (inputs.capacitor.plugins.plugins { dir = ./plugins; })
 
       (inputs.capacitor.plugins.templates {})
+      (import ./plugins/floxEnvs.nix { inherit self lib; } {
+        sourceType = "packages";
+        dir = "pkgs";
+      })
     ];
   };
 
