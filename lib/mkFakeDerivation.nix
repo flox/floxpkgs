@@ -128,7 +128,7 @@ in
       name = defaultOut.name;
       system = eval.system;
       builder = "builtin:buildenv";
-      manifest = outputsSet.${defaultOutput};
+      manifest = "/nix";
       derivations =
         map (x: ["true" 5 1 outputsSet.${x}]) (defaultOut.meta.outputsToInstall or defaultOut.outputs);
     })
