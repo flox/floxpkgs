@@ -13,7 +13,7 @@
   # Declaration of external resources
   # =================================
 
-  inputs.flox.url = "git+ssh://git@github.com/flox/flox-bash?ref=main";
+  inputs.flox.url = "git+ssh://git@github.com/flox/flox?ref=main";
   inputs.flox.inputs.flox-floxpkgs.follows = "/";
 
   inputs.tracelinks.url = "git+ssh://git@github.com/flox/tracelinks?ref=main";
