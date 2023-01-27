@@ -1,3 +1,4 @@
+{nixpkgs, lib}:
 /* Generate JSON, XML and DocBook documentation for given NixOS options.
 
    Minimal example:
@@ -16,9 +17,7 @@
     }
 
 */
-{ pkgs
-, lib
-, options
+{ options
 , transformOptions ? lib.id  # function for additional transformations of the options
 , documentType ? "appendix" # TODO deprecate "appendix" in favor of "none"
                             #      and/or rename function to moduleOptionDoc for clean slate
@@ -42,9 +41,11 @@
 , allowDocBook ? true
 # whether lib.mdDoc is required for descriptions to be read as markdown.
 , markdownByDefault ? false
+, system
 }:
 
 let
+  pkgs = nixpkgs.legacyPackages.${system};
   rawOpts = lib.optionAttrSetToDocList options;
   transformedOpts = map transformOptions rawOpts;
   filteredOpts = lib.filter (opt: opt.visible && !opt.internal) transformedOpts;
