@@ -17,7 +17,7 @@
   inputs.flox.inputs.flox-floxpkgs.follows = "/";
 
   inputs.tracelinks.url = "git+ssh://git@github.com/flox/tracelinks?ref=main";
-  inputs.tracelinks.inputs.floxpkgs.follows = "/";
+  inputs.tracelinks.inputs.flox-floxpkgs.follows = "/";
 
   inputs.builtfilter.url = "github:flox/builtfilter?ref=builtfilter-rs";
   inputs.builtfilter.inputs.capacitor.follows = "capacitor";
