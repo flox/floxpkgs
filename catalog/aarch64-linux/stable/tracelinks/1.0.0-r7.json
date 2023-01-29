@@ -3,8 +3,25 @@
   "cache": [
     {
       "cacheUrl": "https://cache.floxdev.com",
-      "narinfo": [],
-      "state": "miss"
+      "narinfo": [
+        {
+          "deriver": "/nix/store/gg4spfwbxm87zw58qkbapn6yg09n1j5q-tracelinks-1.0.0-r7.drv",
+          "downloadHash": "sha256-gAotbbNhzITTrpgHQZBgiFhaOOIW53L7Ko6DujPGp/o=",
+          "downloadSize": 5368,
+          "narHash": "sha256-uYJrZTS4rCz9gWysjpGy8GDh8ukadZIZuJ5c8AF12+4=",
+          "narSize": 73440,
+          "path": "/nix/store/pxyr6kx8jn5a9hp6cflc2xf5ayr8xp16-tracelinks-1.0.0-r7",
+          "references": [
+            "/nix/store/xl52bf8jch51zzh84rszxn0hpbxadll4-glibc-2.35-163"
+          ],
+          "signatures": [
+            "flox-store-public-0:zqQEt8TjacNflw24ID4eoXFXnXsCrmSSnZNEz94EdAQ/llVlDbILTLXmeO41ZL9bXbbVFEO9n7hVjTiRu0h/CA=="
+          ],
+          "url": "nar/1ym7qqrvm0wf5bxp5rqnw8w5ln48c28421wqmv9q9k31ndnjs2l0.nar.xz",
+          "valid": true
+        }
+      ],
+      "state": "hit"
     }
   ],
   "element": {
