@@ -3,8 +3,25 @@
   "cache": [
     {
       "cacheUrl": "https://cache.floxdev.com",
-      "narinfo": [],
-      "state": "miss"
+      "narinfo": [
+        {
+          "deriver": "/nix/store/pksbyldy256xk1mk4ifnp691zbnwdmhj-tracelinks-1.0.0-r7.drv",
+          "downloadHash": "sha256-lx9u1uTNR114NtwCZI5Tk/g4r6djrAYlegwUCZYnQpE=",
+          "downloadSize": 4048,
+          "narHash": "sha256-KXxyyJM4f7kYAMdy/+zxqZnwAYfR1qh3BLiY2zc+Na8=",
+          "narSize": 54208,
+          "path": "/nix/store/84idlxl8psp53q8iv81p1c6wgwlhcrn9-tracelinks-1.0.0-r7",
+          "references": [
+            "/nix/store/q3lvr6jhg2xx29s377sz3yzxmb567vvb-apple-framework-CoreFoundation-11.0.0"
+          ],
+          "signatures": [
+            "flox-store-public-0:63GxTHnrGIX5sUYca2uNT5W3Dt7hjuyqj6zhjMaP/8ZF6wziANQdvDViqMbzyQ/Le0iYtcRXqG1EBR1VCw8HCQ=="
+          ],
+          "url": "nar/14a24yb0j50cg8jhdb33lypkiy4kaf7680nw6rw5siydwkb6w7wp.nar.xz",
+          "valid": true
+        }
+      ],
+      "state": "hit"
     }
   ],
   "element": {
