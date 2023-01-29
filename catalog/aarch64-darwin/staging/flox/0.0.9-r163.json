@@ -3,8 +3,53 @@
   "cache": [
     {
       "cacheUrl": "https://cache.floxdev.com",
-      "narinfo": [],
-      "state": "miss"
+      "narinfo": [
+        {
+          "deriver": "/nix/store/asfgjz8cww91cvv52vfmzqq44kxg2ly3-flox-0.0.9-r163.drv",
+          "downloadHash": "sha256-FoHX/Vpz5o2KKBTgx0ocYq/MYVJ2gKzwJUH9+hU65Kw=",
+          "downloadSize": 73592,
+          "narHash": "sha256-oLhJyolzL5q0APIV4weYLWr71QFjpV1H23/lDZimcrk=",
+          "narSize": 365768,
+          "path": "/nix/store/gfxkim3cqsbx6l9dv3br672h9ks0p3hx-flox-0.0.9-r163",
+          "references": [
+            "/nix/store/0mjcb19sfyxac8207ddm1qhdkclg5593-gnused-4.8",
+            "/nix/store/0y3d33kw71zkrkwm72ja5qr7rbg6jf9i-gh-2.20.2",
+            "/nix/store/1xjvhiwzqvv24fc03zh8abc65mn6vyqs-git-minimal-2.38.1",
+            "/nix/store/2m2jha21jq3f51g0rd42y385v5vfkgih-diffutils-3.8",
+            "/nix/store/2nsmgkbkqkpb4bakzsan658jiarfpj6n-gnutar-1.34",
+            "/nix/store/3z3i0kgb92jaf2vqaz88skw6bhxgapcd-nss-cacert-3.86",
+            "/nix/store/4zq37h4rbzfiv4fi8hxali6lbzqb97my-parallel-20220322",
+            "/nix/store/797bc3bj9l99dvkbg0kxgbqallr91z52-getent-getent-netbsd-9.2",
+            "/nix/store/8lc9nhnsjbd46x29ysirgmq8sj9zr9k1-nix-editor-0.3.0-beta.1",
+            "/nix/store/8nv1g4ymxi2f96pbl1jy9h625v2risd8-curl-7.86.0-bin",
+            "/nix/store/a8rwyqy0ax4g8vjyljcv7n7vc1sb554b-less-608",
+            "/nix/store/aq7yflra9v3ddjqfvq5ivs9silppvjhy-adv_cmds-119-locale",
+            "/nix/store/cxrxrblp1arn3l84k61563gzsz02vfrm-dasel-2.0.2",
+            "/nix/store/d8hcl0rdr85qjhk5hwwpk5mmz3yf93cc-bash-interactive-5.1-p16",
+            "/nix/store/ffjqcnwrklx4rr3wi914sbi6x3flpicv-gawk-5.1.1",
+            "/nix/store/g8b81w9kpb82gm7702ca692mp5flm7pf-apple-framework-CoreFoundation-11.0.0",
+            "/nix/store/gfxkim3cqsbx6l9dv3br672h9ks0p3hx-flox-0.0.9-r163",
+            "/nix/store/gvqjx5nlrabkbbg64g75p1l070kbx79y-nix-2.12.0",
+            "/nix/store/hxzkfp30fqnx77lw1y8yc5d2w8vmbjzv-jq-1.6-bin",
+            "/nix/store/klwbhi3i95kklw5ikcja8afrhq3pb0km-gnugrep-3.7",
+            "/nix/store/ksla95msp8jpqz1fknsikmax68925fi8-man-db-2.11.1",
+            "/nix/store/mjyzxrwmkf5p297rl5ik4wfjk73fvfzp-util-linux-1003.1-2008",
+            "/nix/store/npcq66nqv2wpzp3ma5s63vafnnivphxb-coreutils-9.1",
+            "/nix/store/pmpvhrs1xbkjplpczclpgyrkw3r4axcw-ansifilter-2.18",
+            "/nix/store/ps31akixcs79ndqnnpl4zffkjyhpzqwh-gzip-1.12",
+            "/nix/store/s82cl6sy58m32m9y555agqxwpix61qry-gum-0.8.0",
+            "/nix/store/x380x9d7gqh4ig9h50a7wx08p0s6622f-bash-5.1-p16",
+            "/nix/store/xqxxjfcshgfapskb4mjgyr2zixv86jyb-findutils-4.9.0",
+            "/nix/store/zk99ivl4d7wbyyn3xly9n34dw9154489-libossp-uuid-1.6.2"
+          ],
+          "signatures": [
+            "flox-store-public-0:0GLdykuNzVyWusM0F2UjjbN1oheLm108+91sPe2N92akkNy9ca6GBg48Q6pjIwIoRAMdfL6AUTa5Vwme7XHoDQ=="
+          ],
+          "url": "nar/1b7478azmza14pqar03na9hwrbv23i5cgq0l5258vrkkbbyxg08n.nar.xz",
+          "valid": true
+        }
+      ],
+      "state": "hit"
     }
   ],
   "element": {
