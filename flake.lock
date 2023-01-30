@@ -51,11 +51,11 @@
         "nixpkgs-lib": "nixpkgs-lib"
       },
       "locked": {
-        "lastModified": 1674744320,
-        "narHash": "sha256-c//y7XrgO6DN4f/qplL8RzQggBLx8Aj4GHXIr40FjGs=",
+        "lastModified": 1674845434,
+        "narHash": "sha256-PBhUkTA92kmMnOTM7tawGrFX9lyJ0Dl8G8elPizfkXA=",
         "owner": "flox",
         "repo": "capacitor",
-        "rev": "3a1505cf9f13f6e44c882d9f3c69dcafbd0462e1",
+        "rev": "a5ec961732a8341244e29bc737438518c928986d",
         "type": "github"
       },
       "original": {
