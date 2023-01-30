@@ -8,7 +8,7 @@
 }: let
   # Assumption that flox-floxpkgs is a direct input
   floxpkgs = context.inputs.flox-floxpkgs;
-  pkgs = context.nixpkgs.legacyPackages.${system};
+  pkgs = context.nixpkgs;
 in {
   options = with lib; {
     inline = mkOption {
