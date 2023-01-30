@@ -104,21 +104,34 @@ in {
   };
   config = {
     passthru.buildLayeredImageArgs =
-      lib.recursiveUpdate {
-        config = {
-          # Note: this does not include the logic regarding tty, interactive, etc.
-          # Note: no "-c" means users need to include it if trying to run a
-          # command, then "-ci" is necessary to keep running the rcfile.
-          # Including "-c" means one cannot only start an activated shell
-          # without double-activation in Cmd
-          Entrypoint = ["${pkgs.bashInteractive}/bin/bash" "--rcfile" "${config.toplevel.outPath}/activate"];
+      lib.recursiveUpdate config.container
+      # run flox activation only when entrypoint is not set
+      # override config.Env no matter what
+      (
+        if config.container.entrypoint or null == null
+        then {
+          config = {
+            # * run -it -> bash -c bash (skip activation for the first bash as
+            #   described below)
+            # * run cmd -> bash -c cmd
+            # * follow convention of sh -c being container entrypoint
+            Entrypoint = ["${pkgs.bashInteractive}/bin/bash" "-c"];
+            # use -i to make entrypoint's bash non-interactive, so it skips
+            # activation, but then activate with --rcfile. This sets aliases
+            # correctly.
+            Cmd = ["-i" "${pkgs.bashInteractive}/bin/bash --rcfile ${config.toplevel.outPath}/activate"];
+            # this will lead to double activation if someone runs bash
+            # non-interactively
+            Env = ["BASH_ENV=${config.toplevel.outPath}/activate"];
+          };
+        }
+        else {
           Env =
-            if builtins.isList config.environmentVariables && config.container.entrypoint != null
+            if builtins.isList config.environmentVariables
             then throw "ordered environment variables are not supported in containers when entrypoint is specified"
             else (lib.mapAttrsToList (n: v: ''${n}=${v}'') config.environmentVariables);
-        };
-      }
-      config.container;
+        }
+      );
     passthru.streamLayeredImage = floxpkgs.lib.mkContainer config.toplevel;
   };
 }
