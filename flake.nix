@@ -8,13 +8,18 @@
   inputs.catalog.flake = false;
 
   inputs.nixpkgs.url = "github:flox/nixpkgs-flox";
-  inputs.nixpkgs.inputs.floxpkgs.follows = "";
+  inputs.nixpkgs.inputs.flox-floxpkgs.follows = "";
+  inputs.nixpkgs.inputs.flox-bash.follows = "flox-bash";
+  inputs.nixpkgs.inputs.flox.follows = "flox";
 
   # Declaration of external resources
   # =================================
 
   inputs.flox.url = "git+ssh://git@github.com/flox/flox?ref=main";
   inputs.flox.inputs.flox-floxpkgs.follows = "/";
+  inputs.flox.inputs.flox-bash.follows = "flox-bash";
+  inputs.flox-bash.url = "git+ssh://git@github.com/flox/flox-bash?ref=main";
+  inputs.flox-bash.inputs.flox-floxpkgs.follows = "/";
 
   inputs.tracelinks.url = "git+ssh://git@github.com/flox/tracelinks?ref=main";
   inputs.tracelinks.inputs.flox-floxpkgs.follows = "/";
