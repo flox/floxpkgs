@@ -20,8 +20,10 @@ in
           };
           description = lib.mdDoc ''
             An attribute set that maps aliases (the top level attribute names in
-            this option) to command strings or directly to packages.
-            Aliases mapped to `null` are ignored.
+            this option) to command strings.
+
+            Aliases can also be mapped directly to packages, and aliases mapped
+            to `null` are ignored.
           '';
           type = with types; attrsOf (nullOr (either str path));
         };
@@ -33,6 +35,9 @@ in
             stick to pure sh without sh word split.
           '';
           type = types.lines;
+          example = ''
+            echo "Supercharged by flox!" 1>&2
+          '';
         };
       };
     };
@@ -72,7 +77,7 @@ in
     in {
       passthru.posix = floxpkgs.lib.mkEnv {
         inherit pkgs;
-        packages = config.environment.systemPackages ++ [config.newCatalogPath activateScript];
+        packages = config.packagesList ++ [config.newCatalogPath activateScript];
         manifestPath = config.manifestPath;
         meta.buildLayeredImageArgs = config.passthru.buildLayeredImageArgs;
       };
