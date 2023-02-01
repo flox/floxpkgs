@@ -13,7 +13,7 @@
       # symlinkJoin fails when drv contains a symlinked bin directory, so wrap in an additional buildEnv
       contents = pkgs.buildEnv {
         name = "contents";
-        paths = [drv pkgs.bashInteractive pkgs.coreutils];
+        paths = [drv];
       };
       config = {
         # By default, match the existing semantics of Nixpkgs
