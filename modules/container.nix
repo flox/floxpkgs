@@ -126,10 +126,12 @@ in {
           };
         }
         else {
-          Env =
-            if builtins.isList config.environmentVariables
-            then throw "ordered environment variables are not supported in containers when entrypoint is specified"
-            else (lib.mapAttrsToList (n: v: ''${n}=${v}'') config.environmentVariables);
+          config = {
+            Env =
+              if builtins.isList config.environmentVariables
+              then throw "ordered environment variables are not supported in containers when entrypoint is specified"
+              else (lib.mapAttrsToList (n: v: ''${n}=${v}'') config.environmentVariables);
+          };
         }
       );
     passthru.streamLayeredImage = floxpkgs.lib.mkContainer config.toplevel;
