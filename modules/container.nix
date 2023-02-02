@@ -115,14 +115,21 @@ in {
             #   described below)
             # * run cmd -> bash -c cmd
             # * follow convention of sh -c being container entrypoint
+            # TODO use catalog
             Entrypoint = ["${pkgs.bashInteractive}/bin/bash" "-c"];
             # use -i to make entrypoint's bash non-interactive, so it skips
             # activation, but then activate with --rcfile. This sets aliases
             # correctly.
+            # TODO use catalog
             Cmd = ["-i" "${pkgs.bashInteractive}/bin/bash --rcfile ${config.toplevel.outPath}/activate"];
             # this will lead to double activation if someone runs bash
             # non-interactively
             Env = ["BASH_ENV=${config.toplevel.outPath}/activate"];
+          };
+          contents = pkgs.buildEnv {
+            name = "contents";
+            # TODO use catalog
+            paths = [drv pkgs.bashInteractive pkgs.coreutils];
           };
         }
         else {
