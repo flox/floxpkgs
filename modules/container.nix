@@ -57,7 +57,7 @@ in {
     created = mkOption {
       description = lib.mdDoc ''Date and time the layers were created.'';
       type = types.str;
-      default = "now";
+      default = "1970-01-01T00:00:02Z";
     };
 
     maxLayers = mkOption {
