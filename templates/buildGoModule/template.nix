@@ -1,1 +1,0 @@
-{ description = "Go Builder Scaffold"; }

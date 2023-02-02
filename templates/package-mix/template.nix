@@ -1,0 +1,1 @@
+{ description = "Mix package template"; }

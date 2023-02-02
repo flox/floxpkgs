@@ -1,1 +1,0 @@
-{ description = "Java mkDerivation template"; }

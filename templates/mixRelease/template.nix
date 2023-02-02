@@ -1,1 +1,0 @@
-{ description = "Mix Builder Scaffold"; }
