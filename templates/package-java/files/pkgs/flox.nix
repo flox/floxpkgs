@@ -5,6 +5,4 @@
   # Get help: https://discourse.floxdev.com
   #
   # Happy hacking!
-
-  envionmentVariables.PIP_DISABLE_PIP_VERSION_CHECK = 1;
 }
