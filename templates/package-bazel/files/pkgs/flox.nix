@@ -1,5 +1,5 @@
 {
-  # Flox environment configuation
+  # flox environment configuration
   #
   # flake.nix options: https://floxdev.com/docs/reference/flox-nix-config
   # Getting started with flox: https://floxdev.com/docs

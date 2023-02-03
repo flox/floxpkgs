@@ -1,12 +1,12 @@
-# Welcome to Flox!
+# Welcome to flox!
 
 Our mission is to provide **seamless, reliable and delightful** workflows built
-on top and around [Nix][nix]. This will allow your coworkers to experience the
+on top and around [Nix][nix]. This will allow your co-workers to experience the
 mighty powers of Nix without the steep learning curve.
 
 Here are some useful links:
 
-1. [Install Flox][install-flox]
+1. [Install flox][install-flox]
 2. [Build and develop custom packages][custom-packages]
 3. [Explore flox.nix configuration options][flox-nix-config]
 4. [Ask for help][discourse]
