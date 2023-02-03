@@ -108,22 +108,27 @@ in {
       # run flox activation only when entrypoint is not set
       # override config.Env no matter what
       (
-        if config.container.entrypoint or null == null
+        if config.container.config.Entrypoint or null == null
         then {
-          config = {
-            # * run -it -> bash -c bash (skip activation for the first bash as
-            #   described below)
-            # * run cmd -> bash -c cmd
-            # * follow convention of sh -c being container entrypoint
-            Entrypoint = ["${pkgs.bashInteractive}/bin/bash" "-c"];
-            # use -i to make entrypoint's bash non-interactive, so it skips
-            # activation, but then activate with --rcfile. This sets aliases
-            # correctly.
-            Cmd = ["-i" "${pkgs.bashInteractive}/bin/bash --rcfile ${config.toplevel.outPath}/activate"];
-            # this will lead to double activation if someone runs bash
-            # non-interactively
-            Env = ["BASH_ENV=${config.toplevel.outPath}/activate"];
-          };
+          config =
+            {
+              # * run -it -> bash -c bash (skip activation for the first bash as
+              #   described below)
+              # * run cmd -> bash -c cmd
+              # * follow convention of sh -c being container entrypoint
+              Entrypoint = ["${pkgs.bashInteractive}/bin/bash" "-c"];
+              # this will lead to double activation if someone runs bash
+              # non-interactively
+              Env = ["BASH_ENV=${config.toplevel.outPath}/activate"];
+            }
+            // lib.optionalAttrs (config.container.config.Cmd
+              or null
+              == null) {
+              # use -i to make entrypoint's bash non-interactive, so it skips
+              # activation, but then activate with --rcfile. This sets aliases
+              # correctly.
+              Cmd = ["-i" "${pkgs.bashInteractive}/bin/bash --rcfile ${config.toplevel.outPath}/activate"];
+            };
         }
         else {
           config = {
