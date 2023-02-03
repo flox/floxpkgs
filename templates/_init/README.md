@@ -6,7 +6,7 @@ mighty powers of Nix without the steep learning curve.
 
 Here are some useful links:
 
-1. [Install flox][install-flox]
+1. [Getting started with flox][getting-started-flox]
 2. [Build and develop custom packages][custom-packages]
 3. [Explore flox.nix configuration options][flox-nix-config]
 4. [Ask for help][discourse]
@@ -21,7 +21,7 @@ Here are some useful links:
 
 
 [nix]: https://nixos.org
-[install-flox]: https://floxdev.com/docs/#install-flox
+[getting-started-flox]: https://floxdev.com/docs
 [custom-packages]: https://floxdev.com/docs/custom-packages
 [flox-nix-config]: https://floxdev.com/docs/reference/flox-nix-config
 [discourse]: https://discourse.floxdev.com
