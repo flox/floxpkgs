@@ -7,5 +7,5 @@
   #
   # Happy hacking!
 
-  environmentVariables.PIP_DISABLE_PIP_VERSION_CHECK = 1;
+  environmentVariables.PIP_DISABLE_PIP_VERSION_CHECK = "1";
 }
