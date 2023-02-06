@@ -12,4 +12,5 @@ python3Packages.buildPythonPackage {
   propagatedBuildInputs = with python3Packages; [
     requests
   ];
+  meta.description = "An example of flox package."
 }
