@@ -18,7 +18,7 @@ in
 
     MIX_ENV = "prod";
 
-    buildInputs = [ mix2nix elixir ];
+    buildInputs = [mix2nix elixir];
 
     # At the root of your project directory, run "mix2nix > deps.nix" to create the deps.nix file.
     # Then, uncomment the mixNixDeps line below.
@@ -34,4 +34,6 @@ in
     # mix phx.digest --no-deps-check
     # mix do deps.loadpaths --no-deps-check
     #'';
+    meta.description = "An example of flox package.";
+    meta.mainProgram = "my-package";
   }

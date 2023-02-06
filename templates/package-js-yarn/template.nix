@@ -1,1 +1,1 @@
-{ description = "Javascript(yarn) package template"; }
+{description = "Javascript(yarn) package template";}

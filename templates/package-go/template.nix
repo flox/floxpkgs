@@ -1,1 +1,1 @@
-{ description = "Go package template"; }
+{description = "Go package template";}

@@ -20,4 +20,6 @@ stdenv.mkDerivation {
   # Add buildtime dependencies (not required at runtime)
   # to nativeBuildInputs.
   nativeBuildInputs = [];
+  meta.description = "An example of flox package.";
+  meta.mainProgram = "my-package";
 }

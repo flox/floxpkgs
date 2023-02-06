@@ -19,4 +19,6 @@ buildBazelPackage rec {
     sha256 = lib.fakeSha256;
     #sha256 = "<real-sha256-here>";
   };
+  meta.description = "An example of flox package.";
+  meta.mainProgram = "my-package";
 }

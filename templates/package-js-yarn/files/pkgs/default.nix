@@ -21,4 +21,6 @@ in
     '';
 
     # example distPhase = "true";
+    meta.description = "An example of flox package.";
+    meta.mainProgram = "my-package";
   }

@@ -1,1 +1,1 @@
-{ description = "Mix package template"; }
+{description = "Mix package template";}

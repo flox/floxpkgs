@@ -26,9 +26,7 @@ rustPlatform.buildRustPackage rec {
     };
   };
 
-
-
-  # Non-Rust runtime dependencies (most likely libraries) of your project can 
+  # Non-Rust runtime dependencies (most likely libraries) of your project can
   # be added in buildInputs.
   # Make sure to import any additional dependencies above
   buildInputs =
@@ -46,9 +44,7 @@ rustPlatform.buildRustPackage rec {
       darwin.apple_sdk.frameworks.Security
     ]
     # and Linux
-    ++ lib.optional hostPlatform.isLinux [ ]
-    ;
-
+    ++ lib.optional hostPlatform.isLinux [];
 
   # Add runtime dependencies required by packages that depend on this package
   # to propagatedBuildInputs.
@@ -58,6 +54,6 @@ rustPlatform.buildRustPackage rec {
   nativeBuildInputs = [
     pkg-config # for openssl
   ];
-
-
+  meta.description = "An example of flox package.";
+  meta.mainProgram = "my-package";
 }

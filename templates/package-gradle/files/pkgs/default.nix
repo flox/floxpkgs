@@ -3,7 +3,8 @@
 # Running this utility will produce the `gradle-env.nix` and `gradle-env.json` needed for `flox build` and `flox develop`
 # to succeed with this project. See the How-to Guides/Language Guides section of https://beta.floxdev.com/docs/ for
 # more details
-{ self,
+{
+  self,
   callPackage,
   pkgs,
   ...
@@ -27,5 +28,6 @@ in
       wrapProgram $out/bin/app --prefix PATH : ${pkgs.openjdk}/bin
       popd
     '';
+    meta.description = "An example of flox package.";
+    meta.mainProgram = "my-package";
   }
-

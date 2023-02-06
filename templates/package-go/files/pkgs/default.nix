@@ -14,4 +14,6 @@ buildGoModule {
   # and then running flox build. The build will fail but output the expected sha, which can then be
   # added here.
   vendorSha256 = null;
+  meta.description = "An example of flox package.";
+  meta.mainProgram = "my-package";
 }
