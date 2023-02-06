@@ -13,7 +13,7 @@
   src = self;
 in
   buildGradle {
-    pname = "my-package";
+    pname = "__PACKAGE_NAME__";
     nativeBuildInputs = with pkgs; [makeWrapper openjdk];
     envSpec = ../../gradle-env.json;
     src = self;
@@ -29,5 +29,5 @@ in
       popd
     '';
     meta.description = "An example of flox package.";
-    meta.mainProgram = "my-package";
+    meta.mainProgram = "__PACKAGE_NAME__";
   }

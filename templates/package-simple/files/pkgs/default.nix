@@ -6,7 +6,7 @@
 }:
 # Replace "stdenv.mkDerivation" with your language's builder
 stdenv.mkDerivation {
-  pname = "my-package";
+  pname = "__PACKAGE_NAME__";
   version = "0.0.0-${lib.flox-floxpkgs.getRev self}";
   src = self; # + "/src";
 
@@ -21,5 +21,5 @@ stdenv.mkDerivation {
   # to nativeBuildInputs.
   nativeBuildInputs = [];
   meta.description = "An example of flox package.";
-  meta.mainProgram = "my-package";
+  meta.mainProgram = "__PACKAGE_NAME__";
 }

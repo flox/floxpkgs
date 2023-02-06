@@ -3,7 +3,7 @@
   python3Packages,
 }:
 python3Packages.buildPythonPackage {
-  pname = "my-package";
+  pname = "__PACKAGE_NAME__";
   version = "0.0.0";
   src = self;
   PIP_DISABLE_PIP_VERSION_CHECK = 1;
@@ -12,5 +12,5 @@ python3Packages.buildPythonPackage {
     requests
   ];
   meta.description = "An example of flox package.";
-  meta.mainProgram = "my-package";
+  meta.mainProgram = "__PACKAGE_NAME__";
 }

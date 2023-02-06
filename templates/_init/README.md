@@ -15,8 +15,8 @@ Here are some useful links:
 ## Files in this project 
 
 - `flake.nix`: project glue code defining external resources and project configuration
-- `pkgs/my-package/default.nix`: a my-package build recipe
-- `pkgs/my-package/flox.nix`: a my-package development envionment
+- `pkgs/__PACKAGE_NAME__/default.nix`: a __PACKAGE_NAME__ build recipe
+- `pkgs/__PACKAGE_NAME__/flox.nix`: a __PACKAGE_NAME__ development envionment
 
 
 

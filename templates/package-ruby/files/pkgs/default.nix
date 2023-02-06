@@ -8,7 +8,7 @@
   # running the bundix command
   # will generate the gemset.nix file below
   gems = bundlerEnv {
-    name = "my-package-env";
+    name = "__PACKAGE_NAME__-env";
     inherit ruby;
     gemfile = ../Gemfile;
     lockfile = ../Gemfile.lock;
@@ -16,7 +16,7 @@
   };
 in
   stdenv.mkDerivation rec {
-    pname = "my-package";
+    pname = "__PACKAGE_NAME__";
     version = "0.0.0-${lib.flox-floxpkgs.getRev self}";
     src = self; # + "/src";
     buildInputs = [gems ruby];
@@ -32,5 +32,5 @@ in
       chmod +x $bin
     '';
     meta.description = "An example of flox package.";
-    meta.mainProgram = "my-package";
+    meta.mainProgram = "__PACKAGE_NAME__";
   }

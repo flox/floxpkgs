@@ -4,7 +4,7 @@
   lib,
 }:
 buildGoModule {
-  pname = "my-package";
+  pname = "__PACKAGE_NAME__";
   version = "0.0.0-${lib.flox-floxpkgs.getRev self}";
   src = self; # + "/src";
   # vendorSha256 should be set to null if dependencies are vendored. If the dependencies aren't
@@ -15,5 +15,5 @@ buildGoModule {
   # added here.
   vendorSha256 = null;
   meta.description = "An example of flox package.";
-  meta.mainProgram = "my-package";
+  meta.mainProgram = "__PACKAGE_NAME__";
 }
