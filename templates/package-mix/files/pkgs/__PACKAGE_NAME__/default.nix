@@ -34,6 +34,5 @@ in
     # mix phx.digest --no-deps-check
     # mix do deps.loadpaths --no-deps-check
     #'';
-    meta.description = "An example of flox package.";
-    meta.mainProgram = "__PACKAGE_NAME__";
+    meta.description = "an example flox package";
   }

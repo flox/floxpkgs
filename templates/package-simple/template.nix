@@ -1,1 +1,1 @@
-{description = "Simpla package template";}
+{description = "Simple package template";}

@@ -31,6 +31,5 @@ in
       EOF
       chmod +x $bin
     '';
-    meta.description = "An example of flox package.";
-    meta.mainProgram = "__PACKAGE_NAME__";
+    meta.description = "an example flox package";
   }

@@ -11,6 +11,5 @@ perlPackages.buildPerlPackage rec {
   outputs = ["out"];
 
   enableParallelBuilding = true;
-  meta.description = "An example of flox package.";
-  meta.mainProgram = "__PACKAGE_NAME__";
+  meta.description = "an example flox package";
 }
