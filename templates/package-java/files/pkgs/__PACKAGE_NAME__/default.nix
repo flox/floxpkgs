@@ -7,7 +7,7 @@
   lib,
 }:
 stdenv.mkDerivation rec {
-  pname = "my-package";
+  pname = "__PACKAGE_NAME__";
   version = "0.0.0-${lib.flox-floxpkgs.getRev self}";
   src = self; # + "/src";
   nativeBuildInputs = [ant jdk makeWrapper];
@@ -29,4 +29,5 @@ stdenv.mkDerivation rec {
     runHook postInstall
 
   '';
+  meta.description = "an example flox package";
 }

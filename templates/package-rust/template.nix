@@ -1,1 +1,1 @@
-{ description = "Rust package template"; }
+{description = "Rust package template";}

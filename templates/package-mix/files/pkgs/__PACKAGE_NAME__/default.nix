@@ -12,13 +12,13 @@
   elixir = beamPackages.elixir;
 in
   beamPackages.mixRelease rec {
-    pname = "my-package";
+    pname = "__PACKAGE_NAME__";
     version = "0.0.0-${lib.flox-floxpkgs.getRev self}";
     src = self; # + "/src";
 
     MIX_ENV = "prod";
 
-    buildInputs = [ mix2nix elixir ];
+    buildInputs = [mix2nix elixir];
 
     # At the root of your project directory, run "mix2nix > deps.nix" to create the deps.nix file.
     # Then, uncomment the mixNixDeps line below.
@@ -34,4 +34,5 @@ in
     # mix phx.digest --no-deps-check
     # mix do deps.loadpaths --no-deps-check
     #'';
+    meta.description = "an example flox package";
   }

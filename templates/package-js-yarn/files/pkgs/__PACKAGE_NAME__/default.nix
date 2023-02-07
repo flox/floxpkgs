@@ -3,7 +3,7 @@
   mkYarnPackage,
   lib,
 }: let
-  pname = "my-package";
+  pname = "__PACKAGE_NAME__";
   version = "0.0.0-${lib.flox-floxpkgs.getRev self}";
   src = self;
 in
@@ -21,4 +21,5 @@ in
     '';
 
     # example distPhase = "true";
+    meta.description = "an example flox package";
   }

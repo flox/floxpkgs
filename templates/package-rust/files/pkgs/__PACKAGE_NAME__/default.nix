@@ -10,7 +10,7 @@
   darwin,
 }:
 rustPlatform.buildRustPackage rec {
-  pname = "my-package";
+  pname = "__PACKAGE_NAME__";
   version = "0.0.0-${lib.flox-floxpkgs.getRev self}";
   src = self; # + "/src";
 
@@ -26,9 +26,7 @@ rustPlatform.buildRustPackage rec {
     };
   };
 
-
-
-  # Non-Rust runtime dependencies (most likely libraries) of your project can 
+  # Non-Rust runtime dependencies (most likely libraries) of your project can
   # be added in buildInputs.
   # Make sure to import any additional dependencies above
   buildInputs =
@@ -46,9 +44,7 @@ rustPlatform.buildRustPackage rec {
       darwin.apple_sdk.frameworks.Security
     ]
     # and Linux
-    ++ lib.optional hostPlatform.isLinux [ ]
-    ;
-
+    ++ lib.optional hostPlatform.isLinux [];
 
   # Add runtime dependencies required by packages that depend on this package
   # to propagatedBuildInputs.
@@ -58,6 +54,5 @@ rustPlatform.buildRustPackage rec {
   nativeBuildInputs = [
     pkg-config # for openssl
   ];
-
-
+  meta.description = "an example flox package";
 }

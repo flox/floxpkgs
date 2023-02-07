@@ -1,1 +1,1 @@
-{ description = "Ruby package template"; }
+{description = "Ruby package template";}
