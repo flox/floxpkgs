@@ -7,6 +7,7 @@
     flox-floxpkgs.project args (_: {
       config.nixpkgs-config = {
         allowUnfree = false;
+        # e.g. "vscode"
         allowedUnfreePackages = [];
       };
     });
