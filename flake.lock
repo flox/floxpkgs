@@ -440,8 +440,7 @@
         "catalog": "catalog",
         "flox": "flox",
         "flox-bash": "flox-bash",
-        "nixpkgs": "nixpkgs_3",
-        "tracelinks": "tracelinks"
+        "nixpkgs": "nixpkgs_3"
       }
     },
     "shellHooks": {
@@ -464,25 +463,6 @@
         "owner": "cachix",
         "repo": "pre-commit-hooks.nix",
         "type": "github"
-      }
-    },
-    "tracelinks": {
-      "inputs": {
-        "flox-floxpkgs": []
-      },
-      "locked": {
-        "lastModified": 1674847293,
-        "narHash": "sha256-wPirp+8gIUpoAgE8zoXZalAJzCzcdDHKLEPOapJUtfs=",
-        "ref": "main",
-        "rev": "46108503f52bc2fcc948abb9b00fc65a13e5f5bd",
-        "revCount": 9,
-        "type": "git",
-        "url": "ssh://git@github.com/flox/tracelinks"
-      },
-      "original": {
-        "ref": "main",
-        "type": "git",
-        "url": "ssh://git@github.com/flox/tracelinks"
       }
     }
   },

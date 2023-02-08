@@ -8,7 +8,7 @@
   inputs.catalog.flake = false;
 
   inputs.nixpkgs.url = "github:flox/nixpkgs-flox";
-  inputs.nixpkgs.inputs.flox-floxpkgs.follows = "";
+  inputs.nixpkgs.inputs.flox-floxpkgs.follows = "/";
   inputs.nixpkgs.inputs.flox-bash.follows = "flox-bash";
   inputs.nixpkgs.inputs.flox.follows = "flox";
 
@@ -20,9 +20,6 @@
   inputs.flox.inputs.flox-bash.follows = "flox-bash";
   inputs.flox-bash.url = "git+ssh://git@github.com/flox/flox-bash?ref=main";
   inputs.flox-bash.inputs.flox-floxpkgs.follows = "/";
-
-  inputs.tracelinks.url = "git+ssh://git@github.com/flox/tracelinks?ref=main";
-  inputs.tracelinks.inputs.flox-floxpkgs.follows = "/";
 
   inputs.builtfilter.url = "github:flox/builtfilter?ref=builtfilter-rs";
   inputs.builtfilter.inputs.capacitor.follows = "capacitor";
