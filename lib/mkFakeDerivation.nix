@@ -60,7 +60,7 @@
     else
       with publishData.element;
         if url == ""
-        then throw "url = \"\" so this fakeDerivation can't be built from source. Note that fakeDerivations created from self cannot be built from source"
+        then throw "Not possible to build from source; url = \"\". Note that fakeDerivations created from self cannot be built from source"
         else lib.getAttrFromPath attrPath (builtins.getFlake url);
 
   # We could be
