@@ -16,20 +16,29 @@
     fromNixpkgs = builtins.match "github:flox/nixpkgs/.*" publishData.element.url != null;
     # implement allowedUnfreePackages as allowUnfreePredicate, but still honor
     # allowUnfreePredicate
+    attrPath = builtins.tail (builtins.tail publishData.element.attrPath);
     allowUnfreePredicate =
       if context ? config.nixpkgs-config.allowUnfreePredicate
       then
-        if context ? config.nixpkgs-config.allowedUnfreePackages
+        if context ? config.nixpkgs-config.allowedUnfreePackages && context.config.nixpkgs-config.allowedUnfreePackages != []
         then throw "only one of allowedUnfreePackages and allowUnfreePredicate can be specified in config.nixpkgs-config"
         else context.config.nixpkgs-config.allowUnfreePredicate
       else if context ? config.nixpkgs-config.allowedUnfreePackages
-      then pkg: builtins.elem (lib.getName pkg) context.config.nixpkgs-config.allowedUnfreePackages
+      then
+        # cheat here: we know at this point that this predicate will only be used
+        # once, so we can set it to always return true or false
+        if builtins.elem (builtins.concatStringsSep "." attrPath) context.config.nixpkgs-config.allowedUnfreePackages
+        then _: true
+        else _: false
       else _: false;
     # based on stdenv check-meta.nix
     hasDeniedUnfreeLicense =
       eval.meta.unfree
       && !(context.config.nixpkgs-config.allowUnfree or false)
-      && !(allowUnfreePredicate eval.pname);
+      # this diverges from upstream behavior - upstream, the predicate gets
+      # passed a drv, but here we pass it eval. If that's a problem for anyone,
+      # I guess we'll find out eventually
+      && !(allowUnfreePredicate eval);
   in
     if
       fromNixpkgs
@@ -47,7 +56,7 @@
         system = pkgSystem;
       };
     in
-      lib.getAttrFromPath (builtins.tail (builtins.tail publishData.element.attrPath)) pkgs
+      lib.getAttrFromPath attrPath pkgs
     else
       with publishData.element;
         if url == ""
