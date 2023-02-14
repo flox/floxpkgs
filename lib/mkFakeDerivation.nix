@@ -16,7 +16,7 @@
     fromNixpkgs = builtins.match "github:flox/nixpkgs/.*" publishData.element.url != null;
     # implement allowedUnfreePackages as allowUnfreePredicate, but still honor
     # allowUnfreePredicate
-    attrPath = builtins.tail (builtins.tail publishData.element.attrPath);
+    shortAttrPath = builtins.tail (builtins.tail publishData.element.attrPath);
     allowUnfreePredicate =
       if context ? config.nixpkgs-config.allowUnfreePredicate
       then
@@ -27,7 +27,7 @@
       then
         # cheat here: we know at this point that this predicate will only be used
         # once, so we can set it to always return true or false
-        if builtins.elem (builtins.concatStringsSep "." attrPath) context.config.nixpkgs-config.allowedUnfreePackages
+        if builtins.elem (builtins.concatStringsSep "." shortAttrPath) context.config.nixpkgs-config.allowedUnfreePackages
         then _: true
         else _: false
       else _: false;
@@ -56,7 +56,7 @@
         system = pkgSystem;
       };
     in
-      lib.getAttrFromPath attrPath pkgs
+      lib.getAttrFromPath shortAttrPath pkgs
     else
       with publishData.element;
         if url == ""
