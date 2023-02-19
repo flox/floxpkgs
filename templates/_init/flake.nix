@@ -3,5 +3,12 @@
 
   inputs.flox-floxpkgs.url = "github:flox/floxpkgs";
 
-  outputs = args @ {flox-floxpkgs, ...}: flox-floxpkgs.project args (_: {});
+  outputs = args @ {flox-floxpkgs, ...}:
+    flox-floxpkgs.project args (_: {
+      config.nixpkgs-config = {
+        allowUnfree = false;
+        # e.g. "vscode"
+        allowedUnfreePackages = [];
+      };
+    });
 }

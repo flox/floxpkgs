@@ -310,8 +310,10 @@ in {
           packageAttrSet: let
             catalogPath = catalogPathGetter channelName packageAttrSet.attrPath packageAttrSet.packageConfig;
           in rec {
-            fakeDerivation =
-              floxpkgs.lib.mkFakeDerivation (lib.getAttrFromPath catalogPath catalog);
+            fakeDerivation = floxpkgs.lib.mkFakeDerivation {
+              inherit context;
+              publishData = lib.getAttrFromPath catalogPath catalog;
+            };
             publishData = fakeDerivation.meta.publishData;
             # for informative error messages
             inherit channelName;
@@ -351,21 +353,27 @@ in {
                 flakePathsToPrint = builtins.concatStringsSep " or " (builtins.map (flakePath: builtins.concatStringsSep "." flakePath) flakePaths);
               in
                 throw "Channel ${channelName} does not contain ${flakePathsToPrint}";
-            maybeFakeDerivation = lib.getAttrFromPath flakePath fetchedFlake;
+            originalDrv = lib.getAttrFromPath flakePath fetchedFlake;
             publishData =
               # if we have a fake derivation, add some additional meta (publish_element) to mark
               # this as a publish of a publish. This is not reachable for self
-              if maybeFakeDerivation ? meta.publishData
+              if originalDrv ? meta.publishData
               then let
+                # we don't want to use originalDrv if it's a fakeDerivation because it may be using
+                # an old version of mkFakeDerivation, which makes changes to mkFakeDerivation tricky
+                reWrappedFakeDerivation = floxpkgs.lib.mkFakeDerivation {
+                  inherit context;
+                  publishData = originalDrv.meta.publishData;
+                };
                 publishCatalogData =
                   floxpkgs.lib.readPackage {
                     attrPath = flakePath;
                     flakeRef = channelName;
                     useFloxEnvChanges = true;
                   } {analyzeOutput = false;}
-                  maybeFakeDerivation;
+                  reWrappedFakeDerivation;
               in
-                maybeFakeDerivation.meta.publishData
+                originalDrv.meta.publishData
                 // {
                   publish_element = publishCatalogData.element;
                 }
@@ -376,7 +384,7 @@ in {
                   flakeRef = channelName;
                   useFloxEnvChanges = true;
                 } {analyzeOutput = true;}
-                maybeFakeDerivation;
+                originalDrv;
 
             # The floxEnv must be identical for the locking and locked build, so we have to
             # - call mkFakeDerivation even if we already have a fake derivation, because the version
@@ -384,7 +392,7 @@ in {
             #   called in this file
             # - wrap derivations from flakes in a fake derivation, because that's what
             #   will happen once they are put in the catalog
-            fakeDerivation = floxpkgs.lib.mkFakeDerivation publishData;
+            fakeDerivation = floxpkgs.lib.mkFakeDerivation {inherit context publishData;};
           in
             # this function returns just the entries for this channel, and the caller adds channelName to the complete catalog
             rec {
@@ -397,7 +405,7 @@ in {
               inherit catalogPath;
             }
             // lib.optionalAttrs (channelName == "self")
-            {drv = maybeFakeDerivation;}
+            {drv = originalDrv;}
         )
         partitioned.wrong;
     in
