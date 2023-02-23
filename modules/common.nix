@@ -353,21 +353,45 @@ in {
                 throw "Channel ${channelName} does not contain ${flakePathsToPrint}";
             maybeFakeDerivation = lib.getAttrFromPath flakePath fetchedFlake;
             publishData =
-              # if we have a fake derivation, add some additional meta (publish_element) to mark
-              # this as a publish of a publish. This is not reachable for self
+              # if we have a fake derivation, add some additional meta required
+              # by flox list to correctly display information about the catalog
+              # this derivation came from (e.g. nixpkgs-flox) rather than the
+              # original source it was built from (e.g. nixpkgs).
+              # This is not reachable for self.
               if maybeFakeDerivation ? meta.publishData
               then let
-                publishCatalogData =
-                  floxpkgs.lib.readPackage {
-                    attrPath = flakePath;
-                    flakeRef = channelName;
-                    useFloxEnvChanges = true;
-                  } {analyzeOutput = false;}
-                  maybeFakeDerivation;
+                publish_element = let
+                  flakeRef = channelName;
+                in rec {
+                  # TODO deduplicate with readPackage
+                  originalUrl =
+                    if flakeRef == "self"
+                    then "." # TODO: use outPath?
+                    else
+                      (
+                        if flakeRef == null || builtins.match ".*:.*" flakeRef == []
+                        then flakeRef
+                        else "flake:${flakeRef}"
+                      );
+                  # TODO deduplicate with readPackage and figure out a better
+                  # way to store flake resolution information
+                  url =
+                    if flakeRef == "self"
+                    then ""
+                    else let
+                      flake =
+                        builtins.getFlake flakeRef;
+                      # this assumes that either flakeRef is not indirect, or if
+                      # it is indirect, the flake it resolves to contains a
+                      # branch
+                    in "${originalUrl}/${flake.rev}";
+                  storePaths = maybeFakeDerivation.meta.publishData.element.storePaths;
+                  attrPath = flakePath;
+                };
               in
                 maybeFakeDerivation.meta.publishData
                 // {
-                  publish_element = publishCatalogData.element;
+                  inherit publish_element;
                 }
               else
                 floxpkgs.lib.readPackage {
@@ -388,7 +412,8 @@ in {
           in
             # this function returns just the entries for this channel, and the caller adds channelName to the complete catalog
             rec {
-              # has publish_element, which fakeDerivation.meta.publishData does not
+              # publishData has publish_element, which
+              # fakeDerivation.meta.publishData does not
               inherit fakeDerivation publishData;
               # for informative error messages
               inherit channelName;

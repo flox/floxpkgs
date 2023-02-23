@@ -26,6 +26,7 @@
   element = rec {
     active = true;
     inherit attrPath;
+    # TODO deduplicate with logic for floxEnvs
     # normalize to include "flake:", which is included in manifest.json
     originalUrl =
       if flakeRef == "self"
@@ -36,6 +37,8 @@
           then flakeRef
           else "flake:${flakeRef}"
         );
+    # TODO deduplicate with logic for floxEnvs and figure out a better way to
+    # store flake resolution information
     url =
       if flakeRef == "self"
       then ""
