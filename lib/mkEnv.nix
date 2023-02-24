@@ -99,14 +99,17 @@ let
       ];
     };
 
-    pre-wrapper = (derivation {
+    # Last wrapper is to incorporate priorities. These can be optimized by
+    # inlining, but are also accomplishing separate tasks.
+    # TODO: optimize
+    pre-wrapper = derivation {
       name = "wrapper";
       system = system;
       builder = "builtin:buildenv";
       manifest = "unused";
       derivations =
         map (x: ["true" (x.meta.priority or 5) 1 x]) (args.packages ++ [envBash]);
-    });
+    };
   in
     # note: this allows for an input-addressed approach for an environment to self-activate
     buildEnv ({
