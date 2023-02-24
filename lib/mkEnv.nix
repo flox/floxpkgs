@@ -108,7 +108,7 @@ let
         map (x: ["true" (x.meta.priority or 5) 1 x]) (args.packages ++ [envBash]);
     });
   in
-    # note: this allows for an input-addressed approach for and environment to self-activate
+    # note: this allows for an input-addressed approach for an environment to self-activate
     buildEnv ({
         name = "wrapper";
         paths = [manifest pre-wrapper];
