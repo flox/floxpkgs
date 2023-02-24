@@ -130,7 +130,7 @@ in
       builder = "builtin:buildenv";
       manifest = outputsSet.${defaultOutput};
       derivations =
-        map (x: ["true" 5 1 outputsSet.${x}]) (defaultOut.meta.outputsToInstall or defaultOut.outputs);
+        map (x: ["true" (defaultOut.meta.priority or 5) 1 outputsSet.${x}]) (defaultOut.meta.outputsToInstall or defaultOut.outputs);
     })
   # `derivation` only takes a few preset arguments and in turn produces an attrset
   # To not confuse `derivation` merge in some optional flake fakeDerivation attributes in afterwards
