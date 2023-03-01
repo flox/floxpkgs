@@ -41,6 +41,7 @@
       sourceType="packages";
       dir="pkgs";
     })
+    (import ./plugins/rootFloxEnvs.nix {inherit self lib;} {})
   ];
 
   passthru.project = args: config:
