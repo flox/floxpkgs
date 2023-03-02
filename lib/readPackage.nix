@@ -10,7 +10,6 @@
   attrPath ? [],
   namespace ? [],
   flakeRef ? null, # "self" gets special treatment
-  useFloxEnvChanges ? false,
 }:
 # Second argument
 # enable (implicit) building
@@ -42,16 +41,18 @@
     url =
       if flakeRef == "self"
       then ""
-      else if useFloxEnvChanges
+      else if flakeRef != null
       then let
         flake =
           builtins.getFlake flakeRef;
         # this assumes that either flakeRef is not indirect, or if it is indirect, the flake it
         # resolves to contains a branch
       in "${originalUrl}/${flake.rev}"
+      # TODO this violates the catalog schema, so it must be set with
+      # postprocessing
       else null;
     storePaths =
-      if useFloxEnvChanges && drv.meta ? outputsToInstall
+      if drv.meta ? outputsToInstall
       then
         # only include outputsToInstall
         (builtins.map (outputName: eval.outputs.${outputName})
@@ -78,5 +79,6 @@
   };
 in {
   inherit element eval;
-  build = lib.optionalAttrs analyzeOutput (inspectBuild buildOptions drv.outPath);
+  build = lib.optional analyzeOutput (inspectBuild buildOptions drv.outPath);
+  version = 1;
 }
