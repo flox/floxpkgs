@@ -31,10 +31,12 @@ in
       use = builtins.pathExists floxNixPath;
       # for now just treat flox.nix as a module, although at some point we might want to do something like
       # context.auto.callPackageWith injectedArgs floxNixPath {};
-      value = self.lib.mkFloxEnv {
-        inherit context system namespace;
-        modules = [floxNixPath] ++ lib.optional (builtins.pathExists catalogPath) {inherit catalogPath;};
-      };
+      value =
+        lib.recursiveUpdate
+        (self.lib.mkFloxEnv {
+          inherit context system namespace;
+          modules = [floxNixPath] ++ lib.optional (builtins.pathExists catalogPath) {inherit catalogPath;};
+        }) {meta.position = builtins.unsafeDiscardStringContext floxNixPath;};
       path = [system] ++ namespace;
     };
     result = materialize (floxEnvsMapper context) (context.closures sourceType);
