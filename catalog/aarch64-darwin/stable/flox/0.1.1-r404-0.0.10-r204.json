@@ -5,44 +5,44 @@
       "cacheUrl": "https://cache.floxdev.com",
       "narinfo": [
         {
-          "deriver": "/nix/store/vysv6v7zxjk01h67x4i2szl6mjpmibrd-flox-0.1.1-r404-0.0.10-r204.drv",
-          "downloadHash": "sha256-l8aucT47m0eAV2q2Bv28gHbHGoR65Vuc2vg/TCrxQ+s=",
-          "downloadSize": 2626676,
-          "narHash": "sha256-jYPrYPwCYCbthMn8Q0gZ85ZsoVUw3jjc5CLQst4glA8=",
-          "narSize": 11407336,
-          "path": "/nix/store/58nxq9gk5ksyigankx61nsa2zkclamdp-flox-0.1.1-r404-0.0.10-r204",
-          "references": [
-            "/nix/store/226448f42mb6rxny8ffcxszxrx8l5xxv-nix-2.13.2",
-            "/nix/store/404fdhx1lvap8f7mcgp5x28p8wk1c2d5-resolver",
-            "/nix/store/4myj1hf72qafx0ilyclxxiyjp6la0daf-openssl-3.0.8",
-            "/nix/store/58nxq9gk5ksyigankx61nsa2zkclamdp-flox-0.1.1-r404-0.0.10-r204",
-            "/nix/store/bx4k19bq8zkzd7xq66347bh0lybray1i-libiconv-50",
-            "/nix/store/d9di9cna6c8k8szfcl3p4sgrkkscjc2s-nix_bash_completion.sh",
-            "/nix/store/h2wgm7hikfw3ijjlcbdzkms49k42fqq3-adv_cmds-119-locale",
-            "/nix/store/l5100vm321ay7i2kanfcai6na1dp6lqx-git-minimal-2.39.1",
-            "/nix/store/lj29x7zvgwiywn7basxwaad68l51rmng-flox-0.0.10-r204",
-            "/nix/store/m7hhwa8s6012aga4rhw4xhps7527frz2-nix_zsh_completion.sh",
-            "/nix/store/s4blnzinsjx0891ssrp3mphsam58psdp-nss-cacert-3.86",
-            "/nix/store/sw2zrmkm5kqp8klvlsa2acvhfsff51pg-apple-framework-CoreFoundation-11.0.0"
-          ],
-          "signatures": [
-            "flox-store-public-0:EPUKthmP5cPBQUDrR56ImKqh2I2QWeM4o9d2KYPaGgL74ypP4EcV576fCHvNr7l7x4z9jn7rmUSlhV5h5RXPAQ=="
-          ],
-          "url": "nar/1ss3y4m4qgzqvaf5prbshhdcfxl0pkyhddkaay04g6rv7rqsxilp.nar.xz",
-          "valid": true
-        },
-        {
-          "deriver": "/nix/store/vysv6v7zxjk01h67x4i2szl6mjpmibrd-flox-0.1.1-r404-0.0.10-r204.drv",
+          "deriver": "/nix/store/x6sgq9w2g0g4kq74nlbpzg4amkf3rgsd-flox-0.1.1-r404-0.0.10-r204.drv",
           "downloadHash": "sha256-u0j6srLhDEaH8HrURnMK1SBy3oxLISCsVUu2AqHIIEo=",
           "downloadSize": 32480,
           "narHash": "sha256-GQ1VmG/ZELsAEcQZThACgYUKA2CfSYZmuiCuLf055KE=",
           "narSize": 39008,
-          "path": "/nix/store/s2kfkhm1hk1v549kikjq58xr1x6w6ymp-flox-0.1.1-r404-0.0.10-r204-man",
+          "path": "/nix/store/hrln63d0d7kfirsjd3irz9ry0nf8q7dx-flox-0.1.1-r404-0.0.10-r204-man",
           "references": [],
           "signatures": [
-            "flox-store-public-0:ExvsHlSvNbK6gBv1qVQ/WV7FkH/9/xEvJ482aN5PA4VGIIay3syHi+f8hUzrQyhIPmRgVbLpTUgvfLMjEK5XBQ=="
+            "flox-store-public-0:GDTjMvPtvij3/WREaEjmRaJQ2DrVz9O16MOkvezj7VeASnK0K2PIiLGgDTYiBNgCgM9/wudC0KvXyRu1O+6HBA=="
           ],
           "url": "nar/0ji0r2hh5djbann208abikg7486m19rldm3sy23lc371narglj5v.nar.xz",
+          "valid": true
+        },
+        {
+          "deriver": "/nix/store/x6sgq9w2g0g4kq74nlbpzg4amkf3rgsd-flox-0.1.1-r404-0.0.10-r204.drv",
+          "downloadHash": "sha256-kiE/f/kTWygF4vEQ+CjpSUDIzPG/p0a43n9fgX2/b70=",
+          "downloadSize": 2629684,
+          "narHash": "sha256-Zkz0tc3LCWLYFibrxWzVYJTJz1lAL10MPzDtNF2RfAc=",
+          "narSize": 11407336,
+          "path": "/nix/store/nz3yxra7ig9f9c8n9h3bc81pmcgbj2ws-flox-0.1.1-r404-0.0.10-r204",
+          "references": [
+            "/nix/store/226448f42mb6rxny8ffcxszxrx8l5xxv-nix-2.13.2",
+            "/nix/store/404fdhx1lvap8f7mcgp5x28p8wk1c2d5-resolver",
+            "/nix/store/4myj1hf72qafx0ilyclxxiyjp6la0daf-openssl-3.0.8",
+            "/nix/store/5dlq6cvnyihavbsqbdyh0kbnwazimv7y-flox-0.0.10-r204",
+            "/nix/store/bx4k19bq8zkzd7xq66347bh0lybray1i-libiconv-50",
+            "/nix/store/d9di9cna6c8k8szfcl3p4sgrkkscjc2s-nix_bash_completion.sh",
+            "/nix/store/h2wgm7hikfw3ijjlcbdzkms49k42fqq3-adv_cmds-119-locale",
+            "/nix/store/l5100vm321ay7i2kanfcai6na1dp6lqx-git-minimal-2.39.1",
+            "/nix/store/m7hhwa8s6012aga4rhw4xhps7527frz2-nix_zsh_completion.sh",
+            "/nix/store/nz3yxra7ig9f9c8n9h3bc81pmcgbj2ws-flox-0.1.1-r404-0.0.10-r204",
+            "/nix/store/s4blnzinsjx0891ssrp3mphsam58psdp-nss-cacert-3.86",
+            "/nix/store/sw2zrmkm5kqp8klvlsa2acvhfsff51pg-apple-framework-CoreFoundation-11.0.0"
+          ],
+          "signatures": [
+            "flox-store-public-0:fHVb87P4n/BFfClnjp9vbHyznMaBkCAHvPO5dBioEIHjF5/cens4JPYoXwT71VFe+/QWwy2pogkIERGRaK7xBw=="
+          ],
+          "url": "nar/1gbgpxyq2pvzvsw4d9xzy76chh29x4lgh47iw82jhnqkz5zky8cj.nar.xz",
           "valid": true
         }
       ],
@@ -57,10 +57,10 @@
       "flox"
     ],
     "storePaths": [
-      "/nix/store/s2kfkhm1hk1v549kikjq58xr1x6w6ymp-flox-0.1.1-r404-0.0.10-r204-man",
-      "/nix/store/58nxq9gk5ksyigankx61nsa2zkclamdp-flox-0.1.1-r404-0.0.10-r204"
+      "/nix/store/hrln63d0d7kfirsjd3irz9ry0nf8q7dx-flox-0.1.1-r404-0.0.10-r204-man",
+      "/nix/store/nz3yxra7ig9f9c8n9h3bc81pmcgbj2ws-flox-0.1.1-r404-0.0.10-r204"
     ],
-    "url": "git+ssh://git@github.com/flox/floxpkgs?ref=master&rev=5d129754119eebb0736feeff61193d6e118ba500"
+    "url": "git+ssh://git@github.com/flox/floxpkgs?ref=master&rev=7c4969b35b8bad885aac0f54ddc7694494e702cf"
   },
   "eval": {
     "attrPath": [
@@ -68,7 +68,7 @@
       "aarch64-darwin",
       "flox"
     ],
-    "drvPath": "/nix/store/vysv6v7zxjk01h67x4i2szl6mjpmibrd-flox-0.1.1-r404-0.0.10-r204.drv",
+    "drvPath": "/nix/store/x6sgq9w2g0g4kq74nlbpzg4amkf3rgsd-flox-0.1.1-r404-0.0.10-r204.drv",
     "meta": {
       "available": true,
       "broken": false,
@@ -111,8 +111,8 @@
       "flox"
     ],
     "outputs": {
-      "man": "/nix/store/s2kfkhm1hk1v549kikjq58xr1x6w6ymp-flox-0.1.1-r404-0.0.10-r204-man",
-      "out": "/nix/store/58nxq9gk5ksyigankx61nsa2zkclamdp-flox-0.1.1-r404-0.0.10-r204"
+      "man": "/nix/store/hrln63d0d7kfirsjd3irz9ry0nf8q7dx-flox-0.1.1-r404-0.0.10-r204-man",
+      "out": "/nix/store/nz3yxra7ig9f9c8n9h3bc81pmcgbj2ws-flox-0.1.1-r404-0.0.10-r204"
     },
     "pname": "flox",
     "stability": "stable",
@@ -121,23 +121,23 @@
   },
   "source": {
     "locked": {
-      "lastModified": 1678426213,
-      "narHash": "sha256-VQf+GbMkJ1X5yBiuV8Ca2LQtoxwZAZlMmef9FjiAzY8=",
+      "lastModified": 1678427494,
+      "narHash": "sha256-ZOJG8Gnnp6hsLhEoKjnIuo2XBO4Aa6FNvB9t5jvr9iM=",
       "ref": "master",
-      "rev": "5d129754119eebb0736feeff61193d6e118ba500",
-      "revCount": 2398,
+      "rev": "7c4969b35b8bad885aac0f54ddc7694494e702cf",
+      "revCount": 2405,
       "type": "git",
       "url": "ssh://git@github.com/flox/floxpkgs"
     },
     "original": {
       "ref": "master",
-      "rev": "5d129754119eebb0736feeff61193d6e118ba500",
+      "rev": "7c4969b35b8bad885aac0f54ddc7694494e702cf",
       "type": "git",
       "url": "ssh://git@github.com/flox/floxpkgs"
     },
     "remote": {
       "ref": "master",
-      "rev": "5d129754119eebb0736feeff61193d6e118ba500",
+      "rev": "7c4969b35b8bad885aac0f54ddc7694494e702cf",
       "type": "git",
       "url": "ssh://git@github.com/flox/floxpkgs"
     }
