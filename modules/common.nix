@@ -264,7 +264,6 @@ in {
             floxpkgs.lib.readPackage {
               attrPath = ["floxEnvs" system] ++ namespace ++ ["inline" "packages" system name];
               flakeRef = "self";
-              useFloxEnvChanges = true;
             } {analyzeOutput = true;}
             drv;
         in {
@@ -404,7 +403,6 @@ in {
                   # TODO use namespace and attrPath instead of passing entire flakePath as attrPath
                   attrPath = flakePath;
                   flakeRef = channelName;
-                  useFloxEnvChanges = true;
                 } {analyzeOutput = true;}
                 maybeFakeDerivation;
 
