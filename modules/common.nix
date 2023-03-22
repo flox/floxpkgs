@@ -587,7 +587,7 @@ in {
     };
 
     passthru.inline = inline;
-    passthru.catalog = builtins.toJSON newCatalog;
+    passthru.catalog = newCatalog;
   };
   imports = [
     (lib.mkAliasOptionModule ["integrations"] ["inline"])
