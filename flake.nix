@@ -25,7 +25,7 @@
   inputs.tracelinks.inputs.flox-floxpkgs.follows = "/";
 
   inputs.builtfilter.url = "github:flox/builtfilter?ref=builtfilter-rs";
-  inputs.builtfilter.inputs.capacitor.follows = "capacitor";
+  inputs.builtfilter.inputs.flox-floxpkgs.follows = "/";
   # =================================
 
   nixConfig.bash-prompt = "[flox] \\[\\033[38;5;172m\\]λ \\[\\033[0m\\]";
