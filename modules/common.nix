@@ -45,8 +45,23 @@ in {
 
             - `<channel>` can be any channel subscribed to; run `flox channels` to
             list current subscriptions
-            - Optional version and stability attributes can be set. Available versions
-            and stabilities can be found with `flox search -c <channel> <name>`.
+            - The value of `<channel>.<name>` must be an attribute set with the
+            following optional attributes:
+                - `version` and `stability` strings. Available versions and stabilities
+                can be found with `flox search -c <channel> <name>`.
+                - `meta.priority`, which must be a number and defaults to `5`,
+                allows resolving conflicts between two packages that provide the
+                same file. For example, if two packages both provide a binary
+                `foo` but one package has priority set to `4`, that package's
+                version of `foo` will be present in the environment.
+            - A complete example is:
+            ```
+            packages.nixpkgs-flox.hello = {
+              stability = "unstable";
+              version = "2.12.1";
+              meta.priority = 4;
+            };
+            ```
 
         - `<self>.<name>`
             This installs a package defined in the same project as a flox
