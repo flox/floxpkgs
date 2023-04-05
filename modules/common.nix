@@ -588,6 +588,8 @@ in {
 
     passthru.inline = inline;
     passthru.catalog = builtins.toJSON newCatalog;
+    # packages installed by store path,
+    # for which no further information can be derived
     passthru.installedStorePaths = sortedStorePaths;
   };
   imports = [
