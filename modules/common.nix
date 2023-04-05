@@ -603,6 +603,9 @@ in {
 
     passthru.inline = inline;
     passthru.catalog = newCatalog;
+    # packages installed by store path,
+    # for which no further information can be derived
+    passthru.installedStorePaths = sortedStorePaths;
   };
   imports = [
     (lib.mkAliasOptionModule ["integrations"] ["inline"])
