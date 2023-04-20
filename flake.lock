@@ -81,11 +81,11 @@
     "commitizen-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1679149521,
-        "narHash": "sha256-F/fbBEwG7ijHELy4RnpvlXOPkTsXFxjALdK7UIGIzMo=",
+        "lastModified": 1681897569,
+        "narHash": "sha256-1DWNVp5+R1lpNELCmX2GEnfg9s73y7tufuBjzTHqmd0=",
         "owner": "commitizen-tools",
         "repo": "commitizen",
-        "rev": "378a42881891633d8a81939cb46426eb36ed01aa",
+        "rev": "a829488727a5518d436439cb807e946c214ae396",
         "type": "github"
       },
       "original": {
@@ -182,11 +182,11 @@
         "shellHooks": "shellHooks"
       },
       "locked": {
-        "lastModified": 1680803669,
-        "narHash": "sha256-rIE8EMohgBH6fIr7r39KpD2wV3pIYbl25BQo1nVPYd4=",
+        "lastModified": 1681997571,
+        "narHash": "sha256-Ffxhaahq/Un3BsWJ5V2V2PfQrVPQZ/PJrkXwYmU4FgU=",
         "ref": "main",
-        "rev": "0821da032f3e8b05d667695f7f6a2d45ce83a08a",
-        "revCount": 437,
+        "rev": "31c02a0dd44322d64749ccf89c3f939da163d0fd",
+        "revCount": 446,
         "type": "git",
         "url": "ssh://git@github.com/flox/flox"
       },
@@ -415,11 +415,11 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1678898370,
-        "narHash": "sha256-xTICr1j+uat5hk9FyuPOFGxpWHdJRibwZC+ATi0RbtE=",
+        "lastModified": 1681303793,
+        "narHash": "sha256-JEdQHsYuCfRL2PICHlOiH/2ue3DwoxUX7DJ6zZxZXFk=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "ac718d02867a84b42522a0ece52d841188208f2c",
+        "rev": "fe2ecaf706a5907b5e54d979fbde4924d84b65fc",
         "type": "github"
       },
       "original": {
@@ -597,11 +597,11 @@
         "nixpkgs-stable": "nixpkgs-stable"
       },
       "locked": {
-        "lastModified": 1678976941,
-        "narHash": "sha256-skNr08frCwN9NO+7I77MjOHHAw+L410/37JknNld+W4=",
+        "lastModified": 1681831107,
+        "narHash": "sha256-pXl3DPhhul9NztSetUJw2fcN+RI3sGOYgKu29xpgnqw=",
         "owner": "cachix",
         "repo": "pre-commit-hooks.nix",
-        "rev": "32b1dbedfd77892a6e375737ef04d8efba634e9e",
+        "rev": "b7ca8f6fff42f6af75c17f9438fed1686b7d855d",
         "type": "github"
       },
       "original": {
