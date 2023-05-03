@@ -44,7 +44,7 @@ in
 
     config = let
       stringAliases = concatStringsSep "\n" (
-        mapAttrsFlatten (k: v: "alias ${k}=${escapeShellArg v}")
+        mapAttrsFlatten (k: v: "alias ${k}=${escapeShellArg v};")
         (filterAttrs (k: v: v != null) config.shell.aliases)
       );
 
@@ -57,9 +57,9 @@ in
           in
             builtins.concatLists (builtins.map
               # don't escape variables defined in a list
-              (envAttrSet: mapAttrsToList (n: v: ''export ${n}=${escapeShellArgToEval v}'') envAttrSet)
+              (envAttrSet: mapAttrsToList (n: v: ''export ${n}=${escapeShellArgToEval v};'') envAttrSet)
               config.environmentVariables)
-          else (mapAttrsToList (n: v: ''export ${n}=${escapeShellArg v}'') config.environmentVariables);
+          else (mapAttrsToList (n: v: ''export ${n}=${escapeShellArg v};'') config.environmentVariables);
       in
         concatStringsSep "\n" exportVariables;
       activateScript = pkgs.writeTextFile {
@@ -68,6 +68,14 @@ in
         destination = "/activate";
         text = ''
           ${exportedEnvVars}
+
+          # Set path to current environment root for convenient usage in hooks.
+          FLOX_ENV="${builtins.placeholder "out"}";
+
+          # If the user has an `/etc/profile' script, source it.
+          if [[ -r "$FLOX_ENV/etc/profile" ]]; then
+            . "$FLOX_ENV/etc/profile";
+          fi
 
           ${stringAliases}
 
