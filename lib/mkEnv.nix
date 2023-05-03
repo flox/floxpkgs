@@ -156,6 +156,7 @@ in
         if [ -f "${profile}/env.bash" ]; then
           source "${profile}/env.bash"
         fi
+        export FLOX_ENV="${profile}";
         if [ -f "${profile}/activate" ]; then
           source "${profile}/activate"
         fi

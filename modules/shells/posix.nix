@@ -62,15 +62,12 @@ in
           else (mapAttrsToList (n: v: ''export ${n}=${escapeShellArg v};'') config.environmentVariables);
       in
         concatStringsSep "\n" exportVariables;
-      activateScript = pkgs.writeTextFile {
+      activateScript = envOut: pkgs.writeTextFile {
         name = "activate";
         executable = true;
         destination = "/activate";
         text = ''
           ${exportedEnvVars}
-
-          # Set path to current environment root for convenient usage in hooks.
-          FLOX_ENV="${builtins.placeholder "out"}";
 
           # If the user has an `/etc/profile' script, source it.
           if [[ -r "$FLOX_ENV/etc/profile" ]]; then
@@ -85,7 +82,10 @@ in
     in {
       passthru.posix = floxpkgs.lib.mkEnv {
         inherit pkgs;
-        packages = config.packagesList ++ [config.newCatalogPath activateScript];
+        packages = config.packagesList ++ [
+          config.newCatalogPath
+          ( activateScript ( builtins.placeholder "out" ) )
+        ];
         manifestPath = config.manifestPath;
         meta.buildLayeredImageArgs = config.passthru.buildLayeredImageArgs;
       };
