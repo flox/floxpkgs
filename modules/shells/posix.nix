@@ -62,7 +62,7 @@ in
           else (mapAttrsToList (n: v: ''export ${n}=${escapeShellArg v};'') config.environmentVariables);
       in
         concatStringsSep "\n" exportVariables;
-      activateScript = envOut: pkgs.writeTextFile {
+      activateScript = pkgs.writeTextFile {
         name = "activate";
         executable = true;
         destination = "/activate";
@@ -83,8 +83,7 @@ in
       passthru.posix = floxpkgs.lib.mkEnv {
         inherit pkgs;
         packages = config.packagesList ++ [
-          config.newCatalogPath
-          ( activateScript ( builtins.placeholder "out" ) )
+          config.newCatalogPath activateScript
         ];
         manifestPath = config.manifestPath;
         meta.buildLayeredImageArgs = config.passthru.buildLayeredImageArgs;
