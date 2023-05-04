@@ -81,22 +81,6 @@
     "commitizen-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1681897569,
-        "narHash": "sha256-1DWNVp5+R1lpNELCmX2GEnfg9s73y7tufuBjzTHqmd0=",
-        "owner": "commitizen-tools",
-        "repo": "commitizen",
-        "rev": "a829488727a5518d436439cb807e946c214ae396",
-        "type": "github"
-      },
-      "original": {
-        "owner": "commitizen-tools",
-        "repo": "commitizen",
-        "type": "github"
-      }
-    },
-    "commitizen-src_2": {
-      "flake": false,
-      "locked": {
         "lastModified": 1679149521,
         "narHash": "sha256-F/fbBEwG7ijHELy4RnpvlXOPkTsXFxjALdK7UIGIzMo=",
         "owner": "commitizen-tools",
@@ -174,7 +158,6 @@
     },
     "flox": {
       "inputs": {
-        "commitizen-src": "commitizen-src",
         "flox-bash": [
           "flox-bash"
         ],
@@ -182,11 +165,11 @@
         "shellHooks": "shellHooks"
       },
       "locked": {
-        "lastModified": 1681997571,
-        "narHash": "sha256-Ffxhaahq/Un3BsWJ5V2V2PfQrVPQZ/PJrkXwYmU4FgU=",
+        "lastModified": 1683230851,
+        "narHash": "sha256-rnmYj+0s3grTN4H+SH9CyyGlZc7Uasq/J4kHMzCLbsg=",
         "ref": "main",
-        "rev": "31c02a0dd44322d64749ccf89c3f939da163d0fd",
-        "revCount": 446,
+        "rev": "7a2fc7543ca568b92efbcb038bd607b4900d2955",
+        "revCount": 448,
         "type": "git",
         "url": "ssh://git@github.com/flox/flox"
       },
@@ -218,7 +201,7 @@
     },
     "flox_2": {
       "inputs": {
-        "commitizen-src": "commitizen-src_2",
+        "commitizen-src": "commitizen-src",
         "flox-bash": [
           "flox-bash"
         ],
@@ -597,11 +580,11 @@
         "nixpkgs-stable": "nixpkgs-stable"
       },
       "locked": {
-        "lastModified": 1681831107,
-        "narHash": "sha256-pXl3DPhhul9NztSetUJw2fcN+RI3sGOYgKu29xpgnqw=",
+        "lastModified": 1682596858,
+        "narHash": "sha256-Hf9XVpqaGqe/4oDGr30W8HlsWvJXtMsEPHDqHZA6dDg=",
         "owner": "cachix",
         "repo": "pre-commit-hooks.nix",
-        "rev": "b7ca8f6fff42f6af75c17f9438fed1686b7d855d",
+        "rev": "fb58866e20af98779017134319b5663b8215d912",
         "type": "github"
       },
       "original": {
