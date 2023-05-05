@@ -29,7 +29,7 @@ export             \
   XDG_DATA_DIRS    \
 ;
 
-if [ -z "${PHLOX_NOSET_LD_LIBRARY_PATH:-}" ]; then
+if [ -z "${FLOX_NOSET_LD_LIBRARY_PATH:-}" ]; then
   LD_LIBRARY_PATH="$FLOX_ENV/lib${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}";
   export LD_LIBRARY_PATH;
 fi
