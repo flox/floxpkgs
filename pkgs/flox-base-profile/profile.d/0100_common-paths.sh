@@ -13,7 +13,6 @@ CPATH="$FLOX_ENV/include${CPATH:+:$CPATH}";
 LIBRARY_PATH="$FLOX_ENV/lib${LIBRARY_PATH:+:$LIBRARY_PATH}";
 PKG_CONFIG_PATH="$FLOX_ENV/lib/pkgconfig${PKG_CONFIG_PATH:+:$PKG_CONFIG_PATH}";
 ACLOCAL_PATH="$FLOX_ENV/share/aclocal${ACLOCAL_PATH:+:$ACLOCAL_PATH}";
-NODE_PATH="$FLOX_ENV/lib/node_modules${NODE_PATH:+:$NODE_PATH}";
 XDG_DATA_DIRS="$FLOX_ENV/share${XDG_DATA_DIRS:+:$XDG_DATA_DIRS}";
 
 export             \
@@ -25,7 +24,6 @@ export             \
   LIBRARY_PATH     \
   PKG_CONFIG_PATH  \
   ACLOCAL_PATH     \
-  NODE_PATH        \
   XDG_DATA_DIRS    \
 ;
 
