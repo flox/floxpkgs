@@ -39,7 +39,7 @@ in ( derivation {
         };
         packages.nixpkgs-flox.pkg-config = {};
         # Provides `<env>/etc/profile' and `<env>/etc/profile.d/'
-        packages."github:flox/phlox".flox-etc = {};
+        packages.floxpkgs.flox-etc = {};
 
         shell.hook = '${""}'
           [[ -r "$FLOX_ENV/etc/profile" ]] && . "$FLOX_ENV/etc/profile";
