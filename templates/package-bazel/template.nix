@@ -1,0 +1,1 @@
+{description = "Bazel package template";}

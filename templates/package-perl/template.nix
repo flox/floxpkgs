@@ -1,0 +1,1 @@
+{description = "Perl package template";}

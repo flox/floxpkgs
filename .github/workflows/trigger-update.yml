@@ -2,9 +2,7 @@ name: "Trigger Update of floxpkgs/index"
 
 on:
   push:
-    branches:
-      - 'master'
-    paths-ignore:
+     paths-ignore:
       - '/catalog/**'
   workflow_dispatch:
 
