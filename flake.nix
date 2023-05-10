@@ -15,7 +15,7 @@
   # =================================
 
   inputs.flox.url = "git+ssh://git@github.com/flox/flox?ref=latest";
-  inputs.flox.inputs.flox-floxpkgs.follows = "/";
+  inputs.flox.inputs.nixpkgs-flox.follows = "nixpkgs";
 
   inputs.tracelinks.url = "git+ssh://git@github.com/flox/tracelinks?ref=main";
   inputs.tracelinks.inputs.flox.follows = "flox";
