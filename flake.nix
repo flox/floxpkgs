@@ -14,9 +14,18 @@
   #       We should change that to `flox/nixpkgs-flox/nixpkgs`
   inputs.flox-floxpkgs.url = "git+ssh://git@github.com/flox/flox?ref=next";
 
+  # This is needed for backwards compatibility reasons and due to (possible)
+  # bug in Nix, you can not `--override-input` flake input that follows.
+  # Ideally we would reuse `flox-floxpkgs/nixpkgs` flake input here
+  #
+  # We must also consider renaming this flake input name (`nixpkgs`) since
+  # `nixpkgs-flox` is not regular nixpkgs. Rather it is a flox catalog, which
+  # contains multiple nixpkgs.
   inputs.nixpkgs.url = "github:flox/nixpkgs-flox";
   inputs.nixpkgs.inputs.flox.follows = "flox-floxpkgs";
 
+  # This is needed for `pkgs/flox/default.nix` to refer to the capacitated
+  # recipe.
   inputs.flox.follows = "flox-floxpkgs";
 
   inputs.tracelinks.url = "git+ssh://git@github.com/flox/tracelinks?ref=main";
