@@ -22,7 +22,8 @@
   };
 
   # reexport of capacitor, defaultPlugins, project, lib, templates, apps
-  passthru = { inherit (inputs.flox) capacitor defaultPlugins project lib templates apps; };
+  #passthru = { inherit (inputs.flox) capacitor defaultPlugins project lib templates apps; };
+  passthru.project = inputs.flox.project;
 
   passthru."hydraJobsStaging" = hydraOverride ["nixpkgs" "nixpkgs"] ["nixpkgs" "nixpkgs-staging"];
   passthru."hydraJobsUnstable" = hydraOverride ["nixpkgs" "nixpkgs"] ["nixpkgs" "nixpkgs-unstable"];
