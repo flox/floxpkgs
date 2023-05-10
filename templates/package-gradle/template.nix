@@ -1,0 +1,1 @@
+{description = "Gradle package template";}
