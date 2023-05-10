@@ -2,14 +2,16 @@
   "nodes": {
     "builtfilter": {
       "inputs": {
-        "flox-floxpkgs": []
+        "flox": [
+          "flox"
+        ]
       },
       "locked": {
-        "lastModified": 1679586988,
-        "narHash": "sha256-TkoF4E4yN40s042YG6DaOzk+vtbzsoey0lUO+tm03is=",
+        "lastModified": 1683723893,
+        "narHash": "sha256-B8z3yxlLZzeDFsnwVukw9+gjKWsgoSj+21N6qKvn6/k=",
         "owner": "flox",
         "repo": "builtfilter",
-        "rev": "931a381bb96d909f51fcf25d7ca4fa9dcfb12aff",
+        "rev": "ea748f1c83bdcf951556606139b94a190a97d740",
         "type": "github"
       },
       "original": {
@@ -413,14 +415,16 @@
     },
     "tracelinks": {
       "inputs": {
-        "flox-floxpkgs": []
+        "flox": [
+          "flox"
+        ]
       },
       "locked": {
-        "lastModified": 1674847293,
-        "narHash": "sha256-wPirp+8gIUpoAgE8zoXZalAJzCzcdDHKLEPOapJUtfs=",
+        "lastModified": 1683723953,
+        "narHash": "sha256-rjTLrzxZzKXvtp7v4A+yy0ejqoX14uX8llZKBS9Z8FA=",
         "ref": "main",
-        "rev": "46108503f52bc2fcc948abb9b00fc65a13e5f5bd",
-        "revCount": 9,
+        "rev": "a93f2cde8b32c6391d5d9528782c4572758e3121",
+        "revCount": 10,
         "type": "git",
         "url": "ssh://git@github.com/flox/tracelinks"
       },
