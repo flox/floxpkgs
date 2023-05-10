@@ -1,1 +1,0 @@
-{description = "Ruby package template";}

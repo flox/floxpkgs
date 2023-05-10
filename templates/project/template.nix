@@ -1,1 +1,0 @@
-{description = "Project environment template";}
