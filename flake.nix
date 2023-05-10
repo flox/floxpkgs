@@ -12,7 +12,7 @@
   # TODO: We name the following flake input `flox-floxpkgs` since we CLI
   #       overwrites flox-floxpkgs/nixpkgs/nixpkgs flake input.
   #       We should change that to `flox/nixpkgs-flox/nixpkgs`
-  inputs.flox-floxpkgs.url = "git+ssh://git@github.com/flox/flox?ref=next";
+  inputs.flox-floxpkgs.url = "git+ssh://git@github.com/flox/flox?ref=latest";
 
   # This is needed for backwards compatibility reasons and due to (possible)
   # bug in Nix, you can not `--override-input` flake input that follows.
@@ -28,6 +28,7 @@
   # recipe.
   inputs.flox.follows = "flox-floxpkgs";
 
+  # TODO: Are this 2 packages examples of how to package private/public things?
   inputs.tracelinks.url = "git+ssh://git@github.com/flox/tracelinks?ref=main";
   inputs.tracelinks.inputs.flox.follows = "flox-floxpkgs";
 
