@@ -14,6 +14,9 @@
   #       We should change that to `flox/nixpkgs-flox/nixpkgs`
   inputs.flox-floxpkgs.url = "git+ssh://git@github.com/flox/flox?ref=next";
 
+  inputs.nixpkgs.url = "github:flox/nixpkgs-flox";
+  inputs.nixpkgs.inputs.flox.follows = "flox-floxpkgs";
+
   inputs.flox.follows = "flox-floxpkgs";
 
   inputs.tracelinks.url = "git+ssh://git@github.com/flox/tracelinks?ref=main";
