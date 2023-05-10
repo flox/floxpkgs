@@ -22,6 +22,7 @@
   # `nixpkgs-flox` is not regular nixpkgs. Rather it is a flox catalog, which
   # contains multiple nixpkgs.
   inputs.nixpkgs.url = "github:flox/nixpkgs-flox";
+  inputs.nixpkgs.inputs.flox-floxpkgs.follows = "";
   inputs.nixpkgs.inputs.flox.follows = "flox-floxpkgs";
 
   # This is needed for `pkgs/flox/default.nix` to refer to the capacitated
@@ -44,7 +45,7 @@
       ...
     }:
       # re-call yourself with overrides, will not work if using in-memory lockfile
-      let hydraOverride = path: follows: (inputs.capacitor.lib.capacitor.callFlake
+      let hydraOverride = path: follows: (inputs.flox.inputs.capacitor.lib.capacitor.callFlake
         (builtins.readFile (self + "/flake.lock"))
         self "" "" "root" { }
         [ {
