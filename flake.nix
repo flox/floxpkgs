@@ -11,10 +11,10 @@
   inputs.flox.url = "git+ssh://git@github.com/flox/flox?ref=latest";
 
   inputs.tracelinks.url = "git+ssh://git@github.com/flox/tracelinks?ref=main";
-  inputs.tracelinks.inputs.flox-floxpkgs.follows = "/";
+  inputs.tracelinks.inputs.flox.follows = "flox";
 
   inputs.builtfilter.url = "github:flox/builtfilter?ref=builtfilter-rs";
-  inputs.builtfilter.inputs.flox-floxpkgs.follows = "/";
+  inputs.builtfilter.inputs.flox.follows = "flox";
   # =================================
 
   outputs = args @ {flox, ...}: flox.project args (_: {});
