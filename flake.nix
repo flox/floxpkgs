@@ -22,8 +22,6 @@
   # `nixpkgs-flox` is not regular nixpkgs. Rather it is a flox catalog, which
   # contains multiple nixpkgs.
   inputs.nixpkgs.url = "github:flox/nixpkgs-flox";
-  inputs.nixpkgs.inputs.flox-floxpkgs.follows = "";
-  inputs.nixpkgs.inputs.flox.follows = "flox-floxpkgs";
 
   # This is needed for `pkgs/flox/default.nix` to refer to the capacitated
   # recipe.
