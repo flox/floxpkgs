@@ -2,13 +2,6 @@
   nixConfig.extra-substituters = ["https://cache.floxdev.com"];
   nixConfig.extra-trusted-public-keys = ["flox-store-public-0:8c/B+kjIaQ+BloCmNkRUKwaVPFWkriSAd0JJvuDu4F0="];
 
-  # TODO: is this still needed?
-  inputs.catalog.url = "github:flox/floxpkgs?ref=publish";
-  inputs.catalog.flake = false;
-
-  # Declaration of external resources
-  # =================================
-
   # TODO: We name the following flake input `flox-floxpkgs` since we CLI
   #       overwrites flox-floxpkgs/nixpkgs/nixpkgs flake input.
   #       We should change that to `flox/nixpkgs-flox/nixpkgs`
@@ -27,7 +20,10 @@
   # recipe.
   inputs.flox.follows = "flox-floxpkgs";
 
-  # TODO: Are this 2 packages examples of how to package private/public things?
+  # =================================================================
+  # This bellow are examples to show case how a there should/could be many more
+  # packages
+  # =================================
   inputs.tracelinks.url = "git+ssh://git@github.com/flox/tracelinks?ref=main";
   inputs.tracelinks.inputs.flox.follows = "flox-floxpkgs";
 
