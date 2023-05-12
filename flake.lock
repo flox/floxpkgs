@@ -2,16 +2,14 @@
   "nodes": {
     "builtfilter": {
       "inputs": {
-        "flox": [
-          "flox"
-        ]
+        "flox-floxpkgs": []
       },
       "locked": {
-        "lastModified": 1683723893,
-        "narHash": "sha256-B8z3yxlLZzeDFsnwVukw9+gjKWsgoSj+21N6qKvn6/k=",
+        "lastModified": 1683889736,
+        "narHash": "sha256-Sxn6VNrojAl9Tu0dDy6ZqPUe0GNwRKwzHAkptXM63Wg=",
         "owner": "flox",
         "repo": "builtfilter",
-        "rev": "ea748f1c83bdcf951556606139b94a190a97d740",
+        "rev": "f29903b144bb20e5be80f55d3fafa323c28a2cb0",
         "type": "github"
       },
       "original": {
@@ -147,23 +145,6 @@
         "type": "github"
       }
     },
-    "catalog_2": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1665076737,
-        "narHash": "sha256-S0bD7Z434Lvm7U4VHwvmxdTMrexdr72Yk6z0ExE3j7s=",
-        "owner": "flox",
-        "repo": "floxpkgs",
-        "rev": "bd8326c2fea27d01933eacb922f5ae70f97140c6",
-        "type": "github"
-      },
-      "original": {
-        "owner": "flox",
-        "ref": "publish",
-        "repo": "floxpkgs",
-        "type": "github"
-      }
-    },
     "flake-compat": {
       "flake": false,
       "locked": {
@@ -224,7 +205,7 @@
           "nixpkgs",
           "capacitor"
         ],
-        "catalog": "catalog_2",
+        "catalog": "catalog",
         "flox": [
           "flox",
           "nixpkgs",
@@ -755,7 +736,6 @@
       "inputs": {
         "builtfilter": "builtfilter",
         "capacitor": "capacitor",
-        "catalog": "catalog",
         "flox": "flox",
         "nixpkgs": "nixpkgs_5",
         "tracelinks": "tracelinks_2"
@@ -809,16 +789,14 @@
     },
     "tracelinks_2": {
       "inputs": {
-        "flox": [
-          "flox"
-        ]
+        "flox-floxpkgs": []
       },
       "locked": {
-        "lastModified": 1683723953,
-        "narHash": "sha256-rjTLrzxZzKXvtp7v4A+yy0ejqoX14uX8llZKBS9Z8FA=",
+        "lastModified": 1683889723,
+        "narHash": "sha256-h7LMr8tgu4RJecin4oEO50WoTU0rTomAW9+7AJroX0Y=",
         "ref": "main",
-        "rev": "a93f2cde8b32c6391d5d9528782c4572758e3121",
-        "revCount": 10,
+        "rev": "e05561bdd0ed9d10c66e35a1d8e66defab949534",
+        "revCount": 11,
         "type": "git",
         "url": "ssh://git@github.com/flox/tracelinks"
       },
