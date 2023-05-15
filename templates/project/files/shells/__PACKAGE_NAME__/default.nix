@@ -1,7 +1,7 @@
 {
+  gnumake,
   mkShell,
   stdenv,
-  terraform,
   zlib,
 }:
 #
@@ -20,12 +20,12 @@ mkShell {
   # Add extra tools here
   #
   packages = [
-    terraform
+    gnumake
   ];
   #
   # Additional shell hooks go here
   #
   shellHook = ''
-    CHECKPOINT_DISABLE=1 terraform --version
+    make --version
   '';
 }
