@@ -35,11 +35,11 @@ in ( derivation {
         packages.nixpkgs-flox.sqlite = {
           meta.outputsToInstall = ["bin" "out" "dev"];
         };
-        packages.nixpkgs-flox.pkg-config = {};
+        packages.floxpkgs.pkg-config = {};
         # Provides `<env>/etc/profile' base.
-        packages.nixpkgs-flox.profile-base = {};
+        packages.floxpkgs.profile-base = {};
         # Adds `0100_common-paths.sh' to `<env>/etc/profile.d/'.
-        packages.nixpkgs-flox.profile-common = {};
+        packages.floxpkgs.profile-common = {};
 
         shell.hook = '${""}'
           [[ -r "$FLOX_ENV/etc/profile" ]] && . "$FLOX_ENV/etc/profile";
