@@ -43,9 +43,10 @@ in ( derivation {
 
         shell.hook = '${""}'
           [[ -r "$FLOX_ENV/etc/profile" ]] && . "$FLOX_ENV/etc/profile";
-          pkg-config --list-all >&2;
         '${""}'
       }
+      ---
+      $ flox activate -- pkg-config --list-all >&2;
   '';
   meta.outputsToInstall = ["out"];
   meta.platforms        = [
