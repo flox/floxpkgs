@@ -56,7 +56,7 @@ jobs:
         EDITOR=true flox edit;
 
         echo "Checking if pkg-config can find krb5" >&2;
-        if flox activate -- pkg-config --list-all|grep 'krb5';
+        if flox activate -- pkg-config --list-all|grep '^krb5';
         then
           echo "PASS" >&2;
           exit 0;
