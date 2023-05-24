@@ -35,7 +35,8 @@ jobs:
       run: |
         set -eu;
         set -o pipefail;
-        flox subscribe flox github:${{ github.repository }}/${{ github.sha }}
+        flox unsubscribe flox;
+        flox subscribe flox github:${{ github.repository }}/${{ github.sha }};
 
     - name: SQLite3 pkg-config Test
       shell: bash
