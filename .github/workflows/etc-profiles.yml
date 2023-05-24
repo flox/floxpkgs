@@ -44,7 +44,7 @@ jobs:
 
         selfURI="github:${{ github.repository }}/${{ github.sha }}";
 
-        flox init --init-git --template "$selfURI#profile" -n sqlite-dev;
+        flox init --init-git --template "$selfURI#profile" --name sqlite-dev;
         sed -i 's/##//' ./flox.nix;
         echo '---';
         cat ./flox.nix;
