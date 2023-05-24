@@ -30,13 +30,6 @@ jobs:
         nix registry pin nixpkgs github:NixOS/nixpkgs/22.11;
         flox nix registry pin nixpkgs github:NixOS/nixpkgs/22.11;
 
-    - name: Reroute Floxpkgs Dev
-      shell: bash
-      run: |
-        set -eu;
-        set -o pipefail;
-        flox unsubscribe flox;
-        flox subscribe flox github:${{ github.repository }}/${{ github.sha }};
 
     - name: SQLite3 pkg-config Test
       shell: bash
@@ -49,7 +42,9 @@ jobs:
         mkdir -p ./project;
         cd ./project;
 
-        flox init --init-git --template profile;
+        selfURI="github:${{ github.repository }}/${{ github.sha }}";
+
+        flox init --init-git --template "$selfURI#profile";
         sed -i 's/##//' ./flox.nix;
         echo '---';
         cat ./flox.nix;
