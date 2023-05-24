@@ -30,6 +30,13 @@ jobs:
         nix registry pin nixpkgs github:NixOS/nixpkgs/22.11;
         flox nix registry pin nixpkgs github:NixOS/nixpkgs/22.11;
 
+    - name: Reroute Floxpkgs Dev
+      shell: bash
+      run: |
+        set -eu;
+        set -o pipefail;
+        flox subscribe flox github:${{ github.repository }}/${{ github.sha }}
+
     - name: SQLite3 pkg-config Test
       shell: bash
       run: |
@@ -37,13 +44,6 @@ jobs:
         set -o pipefail;
         _ec=0;
         trap '_ec="$?"; echo "ERROR: code $_ec" >&2; exit "$_ec";' HUP TERM INT;
-
-        if [[ "$GITHUB_REF" == "refs/heads/main" ]]; then
-          selfURI="github:${{ github.repository }}";
-        else
-          selfURI="github:${{ github.repository }}/$GITHUB_REF";
-        fi
-        echo "selfURI: $selfURI" >&2;
 
         mkdir -p ./project;
         cd ./project;
