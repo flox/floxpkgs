@@ -4,13 +4,17 @@ on:
   pull_request:
     types: [opened, synchronize, reopened]
     paths:
-      - '**'
-      - '!**/README*'
+      - 'templates/profile/**'
+      - 'flake.nix'
+      - 'flake.lock'
+      - '.github/workflows/etc-profiles.yml'
   push:
     branches: [main]
     paths:
-      - '**'
-      - '!**/README*'
+      - 'templates/profile/**'
+      - 'flake.nix'
+      - 'flake.lock'
+      - '.github/workflows/etc-profiles.yml'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
