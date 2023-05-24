@@ -1,0 +1,70 @@
+name: Profiles Test
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    paths:
+      - 'templates/profile/**'
+      - 'flake.nix'
+      - 'flake.lock'
+      - '.github/workflows/etc-profiles.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'templates/profile/**'
+      - 'flake.nix'
+      - 'flake.lock'
+      - '.github/workflows/etc-profiles.yml'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Install flox
+      uses: flox/install-flox-action@v1.0.0
+
+    - name: Setup Nix Registry
+      shell: bash
+      run: |
+        set -eu;
+        set -o pipefail;
+        nix registry pin nixpkgs github:NixOS/nixpkgs/22.11;
+        flox nix registry pin nixpkgs github:NixOS/nixpkgs/22.11;
+
+
+    - name: KRB5 pkg-config Test
+      shell: bash
+      run: |
+        set -eu;
+        set -o pipefail;
+        _ec=0;
+        trap '_ec="$?"; echo "ERROR: code $_ec" >&2; exit "$_ec";' HUP TERM INT;
+
+        mkdir -p ./project;
+        cd ./project;
+
+        selfURI="github:${{ github.repository }}/${{ github.sha }}";
+
+        flox init --init-git --template "$selfURI#profile" --name sqlite-dev;
+        sed -i -e 's/##//' -e 's/sqlite/krb5/' -e 's/"bin" //' ./flox.nix;
+        echo '---';
+        cat ./flox.nix;
+        echo '---';
+        EDITOR=true flox edit;
+
+        echo "Checking if pkg-config can find krb5" >&2;
+        if flox activate -- pkg-config --list-all|grep '^krb5';
+        then
+          echo "PASS" >&2;
+          exit 0;
+        else
+          echo "FAIL" >&2;
+          echo "pkg-config --list results:" >&2;
+          echo "---" >&2;
+          flox activate -- pkg-config --list-all >&2;
+          echo "---" >&2;
+          exit 1;
+        fi
