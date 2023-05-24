@@ -9,9 +9,8 @@
   packages."github:flox/etc-profiles".profile-node = {};
 
   # Adding a package's `dev' output makes it visible to `pkg-config'
-  ##packages.nixpkgs-flox.sqlite = {
-  ##  meta.outputsToInstall = ["bin" "out" "dev"];
-  ##};
+  ##packages.nixpkgs-flox.sqlite = {};
+
 
   shell.hook = ''
     # Source `<env>/etc/profile` if it exists.

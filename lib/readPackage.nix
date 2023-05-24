@@ -51,13 +51,13 @@
       # TODO this violates the catalog schema, so it must be set with
       # postprocessing
       else null;
-    storePaths =
-      if drv.meta ? outputsToInstall
-      then
-        # only include outputsToInstall
-        (builtins.map (outputName: eval.outputs.${outputName})
-          drv.meta.outputsToInstall)
-      else lib.attrValues eval.outputs;
+    storePaths = lib.attrValues eval.outputs;
+      #if drv.meta ? outputsToInstall
+      #then
+      #  # only include outputsToInstall
+      #  (builtins.map (outputName: eval.outputs.${outputName})
+      #    drv.meta.outputsToInstall)
+      #else lib.attrValues eval.outputs;
   };
 
   eval = {
