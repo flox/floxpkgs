@@ -35,7 +35,7 @@ jobs:
         flox nix registry pin nixpkgs github:NixOS/nixpkgs/22.11;
 
 
-    - name: SQLite3 pkg-config Test
+    - name: KRB5 pkg-config Test
       shell: bash
       run: |
         set -eu;
@@ -43,23 +43,20 @@ jobs:
         _ec=0;
         trap '_ec="$?"; echo "ERROR: code $_ec" >&2; exit "$_ec";' HUP TERM INT;
 
-        echo pkg-config --list-all >&2;
-        pkg-config --list-all >&2;
-
         mkdir -p ./project;
         cd ./project;
 
         selfURI="github:${{ github.repository }}/${{ github.sha }}";
 
         flox init --init-git --template "$selfURI#profile" --name sqlite-dev;
-        sed -i 's/##//' ./flox.nix;
+        sed -i -e 's/##//' -e 's/sqlite/krb5/' -e 's/"bin" //' ./flox.nix;
         echo '---';
         cat ./flox.nix;
         echo '---';
         EDITOR=true flox edit;
 
-        echo "Checking if pkg-config can find sqlite" >&2;
-        if flox activate -- pkg-config --list-all|grep '^sqlite3';
+        echo "Checking if pkg-config can find krb5" >&2;
+        if flox activate -- pkg-config --list-all|grep 'krb5';
         then
           echo "PASS" >&2;
           exit 0;
