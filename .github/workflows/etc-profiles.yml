@@ -43,6 +43,9 @@ jobs:
         _ec=0;
         trap '_ec="$?"; echo "ERROR: code $_ec" >&2; exit "$_ec";' HUP TERM INT;
 
+        echo pkg-config --list-all >&2;
+        pkg-config --list-all >&2;
+
         mkdir -p ./project;
         cd ./project;
 
