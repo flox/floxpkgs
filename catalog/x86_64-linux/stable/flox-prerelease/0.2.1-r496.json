@@ -1,0 +1,112 @@
+{
+  "build": [],
+  "cache": [
+    {
+      "cacheUrl": "https://cache.floxdev.com/",
+      "narinfo": [
+        {
+          "path": "/nix/store/a219jn9av2aymkg4mj9wlyjvrw2lpzg9-flox-prerelease-0.2.1-r496",
+          "valid": false
+        },
+        {
+          "path": "/nix/store/fdswpqlxzh67kqzzv9njzcyhzkn2fd1g-flox-prerelease-0.2.1-r496-man",
+          "valid": false
+        }
+      ]
+    }
+  ],
+  "element": {
+    "active": true,
+    "attrPath": [
+      "packages",
+      "x86_64-linux",
+      "flox-prerelease"
+    ],
+    "storePaths": [
+      "/nix/store/a219jn9av2aymkg4mj9wlyjvrw2lpzg9-flox-prerelease-0.2.1-r496",
+      "/nix/store/fdswpqlxzh67kqzzv9njzcyhzkn2fd1g-flox-prerelease-0.2.1-r496-man"
+    ],
+    "url": "git+ssh://git@github.com/flox/floxpkgs-internal?ref=master&rev=33f928fe8bead69e7521f4baf43d6b5229b69991"
+  },
+  "eval": {
+    "attrPath": [
+      "packages",
+      "x86_64-linux",
+      "flox-prerelease"
+    ],
+    "drvPath": "/nix/store/3hddgj5vgw1p68bx2zx52q16adb728dj-flox-prerelease-0.2.1-r496.drv",
+    "meta": {
+      "available": true,
+      "broken": false,
+      "insecure": false,
+      "name": "flox-prerelease-0.2.1-r496",
+      "outputsToInstall": [
+        "out",
+        "man"
+      ],
+      "platforms": [
+        "aarch64-linux",
+        "armv5tel-linux",
+        "armv6l-linux",
+        "armv7a-linux",
+        "armv7l-linux",
+        "i686-linux",
+        "m68k-linux",
+        "microblaze-linux",
+        "microblazeel-linux",
+        "mipsel-linux",
+        "mips64el-linux",
+        "powerpc64-linux",
+        "powerpc64le-linux",
+        "riscv32-linux",
+        "riscv64-linux",
+        "s390-linux",
+        "s390x-linux",
+        "x86_64-linux",
+        "x86_64-darwin",
+        "i686-darwin",
+        "aarch64-darwin",
+        "armv7a-darwin"
+      ],
+      "position": "/nix/store/4mrj1s192zv4jhiw6plff4lfqyy2hkdq-source/pkgs/flox/default.nix:78",
+      "unfree": false,
+      "unsupported": false
+    },
+    "name": "flox-prerelease-0.2.1-r496",
+    "namespace": [
+      "flox-prerelease"
+    ],
+    "outputs": {
+      "man": "/nix/store/fdswpqlxzh67kqzzv9njzcyhzkn2fd1g-flox-prerelease-0.2.1-r496-man",
+      "out": "/nix/store/a219jn9av2aymkg4mj9wlyjvrw2lpzg9-flox-prerelease-0.2.1-r496"
+    },
+    "pname": "flox-prerelease",
+    "stability": "stable",
+    "system": "x86_64-linux",
+    "version": "0.2.1-r496"
+  },
+  "source": {
+    "locked": {
+      "lastModified": 1685658629,
+      "narHash": "sha256-LkQsx8qrJE4yQYkUMx8hHWM8BZq/XCwW+SUUUFuQaHE=",
+      "ref": "master",
+      "rev": "33f928fe8bead69e7521f4baf43d6b5229b69991",
+      "revCount": 1699,
+      "type": "git",
+      "url": "ssh://git@github.com/flox/floxpkgs-internal"
+    },
+    "original": {
+      "ref": "master",
+      "rev": "33f928fe8bead69e7521f4baf43d6b5229b69991",
+      "type": "git",
+      "url": "ssh://git@github.com/flox/floxpkgs-internal"
+    },
+    "remote": {
+      "ref": "master",
+      "rev": "33f928fe8bead69e7521f4baf43d6b5229b69991",
+      "type": "git",
+      "url": "ssh://git@github.com/flox/floxpkgs-internal"
+    }
+  },
+  "version": 1
+}
