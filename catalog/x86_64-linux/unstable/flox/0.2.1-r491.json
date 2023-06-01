@@ -1,0 +1,112 @@
+{
+  "build": [],
+  "cache": [
+    {
+      "cacheUrl": "https://cache.floxdev.com/",
+      "narinfo": [
+        {
+          "path": "/nix/store/bky2ifmyy8l6ppkvifsgn9gfvp96s31s-flox-0.2.1-r491-man",
+          "valid": false
+        },
+        {
+          "path": "/nix/store/xqbg2vab38ax9laq89z5h2za7id4d3pl-flox-0.2.1-r491",
+          "valid": false
+        }
+      ]
+    }
+  ],
+  "element": {
+    "active": true,
+    "attrPath": [
+      "packages",
+      "x86_64-linux",
+      "flox"
+    ],
+    "storePaths": [
+      "/nix/store/xqbg2vab38ax9laq89z5h2za7id4d3pl-flox-0.2.1-r491",
+      "/nix/store/bky2ifmyy8l6ppkvifsgn9gfvp96s31s-flox-0.2.1-r491-man"
+    ],
+    "url": "git+ssh://git@github.com/flox/floxpkgs?ref=master&rev=e82578f07278c6db2b0906af9d1e8992aebd6019"
+  },
+  "eval": {
+    "attrPath": [
+      "packages",
+      "x86_64-linux",
+      "flox"
+    ],
+    "drvPath": "/nix/store/xkqkphrfjflkjcd1b0fsba7i5naxr0wd-flox-0.2.1-r491.drv",
+    "meta": {
+      "available": true,
+      "broken": false,
+      "insecure": false,
+      "name": "flox-0.2.1-r491",
+      "outputsToInstall": [
+        "out",
+        "man"
+      ],
+      "platforms": [
+        "aarch64-linux",
+        "armv5tel-linux",
+        "armv6l-linux",
+        "armv7a-linux",
+        "armv7l-linux",
+        "i686-linux",
+        "m68k-linux",
+        "microblaze-linux",
+        "microblazeel-linux",
+        "mipsel-linux",
+        "mips64el-linux",
+        "powerpc64-linux",
+        "powerpc64le-linux",
+        "riscv32-linux",
+        "riscv64-linux",
+        "s390-linux",
+        "s390x-linux",
+        "x86_64-linux",
+        "x86_64-darwin",
+        "i686-darwin",
+        "aarch64-darwin",
+        "armv7a-darwin"
+      ],
+      "position": "/nix/store/rsk04sxcbyvcld6hi72lvj3ky487xx9s-source/pkgs/flox/default.nix:78",
+      "unfree": false,
+      "unsupported": false
+    },
+    "name": "flox-0.2.1-r491",
+    "namespace": [
+      "flox"
+    ],
+    "outputs": {
+      "man": "/nix/store/bky2ifmyy8l6ppkvifsgn9gfvp96s31s-flox-0.2.1-r491-man",
+      "out": "/nix/store/xqbg2vab38ax9laq89z5h2za7id4d3pl-flox-0.2.1-r491"
+    },
+    "pname": "flox",
+    "stability": "unstable",
+    "system": "x86_64-linux",
+    "version": "0.2.1-r491"
+  },
+  "source": {
+    "locked": {
+      "lastModified": 1685615531,
+      "narHash": "sha256-+azsu4+P2sma9r4B8stT4osTwK7Hcb9ntg6kee7lUqQ=",
+      "ref": "master",
+      "rev": "e82578f07278c6db2b0906af9d1e8992aebd6019",
+      "revCount": 3583,
+      "type": "git",
+      "url": "ssh://git@github.com/flox/floxpkgs"
+    },
+    "original": {
+      "ref": "master",
+      "rev": "e82578f07278c6db2b0906af9d1e8992aebd6019",
+      "type": "git",
+      "url": "ssh://git@github.com/flox/floxpkgs"
+    },
+    "remote": {
+      "ref": "master",
+      "rev": "e82578f07278c6db2b0906af9d1e8992aebd6019",
+      "type": "git",
+      "url": "ssh://git@github.com/flox/floxpkgs"
+    }
+  },
+  "version": 1
+}
