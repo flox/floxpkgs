@@ -78,7 +78,7 @@ in
       passthru.posix = floxpkgs.lib.mkEnv {
         inherit pkgs;
         packages = config.packagesList ++ [config.newCatalogPath activateScript];
-        inherit (config) manifestPath configPackages;
+        manifestPath = config.manifestPath;
         meta.buildLayeredImageArgs = config.passthru.buildLayeredImageArgs;
       };
       toplevel = config.passthru.posix // {passthru = config.passthru;} // config.passthru;
