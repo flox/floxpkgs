@@ -11,6 +11,7 @@
   passthru ? {},
   env ? {},
   manifestPath ? null,
+  configPackages ? [],
   pkgs,
   ...
 }:
@@ -48,6 +49,7 @@ let
     "passthru"
     "env"
     "manifestPath"
+    "configPackages"
     "pkgs"
   ];
   envToBash = name: value: "export ${name}=${lib.escapeShellArg (toString value)}";
@@ -136,6 +138,13 @@ let
       derivations =
         map (x: ["true" (x.meta.priority or 5) 1 x]) (args.packages ++ [envBash]);
     };
+
+    # XXX UNUSED DELETEME
+    # Quick function to list the [primary] output paths in args.packages.
+    # Note that we only require the primary outputs because those are the
+    # ones that populate nix-support/propagated-build-inputs.
+    listOutputPaths = x: lib.concatMapStringsSep " " (drv: drv.outPath) x;
+
   in
     # note: this allows for an input-addressed approach for an environment to self-activate
     buildEnv ({

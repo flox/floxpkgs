@@ -101,6 +101,12 @@ in {
       type = types.path;
     };
 
+    configPackages = mkOption {
+      internal = true;
+      type = types.listOf types.package;
+      default = [];
+    };
+
     ###################
     # Copied from NixOS
     ###################
@@ -497,6 +503,19 @@ in {
     sortedStorePaths = builtins.sort (storePath1: storePath2: storePath1 < storePath2) storePaths;
 
     # extract a list of derivations
+#    configPackages = builtins.map (
+#      packageWithDerivation: builtins.trace (lib.generators.toPretty { multiline = true; } packageWithDerivation)
+#        packageWithDerivation.drv or packageWithDerivation.publishData.eval.drvPath
+#    ) packagesWithDerivation;
+    configPackages =
+      builtins.map (packageWithDerivation: packageWithDerivation.drv or packageWithDerivation.fakeDerivation)
+      sortedPackagesWithDerivation
+      # types.package calls builtins.storePath
+      ++ sortedStorePaths
+      # TODO check for duplication
+      ++ builtins.map (inlineCapacitorPackage: inlineCapacitorPackage.drv) inlineCapacitorPackages;
+
+    # extract a list of derivations
     packagesList =
       builtins.map (packageWithDerivation: packageWithDerivation.drv or packageWithDerivation.fakeDerivation)
       sortedPackagesWithDerivation
@@ -594,7 +613,7 @@ in {
     };
   in {
     manifestPath = builtins.toFile "profile" manifestJSON;
-    inherit packagesList;
+    inherit packagesList configPackages;
     newCatalogPath = pkgs.writeTextFile {
       name = "catalog";
       destination = "/catalog.json";
