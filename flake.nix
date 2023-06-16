@@ -29,6 +29,9 @@
 
   inputs.builtfilter.url = "github:flox/builtfilter?ref=builtfilter-rs";
   inputs.builtfilter.inputs.flox-floxpkgs.follows = "";
+
+  inputs.etc-profiles.url = "git+ssh://git@github.com/flox/etc-profiles?ref=brantley";
+  inputs.etc-profiles.inputs.flox-floxpkgs.follows = "";
   # ===========================================================================
 
   outputs = args @ {capacitor, ...}: capacitor args (
