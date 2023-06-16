@@ -1,0 +1,98 @@
+{
+  "build": [],
+  "cache": [
+    {
+      "cacheUrl": "https://cache.floxdev.com/",
+      "narinfo": [
+        {
+          "deriver": "/nix/store/yphbyzj1fgjlfi17801hpp89rkdqymi9-etc-profiles.0.1.0-r55.drv",
+          "downloadHash": "sha256-bfrHO/BU+fwP0LLDcVGI8e2y5KpL0JpWGJ9Hgwy9MME=",
+          "downloadSize": 436,
+          "narHash": "sha256-Evn1kxDEoPOp6MIKdex5WE5ERJ6RbmHgcpmu4wo7fGw=",
+          "narSize": 1856,
+          "path": "/nix/store/pd7px3zh3568yv1fqgk39brzg12m7vxr-etc-profiles.0.1.0-r55",
+          "references": [
+            "/nix/store/5cz053fnlg1ibvnr075yki8wafld2plp-profile-node-0.1.0-r55",
+            "/nix/store/gq3yw5pijv46pcz3bzgdmns35ppgsiym-profile-common-paths-0.1.0-r55",
+            "/nix/store/q51db47vs8in0iy46misds57v8hfc5qp-profile-base-0.1.0-r55",
+            "/nix/store/rrigmdak4i18gbykqlf6prm1qzq4af3c-profile-python3-0.1.0-r55"
+          ],
+          "signatures": [
+            "flox-store-public-0:+RsCl3fv0eda9R8UXh9mYBNkc5fETKfaqCqEjsMPGERGL9mHB7dXUmG2vwD6gMVQb/AeVhtiFnunAkCO8twQAw=="
+          ],
+          "url": "nar/1h9hpl686iwz31b9ml2bmbjb5vgii18p3hxjs07zryaly0xwgykd.nar.xz",
+          "valid": true
+        }
+      ]
+    }
+  ],
+  "element": {
+    "active": true,
+    "attrPath": [
+      "packages",
+      "x86_64-linux",
+      "etc-profiles"
+    ],
+    "storePaths": [
+      "/nix/store/pd7px3zh3568yv1fqgk39brzg12m7vxr-etc-profiles.0.1.0-r55"
+    ],
+    "url": "git+ssh://git@github.com/flox/etc-profiles.git?rev=8eab43ad7451b70b56f6545ee537aaba46edb3a8"
+  },
+  "eval": {
+    "attrPath": [
+      "packages",
+      "x86_64-linux",
+      "etc-profiles"
+    ],
+    "drvPath": "/nix/store/yphbyzj1fgjlfi17801hpp89rkdqymi9-etc-profiles.0.1.0-r55.drv",
+    "meta": {
+      "available": true,
+      "broken": false,
+      "description": "Installable /etc/profile.d activation scripts for use with flox",
+      "insecure": false,
+      "name": "etc-profiles.0.1.0-r55",
+      "outputsToInstall": [
+        "out"
+      ],
+      "position": "/nix/store/pb4svvmv7mzz6zhbrzi4k93izx1a4kbr-source/pkgs/etc-profiles/default.nix:56",
+      "unfree": false,
+      "unsupported": false
+    },
+    "name": "etc-profiles.0.1.0-r55",
+    "namespace": [
+      "etc-profiles"
+    ],
+    "outputs": {
+      "base": "/nix/store/fac2m48549ad3h3f4lhmb3k0ffkp270j-etc-profiles.0.1.0-r55-base",
+      "common_paths": "/nix/store/j1hd9azhcvyg7kkmlljy2nac6cvzyx6g-etc-profiles.0.1.0-r55-common_paths",
+      "node": "/nix/store/vbsvnp9amn3jz414x2l6fycay5ibazh6-etc-profiles.0.1.0-r55-node",
+      "out": "/nix/store/pd7px3zh3568yv1fqgk39brzg12m7vxr-etc-profiles.0.1.0-r55",
+      "python3": "/nix/store/psf1v9p6mr6y0npjyllk8x35j9aas7d5-etc-profiles.0.1.0-r55-python3"
+    },
+    "pname": "etc-profiles.0.1.0-r55",
+    "stability": "stable",
+    "system": "x86_64-linux",
+    "version": "0.1.0-r55"
+  },
+  "source": {
+    "locked": {
+      "lastModified": 1686896491,
+      "narHash": "sha256-gzCwyh5IrB9tzj0sZ8tBidZlpCfamoDw0Pp7f5E1gBs=",
+      "rev": "8eab43ad7451b70b56f6545ee537aaba46edb3a8",
+      "revCount": 55,
+      "type": "git",
+      "url": "ssh://git@github.com/flox/etc-profiles.git"
+    },
+    "original": {
+      "rev": "8eab43ad7451b70b56f6545ee537aaba46edb3a8",
+      "type": "git",
+      "url": "ssh://git@github.com/flox/etc-profiles.git"
+    },
+    "remote": {
+      "rev": "8eab43ad7451b70b56f6545ee537aaba46edb3a8",
+      "type": "git",
+      "url": "ssh://git@github.com/flox/etc-profiles.git"
+    }
+  },
+  "version": 1
+}
