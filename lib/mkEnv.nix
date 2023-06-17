@@ -101,8 +101,8 @@ let
           # TODO: get the primary output from the [ordered] eval.outputs
           lib.concatMapStringsSep " " (x: x.meta.publishData.eval.outputs.out) (
             builtins.filter (
-	      x: lib.hasAttrByPath [ "meta" "publishData" "eval" "outputs" "out" ] x
-	    ) args.packages
+              x: lib.hasAttrByPath [ "meta" "publishData" "eval" "outputs" "out" ] x
+            ) args.packages
           )
         } > $out/nix-support/propagated-user-env-packages"
       ];
