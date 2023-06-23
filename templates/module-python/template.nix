@@ -1,1 +1,1 @@
-{description = "Python package template";}
+{description = "Python module template";}
