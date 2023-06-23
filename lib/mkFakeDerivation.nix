@@ -37,6 +37,7 @@
         #     narinfo = [
         #       {
         #         path = "/nix/store/XXX";
+        #         valid = false;
         #         ...
         #       }
         #     ];
@@ -47,7 +48,7 @@
             cacheUrl: cacheMetadata:
               if cacheUrl != null
               then cacheUrl
-              else if builtins.any (narinfo: narinfo.path == stringOutPath) (cacheMetadata.narinfo or [])
+              else if builtins.any (narinfo: narinfo.path == stringOutPath && narinfo.valid == true) (cacheMetadata.narinfo or [])
               then cacheMetadata.cacheUrl
               else null
           )
@@ -88,7 +89,6 @@
 
   outputs = eval.outputs or (throw "unable to create mkFakeDerivation: no eval.outputs");
   outputNames = builtins.attrNames outputs;
-  defaultOutput = builtins.head outputNames;
   common =
     {
       name = eval.name or "unnamed";
@@ -120,24 +120,29 @@
   };
   outputsList = map outputToAttrListElement outputNames;
   outputsSet = builtins.listToAttrs outputsList;
+  outputObjectsToInstall =
+    if eval.meta.outputsToInstall != null
+    then map (outputName: outputsSet.${outputName}) eval.meta.outputsToInstall
+    else eval.outputs;
 
-  defaultOut = outputsSet.${defaultOutput};
+  # pick a random output to use for name/pname/version
+  defaultOut = builtins.head outputObjectsToInstall;
 in
   (derivation
     {
       name = defaultOut.name;
       system = eval.system;
       builder = "builtin:buildenv";
-      manifest = outputsSet.${defaultOutput};
+      manifest = defaultOut;
       derivations =
-        map (x: ["true" (defaultOut.meta.priority or 5) 1 outputsSet.${x}]) (defaultOut.meta.outputsToInstall or defaultOut.outputs);
+        map (output: ["true" (eval.meta.priority or 5) 1 output]) outputObjectsToInstall;
     })
   # `derivation` only takes a few preset arguments and in turn produces an attrset
   # To not confuse `derivation` merge in some optional flake fakeDerivation attributes in afterwards
   // {
     # We ensured all outputsToInstall are wrapped by this buildenv, and this buildenv will only have
     # a single output, so we shouldn't pass outputsToInstall through
-    meta = builtins.removeAttrs defaultOut.meta ["outputsToInstall"] // {inherit publishData;};
+    meta = builtins.removeAttrs eval.meta ["outputsToInstall"] // {inherit publishData;};
     pname = defaultOut.pname;
     version = defaultOut.version;
     inherit fromSource;

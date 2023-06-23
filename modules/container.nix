@@ -7,7 +7,7 @@
   ...
 }: let
   floxpkgs = context.inputs.flox-floxpkgs;
-  pkgs = context.nixpkgs.legacyPackages.${system};
+  pkgs = context.nixpkgs;
 in {
   options.container = with lib; {
     name = mkOption {

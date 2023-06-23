@@ -34,7 +34,8 @@ in
       value =
         lib.recursiveUpdate
         (self.lib.mkFloxEnv {
-          inherit context system namespace;
+          inherit system namespace;
+          context = context.context' system;
           modules = [floxNixPath] ++ lib.optional (builtins.pathExists catalogPath) {inherit catalogPath;};
         }) {meta.position = builtins.unsafeDiscardStringContext floxNixPath;};
       path = [system] ++ namespace;
