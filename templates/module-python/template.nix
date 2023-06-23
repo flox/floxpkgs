@@ -1,0 +1,1 @@
+{description = "Python module template";}

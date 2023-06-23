@@ -1,11 +1,10 @@
 {
   self,
   python3Packages,
-  lib,
 }:
-python3Packages.buildPythonApplication {
+python3Packages.buildPythonPackage {
   pname = "__PACKAGE_NAME__";
-  version = "0.0.0-${lib.flox-floxpkgs.getRev self}";
+  version = "0.0.0";
   src = self;
   PIP_DISABLE_PIP_VERSION_CHECK = 1;
   # Add Python modules needed by your package here
