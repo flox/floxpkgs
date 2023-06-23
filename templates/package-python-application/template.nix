@@ -1,1 +1,0 @@
-{description = "Python application template";}
