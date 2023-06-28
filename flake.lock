@@ -177,11 +177,11 @@
         "ld-floxlib": "ld-floxlib"
       },
       "locked": {
-        "lastModified": 1687976863,
-        "narHash": "sha256-UTEgsyXL5xDqhR9CJwjkMfg0GR1Y7SxR/jOqN4r8+AQ=",
+        "lastModified": 1687980827,
+        "narHash": "sha256-CxEUh/ZEwCaxSkXxn/AGwYgVGt7VNEj2WTr1zTiicbE=",
         "owner": "flox",
         "repo": "etc-profiles",
-        "rev": "857ea2664e6ef574a3e98f3e22c03e8c9aee65d3",
+        "rev": "341861cecc742fc749a5d915e6a16c538bfc5861",
         "type": "github"
       },
       "original": {
