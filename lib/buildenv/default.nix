@@ -2,7 +2,14 @@
 # a fork of the buildEnv in the Nix distribution.  Most changes should
 # eventually be merged back into the Nix distribution.
 
-{ buildPackages, runCommand, lib, substituteAll }:
+# capacitor API
+# `lib` recipes are system independent hence we must provide `pkgs` explicitly
+{ lib }:
+pkgs:
+let 
+  inherit (pkgs) buildPackages runCommand substituteAll;
+in
+
 
 lib.makeOverridable
 ({ name
