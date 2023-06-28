@@ -31,13 +31,15 @@ let
   };
   inherit
     (pkgs)
-    buildEnv
+    callPackage
     writeTextDir
     system
     coreutils
     bashInteractive
     writeTextFile
     ;
+  buildEnv = lib.buildenv pkgs;
+
   rest = builtins.removeAttrs args [
     "name"
     "profile"
@@ -85,17 +87,31 @@ let
       version = 2;
     };
     manifestFile = builtins.toFile "profile" manifestJSON;
+
+    # TODO: get the primary output from the [ordered] eval.outputs
+    propagatedPackages = lib.concatMapStringsSep " " (x:
+      x.meta.publishData.eval.outputs.out) (
+        builtins.filter (
+          x: lib.hasAttrByPath [ "meta" "publishData" "eval" "outputs" "out" ] x
+        ) args.packages
+      );
+    buildScript = ''
+      echo ${env};
+      ${coreutils}/bin/mkdir -p $out/nix-support;
+      ${coreutils}/bin/cp ${
+        if manifestPath == null
+          then manifestFile
+          else manifestPath
+      } $out/manifest.json;
+      echo ${propagatedPackages} > $out/nix-support/propagated-user-env-packages;
+    '';
     manifest = derivation {
       name = "profile";
       inherit system;
       builder = "/bin/sh";
       args = [
         "-c"
-        "echo ${env}; ${coreutils}/bin/mkdir $out; ${coreutils}/bin/cp ${
-          if manifestPath == null
-          then manifestFile
-          else manifestPath
-        } $out/manifest.json"
+        buildScript
       ];
     };
 

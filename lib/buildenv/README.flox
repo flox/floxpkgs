@@ -1,0 +1,2 @@
+The files in this directory are copied from nixpkgs:pkgs/build-support/buildenv
+with minimal modifications as denoted by the <flox> </flox> comment delimiters.
