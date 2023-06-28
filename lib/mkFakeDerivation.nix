@@ -37,6 +37,7 @@
         #     narinfo = [
         #       {
         #         path = "/nix/store/XXX";
+        #         valid = false;
         #         ...
         #       }
         #     ];
@@ -47,7 +48,7 @@
             cacheUrl: cacheMetadata:
               if cacheUrl != null
               then cacheUrl
-              else if builtins.any (narinfo: narinfo.path == stringOutPath) (cacheMetadata.narinfo or [])
+              else if builtins.any (narinfo: narinfo.path == stringOutPath && narinfo.valid == true) (cacheMetadata.narinfo or [])
               then cacheMetadata.cacheUrl
               else null
           )
