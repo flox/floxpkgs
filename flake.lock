@@ -177,11 +177,11 @@
         "ld-floxlib": "ld-floxlib"
       },
       "locked": {
-        "lastModified": 1687974724,
-        "narHash": "sha256-sSZn+RJ7oqs47Lt21Kgj13llfWq1RqnoYeBoodUPFXU=",
+        "lastModified": 1687976863,
+        "narHash": "sha256-UTEgsyXL5xDqhR9CJwjkMfg0GR1Y7SxR/jOqN4r8+AQ=",
         "owner": "flox",
         "repo": "etc-profiles",
-        "rev": "cbe328273489ff06c91d7a1c15bb52dfd8356689",
+        "rev": "857ea2664e6ef574a3e98f3e22c03e8c9aee65d3",
         "type": "github"
       },
       "original": {
@@ -486,11 +486,11 @@
         "flox-floxpkgs": "flox-floxpkgs"
       },
       "locked": {
-        "lastModified": 1686896430,
-        "narHash": "sha256-VA9ywbsxHU1vbaTNmVuXaS4Rj2hPCJw9cCpuBVZb97Q=",
+        "lastModified": 1687975941,
+        "narHash": "sha256-QzuoRXzPy5G8ePnhKQpxK7e/6Qs6YVnCZlq1oilap4g=",
         "owner": "flox",
         "repo": "ld-floxlib",
-        "rev": "211c74dead2d2f0aff39f46f02d93806630c8fdd",
+        "rev": "b868e931d035c93a9a325a65bc312f15441d9d15",
         "type": "github"
       },
       "original": {
