@@ -158,11 +158,11 @@
         "rust-overlay": "rust-overlay_2"
       },
       "locked": {
-        "lastModified": 1686621798,
-        "narHash": "sha256-FUwWszmSiDzUdTk8f69xwMoYlhdPaLvDaIYOE/y6VXc=",
+        "lastModified": 1687310026,
+        "narHash": "sha256-20RHFbrnC+hsG4Hyeg/58LvQAK7JWfFItTPFAFamu8E=",
         "owner": "ipetkov",
         "repo": "crane",
-        "rev": "75f7d715f8088f741be9981405f6444e2d49efdd",
+        "rev": "116b32c30b5ff28e49f4fcbeeb1bbe3544593204",
         "type": "github"
       },
       "original": {
@@ -177,11 +177,11 @@
         "ld-floxlib": "ld-floxlib"
       },
       "locked": {
-        "lastModified": 1687980827,
-        "narHash": "sha256-CxEUh/ZEwCaxSkXxn/AGwYgVGt7VNEj2WTr1zTiicbE=",
+        "lastModified": 1687984080,
+        "narHash": "sha256-hL3ZMdg5hw3Wvluk2IkWCtRjsWHbfcE7F2j60GLz/D0=",
         "owner": "flox",
         "repo": "etc-profiles",
-        "rev": "341861cecc742fc749a5d915e6a16c538bfc5861",
+        "rev": "d0059cf7f8047360e771816f607425f1b560264f",
         "type": "github"
       },
       "original": {
@@ -420,11 +420,11 @@
         "shellHooks": "shellHooks_2"
       },
       "locked": {
-        "lastModified": 1686824858,
-        "narHash": "sha256-29En5YzPyNPTuKbEbc/19R0TjwyS+ZiD+xob+dCocOk=",
+        "lastModified": 1688039496,
+        "narHash": "sha256-f6X/t2456QFgt/rT+XYOVoMylP+lNhppCSbgq0LT67Y=",
         "ref": "latest",
-        "rev": "1ab9bb637a4871c9a8cf9ceaefa1f5b9d8bc8234",
-        "revCount": 519,
+        "rev": "68802cacdaacf2419c9a1f22e8402c9b00f1b147",
+        "revCount": 529,
         "type": "git",
         "url": "ssh://git@github.com/flox/flox"
       },
@@ -1180,11 +1180,11 @@
         "nixpkgs-stable": "nixpkgs-stable_3"
       },
       "locked": {
-        "lastModified": 1686668298,
-        "narHash": "sha256-AADh9NqHh6X2LOem4BvI7oCkMm+JPCSCE7iIw5nn0VA=",
+        "lastModified": 1687779420,
+        "narHash": "sha256-noueZE/Z5qx6NF/grg46qlpZ/1nuPpc92RvqgCmRaLI=",
         "owner": "cachix",
         "repo": "pre-commit-hooks.nix",
-        "rev": "5b6b54d3f722aa95cbf4ddbe35390a0af8c0015a",
+        "rev": "1fa438eee82f35bdd4bc30a9aacd7648d757b388",
         "type": "github"
       },
       "original": {
