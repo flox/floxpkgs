@@ -38,7 +38,7 @@ let
     bashInteractive
     writeTextFile
     ;
-  buildEnv = lib.buildenv pkgs;
+  buildEnv = lib.self.buildenv pkgs;
 
   rest = builtins.removeAttrs args [
     "name"
