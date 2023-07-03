@@ -40,17 +40,22 @@ jobs:
       run: |
         set -eu;
         set -o pipefail;
-        _ec=0;
-        trap '_ec="$?"; echo "ERROR: code $_ec" >&2; exit "$_ec";' HUP TERM INT;
 
-        mkdir -p ./project;
-        cd ./project;
+        mkdir -p ./krb5-dev;
+        cd ./krb5-dev;
 
         selfURI="github:${{ github.repository }}/${{ github.sha }}";
 
         git init;
-        flox init --template "$selfURI#profile" --name sqlite-dev;
-        sed -i -e 's/##//' -e 's/sqlite/krb5/' -e 's/"bin" //' ./flox.nix;
+        flox init --template "$selfURI#profile" --name krb5-dev;
+        sed -i -e 's/^}$//' ./flox.nix;
+        echo '
+          packages.nixpkgs-flox.krb5 = {
+            meta.outputsToInstall = ["out" "dev"];
+          };
+        }
+        ' >> ./flox.nix;
+
         echo '---';
         cat ./flox.nix;
         echo '---';
