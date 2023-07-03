@@ -56,21 +56,18 @@
 
 
   # Provides an extensible `<env>/etc/profile` script.
-  inline.packages.etc-profiles = { system }: let
-    flake = builtins.getFlake "github:flox/etc-profiles";
-    inherit (flake.packages.${system}) etc-profiles;
-  in etc-profiles // {
-    meta = etc-profiles.meta // {
-      outputsToInstall = [
-        "base"
-        # Sets common environment vars such as `PKG_CONFIG_PATH' and `MANPATH'.
-        "common_paths"
-        # Sets `PYTHONPATH' if `python3' is detected.
-        "python3"
-        # Sets `NODE_PATH' if `node' is detected.
-        "node"
-      ];
-    };
+  packages."github:flox/etc-profiles".etc-profiles = {
+    outputsToInstall = [
+      # Provides a simple `<env>/etc/profile' script that sources
+      # "child" `<env>/etc/profile.d/*.sh' scripts.
+      "out"
+      # Sets common environment vars such as `PKG_CONFIG_PATH' and `MANPATH'.
+      "common_paths"
+      # Sets `PYTHONPATH' if `python3' is detected.
+      "python3"
+      # Sets `NODE_PATH' if `node' is detected.
+      "node"
+    ];
   };
 
   # Grab some development dependencies.
