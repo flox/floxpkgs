@@ -64,13 +64,22 @@ jobs:
         echo "Checking if pkg-config can find krb5" >&2;
         if flox activate -- pkg-config --list-all|grep '^krb5';
         then
-          echo "PASS" >&2;
-          exit 0;
+          echo "PASS: pkg-config" >&2;
         else
-          echo "FAIL" >&2;
+          echo "FAIL: pkg-config" >&2;
           echo "pkg-config --list results:" >&2;
           echo "---" >&2;
           flox activate -- pkg-config --list-all >&2;
           echo "---" >&2;
+          exit 1;
+        fi
+
+        # Install `krb5' module with `npm'.
+        # This fails without `pkg-config' working properly.
+        npm i krb5;
+        if [[ -x "$PWD/node_modules/krb5/build/Release/krb5.node" ]]; then
+          echo "PASS: npm" >&2;
+        else
+          echo "FAIL: npm" >&2;
           exit 1;
         fi
