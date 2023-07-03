@@ -38,7 +38,7 @@ let
     bashInteractive
     writeTextFile
     ;
-  buildEnv = lib.buildenv pkgs;
+  buildEnv = lib.self.buildenv pkgs;
 
   rest = builtins.removeAttrs args [
     "name"
@@ -88,11 +88,21 @@ let
     };
     manifestFile = builtins.toFile "profile" manifestJSON;
 
-    # TODO: get the primary output from the [ordered] eval.outputs
-    propagatedPackages = lib.concatMapStringsSep " " (x:
-      x.meta.publishData.eval.outputs.out) (
+    # TODO: add fallback when outputsToInstall does not exist or when
+    # installing individual outputs and/or extraOutputsToInstall. Note
+    # that the jq package is a good test for this because its "out"
+    # output is empty (and therefore not rendered) by design and thus
+    # cannot be passed as an argument to buildenv.pl.
+    propagatedPackages =
+      lib.concatMapStringsSep " " (x:
+        # builtins.trace (lib.generators.toPretty {multiline=true;} x.meta.publishData.eval)
+        lib.concatMapStringsSep " " (outName:
+          x.meta.publishData.eval.outputs.${outName} or ""
+        ) x.meta.publishData.eval.meta.outputsToInstall
+      ) (
         builtins.filter (
-          x: lib.hasAttrByPath [ "meta" "publishData" "eval" "outputs" "out" ] x
+          x: (lib.hasAttrByPath [ "meta" "publishData" "eval" "outputs" ] x) &&
+             (lib.hasAttrByPath [ "meta" "publishData" "eval" "meta" "outputsToInstall" ] x)
         ) args.packages
       );
     buildScript = ''
