@@ -31,11 +31,12 @@
   ##packages.nixpkgs-flox.openssh = {};
 
   # Build Utils
-  packages.nixpkgs-flox.gnumake  = {};
-  packages.nixpkgs-flox.libtool  = {};
-  packages.nixpkgs-flox.autoconf = {};
-  packages.nixpkgs-flox.automake = {};
-  packages.nixpkgs-flox.gnum4    = {};
+  packages.nixpkgs-flox.gnumake    = {};
+  packages.nixpkgs-flox.libtool    = {};
+  packages.nixpkgs-flox.autoconf   = {};
+  packages.nixpkgs-flox.automake   = {};
+  packages.nixpkgs-flox.gnum4      = {};
+  packages.nixpkgs-flox.pkg-config = {};
 
   # Compiler Collection
   # Selects `gcc' on Linux, and LLVM on Darwin.
