@@ -179,7 +179,7 @@ in {
         ++ packageAttrPath
         ++ version
       )
-    ];
+    ] ++ getFlakeFlakePaths packageAttrPath {};
 
     # used for both flakes and self
     getFlakeCatalogPath = channelName: packageAttrPath: _:
