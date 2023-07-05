@@ -431,10 +431,10 @@ in {
                         params          = builtins.elemAt m 2;
                       };
                       gitLockedRef =
-                        ( if scheme == null then "" else scheme ) +
-                        protocolAndPath + "/" + sourceInfo.rev;
+                        ( if gitM.scheme == null then "" else gitM.scheme ) +
+                        gitM.protocolAndPath + "/" + flake.sourceInfo.rev;
 
-                    in if si.type == github then githubLockedRef else
+                    in if type == "github" then githubLockedRef else
                        gitLockedRef;
                   storePaths = maybeFakeDerivation.meta.publishData.element.storePaths;
                   attrPath = flakePath;

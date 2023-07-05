@@ -40,17 +40,48 @@
     # store flake resolution information
     url =
       if flakeRef == "self"
-      then ""
-      else if flakeRef != null
-      then let
+      then "" else
+      if flakeRef == null then null
+      else let
         flake =
           builtins.getFlake flakeRef;
-        # this assumes that either flakeRef is not indirect, or if it is indirect, the flake it
-        # resolves to contains a branch
-      in "${originalUrl}/${flake.rev}"
+        # this assumes that either flakeRef is not indirect, or if
+        # it is indirect, the flake it resolves to contains a
+        # branch
+        msg = "Only `git' and `github' URIs are supported, but " +
+              "URI `" + flakeRef + "' uses another input type";
+        type = if flake.sourceInfo ? revCount then "git"    else
+               if flake.sourceInfo ? rev      then "github" else
+               throw msg;
+
+        githubM = let
+          m =
+            builtins.match "github:([^/]+)/([^/]+)/(.*)" flakeRef;
+        in {
+          owner    = builtins.head m;
+          repo     = builtins.elemAt m 1;
+          refOrRev = builtins.elemAt m 2;
+        };
+        githubLockedRef = "github:" + githubM.owner + "/" +
+                           githubM.repo + "/" +
+                           flake.sourceInfo.rev;
+
+        gitM = let
+          m = builtins.match "(git\\+)?([^?]+)(\\?([^?]+))?"
+                             flakeRef;
+        in {
+          scheme          = builtins.head m;
+          protocolAndPath = builtins.elemAt m 1;
+          params          = builtins.elemAt m 2;
+        };
+        gitLockedRef =
+          ( if gitM.scheme == null then "" else gitM.scheme ) +
+          gitM.protocolAndPath + "/" + flake.sourceInfo.rev;
+
+      in if type == "github" then githubLockedRef else gitLockedRef;
+
       # TODO this violates the catalog schema, so it must be set with
       # postprocessing
-      else null;
     storePaths =
       if drv.meta ? outputsToInstall
       then
