@@ -87,11 +87,11 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1688164448,
-        "narHash": "sha256-ds7oVoW7StxSY2pXXyaAESltjnKshk3YmFUlqlGkQ6s=",
+        "lastModified": 1688575273,
+        "narHash": "sha256-yFOXCPZaYkHoo5+AOL6k4cLFCFvyzy5442zZ/v3jd3w=",
         "owner": "flox",
         "repo": "etc-profiles",
-        "rev": "c25be86a0a44a5413af911d7f15a6405f21738c2",
+        "rev": "fe737f4999753c071ffa33d5aae560d6f696326c",
         "type": "github"
       },
       "original": {
