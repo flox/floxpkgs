@@ -68,11 +68,12 @@ let
       s = if f == null then builtins.elemAt m 4 else f;
     in if builtins.elem s ["http" "https"] then null else f;
     path = builtins.elemAt m 5;
+    fst  = builtins.substring 0 1 path;
   in assert builtins.isString ref;
      if data != null then builtins.getAttr data dataSchemeToType else
-     if test ".:*" ref then
-       if test ".*(${reTB})" path then "tarball" else "file"
-     else if ( builtins.substring 0 1 path ) == "/" then "path" else "indirect";
+     if test ".:*" ref
+     then ( if test ".*(${reTB})" path     then "tarball" else "file"     )
+     else ( if builtins.elem fst ["/" "."] then "path"    else "indirect" );
 
 
 # ---------------------------------------------------------------------------- #
