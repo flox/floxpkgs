@@ -38,9 +38,8 @@
     # as strings later.
     outputs = let
       outputs = drv.outputs or ["out"];
-      proc    = o: (
-        builtins.unsafeDiscardStringContext ( builtins.getAttr o drv )
-      ).outPath;
+      proc    = o:
+        builtins.unsafeDiscardStringContext ( builtins.getAttr o drv ).outPath;
     in lib.genAttrs outputs proc;
     meta = drv.meta or {};
   };
