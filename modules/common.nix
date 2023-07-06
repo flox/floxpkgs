@@ -4,6 +4,7 @@
   system,
   context,
   namespace,
+  inputs,
   ...
 }: let
   # Assumption that flox-floxpkgs is a direct input
@@ -381,63 +382,18 @@ in {
               if maybeFakeDerivation ? meta.publishData
               then let
                 publish_element = let
-                  flakeRef = channelName;
-                in rec {
-                  # TODO deduplicate with readPackage
-                  originalUrl =
-                    if flakeRef == "self"
-                    then "." # TODO: use outPath?
-                    else
-                      (
-                        if flakeRef == null || builtins.match ".*:.*" flakeRef == []
-                        then flakeRef
-                        else "flake:${flakeRef}"
-                      );
-                  # TODO deduplicate with readPackage and figure out a better
-                  # way to store flake resolution information
-                  url =
-                    if flakeRef == "self"
-                    then ""
-                    else let
-                      flake =
-                        builtins.getFlake flakeRef;
-                      # this assumes that either flakeRef is not indirect, or if
-                      # it is indirect, the flake it resolves to contains a
-                      # branch
-                      msg = "Only `git' and `github' URIs are supported, but " +
-                            "URI `" + flakeRef + "' uses another input type";
-                      type = if flake.sourceInfo ? revCount then "git"    else
-                             if flake.sourceInfo ? rev      then "github" else
-                             throw msg;
-
-                      githubM = let
-                        m =
-                          builtins.match "github:([^/]+)/([^/]+)/(.*)" flakeRef;
-                      in {
-                        owner    = builtins.head m;
-                        repo     = builtins.elemAt m 1;
-                        refOrRev = builtins.elemAt m 2;
-                      };
-                      githubLockedRef = "github:" + githubM.owner + "/" +
-                                         githubM.repo + "/" +
-                                         flake.sourceInfo.rev;
-
-                      gitM = let
-                        m = builtins.match "(git\\+)?([^?]+)(\\?([^?]+))?"
-                                           flakeRef;
-                      in {
-                        scheme          = builtins.head m;
-                        protocolAndPath = builtins.elemAt m 1;
-                        params          = builtins.elemAt m 2;
-                      };
-                      gitLockedRef =
-                        ( if gitM.scheme == null then "" else gitM.scheme ) +
-                        gitM.protocolAndPath + "/" + flake.sourceInfo.rev;
-
-                    in if type == "github" then githubLockedRef else
-                       gitLockedRef;
-                  storePaths = maybeFakeDerivation.meta.publishData.element.storePaths;
-                  attrPath = flakePath;
+                  flake = ( import ../lib/lockFlake.nix { inherit inputs; } )
+                          channelName;
+                in {
+                  attrPath    = flakePath;
+                  originalUrl = if channelName == null   then null else
+                                if channelName == "self" then "."  else
+                                flake.originalRef.string;
+                  url = if channelName == null   then null else
+                        if channelName == "self" then ""   else
+                        flake.lockedRef.string;
+                  storePaths  =
+                    maybeFakeDerivation.meta.publishData.element.storePaths;
                 };
               in
                 maybeFakeDerivation.meta.publishData
@@ -446,7 +402,8 @@ in {
                 }
               else
                 floxpkgs.lib.readPackage {
-                  # TODO use namespace and attrPath instead of passing entire flakePath as attrPath
+                  # TODO use namespace and attrPath instead of passing entire
+                  # flakePath as attrPath
                   attrPath = flakePath;
                   flakeRef = channelName;
                 } {analyzeOutput = true;}

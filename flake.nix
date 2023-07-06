@@ -2,7 +2,7 @@
   nixConfig.extra-substituters = ["https://cache.floxdev.com"];
   nixConfig.extra-trusted-public-keys = ["flox-store-public-0:8c/B+kjIaQ+BloCmNkRUKwaVPFWkriSAd0JJvuDu4F0="];
 
-  inputs.capacitor.url = "github:flox/capacitor?ref=v0";
+  inputs.capacitor.url = "github:flox/capacitor/v0";
 
   # This is needed for backwards compatibility reasons and due to (possible)
   # bug in Nix, you can not `--override-input` flake input that follows.
@@ -17,21 +17,26 @@
 
   # This is needed for `pkgs/flox/default.nix` to refer to the capacitated
   # recipe.
-  inputs.flox.url = "git+ssh://git@github.com/flox/flox?ref=latest";
+  inputs.flox.url = "github:flox/flox/latest";
   inputs.flox.inputs.flox-floxpkgs.follows = "";
 
   # ===========================================================================
   # This bellow are examples to show case how a there should/could be many more
   # packages
   # ===========================================================================
-  inputs.tracelinks.url = "git+ssh://git@github.com/flox/tracelinks?ref=main";
+  inputs.tracelinks.url = "github:flox/tracelinks";
   inputs.tracelinks.inputs.flox-floxpkgs.follows = "";
 
-  inputs.builtfilter.url = "github:flox/builtfilter?ref=builtfilter-rs";
+  inputs.builtfilter.url = "github:flox/builtfilter/builtfilter-rs";
   inputs.builtfilter.inputs.flox-floxpkgs.follows = "";
 
   inputs.etc-profiles.url = "github:flox/etc-profiles";
-  inputs.etc-profiles.inputs.flox-floxpkgs.follows = "";
+
+  # XXX: DO NOT override `nixpkgs' input.
+  # This flake produce no derivations and strictly contains expressions.
+  # It never references `system', and never adds anything to the nix store.
+  inputs.rime.url = "github:aakropotkin/rime";
+
   # ===========================================================================
 
   outputs = args @ {capacitor, ...}: capacitor args (

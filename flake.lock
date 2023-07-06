@@ -1,15 +1,34 @@
 {
   "nodes": {
+    "ak-nix": {
+      "inputs": {
+        "nixpkgs": "nixpkgs_7"
+      },
+      "locked": {
+        "lastModified": 1684089972,
+        "narHash": "sha256-DteBAc4BKGDaL1XqzmR5HrwQOFWp0P4ZKJu7Ay2qNjA=",
+        "owner": "aakropotkin",
+        "repo": "ak-nix",
+        "rev": "93882a278780894c40d94c6b8fae0b1871e66cbc",
+        "type": "github"
+      },
+      "original": {
+        "owner": "aakropotkin",
+        "ref": "main",
+        "repo": "ak-nix",
+        "type": "github"
+      }
+    },
     "builtfilter": {
       "inputs": {
         "flox-floxpkgs": []
       },
       "locked": {
-        "lastModified": 1683889736,
-        "narHash": "sha256-Sxn6VNrojAl9Tu0dDy6ZqPUe0GNwRKwzHAkptXM63Wg=",
+        "lastModified": 1688654208,
+        "narHash": "sha256-GXUr6KzbiMJvalLwTv/dFNdldfqbc5yDS4uktUpdZsw=",
         "owner": "flox",
         "repo": "builtfilter",
-        "rev": "f29903b144bb20e5be80f55d3fafa323c28a2cb0",
+        "rev": "441e6eea6920581da0bb5a2924431139bf25a15a",
         "type": "github"
       },
       "original": {
@@ -87,11 +106,11 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1688164448,
-        "narHash": "sha256-ds7oVoW7StxSY2pXXyaAESltjnKshk3YmFUlqlGkQ6s=",
+        "lastModified": 1688585987,
+        "narHash": "sha256-yFOXCPZaYkHoo5+AOL6k4cLFCFvyzy5442zZ/v3jd3w=",
         "owner": "flox",
         "repo": "etc-profiles",
-        "rev": "c25be86a0a44a5413af911d7f15a6405f21738c2",
+        "rev": "363488fbfe42825cf2efb2b4ca9d633a069d7404",
         "type": "github"
       },
       "original": {
@@ -197,16 +216,16 @@
       "locked": {
         "lastModified": 1688045212,
         "narHash": "sha256-xgSGJCp0aQrEeaFMAmNnkW6YG49/HnvULIhN5Keyw9M=",
-        "ref": "latest",
+        "owner": "flox",
+        "repo": "flox",
         "rev": "f19cb5f907f077d4ebe54a497c9f20b90586f0da",
-        "revCount": 530,
-        "type": "git",
-        "url": "ssh://git@github.com/flox/flox"
+        "type": "github"
       },
       "original": {
+        "owner": "flox",
         "ref": "latest",
-        "type": "git",
-        "url": "ssh://git@github.com/flox/flox"
+        "repo": "flox",
+        "type": "github"
       }
     },
     "gitignore": {
@@ -435,6 +454,20 @@
         "type": "github"
       }
     },
+    "nixpkgs_7": {
+      "locked": {
+        "lastModified": 1672633908,
+        "narHash": "sha256-sP0BMp4DprVCBjcTYPsTPwkJMsc45vM0FxHdDx6qE8U=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "a4379d2b0deefedc8dba360897557707ea9ee9a7",
+        "type": "github"
+      },
+      "original": {
+        "id": "nixpkgs",
+        "type": "indirect"
+      }
+    },
     "nixpkgs__flox__aarch64-darwin": {
       "flake": false,
       "locked": {
@@ -530,6 +563,29 @@
         "type": "github"
       }
     },
+    "rime": {
+      "inputs": {
+        "ak-nix": "ak-nix",
+        "nixpkgs": [
+          "rime",
+          "ak-nix",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1688669124,
+        "narHash": "sha256-fNy9TEoe//MaBBVxMNO7dxAXKbw620SThYftbVimaww=",
+        "owner": "aakropotkin",
+        "repo": "rime",
+        "rev": "6e9bcc57655c295930f90e94e17e540c573ff8e2",
+        "type": "github"
+      },
+      "original": {
+        "owner": "aakropotkin",
+        "repo": "rime",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "builtfilter": "builtfilter",
@@ -537,6 +593,7 @@
         "etc-profiles": "etc-profiles",
         "flox": "flox",
         "nixpkgs": "nixpkgs_6",
+        "rime": "rime",
         "tracelinks": "tracelinks"
       }
     },
@@ -626,16 +683,15 @@
       "locked": {
         "lastModified": 1683889723,
         "narHash": "sha256-h7LMr8tgu4RJecin4oEO50WoTU0rTomAW9+7AJroX0Y=",
-        "ref": "main",
+        "owner": "flox",
+        "repo": "tracelinks",
         "rev": "e05561bdd0ed9d10c66e35a1d8e66defab949534",
-        "revCount": 11,
-        "type": "git",
-        "url": "ssh://git@github.com/flox/tracelinks"
+        "type": "github"
       },
       "original": {
-        "ref": "main",
-        "type": "git",
-        "url": "ssh://git@github.com/flox/tracelinks"
+        "owner": "flox",
+        "repo": "tracelinks",
+        "type": "github"
       }
     }
   },
