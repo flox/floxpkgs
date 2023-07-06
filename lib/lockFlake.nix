@@ -21,15 +21,13 @@
     };
   in flakeRef: let
     originalRef = mkRef flakeRef;
-    flake       = builtins.getFlake (
-      liburi.flakeRefAttrsToString originalRef.string
-    );
-    keeps = if builtins.elem originalRef.attrs.type ["tarball" "file"]
-            then { rev = true; narHash = true; }
-            else { rev = true; };
-    lockedAttrs = ( removeAttrs originalRef ["ref"] ) //
-                  ( builtins.intersectAttrs keeps );
-  in {
+    flake       = builtins.getFlake originalRef.string;
+    keeps       = if builtins.elem originalRef.attrs.type ["tarball" "file"]
+                  then { rev = true; narHash = true; }
+                  else { rev = true; };
+    lockedAttrs = ( removeAttrs originalRef.attrs ["ref"] ) //
+                  ( builtins.intersectAttrs keeps flake.sourceInfo );
+  in builtins.addErrorContext "Locking flakeref `${builtins.toJSON flakeRef}'" {
     inherit originalRef;
     lockedRef = mkRef lockedAttrs;
   };
