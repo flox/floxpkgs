@@ -536,6 +536,105 @@ in { lib ? nixpkgs.lib }: let
     };
 
 
+    tarball0 = {
+      expr     = "https://registry.npmjs.org/lodash/-/lodash-4.17.21.tgz";
+      expected = {
+        type = "tarball";
+        url  = "https://registry.npmjs.org/lodash/-/lodash-4.17.21.tgz";
+      };
+    };
+    tarball1 = {
+      expr     = "http://registry.npmjs.org/lodash/-/lodash-4.17.21.tgz";
+      expected = {
+        type = "tarball";
+        url  = "http://registry.npmjs.org/lodash/-/lodash-4.17.21.tgz";
+      };
+    };
+    tarball2 = {
+      expr     = "https://registry.npmjs.org/lodash/-/lodash-4.17.21.tgz?x=1";
+      expected = {
+        type = "tarball";
+        url  = "https://registry.npmjs.org/lodash/-/lodash-4.17.21.tgz?x=1";
+      };
+    };
+    tarball3 = {
+      expr     = "file:///home/user/file.tar.gz";
+      expected = {
+        type = "tarball";
+        url  = "file:///home/user/file.tar.gz";
+      };
+    };
+    tarball4 = {
+      expr     = "file:///home/user/file.zip";
+      expected = {
+        type = "tarball";
+        url  = "file:///home/user/file.zip";
+      };
+    };
+    tarball5 = {
+      expr     = "file:///home/user/file.tar";
+      expected = {
+        type = "tarball";
+        url  = "file:///home/user/file.tar";
+      };
+    };
+    tarball6 = {
+      expr     = "file:///home/user/file.tar.bz2";
+      expected = {
+        type = "tarball";
+        url  = "file:///home/user/file.tar.bz2";
+      };
+    };
+    tarball7 = {
+      expr     = "file:///home/user/file.tar.xz";
+      expected = {
+        type = "tarball";
+        url  = "file:///home/user/file.tar.xz";
+      };
+    };
+    tarball8 = {
+      expr     = "file:///home/user/file.tar.zst";
+      expected = {
+        type = "tarball";
+        url  = "file:///home/user/file.tar.zst";
+      };
+    };
+    tarball9 = {
+      expr     = "tarball+file:///home/user/file.tgz";
+      expected = {
+        type = "tarball";
+        url  = "file:///home/user/file.tgz";
+      };
+    };
+    tarball10 = {
+      expr     = "tarball:///home/user/file.tgz";
+      expected = {
+        type = "tarball";
+        url  = "tarball:///home/user/file.tgz";
+      };
+    };
+    tarball11 = {
+      expr     = "tarball:///home/user/file";
+      expected = {
+        type = "tarball";
+        url  = "tarball:///home/user/file";
+      };
+    };
+    tarball12 = {
+      expr     = "tarball+file:///home/user/file";
+      expected = {
+        type = "tarball";
+        url  = "file:///home/user/file";
+      };
+    };
+    tarball13 = {
+      expr     = "tarball+file:/home/user/file";
+      expected = {
+        type = "tarball";
+        url  = "file:/home/user/file";
+      };
+    };
+
   };  /* End `flakeRefStrToAttrs' */
 
 
