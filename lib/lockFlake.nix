@@ -81,9 +81,9 @@ let
     str = {
       lambda = "<LAMBDA>";
       set    = let
-        o = if ( x.type or null ) != "derivation"
-            then removeAttrs x ["outPath"]
-            else removeAttrs x ["outPath" "type"];
+        o = if ( x.type or null ) == "derivation"
+            then removeAttrs x ["outPath" "type"]
+            else removeAttrs x ["outPath"];
       in builtins.toJSON o;
       list = builtins.toJSON x;
       null = "null";
