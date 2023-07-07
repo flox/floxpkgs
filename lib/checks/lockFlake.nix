@@ -1,11 +1,27 @@
 # ============================================================================ #
 #
+# Audits interfaces in `../lockFlake.nix'.
+#
+# Run tests from the CLI using:
+#   # Quick pass/fail check
+#   (flox|nix) eval -f ./lockFlake.nix check;
+#
+#   # See details about failures
+#   (flox|nix) eval -f ./lockFlake.nix failures;
+#
+#   # As derivation ( great for `flake.nix' checks )
+#   (flox|nix) build -f ./lockFlake.nix checkDrv --keep-failed && cat ./result;
+#
+#
+# Additional outputs `fns', `lib', and `tests' are provided for interactive
+# usage with `[flox ]nix repl'.
 #
 #
 # ---------------------------------------------------------------------------- #
+
 let
   nixpkgs = let
-    rev = "b183dcf7682101cbdf27253bb4ee8377d6213461";
+    rev = "b183dcf7682101cbdf27253bb4ee8377d6213461";  # 23.05 on 7/7/2023
   in builtins.getFlake "github:NixOS/nixpkgs/${rev}";
 in { lib ? nixpkgs.lib }: let
 
