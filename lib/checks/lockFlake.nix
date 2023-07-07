@@ -731,6 +731,52 @@ in { lib ? nixpkgs.lib }: let
     };
 
 
+    github0 = {
+      expr     = "github:flox/flox";
+      expected = {
+        type  = "github";
+        owner = "flox";
+        repo  = "flox";
+      };
+    };
+    github1 = {
+      expr     = "github:flox/flox/main";
+      expected = {
+        type  = "github";
+        owner = "flox";
+        repo  = "flox";
+        ref   = "main";
+      };
+    };
+    github2 = {
+      expr     = "github:flox/flox/a3a3dda3bacf61e8a39258a0ed9c924eeca8e293";
+      expected = {
+        type  = "github";
+        owner = "flox";
+        repo  = "flox";
+        rev   = "a3a3dda3bacf61e8a39258a0ed9c924eeca8e293";
+      };
+    };
+    github3 = {
+      expr     = "github:flox/flox/refs/heads/main?dir=lib";
+      expected = {
+        type  = "github";
+        owner = "flox";
+        repo  = "flox";
+        ref   = "refs/heads/main";
+        dir   = "lib";
+      };
+    };
+    github4 = {
+      expr     = "github:flox/flox?ref=refs/heads/main&dir=lib";
+      expected = {
+        type  = "github";
+        owner = "flox";
+        repo  = "flox";
+        ref   = "refs/heads/main";
+        dir   = "lib";
+      };
+    };
 
   };  /* End `flakeRefStrToAttrs' */
 

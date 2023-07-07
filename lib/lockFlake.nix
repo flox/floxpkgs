@@ -51,8 +51,8 @@ let
             then removeAttrs x ["outPath"]
             else removeAttrs x ["outPath" "type"];
       in builtins.toJSON o;
-      list   = builtins.toJSON x;
-      null   = "null";
+      list = builtins.toJSON x;
+      null = "null";
     }.${builtins.typeOf x} or ( toString x );
   in builtins.unsafeDiscardStringContext str;
 
@@ -182,10 +182,10 @@ let
     };
     # GitHub, SourceHut, GitLab with `owner' and `repo' fields.
     forGHLike = let
-      r = builtins.elemAt m 8;
+      r = builtins.elemAt m 9;
     in ( if r == null then {} else tagRefOrRev r ) // {
-      owner = builtins.elemAt 6;
-      repo  = builtins.elemAt 7;
+      owner = builtins.elemAt m 6;
+      repo  = builtins.elemAt m 7;
     };
     # Strip off special params like `narHash' and `rev' from `url'.
     forUrl.url = ( builtins.elemAt m 4 ) + ":" + path +
