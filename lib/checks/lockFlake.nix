@@ -166,7 +166,64 @@ in { lib ? nixpkgs.lib }: let
     file5 = { expr = "file+file:///home/user/.zshrc"; expected = "file"; };
     file6 = { expr = "file:///home/user/.zshrc";      expected = "file"; };
 
-    # TODO: tarball, file, git, github, sourcehut, gitlab, mercurial
+    tarball0 = {
+      expr     = "https://registry.npmjs.org/lodash/-/lodash-4.17.21.tgz";
+      expected = "tarball";
+    };
+    tarball1 = {
+      expr     = "http://registry.npmjs.org/lodash/-/lodash-4.17.21.tgz";
+      expected = "tarball";
+    };
+    tarball2 = {
+      expr     = "https://registry.npmjs.org/lodash/-/lodash-4.17.21.tgz?x=1";
+      expected = "tarball";
+    };
+    tarball3 = {
+      expr     = "file:///home/user/file.tar.gz";
+      expected = "tarball";
+    };
+    tarball4 = {
+      expr     = "file:///home/user/file.zip";
+      expected = "tarball";
+    };
+    tarball5 = {
+      expr     = "file:///home/user/file.tar";
+      expected = "tarball";
+    };
+    tarball6 = {
+      expr     = "file:///home/user/file.tar.bz2";
+      expected = "tarball";
+    };
+    tarball7 = {
+      expr     = "file:///home/user/file.tar.xz";
+      expected = "tarball";
+    };
+    tarball8 = {
+      expr     = "file:///home/user/file.tar.zst";
+      expected = "tarball";
+    };
+    tarball9 = {
+      expr     = "tarball+file:///home/user/file.tgz";
+      expected = "tarball";
+    };
+    tarball10 = {
+      expr     = "tarball:///home/user/file.tgz";
+      expected = "tarball";
+    };
+    tarball11 = {
+      expr     = "tarball:///home/user/file";
+      expected = "tarball";
+    };
+    tarball12 = {
+      expr     = "tarball+file:///home/user/file";
+      expected = "tarball";
+    };
+    tarball13 = {
+      expr     = "tarball+file:/home/user/file";
+      expected = "tarball";
+    };
+
+    # TODO: git, github, sourcehut, gitlab, mercurial
 
   };
 

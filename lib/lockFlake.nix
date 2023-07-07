@@ -52,6 +52,7 @@ let
             else removeAttrs x ["outPath" "type"];
       in builtins.toJSON o;
       list   = builtins.toJSON x;
+      null   = "null";
     }.${builtins.typeOf x} or ( toString x );
   in builtins.unsafeDiscardStringContext str;
 
@@ -108,7 +109,7 @@ let
     data              = let
       f = builtins.elemAt m 3;
       s = if f == null then builtins.elemAt m 4 else f;
-    in if builtins.elem s ["http" "https"] then null else f;
+    in if builtins.elem s ["http" "https"] then null else s;
     path = builtins.elemAt m 5;
     fst  = builtins.substring 0 1 path;
     dt   = if data == null then null else
@@ -118,7 +119,7 @@ let
     # Specifically you may write `tarball+file:///foo.tgz' as `file:///foo.tgz'
     # For this scheme we have to double check for a tarball suffix.
     hasTbSuffix = test ".*(${reTB})" path;
-    handleFile  = if ( data != "file" ) || explicitTransport then dt else
+    handleFile  = if ( dt != "file" ) || explicitTransport then dt else
                   if hasTbSuffix then "tarball" else "file";
     rsl =
       if data != null then handleFile else
