@@ -77,26 +77,9 @@ in { lib ? nixpkgs.lib }: let
       expected = "";
     };
 
-    emptyQM = {
-      expr     = paramAttrsToStr {};
-      expected = "?";
-    };
-
     noValue = {
       expr     = paramAttrsToStr { x = null; y = null; z = null; };
       expected = "x&y&z";
-    };
-
-    # Ensure that a spurious "?" prefix is ignored.
-    qmPrefix = {
-      expr     = paramAttrsToStr { x = null; y = null; z = null; };
-      expected = "?x&y&z";
-    };
-
-    # Ensure that a spurious "&" suffix is ignored.
-    andSuffix = {
-      expr     = paramAttrsToStr { x = null; y = null; z = null; };
-      expected = "x&y&z&";
     };
 
     values = {
