@@ -374,10 +374,9 @@ in {
             maybeFakeDerivation = lib.getAttrFromPath flakePath fetchedFlake;
 
             publishData = let
-              publish_element = let
-                lockedFlake =
-                  (import ../lib/lockFlake.nix).lockFlake channelName;
-              in {
+              inherit (import ../lib/lockFlake.nix) lockFlake;
+              lockedFlake     = lockFlake channelName;
+              publish_element = {
                 attrPath    = flakePath;
                 originalUrl = if channelName == null   then null else
                               if channelName == "self" then "."  else
