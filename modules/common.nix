@@ -381,7 +381,7 @@ in {
                 attrPath    = flakePath;
                 originalUrl = if channelName == null   then null else
                               if channelName == "self" then "."  else
-                              flake.originalRef.string;
+                              lockedFlake.originalRef.string;
                 url = if channelName == null   then null else
                       if channelName == "self" then ""   else
                       lockedFlake.lockedRef.string;
