@@ -882,6 +882,544 @@ in { lib ? nixpkgs.lib }: let
 
 # ---------------------------------------------------------------------------- #
 
+  flakeRefAttrsToStrTests = let
+    apply = _: { expr, ... } @ test: test // {
+      expr = flakeRefAttrsToStr expr;
+    };
+  in builtins.mapAttrs apply {
+
+    indirect0 = {
+      expr     = { id = "nixpkgs"; type = "indirect"; };
+      expected = "flake:nixpkgs";
+    };
+    indirect1 = {
+      expr = {
+        type = "indirect";
+        id   = "nixpkgs";
+        rev  = "a3a3dda3bacf61e8a39258a0ed9c924eeca8e293";
+      };
+      expected = "flake:nixpkgs/a3a3dda3bacf61e8a39258a0ed9c924eeca8e293";
+    };
+    indirect2 = {
+      expr = {
+        type = "indirect";
+        id   = "nixpkgs";
+        ref  = "refs/heads/REF";
+      };
+      expected = "flake:nixpkgs/refs/heads/REF";
+    };
+    indirect3 = {
+      expr = {
+        type = "indirect";
+        id   = "nixpkgs";
+        ref  = "refs/heads/REF";
+        dir  = "lib";
+      };
+      expected = "flake:nixpkgs/refs/heads/REF?dir=lib";
+    };
+    indirect4 = {
+      expr = {
+        type = "indirect";
+        id   = "nixpkgs";
+      };
+      expected = "flake:nixpkgs";
+    };
+    indirect5 = {
+      expr = {
+        type = "indirect";
+        id   = "nixpkgs";
+        rev  = "a3a3dda3bacf61e8a39258a0ed9c924eeca8e293";
+      };
+      expected = "flake:nixpkgs/a3a3dda3bacf61e8a39258a0ed9c924eeca8e293";
+    };
+    indirect6 = {
+      expr = {
+        type = "indirect";
+        id   = "nixpkgs";
+        ref  = "refs/heads/REF";
+      };
+      expected = "flake:nixpkgs/refs/heads/REF";
+    };
+    indirect7 = {
+      expr = {
+        type = "indirect";
+        id   = "nixpkgs";
+        ref  = "refs/heads/REF";
+        dir  = "lib";
+      };
+      expected = "flake:nixpkgs/refs/heads/REF?dir=lib";
+    };
+
+
+    path0 = {
+      expr = {
+        type = "path";
+        path = "/foo";
+      };
+      expected = "path:/foo";
+    };
+    path2 = {
+      expr = {
+        type = "path";
+        path = "/foo/bar";
+      };
+      expected = "path:/foo/bar";
+    };
+    path3 = {
+      expr = {
+        type = "path";
+        path = "/foo/bar/baz";
+      };
+      expected = "path:/foo/bar/baz";
+    };
+    path4 = {
+      expr = {
+        type = "path";
+        path = "/foo/bar/baz";
+        dir  = "quux";
+      };
+      expected = "path:/foo/bar/baz?dir=quux";
+    };
+    path5 = {
+      expr = {
+        type = "path";
+        path = "./foo";
+      };
+      expected = "path:./foo";
+    };
+    path6 = {
+      expr = {
+        type = "path";
+        path = "./foo/bar";
+      };
+      expected = "path:./foo/bar";
+    };
+    path7 = {
+      expr = {
+        type = "path";
+        path = "./foo/bar/baz";
+      };
+      expected = "path:./foo/bar/baz";
+    };
+    path8 = {
+      expr = {
+        type = "path";
+        path = "./foo/bar/baz";
+        dir  = "quux";
+      };
+      expected = "path:./foo/bar/baz?dir=quux";
+    };
+
+
+    # TODO: Audit whether the `nix' parser preserves `:///' URLs/paths or
+    # shortens them to something else.
+
+    file0 = {
+      expr = {
+        type = "file";
+        url  = "https://registry.npmjs.org/lodash";
+      };
+      expected = "file+https://registry.npmjs.org/lodash";
+    };
+    file1 = {
+      expr = {
+        type = "file";
+        url  = "http://registry.npmjs.org/lodash";
+      };
+      expected = "file+http://registry.npmjs.org/lodash";
+    };
+    file2 = {
+      expr = {
+        type = "file";
+        url  = "https://registry.npmjs.org/lodash";
+      };
+      expected = "file+https://registry.npmjs.org/lodash";
+    };
+    file3 = {
+      expr = {
+        type = "file";
+        url  = "http://registry.npmjs.org/lodash";
+      };
+      expected = "file+http://registry.npmjs.org/lodash";
+    };
+    file4 = {
+      expr = {
+        type = "file";
+        url  = "https://registry.npmjs.org/lodash?_rev=xxxxxxx";
+      };
+      expected = "file+https://registry.npmjs.org/lodash?_rev=xxxxxxx";
+    };
+    file5 = {
+      expr = {
+        type = "file";
+        url  = "file:///home/user/.zshrc";
+      };
+      expected = "file+file:///home/user/.zshrc";
+    };
+    file6 = {
+      expr = {
+        type = "file";
+        url  = "file:///home/user/.zshrc";
+      };
+      expected = "file+file:///home/user/.zshrc";
+    };
+
+
+    tarball0 = {
+      expr = {
+        type = "tarball";
+        url  = "https://registry.npmjs.org/lodash/-/lodash-4.17.21.tgz";
+      };
+      expected =
+        "tarball+https://registry.npmjs.org/lodash/-/lodash-4.17.21.tgz";
+    };
+    tarball1 = {
+      expr = {
+        type = "tarball";
+        url  = "http://registry.npmjs.org/lodash/-/lodash-4.17.21.tgz";
+      };
+      expected =
+        "tarball+http://registry.npmjs.org/lodash/-/lodash-4.17.21.tgz";
+    };
+    tarball2 = {
+      expr = {
+        type = "tarball";
+        url  = "https://registry.npmjs.org/lodash/-/lodash-4.17.21.tgz?x=1";
+      };
+      expected =
+        "tarball+https://registry.npmjs.org/lodash/-/lodash-4.17.21.tgz?x=1";
+    };
+    tarball3 = {
+      expr = {
+        type = "tarball";
+        url  = "file:///home/user/file.tar.gz";
+      };
+      expected = "tarball+file:///home/user/file.tar.gz";
+    };
+    tarball4 = {
+      expr = {
+        type = "tarball";
+        url  = "file:///home/user/file.zip";
+      };
+      expected = "tarball+file:///home/user/file.zip";
+    };
+    tarball5 = {
+      expr = {
+        type = "tarball";
+        url  = "file:///home/user/file.tar";
+      };
+      expected = "tarball+file:///home/user/file.tar";
+    };
+    tarball6 = {
+      expr = {
+        type = "tarball";
+        url  = "file:///home/user/file.tar.bz2";
+      };
+      expected = "tarball+file:///home/user/file.tar.bz2";
+    };
+    tarball7 = {
+      expr = {
+        type = "tarball";
+        url  = "file:///home/user/file.tar.xz";
+      };
+      expected = "tarball+file:///home/user/file.tar.xz";
+    };
+    tarball8 = {
+      expr = {
+        type = "tarball";
+        url  = "file:///home/user/file.tar.zst";
+      };
+      expected = "tarball+file:///home/user/file.tar.zst";
+    };
+    tarball9 = {
+      expr = {
+        type = "tarball";
+        url  = "file:///home/user/file.tgz";
+      };
+      expected = "tarball+file:///home/user/file.tgz";
+    };
+    tarball10 = {
+      expr = {
+        type = "tarball";
+        url  = "tarball:///home/user/file.tgz";
+      };
+      expected = "tarball:///home/user/file.tgz";
+    };
+    tarball11 = {
+      expr = {
+        type = "tarball";
+        url  = "tarball:///home/user/file";
+      };
+      expected = "tarball:///home/user/file";
+    };
+    tarball12 = {
+      expr = {
+        type = "tarball";
+        url  = "file:///home/user/file";
+      };
+      expected = "tarball+file:///home/user/file";
+    };
+    tarball13 = {
+      expr = {
+        type = "tarball";
+        url  = "file:/home/user/file";
+      };
+      expected = "tarball+file:/home/user/file";
+    };
+
+
+    git0 = {
+      expr = {
+        type = "git";
+        url  = "ssh://git@github.com/flox/flox.git";
+      };
+      expected = "git+ssh://git@github.com/flox/flox.git";
+    };
+    git1 = {
+      expr = {
+        type = "git";
+        url  = "https://github.com/flox/flox.git";
+      };
+      expected = "git+https://github.com/flox/flox.git";
+    };
+    git2 = {
+      expr = {
+        type = "git";
+        url  = "http://github.com/flox/flox.git";
+      };
+      expected = "git+http://github.com/flox/flox.git";
+    };
+    git3 = {
+      expr = {
+        type = "git";
+        url  = "ssh://git@github.com/flox/flox.git";
+        ref  = "main";
+      };
+      expected = "git+ssh://git@github.com/flox/flox.git/main";
+    };
+
+    # TODO: audit this result in `nix'.
+    # You drop `?ref=main' and I'm not sure if they do.
+    git4 = {
+      expr = {
+        type = "git";
+        url  = "https://github.com/flox/flox.git";
+        rev  = "a3a3dda3bacf61e8a39258a0ed9c924eeca8e293";
+        ref  = "main";
+      };
+      expected = "git+https://github.com/flox/flox.git" +
+                 "/a3a3dda3bacf61e8a39258a0ed9c924eeca8e293";
+    };
+    git5 = {
+      expr = {
+        type = "git";
+        url  = "https://github.com/flox/flox/archive/main.tar.gz";
+      };
+      expected = "git+https://github.com/flox/flox/archive/main.tar.gz";
+    };
+    git6 = {
+      expr = {
+        type = "git";
+        url  = "ssh://git@github.com/flox/flox.git";
+        ref  = "main";
+      };
+      expected = "git+ssh://git@github.com/flox/flox.git/main";
+    };
+    git7 = {
+      expr = {
+        type = "git";
+        url  = "ssh://git@github.com/flox/flox.git";
+        ref  = "refs/heads/main";
+      };
+      expected = "git+ssh://git@github.com/flox/flox.git/refs/heads/main";
+    };
+    git8 = {
+      expr = {
+        type = "git";
+        url  = "ssh://git@github.com/flox/flox.git?x=1";
+        ref  = "refs/heads/main";
+      };
+      expected = "git+ssh://git@github.com/flox/flox.git/refs/heads/main?x=1";
+    };
+
+    # TODO: audit this result in `nix'.
+    # You drop `?ref=main' and I'm not sure if they do.
+    git9 = {
+      expr = {
+        type = "git";
+        url  = "https://github.com/flox/flox.git";
+        rev  = "a3a3dda3bacf61e8a39258a0ed9c924eeca8e293";
+        ref  = "main";
+      };
+      expected = "git+https://github.com/flox/flox.git" +
+                 "/a3a3dda3bacf61e8a39258a0ed9c924eeca8e293";
+    };
+
+    # TODO: audit this result in `nix'.
+    # You drop `?ref=main' and I'm not sure if they do.
+    git10 = {
+      expr = {
+        type = "git";
+        url  = "git://git@github.com/flox/flox.git";
+        rev  = "a3a3dda3bacf61e8a39258a0ed9c924eeca8e293";
+        ref  = "main";
+      };
+      expected = "git://git@github.com/flox/flox.git" +
+                 "/a3a3dda3bacf61e8a39258a0ed9c924eeca8e293";
+    };
+
+
+    github0 = {
+      expr = {
+        type  = "github";
+        owner = "flox";
+        repo  = "flox";
+      };
+      expected = "github:flox/flox";
+    };
+    github1 = {
+      expr = {
+        type  = "github";
+        owner = "flox";
+        repo  = "flox";
+        ref   = "main";
+      };
+      expected = "github:flox/flox/main";
+    };
+    github2 = {
+      expr = {
+        type  = "github";
+        owner = "flox";
+        repo  = "flox";
+        rev   = "a3a3dda3bacf61e8a39258a0ed9c924eeca8e293";
+      };
+      expected = "github:flox/flox/a3a3dda3bacf61e8a39258a0ed9c924eeca8e293";
+    };
+    github3 = {
+      expr = {
+        type  = "github";
+        owner = "flox";
+        repo  = "flox";
+        ref   = "refs/heads/main";
+        dir   = "lib";
+      };
+      expected = "github:flox/flox/refs/heads/main?dir=lib";
+    };
+    github4 = {
+      expr = {
+        type  = "github";
+        owner = "flox";
+        repo  = "flox";
+        ref   = "refs/heads/main";
+        dir   = "lib";
+      };
+      expected = "github:flox/flox/refs/heads/main?dir=lib";
+    };
+
+
+    sourcehut0 = {
+      expr = {
+        type  = "sourcehut";
+        owner = "flox";
+        repo  = "flox";
+      };
+      expected = "sourcehut:flox/flox";
+    };
+    sourcehut1 = {
+      expr = {
+        type  = "sourcehut";
+        owner = "flox";
+        repo  = "flox";
+        ref   = "main";
+      };
+      expected = "sourcehut:flox/flox/main";
+    };
+    sourcehut2 = {
+      expr = {
+        type  = "sourcehut";
+        owner = "flox";
+        repo  = "flox";
+        rev   = "a3a3dda3bacf61e8a39258a0ed9c924eeca8e293";
+      };
+      expected = "sourcehut:flox/flox/a3a3dda3bacf61e8a39258a0ed9c924eeca8e293";
+    };
+    sourcehut3 = {
+      expr = {
+        type  = "sourcehut";
+        owner = "flox";
+        repo  = "flox";
+        ref   = "refs/heads/main";
+        dir   = "lib";
+      };
+      expected = "sourcehut:flox/flox/refs/heads/main?dir=lib";
+    };
+    sourcehut4 = {
+      expr = {
+        type  = "sourcehut";
+        owner = "flox";
+        repo  = "flox";
+        ref   = "refs/heads/main";
+        dir   = "lib";
+      };
+      expected = "sourcehut:flox/flox/refs/heads/main?dir=lib";
+    };
+
+
+    gitlab0 = {
+      expr = {
+        type  = "gitlab";
+        owner = "flox";
+        repo  = "flox";
+      };
+      expected = "gitlab:flox/flox";
+    };
+    gitlab1 = {
+      expr = {
+        type  = "gitlab";
+        owner = "flox";
+        repo  = "flox";
+        ref   = "main";
+      };
+      expected = "gitlab:flox/flox/main";
+    };
+    gitlab2 = {
+      expr = {
+        type  = "gitlab";
+        owner = "flox";
+        repo  = "flox";
+        rev   = "a3a3dda3bacf61e8a39258a0ed9c924eeca8e293";
+      };
+      expected = "gitlab:flox/flox/a3a3dda3bacf61e8a39258a0ed9c924eeca8e293";
+    };
+    gitlab3 = {
+      expr = {
+        type  = "gitlab";
+        owner = "flox";
+        repo  = "flox";
+        ref   = "refs/heads/main";
+        dir   = "lib";
+      };
+      expected = "gitlab:flox/flox/refs/heads/main?dir=lib";
+    };
+    gitlab4 = {
+      expr = {
+        type  = "gitlab";
+        owner = "flox";
+        repo  = "flox";
+        ref   = "refs/heads/main";
+        dir   = "lib";
+      };
+      expected = "gitlab:flox/flox/refs/heads/main?dir=lib";
+    };
+
+
+    # TODO: mercurial
+
+  };  /* End `flakeRefAttrsToStr' */
+
+
+# ---------------------------------------------------------------------------- #
+
   # Wrap tests in `tryEval' and generate a good name.
   genTests = parent: let
     genTest = name: test: {
@@ -908,7 +1446,7 @@ in { lib ? nixpkgs.lib }: let
       inherit
         paramStrToAttrsTests paramAttrsToStrTests
         identifyURITypeTests
-        flakeRefStrToAttrsTests
+        flakeRefStrToAttrsTests flakeRefAttrsToStrTests
       ;
     };
   in builtins.listToAttrs ( builtins.concatLists ( builtins.attrValues sets ) );

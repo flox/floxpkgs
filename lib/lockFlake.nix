@@ -235,14 +235,18 @@ let
     eq  = builtins.elemAt pm 2;
     eqa = if eq == null then {} else paramStrToAttrs eq;
     qa  = eqa // ( removeAttrs attrs [
-      "type" "id" "ref" "rev" "owner" "repo" "url"
+      "type" "id" "ref" "rev" "owner" "repo" "url" "path"
     ] );
     qs' = paramAttrsToStr qa;
     qs  = if qs' == "" then "" else "?" + qs';
     # Add scheme prefix
     data = builtins.getAttr attrs.type typeToDataScheme;
-    base = if ( test ".*:.*" path ) then data + "+" + path else
-           data + ":" + path;
+    base = let
+      wdata = if ( test ".*:.*" path ) then data + "+" + path else
+              data + ":" + path;
+    in builtins.replaceStrings ["tarball+tarball" "git+git"]
+                               ["tarball"         "git"]
+                               wdata;
     # Add `refOrRev'
     rr = attrs.rev or attrs.ref or null;
     wr = if rr == null then base else base + "/" + rr;
