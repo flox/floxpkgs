@@ -43,15 +43,17 @@ let
 # ---------------------------------------------------------------------------- #
 
   # A naive `Any -> String' routine that does not recurse into containers.
-  toPretty = x: {
-    lambda = "<LAMBDA>";
-    set    = let
-      o = if ( x.type or null ) != "derivation"
-          then removeAttrs x ["outPath"]
-          else removeAttrs x ["outPath" "type"];
-    in builtins.toJSON o;
-    list = builtins.toJSON x;
-  }.${builtins.typeOf x} or ( toString x );
+  toPretty = x: let
+    str = {
+      lambda = "<LAMBDA>";
+      set    = let
+        o = if ( x.type or null ) != "derivation"
+            then removeAttrs x ["outPath"]
+            else removeAttrs x ["outPath" "type"];
+      in builtins.toJSON o;
+      list   = builtins.toJSON x;
+    }.${builtins.typeOf x} or ( toString x );
+  in builtins.unsafeDiscardStringContext str;
 
 
 # ---------------------------------------------------------------------------- #
@@ -74,12 +76,14 @@ let
     sp   = builtins.split "[?&]" str;
     proc = acc: x: let
       xs = builtins.match "([^=]+)(=(.*))?" x;
-    in if builtins.isList x then acc else acc ++ [{
+    in if ( builtins.isList x ) || ( xs == null ) then acc else acc ++ [{
       name = builtins.head xs; value = builtins.elemAt xs 2;
     }];
+    rsl = if builtins.elem str ["?" ""] then {} else
+          builtins.listToAttrs ( builtins.foldl' proc [] sp );
+    pretty = toPretty str;
   in assert builtins.isString str;
-     if builtins.elem str ["?" ""] then {} else
-     builtins.listToAttrs ( builtins.foldl' proc [] sp );
+     builtins.addErrorContext "Parsing query string `${pretty}'" rsl;
 
   # Join an attribute set of strings/nulls into a URI query string.
   # Attributes with `null' values are written as `<NAME>&...', and attributes
@@ -111,6 +115,7 @@ let
       if test ".:*" ref
       then ( if test ".*(${reTB})" path     then "tarball" else "file"     )
       else ( if builtins.elem fst ["/" "."] then "path"    else "indirect" );
+    pretty = toPretty ref;
   in assert builtins.isString ref;
      builtins.addErrorContext "Identifying URI type of `${ref}'." rsl;
 
@@ -190,8 +195,10 @@ let
     rsl = if ( m == null ) && ( type != "indirect" )
           then throw ( "Invalid URI: " + ref )
           else base // forT;
+    pretty = toPretty ref;
   in assert builtins.isString ref;
-     builtins.addErrorContext "Converting flakeref `${ref}' to attributes." rsl;
+     builtins.addErrorContext "Converting flakeref `${pretty}' to attributes."
+     rsl;
 
 
 # ---------------------------------------------------------------------------- #
