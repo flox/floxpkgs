@@ -142,14 +142,14 @@ in { lib ? nixpkgs.lib }: let
     };
 
 
-    path1 = { expr = "path:/foo";                   expected = "path"; };
-    path2 = { expr = "path:/foo/bar";               expected = "path"; };
-    path3 = { expr = "path:/foo/bar/baz";           expected = "path"; };
-    path4 = { expr = "path:/foo/bar/baz?dir=quux";  expected = "path"; };
-    path5 = { expr = "path:./foo";                  expected = "path"; };
-    path6 = { expr = "path:./foo/bar";              expected = "path"; };
-    path7 = { expr = "path:./foo/bar/baz";          expected = "path"; };
-    path8 = { expr = "path:./foo/bar/baz?dir=quux"; expected = "path"; };
+    path0 = { expr = "path:/foo";                   expected = "path"; };
+    path1 = { expr = "path:/foo/bar";               expected = "path"; };
+    path2 = { expr = "path:/foo/bar/baz";           expected = "path"; };
+    path3 = { expr = "path:/foo/bar/baz?dir=quux";  expected = "path"; };
+    path4 = { expr = "path:./foo";                  expected = "path"; };
+    path5 = { expr = "path:./foo/bar";              expected = "path"; };
+    path6 = { expr = "path:./foo/bar/baz";          expected = "path"; };
+    path7 = { expr = "path:./foo/bar/baz?dir=quux"; expected = "path"; };
 
 
     # These LOOK like `path', but are actually invalid.
@@ -411,6 +411,67 @@ in { lib ? nixpkgs.lib }: let
         dir  = "lib";
       };
     };
+
+
+    path0 = {
+      expr     = "path:/foo";
+      expected = {
+        type = "path";
+        path = "/foo";
+      };
+    };
+    path2 = {
+      expr = "path:/foo/bar";
+      expected = {
+        type = "path";
+        path = "/foo/bar";
+      };
+    };
+    path3 = {
+      expr = "path:/foo/bar/baz";
+      expected = {
+        type = "path";
+        path = "/foo/bar/baz";
+      };
+    };
+    path4 = {
+      expr = "path:/foo/bar/baz?dir=quux";
+      expected = {
+        type = "path";
+        path = "/foo/bar/baz";
+        dir  = "quux";
+      };
+    };
+    path5 = {
+      expr = "path:./foo";
+      expected = {
+        type = "path";
+        path = "./foo";
+      };
+    };
+    path6 = {
+      expr = "path:./foo/bar";
+      expected = {
+        type = "path";
+        path = "./foo/bar";
+      };
+    };
+    path7 = {
+      expr = "path:./foo/bar/baz";
+      expected = {
+        type = "path";
+        path = "./foo/bar/baz";
+      };
+    };
+    path8 = {
+      expr = "path:./foo/bar/baz?dir=quux";
+      expected = {
+        type = "path";
+        path = "./foo/bar/baz";
+        dir  = "quux";
+      };
+    };
+
 
   };  /* End `flakeRefStrToAttrs' */
 
