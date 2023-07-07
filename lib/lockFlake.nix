@@ -103,17 +103,27 @@ let
 
   # Identify a URI string's `builtins.fetchTree' input `type' ( scheme ).
   identifyURIType = ref: let
-    m = builtins.match reURI ref;
-    data = let
+    m                 = builtins.match reURI ref;
+    explicitTransport = ( builtins.elemAt m 3 ) != null;
+    data              = let
       f = builtins.elemAt m 3;
       s = if f == null then builtins.elemAt m 4 else f;
     in if builtins.elem s ["http" "https"] then null else f;
     path = builtins.elemAt m 5;
     fst  = builtins.substring 0 1 path;
-    rsl  =
-      if data != null then builtins.getAttr data dataSchemeToType else
-      if test ".*:" ref
-      then ( if test ".*(${reTB})" path     then "tarball" else "file"     )
+    dt   = if data == null then null else
+           builtins.getAttr data dataSchemeToType;
+    # The `file' scheme is ambiguous because it can be indicating either
+    # data or transport scheme.
+    # Specifically you may write `tarball+file:///foo.tgz' as `file:///foo.tgz'
+    # For this scheme we have to double check for a tarball suffix.
+    hasTbSuffix = test ".*(${reTB})" path;
+    handleFile  = if ( data != "file" ) || explicitTransport then dt else
+                  if hasTbSuffix then "tarball" else "file";
+    rsl =
+      if data != null then handleFile else
+      if test ".*(https?|file):.*" ref
+      then ( if hasTbSuffix                 then "tarball" else "file"     )
       else ( if builtins.elem fst ["/" "."] then "path"    else "indirect" );
     pretty = toPretty ref;
   in assert builtins.isString ref;
@@ -273,6 +283,7 @@ let
 
 in {
   inherit
+    reURI
     paramStrToAttrs paramAttrsToStr
     identifyURIType
     flakeRefStrToAttrs flakeRefAttrsToStr

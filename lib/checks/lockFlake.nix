@@ -147,6 +147,26 @@ in { lib ? nixpkgs.lib }: let
     path9  = { expr = "path:/foo/bar";              expected = "path"; };
     path10 = { expr = "path:/foo/bar/baz";          expected = "path"; };
     path11 = { expr = "path:/foo/bar/baz?dir=quux"; expected = "path"; };
+    path12 = { expr = "///foo";                     expected = "path"; };
+
+    file0 = { expr = "https://registry.npmjs.org/lodash"; expected = "file"; };
+    file1 = { expr = "http://registry.npmjs.org/lodash";  expected = "file"; };
+    file2 = {
+      expr = "file+https://registry.npmjs.org/lodash";
+      expected = "file";
+    };
+    file3 = {
+      expr = "file+http://registry.npmjs.org/lodash";
+      expected = "file";
+    };
+    file4 = {
+      expr     = "file+https://registry.npmjs.org/lodash?_rev=xxxxxxx";
+      expected = "file";
+    };
+    file5 = { expr = "file+file:///home/user/.zshrc"; expected = "file"; };
+    file6 = { expr = "file:///home/user/.zshrc";      expected = "file"; };
+
+    # TODO: tarball, file, git, github, sourcehut, gitlab, mercurial
 
   };
 
