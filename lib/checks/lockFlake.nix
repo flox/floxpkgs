@@ -778,6 +778,105 @@ in { lib ? nixpkgs.lib }: let
       };
     };
 
+
+    sourcehut0 = {
+      expr     = "sourcehut:flox/flox";
+      expected = {
+        type  = "sourcehut";
+        owner = "flox";
+        repo  = "flox";
+      };
+    };
+    sourcehut1 = {
+      expr     = "sourcehut:flox/flox/main";
+      expected = {
+        type  = "sourcehut";
+        owner = "flox";
+        repo  = "flox";
+        ref   = "main";
+      };
+    };
+    sourcehut2 = {
+      expr     = "sourcehut:flox/flox/a3a3dda3bacf61e8a39258a0ed9c924eeca8e293";
+      expected = {
+        type  = "sourcehut";
+        owner = "flox";
+        repo  = "flox";
+        rev   = "a3a3dda3bacf61e8a39258a0ed9c924eeca8e293";
+      };
+    };
+    sourcehut3 = {
+      expr     = "sourcehut:flox/flox/refs/heads/main?dir=lib";
+      expected = {
+        type  = "sourcehut";
+        owner = "flox";
+        repo  = "flox";
+        ref   = "refs/heads/main";
+        dir   = "lib";
+      };
+    };
+    sourcehut4 = {
+      expr     = "sourcehut:flox/flox?ref=refs/heads/main&dir=lib";
+      expected = {
+        type  = "sourcehut";
+        owner = "flox";
+        repo  = "flox";
+        ref   = "refs/heads/main";
+        dir   = "lib";
+      };
+    };
+
+
+    gitlab0 = {
+      expr     = "gitlab:flox/flox";
+      expected = {
+        type  = "gitlab";
+        owner = "flox";
+        repo  = "flox";
+      };
+    };
+    gitlab1 = {
+      expr     = "gitlab:flox/flox/main";
+      expected = {
+        type  = "gitlab";
+        owner = "flox";
+        repo  = "flox";
+        ref   = "main";
+      };
+    };
+    gitlab2 = {
+      expr     = "gitlab:flox/flox/a3a3dda3bacf61e8a39258a0ed9c924eeca8e293";
+      expected = {
+        type  = "gitlab";
+        owner = "flox";
+        repo  = "flox";
+        rev   = "a3a3dda3bacf61e8a39258a0ed9c924eeca8e293";
+      };
+    };
+    gitlab3 = {
+      expr     = "gitlab:flox/flox/refs/heads/main?dir=lib";
+      expected = {
+        type  = "gitlab";
+        owner = "flox";
+        repo  = "flox";
+        ref   = "refs/heads/main";
+        dir   = "lib";
+      };
+    };
+    gitlab4 = {
+      expr     = "gitlab:flox/flox?ref=refs/heads/main&dir=lib";
+      expected = {
+        type  = "gitlab";
+        owner = "flox";
+        repo  = "flox";
+        ref   = "refs/heads/main";
+        dir   = "lib";
+      };
+    };
+
+
+    # TODO: mercurial
+
   };  /* End `flakeRefStrToAttrs' */
 
 
