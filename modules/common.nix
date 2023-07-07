@@ -372,85 +372,37 @@ in {
               in
                 throw "Channel ${channelName} does not contain ${flakePathsToPrint}";
             maybeFakeDerivation = lib.getAttrFromPath flakePath fetchedFlake;
-            publishData =
-              # if we have a fake derivation, add some additional meta required
-              # by flox list to correctly display information about the catalog
-              # this derivation came from (e.g. nixpkgs-flox) rather than the
-              # original source it was built from (e.g. nixpkgs).
-              # This is not reachable for self.
-              if maybeFakeDerivation ? meta.publishData
-              then let
-                publish_element = let
-                  flakeRef = channelName;
-                in rec {
-                  # TODO deduplicate with readPackage
-                  originalUrl =
-                    if flakeRef == "self"
-                    then "." # TODO: use outPath?
-                    else
-                      (
-                        if flakeRef == null || builtins.match ".*:.*" flakeRef == []
-                        then flakeRef
-                        else "flake:${flakeRef}"
-                      );
-                  # TODO deduplicate with readPackage and figure out a better
-                  # way to store flake resolution information
-                  url =
-                    if flakeRef == "self"
-                    then ""
-                    else let
-                      flake =
-                        builtins.getFlake flakeRef;
-                      # this assumes that either flakeRef is not indirect, or if
-                      # it is indirect, the flake it resolves to contains a
-                      # branch
-                      msg = "Only `git' and `github' URIs are supported, but " +
-                            "URI `" + flakeRef + "' uses another input type";
-                      type = if flake.sourceInfo ? revCount then "git"    else
-                             if flake.sourceInfo ? rev      then "github" else
-                             throw msg;
 
-                      githubM = let
-                        m =
-                          builtins.match "github:([^/]+)/([^/]+)/(.*)" flakeRef;
-                      in {
-                        owner    = builtins.head m;
-                        repo     = builtins.elemAt m 1;
-                        refOrRev = builtins.elemAt m 2;
-                      };
-                      githubLockedRef = "github:" + githubM.owner + "/" +
-                                         githubM.repo + "/" +
-                                         flake.sourceInfo.rev;
-
-                      gitM = let
-                        m = builtins.match "(git\\+)?([^?]+)(\\?([^?]+))?"
-                                           flakeRef;
-                      in {
-                        scheme          = builtins.head m;
-                        protocolAndPath = builtins.elemAt m 1;
-                        params          = builtins.elemAt m 2;
-                      };
-                      gitLockedRef =
-                        ( if gitM.scheme == null then "" else gitM.scheme ) +
-                        gitM.protocolAndPath + "/" + flake.sourceInfo.rev;
-
-                    in if type == "github" then githubLockedRef else
-                       gitLockedRef;
-                  storePaths = maybeFakeDerivation.meta.publishData.element.storePaths;
-                  attrPath = flakePath;
-                };
-              in
-                maybeFakeDerivation.meta.publishData
-                // {
-                  inherit publish_element;
-                }
-              else
-                floxpkgs.lib.readPackage {
-                  # TODO use namespace and attrPath instead of passing entire flakePath as attrPath
-                  attrPath = flakePath;
-                  flakeRef = channelName;
-                } {analyzeOutput = true;}
-                maybeFakeDerivation;
+            publishData = let
+              publish_element = let
+                lockedFlake =
+                  (import ../lib/lockFlake.nix).lockFlake channelName;
+              in {
+                attrPath    = flakePath;
+                originalUrl = if channelName == null   then null else
+                              if channelName == "self" then "."  else
+                              flake.originalRef.string;
+                url = if channelName == null   then null else
+                      if channelName == "self" then ""   else
+                      flake.lockedRef.string;
+                storePaths =
+                  maybeFakeDerivation.meta.publishData.element.storePaths;
+              };
+            # if we have a fake derivation, add some additional meta required
+            # by flox list to correctly display information about the catalog
+            # this derivation came from (e.g. nixpkgs-flox) rather than the
+            # original source it was built from (e.g. nixpkgs).
+            # This is not reachable for self.
+            in if maybeFakeDerivation ? meta.publishData
+               then maybeFakeDerivation.meta.publishData // {
+                 inherit publish_element;
+               }
+               else floxpkgs.lib.readPackage {
+                 # TODO use namespace and attrPath instead of passing entire
+                 # flakePath as attrPath
+                 attrPath = flakePath;
+                 flakeRef = channelName;
+               } { analyzeOutput = true; } maybeFakeDerivation;
 
             # The floxEnv must be identical for the locking and locked build, so we have to
             # - call mkFakeDerivation even if we already have a fake derivation, because the version

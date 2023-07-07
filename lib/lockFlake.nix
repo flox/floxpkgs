@@ -1,5 +1,36 @@
 # ============================================================================ #
 #
+# Utilities related to parsing and serializing FlakeInput URIs, also known as
+# /flake refs/.
+#
+# These are used to power the routine `lockFlake' modeled after the routine of
+# the same name in `nix' ( `nix::flake::lockFlake' ).
+#
+#
+# ---------------------------------------------------------------------------- #
+#
+# XXX: For the record - this utility and its tests took some real effort to
+# create, but I want to vocally encourage replacing any instances where we try
+# to parse URIs using `nix' expressions with pre-processing calls to `nix'
+# itself or a minimal executable which exposes `nix::flake::lockFlake' for
+# these purposes.
+#
+# Emulating the `nix' parser is a challenge ( parsing always is ), and try as we
+# might we will never perfectly immitate its precise behaviors.
+# Decrying the behaviors of the existing `nix' parser as "overly-ambiguous",
+# "too complicated", or "bad" is unconstructive - the fact of the matter is that
+# we must align with it and the easiest way to do that is to simply use the
+# real deal and avoid maintaining a port to ANY other language or
+# alternative implementation.
+#
+# ---------------------------------------------------------------------------- #
+#
+# XXX: If you make changes to this file you should MANUALLY run the test cases
+# found in `./checks/lockFlake.nix'.
+# These tests are not run automatically in CI at this time because of the high
+# volume of merges performed on this repository.
+#
+# TODO: Migrate this code and similar utilities to `github:flox/flox'.
 #
 #
 # ---------------------------------------------------------------------------- #
@@ -299,7 +330,9 @@ let
 
 in {
   inherit
-    reURI
+    # Useful to expose for debugging/development.
+    ##reURI
+
     paramStrToAttrs paramAttrsToStr
     identifyURIType
     flakeRefStrToAttrs flakeRefAttrsToStr
