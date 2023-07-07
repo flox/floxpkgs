@@ -241,11 +241,21 @@ let
     qs  = if qs' == "" then "" else "?" + qs';
     # Add scheme prefix
     data = builtins.getAttr attrs.type typeToDataScheme;
+    # Add `data' scheme.
+    # Watch out for some URIs that are invalid if you repeat `data' twice
+    # instead of providing a valid transport.
+    # This is a side effect of `file' being both a `data' and `transport' scheme
+    # and `git'/`hg' leaving it's transport scheme as optional.
+    # We just handle a few of the ones that can appear for valid URI attrsets
+    # instead of an exhaustive handler.
+    # NOTE: `file+file' IS VALID - do not fix it up!
+    # We need this to remain unambiguous when we want to fetch a local tarball
+    # as a file instead of unpacking it.
     base = let
       wdata = if ( test ".*:.*" path ) then data + "+" + path else
               data + ":" + path;
-    in builtins.replaceStrings ["tarball+tarball" "git+git"]
-                               ["tarball"         "git"]
+    in builtins.replaceStrings ["tarball+tarball" "git+git" "hg+hg"]
+                               ["tarball"         "git"     "hg"]
                                wdata;
     # Add `refOrRev'
     rr = attrs.rev or attrs.ref or null;
