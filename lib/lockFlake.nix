@@ -288,11 +288,11 @@ let
     lockedAttrs = ( removeAttrs originalRef.attrs ["ref"] ) //
                   ( builtins.intersectAttrs keeps flake.sourceInfo );
     pretty = toPretty ref;
-  in  assert ( builtins.isString ref ) || ( builtins.isAttrs ref );
-    builtins.addErrorContext "Locking flakeref `${pretty}'." {
-      inherit flake originalRef;
-      lockedRef = mkRef lockedAttrs;
-    };
+  in assert ( builtins.isString ref ) || ( builtins.isAttrs ref );
+     builtins.addErrorContext "Locking flakeref `${pretty}'." {
+       inherit flake originalRef;
+       lockedRef = mkRef lockedAttrs;
+     };
 
 
 # ---------------------------------------------------------------------------- #
