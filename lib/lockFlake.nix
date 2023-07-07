@@ -91,7 +91,7 @@ let
   #
   # Ex:
   # paramStrToAttrs { foo = "1"; bar = null; quux = "3"; } -> "foo=1&bar&quux=3"
-  attrsToParamStr = attrs: let
+  paramAttrsToStr = attrs: let
     proc = name: let
       val = builtins.getAttr name attrs;
     in if val == null then name else "${name}=${toString val}";
@@ -157,7 +157,7 @@ let
     pk' = builtins.intersectAttrs exParams pa';
     pr' = builtins.removeAttrs pa' ( builtins.attrNames exParams );
     # Reconstruct a parameter string without special variables.
-    ps'  = attrsToParamStr pr';
+    ps'  = paramAttrsToStr pr';
     type = identifyURIType ref;
     path = builtins.elemAt m 5;
     base = { inherit type; } // pk';
@@ -225,7 +225,7 @@ let
     qa  = eqa // ( removeAttrs attrs [
       "type" "id" "ref" "rev" "owner" "repo" "url"
     ] );
-    qs' = attrsToParamStr qa;
+    qs' = paramAttrsToStr qa;
     qs  = if qs' == "" then "" else "?" + qs';
     # Add scheme prefix
     data = builtins.getAttr attrs.type typeToDataScheme;
@@ -273,7 +273,7 @@ let
 
 in {
   inherit
-    paramStrToAttrs attrsToParamStr
+    paramStrToAttrs paramAttrsToStr
     identifyURIType
     flakeRefStrToAttrs flakeRefAttrsToStr
     lockFlake

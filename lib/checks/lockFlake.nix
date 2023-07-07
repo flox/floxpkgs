@@ -106,7 +106,7 @@
       expected = "x=1&y&z=3";
     };
 
-  };  /* End `paramStrToAttrsTests' */
+  };  /* End `paramAttrsToStrTests' */
 
 
 # ---------------------------------------------------------------------------- #
