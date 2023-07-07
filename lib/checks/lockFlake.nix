@@ -113,6 +113,31 @@ in { lib ? nixpkgs.lib }: let
 
 # ---------------------------------------------------------------------------- #
 
+  identifyURITypeTests = let
+    apply = _: { expr, ... } @ test: test // { expr = identifyURIType expr; };
+  in builtins.mapAttrs apply {
+    indirect0 = { expr = "nixpkgs";                expected = "indirect"; };
+    indirect1 = { expr = "nixpkgs/REV";            expected = "indirect"; };
+    indirect2 = { expr = "nixpkgs/refs/heads/REF"; expected = "indirect"; };
+    indirect3 = {
+      expr     = "nixpkgs/refs/heads/REF?dir=lib";
+      expected = "indirect";
+    };
+    indirect4 = { expr = "flake:nixpkgs";     expected = "indirect"; };
+    indirect5 = { expr = "flake:nixpkgs/REV"; expected = "indirect"; };
+    indirect6 = {
+      expr     = "flake:nixpkgs/refs/heads/REF";
+      expected = "indirect";
+    };
+    indirect7 = {
+      expr     = "flake:nixpkgs/refs/heads/REF?dir=lib";
+      expected = "indirect";
+    };
+  };
+
+
+# ---------------------------------------------------------------------------- #
+
   # Wrap tests in `tryEval' and generate a good name.
   genTests = parent: let
     genTest = name: test: {
@@ -138,6 +163,7 @@ in { lib ? nixpkgs.lib }: let
     sets = builtins.mapAttrs genTests {
       inherit
         paramStrToAttrsTests paramAttrsToStrTests
+        identifyURITypeTests
       ;
     };
   in builtins.listToAttrs ( builtins.concatLists ( builtins.attrValues sets ) );
