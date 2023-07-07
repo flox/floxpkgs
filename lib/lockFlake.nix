@@ -8,15 +8,17 @@ let
 
 # ---------------------------------------------------------------------------- #
 
+  # Regex match predicate.
   test = patt: s: ( builtins.match patt s ) != null;
 
   reFId    = "[a-zA-Z][a-zA-Z0-9_-]*";
   reScheme = "((([^:+]+)\\+)?([^+:]+)):";
   reRel    = "([^/?]+)/([^/?]+)(/?([^?]+))?";
-  reURI    = "(${reScheme})?(${reRel}|/[^?]+)(\\?(.*))?";
+  reURI    = "(${reScheme})?(${reRel}|/[^?]+|[^?]+)(\\?(.*))?";
   reTB     = "zip|tar|tgz|tar.gz|tar.xz|tar.bz2|tar.zst";
   reRev    = "[[:xdigit:]]{40}";
 
+  # Maps URI data scheme prefixes to their associate `builtins.fetchTree' type.
   dataSchemeToType = {
     hg        = "mercurial";
     flake     = "indirect";
@@ -29,6 +31,28 @@ let
     path      = "path";
   };
 
+  # Reversed lookup table.
+  typeToDataScheme = builtins.listToAttrs (
+    map ( value: {
+      name = builtins.getAttr value dataSchemeToType;
+      inherit value;
+    } ) ( builtins.attrNames dataSchemeToType )
+  );
+
+
+# ---------------------------------------------------------------------------- #
+
+  # A naive `Any -> String' routine that does not recurse into containers.
+  toPretty = x: {
+    lambda = "<LAMBDA>";
+    set    = let
+      o = if ( x.type or null ) != "derivation"
+          then removeAttrs x ["outPath"]
+          else removeAttrs x ["outPath" "type"];
+    in builtins.toJSON o;
+    list = builtins.toJSON x;
+  }.${builtins.typeOf x} or ( toString x );
+
 
 # ---------------------------------------------------------------------------- #
 
@@ -40,6 +64,12 @@ let
 
 # ---------------------------------------------------------------------------- #
 
+  # Split a URI query string into an attribute set.
+  # Parameters without values will be set to `null' - all other values are
+  # emitted as strings.
+  #
+  # Ex:
+  # paramStrToAttrs "foo=1&bar&quux=3" -> { foo = "1"; bar = null; quux = "3"; }
   paramStrToAttrs = str: let
     sp   = builtins.split "[?&]" str;
     proc = acc: x: let
@@ -51,6 +81,12 @@ let
      if builtins.elem str ["?" ""] then {} else
      builtins.listToAttrs ( builtins.foldl' proc [] sp );
 
+  # Join an attribute set of strings/nulls into a URI query string.
+  # Attributes with `null' values are written as `<NAME>&...', and attributes
+  # with string values are written as `<NAME>=<VALUE>&...`
+  #
+  # Ex:
+  # paramStrToAttrs { foo = "1"; bar = null; quux = "3"; } -> "foo=1&bar&quux=3"
   attrsToParamStr = attrs: let
     proc = name: let
       val = builtins.getAttr name attrs;
@@ -61,6 +97,7 @@ let
 
 # ---------------------------------------------------------------------------- #
 
+  # Identify a URI string's `builtins.fetchTree' input `type' ( scheme ).
   identifyURIType = ref: let
     m = builtins.match reURI ref;
     data = let
@@ -69,34 +106,44 @@ let
     in if builtins.elem s ["http" "https"] then null else f;
     path = builtins.elemAt m 5;
     fst  = builtins.substring 0 1 path;
+    rsl  =
+      if data != null then builtins.getAttr data dataSchemeToType else
+      if test ".:*" ref
+      then ( if test ".*(${reTB})" path     then "tarball" else "file"     )
+      else ( if builtins.elem fst ["/" "."] then "path"    else "indirect" );
   in assert builtins.isString ref;
-     if data != null then builtins.getAttr data dataSchemeToType else
-     if test ".:*" ref
-     then ( if test ".*(${reTB})" path     then "tarball" else "file"     )
-     else ( if builtins.elem fst ["/" "."] then "path"    else "indirect" );
+     builtins.addErrorContext "Identifying URI type of `${ref}'." rsl;
 
 
 # ---------------------------------------------------------------------------- #
 
-  # NOTE: This function only targets InputScheme types that we care about.
-  # For example, `mercurial' and `sourcehut' will likely be incorrectly
-  # identified as `git' or `github' inputs.
-  # Additionally, `tarball' inputs will likely be misinterpreted as `path'.
-  identifySourceInfoType = sourceInfo:
-    assert builtins.isAttrs sourceInfo;
-     if sourceInfo ? revCount then "git"    else
-     if sourceInfo ? rev      then "github" else
-     if builtins.pathExits ( sourceInfo.outPath + "/." ) then "path" else
-     "file";
-
-
-# ---------------------------------------------------------------------------- #
-
+  # Parse a flake-ref string to an attribute set like those accepted by
+  # `flake' inputs and `builtins.fetchTree'.
+  #
   # Ex:
-  # flakeRefStrToAttrs "git+ssh://git@github.com/NixOS/nixpkgs.git?dir=lib&x&y=2"
-  # { dir = "lib"; type = "git"; url = "ssh://git@github.com/NixOS/nixpkgs.git?x&y=2"; }
+  # flakeRefStrToAttrs "git+ssh://git@github.com/NixOS/nixpkgs.git?dir=aa&x&y=2"
+  # ->
+  # { dir  = "aa";
+  #   type = "git";
+  #   url  = "ssh://git@github.com/NixOS/nixpkgs.git?x&y=2";
+  # }
   flakeRefStrToAttrs = let
-    exParams = { dir = true; rev = true; ref = true; narHash = true; };
+    # Parameters to extract from queries to be converted to attributes.
+    exParams = {
+      # All
+      flake = true;
+      dir   = true;
+      # URL
+      narHash = true;
+      # Git-Like
+      rev  = true;
+      ref  = true;
+      host = true;
+      # Git
+      allRefs    = true;
+      shallow    = true;
+      submodules = true;
+    };
   in ref: let
     m = builtins.match reURI ref;
     # Extract parameters, removing some that are processed only by `nix'.
@@ -109,6 +156,13 @@ let
     type = identifyURIType ref;
     path = builtins.elemAt m 5;
     base = { inherit type; } // pk';
+    # Indirect
+    forIndirect = let
+      m' = builtins.match "(flake:)?([^/]+)(/(.*))?(\\?.*)?" ref;
+      r  = builtins.elemAt m' 3;
+    in ( if r == null then {} else tagRefOrRev r ) // {
+      id = builtins.elemAt m' 1;
+    };
     # GitHub, SourceHut, GitLab with `owner' and `repo' fields.
     forGHLike = let
       r = builtins.elemAt m 8;
@@ -128,54 +182,94 @@ let
             ( if ps' == "" then "" else "?" + ps' );
     };
     forT =
-      if type == "path" then { inherit path; } else
-      if type == "git"  then forGit else
+      if type == "indirect" then forIndirect       else
+      if type == "path"     then { inherit path; } else
+      if type == "git"      then forGit            else
       if builtins.elem type ["github" "sourcehut" "gitlab"] then forGHLike else
       forUrl;
+    rsl = if ( m == null ) && ( type != "indirect" )
+          then throw ( "Invalid URI: " + ref )
+          else base // forT;
   in assert builtins.isString ref;
-     if m == null then throw ( "Invalid URI: " + ref ) else base // forT;
+     builtins.addErrorContext "Converting flakeref `${ref}' to attributes." rsl;
+
 
 # ---------------------------------------------------------------------------- #
 
+  # Convert an attribute set representing a flake-ref into a URI string.
   flakeRefAttrsToStr = attrs: let
-
+    pathQ = builtins.getAttr attrs.type {
+      inherit (attrs) path;
+      tarball   = attrs.url;
+      file      = attrs.url;
+      git       = attrs.url;
+      mercurial = attrs.url;
+      github    = attrs.owner + "/" + attrs.repo;
+      gitlab    = attrs.owner + "/" + attrs.repo;
+      sourcehut = attrs.owner + "/" + attrs.repo;
+      indirect  = attrs.id;
+    };
+    pm   = builtins.match "([^?]+)(\\?(.*))?" pathQ;
+    path = builtins.head pm;
+    # Prepare query string by moving some attributes into parameters.
+    # Merge with any existing query in `path'.
+    eq  = builtins.elemAt pm 2;
+    eqa = if eq == null then {} else paramStrToAttrs eq;
+    qa  = eqa // ( removeAttrs attrs [
+      "type" "id" "ref" "rev" "owner" "repo" "url"
+    ] );
+    qs' = attrsToParamStr qa;
+    qs  = if qs' == "" then "" else "?" + qs';
+    # Add scheme prefix
+    data = builtins.getAttr attrs.type typeToDataScheme;
+    base = if ( test ".*:.*" path ) then data + "+" + path else
+           data + ":" + path;
+    # Add `refOrRev'
+    rr = attrs.rev or attrs.ref or null;
+    wr = if rr == null then base else base + "/" + rr;
+    pretty = toPretty attrs;
   in assert builtins.isAttrs attrs;
-     null;
+     builtins.addErrorContext "Converting flakeref `${pretty}' to a string."
+     ( wr + qs );
 
 
 # ---------------------------------------------------------------------------- #
 
-/*
+  # Given a flake-ref as a string or attrset, parse/stringize the ref, fetch
+  # the associated flake, and create a locked form of the ref.
+  # This routine mirrors the behavior of `lockFlake` defined by
+  # `<github:NixOS/nix>/src/libexpr/flake.hh' except that this routine omits
+  # the `resolvedRef' information, and stashes refs at the top level.
   lockFlake = let
-
     mkRef = r: assert ( builtins.isString r ) || ( builtins.isAttrs r ); {
-      attrs  = if builtins.isString r then liburi.parseFlakeRefFT r else r;
-      string = if builtins.isString r then r else
-               liburi.flakeRefAttrsToString r;
+      attrs  = if builtins.isString r then flakeRefStrToAttrs r else r;
+      string = if builtins.isString r then r else flakeRefAttrsToStr r;
     };
-  in flakeRef: let
-    originalRef = mkRef flakeRef;
-    flake       = builtins.getFlake originalRef.string;
-    keeps       = if builtins.elem originalRef.attrs.type ["tarball" "file"]
-                  then { rev = true; narHash = true; }
-                  else { rev = true; };
+  in ref: let
+    originalRef = mkRef ref;
+    # Fetch the flake to extract locked `sourceInfo' fields.
+    flake = builtins.getFlake originalRef.string;
+    keeps = if builtins.elem originalRef.attrs.type ["tarball" "file"]
+            then { rev = true; narHash = true; }
+            else { rev = true; };
     lockedAttrs = ( removeAttrs originalRef.attrs ["ref"] ) //
                   ( builtins.intersectAttrs keeps flake.sourceInfo );
-  in builtins.addErrorContext "Locking flakeref `${builtins.toJSON flakeRef}'" {
-    inherit originalRef;
-    lockedRef = mkRef lockedAttrs;
-  };
-*/
+    pretty = toPretty ref;
+  in  assert ( builtins.isString ref ) || ( builtins.isAttrs ref );
+    builtins.addErrorContext "Locking flakeref `${pretty}'." {
+      inherit flake originalRef;
+      lockedRef = mkRef lockedAttrs;
+    };
 
 
 # ---------------------------------------------------------------------------- #
 
 in {
   inherit
-    reURI
     paramStrToAttrs attrsToParamStr
-    identifyURIType identifySourceInfoType
+    identifyURIType
     flakeRefStrToAttrs flakeRefAttrsToStr
+    lockFlake
   ;
 }
 
