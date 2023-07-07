@@ -37,11 +37,6 @@ in { lib ? nixpkgs.lib }: let
 
 # ---------------------------------------------------------------------------- #
 
-  data = lib.importJSON ./lockFlakeData.json;
-
-
-# ---------------------------------------------------------------------------- #
-
   paramStrToAttrsTests = {
 
     empty = {
@@ -135,6 +130,7 @@ in { lib ? nixpkgs.lib }: let
       expected = "indirect";
     };
 
+
     path0  = { expr = "./foo";                      expected = "path"; };
     path1  = { expr = ".";                          expected = "path"; };
     path2  = { expr = "./foo?dir=bar";              expected = "path"; };
@@ -148,6 +144,7 @@ in { lib ? nixpkgs.lib }: let
     path10 = { expr = "path:/foo/bar/baz";          expected = "path"; };
     path11 = { expr = "path:/foo/bar/baz?dir=quux"; expected = "path"; };
     path12 = { expr = "///foo";                     expected = "path"; };
+
 
     file0 = { expr = "https://registry.npmjs.org/lodash"; expected = "file"; };
     file1 = { expr = "http://registry.npmjs.org/lodash";  expected = "file"; };
@@ -165,6 +162,7 @@ in { lib ? nixpkgs.lib }: let
     };
     file5 = { expr = "file+file:///home/user/.zshrc"; expected = "file"; };
     file6 = { expr = "file:///home/user/.zshrc";      expected = "file"; };
+
 
     tarball0 = {
       expr     = "https://registry.npmjs.org/lodash/-/lodash-4.17.21.tgz";
@@ -223,7 +221,103 @@ in { lib ? nixpkgs.lib }: let
       expected = "tarball";
     };
 
-    # TODO: git, github, sourcehut, gitlab, mercurial
+
+    git0 = {
+      expr     = "git+ssh://git@github.com/flox/flox.git";
+      expected = "git";
+    };
+    git1 = {
+      expr     = "git+https://github.com/flox/flox.git";
+      expected = "git";
+    };
+    git2 = {
+      expr     = "git+http://github.com/flox/flox.git";
+      expected = "git";
+    };
+    git3 = {
+      expr     = "git+ssh://git@github.com/flox/flox.git?ref=main";
+      expected = "git";
+    };
+    git4 = {
+      expr = "git+https://github.com/flox/flox.git" +
+             "?rev=a3a3dda3bacf61e8a39258a0ed9c924eeca8e293&ref=main";
+      expected = "git";
+    };
+    git5 = {
+      expr     = "git+https://github.com/flox/flox/archive/main.tar.gz";
+      expected = "git";
+    };
+    git6 = {
+      expr     = "git+ssh://git@github.com/flox/flox.git/main";
+      expected = "git";
+    };
+    git7 = {
+      expr     = "git+ssh://git@github.com/flox/flox.git/refs/heads/main";
+      expected = "git";
+    };
+    git8 = {
+      expr     = "git+ssh://git@github.com/flox/flox.git/refs/heads/main?x=1";
+      expected = "git";
+    };
+    git9 = {
+      expr = "git+https://github.com/flox/flox.git" +
+             "/a3a3dda3bacf61e8a39258a0ed9c924eeca8e293?ref=main";
+      expected = "git";
+    };
+    git10 = {
+      expr = "git://git@github.com/flox/flox.git" +
+             "/a3a3dda3bacf61e8a39258a0ed9c924eeca8e293?ref=main";
+      expected = "git";
+    };
+
+
+    github0 = { expr = "github:flox/flox";      expected = "github"; };
+    github1 = { expr = "github:flox/flox/main"; expected = "github"; };
+    github2 = {
+      expr     = "github:flox/flox/a3a3dda3bacf61e8a39258a0ed9c924eeca8e293";
+      expected = "github";
+    };
+    github3 = {
+      expr     = "github:flox/flox/refs/heads/main?dir=lib";
+      expected = "github";
+    };
+    github4 = {
+      expr     = "github:flox/flox?ref=refs/heads/main&dir=lib";
+      expected = "github";
+    };
+
+    gitlab0 = { expr = "gitlab:flox/flox";      expected = "gitlab"; };
+    gitlab1 = { expr = "gitlab:flox/flox/main"; expected = "gitlab"; };
+    gitlab2 = {
+      expr     = "gitlab:flox/flox/a3a3dda3bacf61e8a39258a0ed9c924eeca8e293";
+      expected = "gitlab";
+    };
+    gitlab3 = {
+      expr     = "gitlab:flox/flox/refs/heads/main?dir=lib";
+      expected = "gitlab";
+    };
+    gitlab4 = {
+      expr     = "gitlab:flox/flox?ref=refs/heads/main&dir=lib";
+      expected = "gitlab";
+    };
+
+    sourcehut0 = { expr = "sourcehut:flox/flox";      expected = "sourcehut"; };
+    sourcehut1 = { expr = "sourcehut:flox/flox/main"; expected = "sourcehut"; };
+    sourcehut2 = {
+      expr     = "sourcehut:flox/flox/a3a3dda3bacf61e8a39258a0ed9c924eeca8e293";
+      expected = "sourcehut";
+    };
+    sourcehut3 = {
+      expr     = "sourcehut:flox/flox/refs/heads/main?dir=lib";
+      expected = "sourcehut";
+    };
+    sourcehut4 = {
+      expr     = "sourcehut:flox/flox?ref=refs/heads/main&dir=lib";
+      expected = "sourcehut";
+    };
+
+
+    # TODO: mercurial
 
   };
 
