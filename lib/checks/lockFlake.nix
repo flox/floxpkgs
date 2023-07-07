@@ -485,6 +485,9 @@ in { lib ? nixpkgs.lib }: let
     fail8 = { expr = "///foo";                expected = FAIL; };
 
 
+    # TODO: Audit whether the `nix' parser preserves `:///' URLs/paths or
+    # shortens them to something else.
+
     file0 = {
       expr     = "https://registry.npmjs.org/lodash";
       expected = {
@@ -634,6 +637,100 @@ in { lib ? nixpkgs.lib }: let
         url  = "file:/home/user/file";
       };
     };
+
+
+    git0 = {
+      expr     = "git+ssh://git@github.com/flox/flox.git";
+      expected = {
+        type = "git";
+        url  = "ssh://git@github.com/flox/flox.git";
+      };
+    };
+    git1 = {
+      expr     = "git+https://github.com/flox/flox.git";
+      expected = {
+        type = "git";
+        url  = "https://github.com/flox/flox.git";
+      };
+    };
+    git2 = {
+      expr     = "git+http://github.com/flox/flox.git";
+      expected = {
+        type = "git";
+        url  = "http://github.com/flox/flox.git";
+      };
+    };
+    git3 = {
+      expr     = "git+ssh://git@github.com/flox/flox.git?ref=main";
+      expected = {
+        type = "git";
+        url  = "ssh://git@github.com/flox/flox.git";
+        ref  = "main";
+      };
+    };
+    git4 = {
+      expr = "git+https://github.com/flox/flox.git" +
+             "?rev=a3a3dda3bacf61e8a39258a0ed9c924eeca8e293&ref=main";
+      expected = {
+        type = "git";
+        url  = "https://github.com/flox/flox.git";
+        rev  = "a3a3dda3bacf61e8a39258a0ed9c924eeca8e293";
+        ref  = "main";
+      };
+    };
+    git5 = {
+      expr     = "git+https://github.com/flox/flox/archive/main.tar.gz";
+      expected = {
+        type = "git";
+        url  = "https://github.com/flox/flox/archive/main.tar.gz";
+      };
+    };
+    git6 = {
+      expr     = "git+ssh://git@github.com/flox/flox.git/main";
+      expected = {
+        type = "git";
+        url  = "ssh://git@github.com/flox/flox.git";
+        ref  = "main";
+      };
+    };
+    git7 = {
+      expr     = "git+ssh://git@github.com/flox/flox.git/refs/heads/main";
+      expected = {
+        type = "git";
+        url  = "ssh://git@github.com/flox/flox.git";
+        ref  = "refs/heads/main";
+      };
+    };
+    git8 = {
+      expr     = "git+ssh://git@github.com/flox/flox.git/refs/heads/main?x=1";
+      expected = {
+        type = "git";
+        url  = "ssh://git@github.com/flox/flox.git?x=1";
+        ref  = "refs/heads/main";
+      };
+    };
+    git9 = {
+      expr = "git+https://github.com/flox/flox.git" +
+             "/a3a3dda3bacf61e8a39258a0ed9c924eeca8e293?ref=main";
+      expected = {
+        type = "git";
+        url  = "https://github.com/flox/flox.git";
+        rev  = "a3a3dda3bacf61e8a39258a0ed9c924eeca8e293";
+        ref  = "main";
+      };
+    };
+    git10 = {
+      expr = "git://git@github.com/flox/flox.git" +
+             "/a3a3dda3bacf61e8a39258a0ed9c924eeca8e293?ref=main";
+      expected = {
+        type = "git";
+        url  = "git://git@github.com/flox/flox.git";
+        rev  = "a3a3dda3bacf61e8a39258a0ed9c924eeca8e293";
+        ref  = "main";
+      };
+    };
+
+
 
   };  /* End `flakeRefStrToAttrs' */
 

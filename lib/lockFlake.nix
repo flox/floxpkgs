@@ -192,9 +192,9 @@ let
                  ( if ps' == "" then "" else "?" + ps' );
     # Looks for `.*.git/<REF-OR-REV>' otherwise same as `forUrl'.
     forGit = let
-      m' = builtins.match "(.*\\.git)(/(.*))?" path;
-      r  = builtins.elemAt m' 2;
-    in if r == null then forUrl else tagRefOrRev r // {
+      m'   = builtins.match "(.*\\.git)(/(.*))?" path;
+      r    = builtins.elemAt m' 2;
+    in if ( m' == null ) || ( r == null ) then forUrl else tagRefOrRev r // {
       url = ( builtins.elemAt m 4 ) + ":" + ( builtins.head m' ) +
             ( if ps' == "" then "" else "?" + ps' );
     };
