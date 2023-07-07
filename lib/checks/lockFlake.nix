@@ -167,11 +167,11 @@ in { lib ? nixpkgs.lib }: let
     file0 = { expr = "https://registry.npmjs.org/lodash"; expected = "file"; };
     file1 = { expr = "http://registry.npmjs.org/lodash";  expected = "file"; };
     file2 = {
-      expr = "file+https://registry.npmjs.org/lodash";
+      expr     = "file+https://registry.npmjs.org/lodash";
       expected = "file";
     };
     file3 = {
-      expr = "file+http://registry.npmjs.org/lodash";
+      expr     = "file+http://registry.npmjs.org/lodash";
       expected = "file";
     };
     file4 = {
@@ -469,6 +469,69 @@ in { lib ? nixpkgs.lib }: let
         type = "path";
         path = "./foo/bar/baz";
         dir  = "quux";
+      };
+    };
+
+
+    # These LOOK like `path', but are actually invalid.
+    fail0 = { expr = "./foo";                 expected = FAIL; };
+    fail1 = { expr = ".";                     expected = FAIL; };
+    fail2 = { expr = "./foo?dir=bar";         expected = FAIL; };
+    fail3 = { expr = ".?dir=bar";             expected = FAIL; };
+    fail4 = { expr = "/foo";                  expected = FAIL; };
+    fail5 = { expr = "/foo/bar";              expected = FAIL; };
+    fail6 = { expr = "/foo/bar/baz";          expected = FAIL; };
+    fail7 = { expr = "/foo/bar/baz?dir=quux"; expected = FAIL; };
+    fail8 = { expr = "///foo";                expected = FAIL; };
+
+
+    file0 = {
+      expr     = "https://registry.npmjs.org/lodash";
+      expected = {
+        type = "file";
+        url  = "https://registry.npmjs.org/lodash";
+      };
+    };
+    file1 = {
+      expr     = "http://registry.npmjs.org/lodash";
+      expected = {
+        type = "file";
+        url  = "http://registry.npmjs.org/lodash";
+      };
+    };
+    file2 = {
+      expr     = "file+https://registry.npmjs.org/lodash";
+      expected = {
+        type = "file";
+        url  = "https://registry.npmjs.org/lodash";
+      };
+    };
+    file3 = {
+      expr     = "file+http://registry.npmjs.org/lodash";
+      expected = {
+        type = "file";
+        url  = "http://registry.npmjs.org/lodash";
+      };
+    };
+    file4 = {
+      expr     = "file+https://registry.npmjs.org/lodash?_rev=xxxxxxx";
+      expected = {
+        type = "file";
+        url  = "https://registry.npmjs.org/lodash?_rev=xxxxxxx";
+      };
+    };
+    file5 = {
+      expr     = "file+file:///home/user/.zshrc";
+      expected = {
+        type = "file";
+        url  = "file:///home/user/.zshrc";
+      };
+    };
+    file6 = {
+      expr     = "file:///home/user/.zshrc";
+      expected = {
+        type = "file";
+        url  = "file:///home/user/.zshrc";
       };
     };
 
