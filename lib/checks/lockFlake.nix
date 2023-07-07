@@ -3,13 +3,16 @@
 #
 #
 # ---------------------------------------------------------------------------- #
-
-{ lib }: let
+let
+  nixpkgs = let
+    rev = "b183dcf7682101cbdf27253bb4ee8377d6213461";
+  in builtins.getFlake "github:NixOS/nixpkgs/${rev}";
+in { lib ? nixpkgs.lib }: let
 
 # ---------------------------------------------------------------------------- #
 
   inherit (import ../lockFlake.nix)
-    paramStrToAttrs attrsToParamStr
+    paramStrToAttrs paramAttrsToStr
     identifyURIType
     flakeRefStrToAttrs flakeRefAttrsToStr
     lockFlake
@@ -119,8 +122,12 @@
         expr = let
           e = builtins.deepSeq test.expr test.expr;
         in builtins.tryEval e;
+        # Only wrap if the existing `expected' isn't formed as the result of
+        # a `tryEval' call.
+        # This allows us to write `expected' values which expec failure.
         expected =
-          if ( builtins.attrNames test.expected ) == ["success" "value"]
+          if ( builtins.isAttrs test.expected ) &&
+             ( ( builtins.attrNames test.expected ) == ["success" "value"] )
           then test.expected
           else { success = true; value = test.expected; };
       };
@@ -162,11 +169,12 @@ in {
     '';
   in if failures == [] then true else throw msg;
 
-  # Evaluate tests as a derivation, ideal for `(flox|nix) flake check'.
+  # Evaluate tests as a derivation, ideal for `(flox|nix) flake check' or
+  # `(flox|nix) build -f checkDrv'.
   checkDrv = {
-    bash   ? /bin/sh
-  , system ? bash.system or builtins.currentSystem
-  }: derivation {
+    bash   ? ( builtins.getAttr system nixpkgs.legacyPackages ).bash
+  , system ? if args ? bash then bash.system else builtins.currentSystem
+  } @ args: derivation {
     name = "floxpkgs-lockFlake-checks";
     inherit system;
     builder = if ( bash.type or null ) != "derivation" then bash else
