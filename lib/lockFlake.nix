@@ -17,7 +17,6 @@
 # Consider `github:aakropotkin/rime#nix-parse-uri' or in the future
 # `github:flox/flox#resolver' as preferred approaches to emulations.
 #
-#
 # Emulating the `nix' parser is a challenge ( parsing always is ), and try as we
 # might we will never perfectly immitate its precise behaviors.
 # Decrying the behaviors of the existing `nix' parser as "overly-ambiguous",
@@ -25,6 +24,7 @@
 # we must align with it and the easiest way to do that is to simply use the
 # real deal and avoid maintaining a port to ANY other language or
 # alternative implementation.
+#
 #
 # ---------------------------------------------------------------------------- #
 #
