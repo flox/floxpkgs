@@ -67,6 +67,50 @@
 
 # ---------------------------------------------------------------------------- #
 
+  paramAttrsToStrTests = {
+
+    empty = {
+      expr     = paramAttrsToStr {};
+      expected = "";
+    };
+
+    emptyQM = {
+      expr     = paramAttrsToStr {};
+      expected = "?";
+    };
+
+    noValue = {
+      expr     = paramAttrsToStr { x = null; y = null; z = null; };
+      expected = "x&y&z";
+    };
+
+    # Ensure that a spurious "?" prefix is ignored.
+    qmPrefix = {
+      expr     = paramAttrsToStr { x = null; y = null; z = null; };
+      expected = "?x&y&z";
+    };
+
+    # Ensure that a spurious "&" suffix is ignored.
+    andSuffix = {
+      expr     = paramAttrsToStr { x = null; y = null; z = null; };
+      expected = "x&y&z&";
+    };
+
+    values = {
+      expr     = paramAttrsToStr { x = "1"; y = "2"; z = "3"; };
+      expected = "x=1&y=2&z=3";
+    };
+
+    mixed = {
+      expr     = paramAttrsToStr { x = "1"; y = null; z = "3"; };
+      expected = "x=1&y&z=3";
+    };
+
+  };  /* End `paramStrToAttrsTests' */
+
+
+# ---------------------------------------------------------------------------- #
+
   # Wrap tests in `tryEval' and generate a good name.
   genTests = parent: let
     genTest = name: test: {
@@ -83,17 +127,19 @@
     };
   in tests: builtins.attrValues ( builtins.mapAttrs genTest tests );
 
+  # Joins all tests into a single attrset.
   tests = let
-    sets = {
-      inherit paramStrToAttrsTests;
+    sets = builtins.mapAttrs genTests {
+      inherit
+        paramStrToAttrsTests paramAttrsToStrTests
+      ;
     };
-    bySet = builtins.mapAttrs genTests sets;
-    all   = builtins.concatLists ( builtins.attrValues bySet );
-  in builtins.listToAttrs all;
+  in builtins.listToAttrs ( builtins.concatLists ( builtins.attrValues sets ) );
 
 
 # ---------------------------------------------------------------------------- #
 
+  # Returns a list of failed tests with elements of `{ name, expr, expected }'.
   failures = lib.runTests tests;
 
 
