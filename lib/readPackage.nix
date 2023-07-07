@@ -49,7 +49,7 @@
     inherit attrPath;
     originalUrl = if flakeRef == null   then null else
                   if flakeRef == "self" then "."  else
-                  flake.originalRef.string;
+                  lockedFlake.originalRef.string;
     url = if flakeRef == null   then null else
           if flakeRef == "self" then ""   else
           lockedFlake.lockedRef.string;
