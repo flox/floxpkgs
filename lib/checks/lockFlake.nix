@@ -1485,8 +1485,7 @@ in {
   } @ args: derivation {
     name = "floxpkgs-lockFlake-checks";
     inherit system;
-    builder = if ( bash.type or null ) != "derivation" then bash else
-              bash.outPath + "/bin/bash";
+    builder = bash.outPath + "/bin/bash";
     preferLocal = true;
     # Because this derivaiton has no "real" inputs we have to force rebuilds
     # in an awkward way.
