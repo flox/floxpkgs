@@ -20,9 +20,11 @@
 # ---------------------------------------------------------------------------- #
 
 let
+
   nixpkgs = let
     rev = "b183dcf7682101cbdf27253bb4ee8377d6213461";  # 23.05 on 7/7/2023
   in builtins.getFlake "github:NixOS/nixpkgs/${rev}";
+
 in { lib ? nixpkgs.lib }: let
 
 # ---------------------------------------------------------------------------- #
@@ -115,15 +117,21 @@ in { lib ? nixpkgs.lib }: let
     apply = _: { expr, ... } @ test: test // { expr = identifyURIType expr; };
   in builtins.mapAttrs apply {
 
-    indirect0 = { expr = "nixpkgs";                expected = "indirect"; };
-    indirect1 = { expr = "nixpkgs/REV";            expected = "indirect"; };
+    indirect0 = { expr = "nixpkgs"; expected = "indirect"; };
+    indirect1 = {
+      expr     = "nixpkgs/a3a3dda3bacf61e8a39258a0ed9c924eeca8e293";
+      expected = "indirect";
+    };
     indirect2 = { expr = "nixpkgs/refs/heads/REF"; expected = "indirect"; };
     indirect3 = {
       expr     = "nixpkgs/refs/heads/REF?dir=lib";
       expected = "indirect";
     };
-    indirect4 = { expr = "flake:nixpkgs";     expected = "indirect"; };
-    indirect5 = { expr = "flake:nixpkgs/REV"; expected = "indirect"; };
+    indirect4 = { expr = "flake:nixpkgs"; expected = "indirect"; };
+    indirect5 = {
+      expr     = "flake:nixpkgs/a3a3dda3bacf61e8a39258a0ed9c924eeca8e293";
+      expected = "indirect";
+    };
     indirect6 = {
       expr     = "flake:nixpkgs/refs/heads/REF";
       expected = "indirect";
@@ -134,10 +142,14 @@ in { lib ? nixpkgs.lib }: let
     };
 
 
-    path1 = { expr = "path:/foo";                  expected = "path"; };
-    path2 = { expr = "path:/foo/bar";              expected = "path"; };
-    path3 = { expr = "path:/foo/bar/baz";          expected = "path"; };
-    path4 = { expr = "path:/foo/bar/baz?dir=quux"; expected = "path"; };
+    path1 = { expr = "path:/foo";                   expected = "path"; };
+    path2 = { expr = "path:/foo/bar";               expected = "path"; };
+    path3 = { expr = "path:/foo/bar/baz";           expected = "path"; };
+    path4 = { expr = "path:/foo/bar/baz?dir=quux";  expected = "path"; };
+    path5 = { expr = "path:./foo";                  expected = "path"; };
+    path6 = { expr = "path:./foo/bar";              expected = "path"; };
+    path7 = { expr = "path:./foo/bar/baz";          expected = "path"; };
+    path8 = { expr = "path:./foo/bar/baz?dir=quux"; expected = "path"; };
 
 
     # These LOOK like `path', but are actually invalid.
@@ -332,6 +344,79 @@ in { lib ? nixpkgs.lib }: let
 
 # ---------------------------------------------------------------------------- #
 
+  flakeRefStrToAttrsTests = let
+    apply = _: { expr, ... } @ test: test // {
+      expr = flakeRefStrToAttrs expr;
+    };
+  in builtins.mapAttrs apply {
+
+    indirect0 = {
+      expr     = "nixpkgs";
+      expected = { id = "nixpkgs"; type = "indirect"; };
+    };
+    indirect1 = {
+      expr     = "nixpkgs/a3a3dda3bacf61e8a39258a0ed9c924eeca8e293";
+      expected = {
+        type = "indirect";
+        id   = "nixpkgs";
+        rev  = "a3a3dda3bacf61e8a39258a0ed9c924eeca8e293";
+      };
+    };
+    indirect2 = {
+      expr     = "nixpkgs/refs/heads/REF";
+      expected = {
+        type = "indirect";
+        id   = "nixpkgs";
+        ref  = "refs/heads/REF";
+      };
+    };
+    indirect3 = {
+      expr     = "nixpkgs/refs/heads/REF?dir=lib";
+      expected = {
+        type = "indirect";
+        id   = "nixpkgs";
+        ref  = "refs/heads/REF";
+        dir  = "lib";
+      };
+    };
+    indirect4 = {
+      expr = "flake:nixpkgs";
+      expected = {
+        type = "indirect";
+        id   = "nixpkgs";
+      };
+    };
+    indirect5 = {
+      expr     = "flake:nixpkgs/a3a3dda3bacf61e8a39258a0ed9c924eeca8e293";
+      expected = {
+        type = "indirect";
+        id   = "nixpkgs";
+        rev  = "a3a3dda3bacf61e8a39258a0ed9c924eeca8e293";
+      };
+    };
+    indirect6 = {
+      expr     = "flake:nixpkgs/refs/heads/REF";
+      expected = {
+        type = "indirect";
+        id   = "nixpkgs";
+        ref  = "refs/heads/REF";
+      };
+    };
+    indirect7 = {
+      expr     = "flake:nixpkgs/refs/heads/REF?dir=lib";
+      expected = {
+        type = "indirect";
+        id   = "nixpkgs";
+        ref  = "refs/heads/REF";
+        dir  = "lib";
+      };
+    };
+
+  };  /* End `flakeRefStrToAttrs' */
+
+
+# ---------------------------------------------------------------------------- #
+
   # Wrap tests in `tryEval' and generate a good name.
   genTests = parent: let
     genTest = name: test: {
@@ -358,6 +443,7 @@ in { lib ? nixpkgs.lib }: let
       inherit
         paramStrToAttrsTests paramAttrsToStrTests
         identifyURITypeTests
+        flakeRefStrToAttrsTests
       ;
     };
   in builtins.listToAttrs ( builtins.concatLists ( builtins.attrValues sets ) );
