@@ -387,6 +387,7 @@ in {
                 storePaths =
                   maybeFakeDerivation.meta.publishData.element.storePaths;
               };
+
             # if we have a fake derivation, add some additional meta required
             # by flox list to correctly display information about the catalog
             # this derivation came from (e.g. nixpkgs-flox) rather than the
