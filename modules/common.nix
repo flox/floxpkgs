@@ -384,7 +384,7 @@ in {
                               flake.originalRef.string;
                 url = if channelName == null   then null else
                       if channelName == "self" then ""   else
-                      flake.lockedRef.string;
+                      lockedFlake.lockedRef.string;
                 storePaths =
                   maybeFakeDerivation.meta.publishData.element.storePaths;
               };
