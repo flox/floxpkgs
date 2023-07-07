@@ -34,6 +34,9 @@ in { lib ? nixpkgs.lib }: let
     lockFlake
   ;
 
+  # A shorthand for a failed `builtins.tryEval' return.
+  FAIL = { success = false; value = false; };
+
 
 # ---------------------------------------------------------------------------- #
 
@@ -131,19 +134,22 @@ in { lib ? nixpkgs.lib }: let
     };
 
 
-    path0  = { expr = "./foo";                      expected = "path"; };
-    path1  = { expr = ".";                          expected = "path"; };
-    path2  = { expr = "./foo?dir=bar";              expected = "path"; };
-    path3  = { expr = ".?dir=bar";                  expected = "path"; };
-    path4  = { expr = "/foo";                       expected = "path"; };
-    path5  = { expr = "/foo/bar";                   expected = "path"; };
-    path6  = { expr = "/foo/bar/baz";               expected = "path"; };
-    path7  = { expr = "/foo/bar/baz?dir=quux";      expected = "path"; };
-    path8  = { expr = "path:/foo";                  expected = "path"; };
-    path9  = { expr = "path:/foo/bar";              expected = "path"; };
-    path10 = { expr = "path:/foo/bar/baz";          expected = "path"; };
-    path11 = { expr = "path:/foo/bar/baz?dir=quux"; expected = "path"; };
-    path12 = { expr = "///foo";                     expected = "path"; };
+    path1 = { expr = "path:/foo";                  expected = "path"; };
+    path2 = { expr = "path:/foo/bar";              expected = "path"; };
+    path3 = { expr = "path:/foo/bar/baz";          expected = "path"; };
+    path4 = { expr = "path:/foo/bar/baz?dir=quux"; expected = "path"; };
+
+
+    # These LOOK like `path', but are actually invalid.
+    fail0 = { expr = "./foo";                 expected = FAIL; };
+    fail1 = { expr = ".";                     expected = FAIL; };
+    fail2 = { expr = "./foo?dir=bar";         expected = FAIL; };
+    fail3 = { expr = ".?dir=bar";             expected = FAIL; };
+    fail4 = { expr = "/foo";                  expected = FAIL; };
+    fail5 = { expr = "/foo/bar";              expected = FAIL; };
+    fail6 = { expr = "/foo/bar/baz";          expected = FAIL; };
+    fail7 = { expr = "/foo/bar/baz?dir=quux"; expected = FAIL; };
+    fail8 = { expr = "///foo";                expected = FAIL; };
 
 
     file0 = { expr = "https://registry.npmjs.org/lodash"; expected = "file"; };
@@ -286,6 +292,7 @@ in { lib ? nixpkgs.lib }: let
       expected = "github";
     };
 
+
     gitlab0 = { expr = "gitlab:flox/flox";      expected = "gitlab"; };
     gitlab1 = { expr = "gitlab:flox/flox/main"; expected = "gitlab"; };
     gitlab2 = {
@@ -300,6 +307,7 @@ in { lib ? nixpkgs.lib }: let
       expr     = "gitlab:flox/flox?ref=refs/heads/main&dir=lib";
       expected = "gitlab";
     };
+
 
     sourcehut0 = { expr = "sourcehut:flox/flox";      expected = "sourcehut"; };
     sourcehut1 = { expr = "sourcehut:flox/flox/main"; expected = "sourcehut"; };

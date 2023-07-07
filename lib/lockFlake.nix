@@ -121,12 +121,13 @@ let
     hasTbSuffix = test ".*(${reTB})" path;
     handleFile  = if ( dt != "file" ) || explicitTransport then dt else
                   if hasTbSuffix then "tarball" else "file";
-    rsl =
+    pretty = toPretty ref;
+    rsl    =
       if data != null then handleFile else
       if test ".*(https?|file):.*" ref
-      then ( if hasTbSuffix                 then "tarball" else "file"     )
-      else ( if builtins.elem fst ["/" "."] then "path"    else "indirect" );
-    pretty = toPretty ref;
+      then ( if hasTbSuffix             then "tarball"  else "file" )
+      else if test "${reFId}(/.*)?" ref then "indirect" else
+           throw "`${pretty}' is not a valid URL.";
   in assert builtins.isString ref;
      builtins.addErrorContext "Identifying URI type of `${ref}'." rsl;
 
