@@ -116,6 +116,7 @@ in { lib ? nixpkgs.lib }: let
   identifyURITypeTests = let
     apply = _: { expr, ... } @ test: test // { expr = identifyURIType expr; };
   in builtins.mapAttrs apply {
+
     indirect0 = { expr = "nixpkgs";                expected = "indirect"; };
     indirect1 = { expr = "nixpkgs/REV";            expected = "indirect"; };
     indirect2 = { expr = "nixpkgs/refs/heads/REF"; expected = "indirect"; };
@@ -133,6 +134,20 @@ in { lib ? nixpkgs.lib }: let
       expr     = "flake:nixpkgs/refs/heads/REF?dir=lib";
       expected = "indirect";
     };
+
+    path0  = { expr = "./foo";                      expected = "path"; };
+    path1  = { expr = ".";                          expected = "path"; };
+    path2  = { expr = "./foo?dir=bar";              expected = "path"; };
+    path3  = { expr = ".?dir=bar";                  expected = "path"; };
+    path4  = { expr = "/foo";                       expected = "path"; };
+    path5  = { expr = "/foo/bar";                   expected = "path"; };
+    path6  = { expr = "/foo/bar/baz";               expected = "path"; };
+    path7  = { expr = "/foo/bar/baz?dir=quux";      expected = "path"; };
+    path8  = { expr = "path:/foo";                  expected = "path"; };
+    path9  = { expr = "path:/foo/bar";              expected = "path"; };
+    path10 = { expr = "path:/foo/bar/baz";          expected = "path"; };
+    path11 = { expr = "path:/foo/bar/baz?dir=quux"; expected = "path"; };
+
   };
 
 

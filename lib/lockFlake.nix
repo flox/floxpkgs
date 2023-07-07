@@ -112,7 +112,7 @@ let
     fst  = builtins.substring 0 1 path;
     rsl  =
       if data != null then builtins.getAttr data dataSchemeToType else
-      if test ".:*" ref
+      if test ".*:" ref
       then ( if test ".*(${reTB})" path     then "tarball" else "file"     )
       else ( if builtins.elem fst ["/" "."] then "path"    else "indirect" );
     pretty = toPretty ref;
