@@ -14,6 +14,9 @@
 # to parse URIs using `nix' expressions with pre-processing calls to `nix'
 # itself or a minimal executable which exposes `nix::flake::lockFlake' for
 # these purposes.
+# Consider `github:aakropotkin/rime#nix-parse-uri' or in the future
+# `github:flox/flox#resolver' as preferred approaches to emulations.
+#
 #
 # Emulating the `nix' parser is a challenge ( parsing always is ), and try as we
 # might we will never perfectly immitate its precise behaviors.
