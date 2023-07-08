@@ -18,6 +18,20 @@
 #
 #
 # ---------------------------------------------------------------------------- #
+#
+# NOTE: The following test cases have been audited against the real `nix'
+# parsers using a minimal executable `github:aakropotkin/rime#resolve'.
+#
+# Our parser does not perfectly align with `nix', specifically "we will not
+# throw errors for invalid query parameters/attrs in cases where `nix' will".
+# Rather than trying to perfectly emulate the real parser, we've accepted these
+# differences and have avoided creating test cases that would conflict with
+# the real `nix' parser.
+# **Again** - while our parser differs slightly, the test cases found in this
+# file align excatly with `nix'.
+#
+#
+# ---------------------------------------------------------------------------- #
 
 let
 
