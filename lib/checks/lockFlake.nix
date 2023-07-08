@@ -1074,11 +1074,8 @@ in { lib ? nixpkgs.lib }: let
         url  = "ssh://git@github.com/flox/flox.git";
         ref  = "main";
       };
-      expected = "git+ssh://git@github.com/flox/flox.git/main";
+      expected = "git+ssh://git@github.com/flox/flox.git?ref=main";
     };
-
-    # TODO: audit this result in `nix'.
-    # You drop `?ref=main' and I'm not sure if they do.
     git4 = {
       expr = {
         type = "git";
@@ -1087,7 +1084,7 @@ in { lib ? nixpkgs.lib }: let
         ref  = "main";
       };
       expected = "git+https://github.com/flox/flox.git" +
-                 "/a3a3dda3bacf61e8a39258a0ed9c924eeca8e293";
+                 "?ref=main&rev=a3a3dda3bacf61e8a39258a0ed9c924eeca8e293";
     };
     git5 = {
       expr = {
@@ -1102,7 +1099,7 @@ in { lib ? nixpkgs.lib }: let
         url  = "ssh://git@github.com/flox/flox.git";
         ref  = "main";
       };
-      expected = "git+ssh://git@github.com/flox/flox.git/main";
+      expected = "git+ssh://git@github.com/flox/flox.git?ref=main";
     };
     git7 = {
       expr = {
@@ -1110,7 +1107,7 @@ in { lib ? nixpkgs.lib }: let
         url  = "ssh://git@github.com/flox/flox.git";
         ref  = "refs/heads/main";
       };
-      expected = "git+ssh://git@github.com/flox/flox.git/refs/heads/main";
+      expected = "git+ssh://git@github.com/flox/flox.git?ref=refs/heads/main";
     };
     git8 = {
       expr = {
@@ -1118,24 +1115,9 @@ in { lib ? nixpkgs.lib }: let
         url  = "ssh://git@github.com/flox/flox.git?x=1";
         ref  = "refs/heads/main";
       };
-      expected = "git+ssh://git@github.com/flox/flox.git/refs/heads/main?x=1";
+      expected =
+        "git+ssh://git@github.com/flox/flox.git?ref=refs/heads/main&x=1";
     };
-
-    # TODO: audit this result in `nix'.
-    # You drop `?ref=main' and I'm not sure if they do.
-    git9 = {
-      expr = {
-        type = "git";
-        url  = "https://github.com/flox/flox.git";
-        rev  = "a3a3dda3bacf61e8a39258a0ed9c924eeca8e293";
-        ref  = "main";
-      };
-      expected = "git+https://github.com/flox/flox.git" +
-                 "/a3a3dda3bacf61e8a39258a0ed9c924eeca8e293";
-    };
-
-    # TODO: audit this result in `nix'.
-    # You drop `?ref=main' and I'm not sure if they do.
     git10 = {
       expr = {
         type = "git";
@@ -1144,7 +1126,7 @@ in { lib ? nixpkgs.lib }: let
         ref  = "main";
       };
       expected = "git://git@github.com/flox/flox.git" +
-                 "/a3a3dda3bacf61e8a39258a0ed9c924eeca8e293";
+                 "?ref=main&rev=a3a3dda3bacf61e8a39258a0ed9c924eeca8e293";
     };
 
 

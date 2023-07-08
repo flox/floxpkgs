@@ -268,9 +268,11 @@ let
     # Merge with any existing query in `path'.
     eq  = builtins.elemAt pm 2;
     eqa = if eq == null then {} else paramStrToAttrs eq;
-    qa  = eqa // ( removeAttrs attrs [
-      "type" "id" "ref" "rev" "owner" "repo" "url" "path"
-    ] );
+    qa  = let
+      rr = if attrs.type == "git" then [] else ["ref" "rev"];
+    in eqa // ( removeAttrs attrs ( rr ++ [
+      "type" "id" "owner" "repo" "url" "path"
+    ] ) );
     qs' = paramAttrsToStr qa;
     qs  = if qs' == "" then "" else "?" + qs';
     # Add scheme prefix
@@ -293,7 +295,8 @@ let
                                wdata;
     # Add `refOrRev'
     rr = attrs.rev or attrs.ref or null;
-    wr = if rr == null then base else base + "/" + rr;
+    wr = if ( rr == null ) || ( attrs.type == "git" ) then base else
+         base + "/" + rr;
     pretty = toPretty attrs;
   in assert builtins.isAttrs attrs;
      builtins.addErrorContext "Converting flakeref `${pretty}' to a string."
