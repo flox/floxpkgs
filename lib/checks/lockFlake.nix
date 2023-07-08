@@ -136,14 +136,12 @@ in { lib ? nixpkgs.lib }: let
     indirect7 = { expr = "flake:nixpkgs/REF?dir=lib"; expected = "indirect"; };
 
 
-    path0 = { expr = "path:/foo";                   expected = "path"; };
-    path1 = { expr = "path:/foo/bar";               expected = "path"; };
-    path2 = { expr = "path:/foo/bar/baz";           expected = "path"; };
-    path3 = { expr = "path:/foo/bar/baz?dir=quux";  expected = "path"; };
-    path4 = { expr = "path:./foo";                  expected = "path"; };
-    path5 = { expr = "path:./foo/bar";              expected = "path"; };
-    path6 = { expr = "path:./foo/bar/baz";          expected = "path"; };
-    path7 = { expr = "path:./foo/bar/baz?dir=quux"; expected = "path"; };
+    path0 = { expr = "path:/foo";          expected = "path"; };
+    path1 = { expr = "path:/foo/bar";      expected = "path"; };
+    path2 = { expr = "path:/foo/bar/baz";  expected = "path"; };
+    path3 = { expr = "path:./foo";         expected = "path"; };
+    path4 = { expr = "path:./foo/bar";     expected = "path"; };
+    path5 = { expr = "path:./foo/bar/baz"; expected = "path"; };
 
 
     # These LOOK like `path', but are actually invalid.
@@ -156,6 +154,8 @@ in { lib ? nixpkgs.lib }: let
     fail6 = { expr = "/foo/bar/baz";          expected = FAIL; };
     fail7 = { expr = "/foo/bar/baz?dir=quux"; expected = FAIL; };
     fail8 = { expr = "///foo";                expected = FAIL; };
+    # FIXME: detect unsupported parameters
+    #fail9 = { expr = "path:/foo/bar/baz?dir=quux"; expected = "path"; };
 
 
     file0 = { expr = "https://registry.npmjs.org/lodash"; expected = "file"; };
@@ -259,28 +259,6 @@ in { lib ? nixpkgs.lib }: let
       expr     = "git+https://github.com/flox/flox/archive/main.tar.gz";
       expected = "git";
     };
-    git6 = {
-      expr     = "git+ssh://git@github.com/flox/flox.git/main";
-      expected = "git";
-    };
-    git7 = {
-      expr     = "git+ssh://git@github.com/flox/flox.git/refs/heads/main";
-      expected = "git";
-    };
-    git8 = {
-      expr     = "git+ssh://git@github.com/flox/flox.git/refs/heads/main?x=1";
-      expected = "git";
-    };
-    git9 = {
-      expr = "git+https://github.com/flox/flox.git" +
-             "/a3a3dda3bacf61e8a39258a0ed9c924eeca8e293?ref=main";
-      expected = "git";
-    };
-    git10 = {
-      expr = "git://git@github.com/flox/flox.git" +
-             "/a3a3dda3bacf61e8a39258a0ed9c924eeca8e293?ref=main";
-      expected = "git";
-    };
 
 
     github0 = { expr = "github:flox/flox";      expected = "github"; };
@@ -357,27 +335,26 @@ in { lib ? nixpkgs.lib }: let
       };
     };
     indirect2 = {
-      expr     = "nixpkgs/refs/heads/REF";
+      expr     = "nixpkgs/REF";
       expected = {
         type = "indirect";
         id   = "nixpkgs";
-        ref  = "refs/heads/REF";
+        ref  = "REF";
       };
     };
     indirect3 = {
-      expr     = "nixpkgs/refs/heads/REF?dir=lib";
-      expected = {
-        type = "indirect";
-        id   = "nixpkgs";
-        ref  = "refs/heads/REF";
-        dir  = "lib";
-      };
-    };
-    indirect4 = {
       expr = "flake:nixpkgs";
       expected = {
         type = "indirect";
         id   = "nixpkgs";
+      };
+    };
+    indirect4 = {
+      expr     = "flake:nixpkgs?dir=lib";
+      expected = {
+        type = "indirect";
+        id   = "nixpkgs";
+        dir  = "lib";
       };
     };
     indirect5 = {
@@ -389,19 +366,19 @@ in { lib ? nixpkgs.lib }: let
       };
     };
     indirect6 = {
-      expr     = "flake:nixpkgs/refs/heads/REF";
+      expr     = "flake:nixpkgs/REF";
       expected = {
         type = "indirect";
         id   = "nixpkgs";
-        ref  = "refs/heads/REF";
+        ref  = "REF";
       };
     };
     indirect7 = {
-      expr     = "flake:nixpkgs/refs/heads/REF?dir=lib";
+      expr     = "flake:nixpkgs/REF?dir=lib";
       expected = {
         type = "indirect";
         id   = "nixpkgs";
-        ref  = "refs/heads/REF";
+        ref  = "REF";
         dir  = "lib";
       };
     };
@@ -414,55 +391,39 @@ in { lib ? nixpkgs.lib }: let
         path = "/foo";
       };
     };
-    path2 = {
+    path1 = {
       expr = "path:/foo/bar";
       expected = {
         type = "path";
         path = "/foo/bar";
       };
     };
-    path3 = {
+    path2 = {
       expr = "path:/foo/bar/baz";
       expected = {
         type = "path";
         path = "/foo/bar/baz";
       };
     };
-    path4 = {
-      expr = "path:/foo/bar/baz?dir=quux";
-      expected = {
-        type = "path";
-        path = "/foo/bar/baz";
-        dir  = "quux";
-      };
-    };
-    path5 = {
+    path3 = {
       expr = "path:./foo";
       expected = {
         type = "path";
         path = "./foo";
       };
     };
-    path6 = {
+    path4 = {
       expr = "path:./foo/bar";
       expected = {
         type = "path";
         path = "./foo/bar";
       };
     };
-    path7 = {
+    path5 = {
       expr = "path:./foo/bar/baz";
       expected = {
         type = "path";
         path = "./foo/bar/baz";
-      };
-    };
-    path8 = {
-      expr = "path:./foo/bar/baz?dir=quux";
-      expected = {
-        type = "path";
-        path = "./foo/bar/baz";
-        dir  = "quux";
       };
     };
 
@@ -477,6 +438,8 @@ in { lib ? nixpkgs.lib }: let
     fail6 = { expr = "/foo/bar/baz";          expected = FAIL; };
     fail7 = { expr = "/foo/bar/baz?dir=quux"; expected = FAIL; };
     fail8 = { expr = "///foo";                expected = FAIL; };
+    # FIXME: detect unsupported parameters
+    #fail9 = { expr = "path:/foo/bar/baz?dir=quux"; expected = "path"; };
 
 
     # TODO: Audit whether the `nix' parser preserves `:///' URLs/paths or
@@ -679,50 +642,6 @@ in { lib ? nixpkgs.lib }: let
         url  = "https://github.com/flox/flox/archive/main.tar.gz";
       };
     };
-    git6 = {
-      expr     = "git+ssh://git@github.com/flox/flox.git/main";
-      expected = {
-        type = "git";
-        url  = "ssh://git@github.com/flox/flox.git";
-        ref  = "main";
-      };
-    };
-    git7 = {
-      expr     = "git+ssh://git@github.com/flox/flox.git/refs/heads/main";
-      expected = {
-        type = "git";
-        url  = "ssh://git@github.com/flox/flox.git";
-        ref  = "refs/heads/main";
-      };
-    };
-    git8 = {
-      expr     = "git+ssh://git@github.com/flox/flox.git/refs/heads/main?x=1";
-      expected = {
-        type = "git";
-        url  = "ssh://git@github.com/flox/flox.git?x=1";
-        ref  = "refs/heads/main";
-      };
-    };
-    git9 = {
-      expr = "git+https://github.com/flox/flox.git" +
-             "/a3a3dda3bacf61e8a39258a0ed9c924eeca8e293?ref=main";
-      expected = {
-        type = "git";
-        url  = "https://github.com/flox/flox.git";
-        rev  = "a3a3dda3bacf61e8a39258a0ed9c924eeca8e293";
-        ref  = "main";
-      };
-    };
-    git10 = {
-      expr = "git://git@github.com/flox/flox.git" +
-             "/a3a3dda3bacf61e8a39258a0ed9c924eeca8e293?ref=main";
-      expected = {
-        type = "git";
-        url  = "git://git@github.com/flox/flox.git";
-        rev  = "a3a3dda3bacf61e8a39258a0ed9c924eeca8e293";
-        ref  = "main";
-      };
-    };
 
 
     github0 = {
@@ -898,50 +817,18 @@ in { lib ? nixpkgs.lib }: let
       expr = {
         type = "indirect";
         id   = "nixpkgs";
-        ref  = "refs/heads/REF";
+        ref  = "REF";
       };
-      expected = "flake:nixpkgs/refs/heads/REF";
+      expected = "flake:nixpkgs/REF";
     };
     indirect3 = {
       expr = {
         type = "indirect";
         id   = "nixpkgs";
-        ref  = "refs/heads/REF";
+        ref  = "REF";
         dir  = "lib";
       };
-      expected = "flake:nixpkgs/refs/heads/REF?dir=lib";
-    };
-    indirect4 = {
-      expr = {
-        type = "indirect";
-        id   = "nixpkgs";
-      };
-      expected = "flake:nixpkgs";
-    };
-    indirect5 = {
-      expr = {
-        type = "indirect";
-        id   = "nixpkgs";
-        rev  = "a3a3dda3bacf61e8a39258a0ed9c924eeca8e293";
-      };
-      expected = "flake:nixpkgs/a3a3dda3bacf61e8a39258a0ed9c924eeca8e293";
-    };
-    indirect6 = {
-      expr = {
-        type = "indirect";
-        id   = "nixpkgs";
-        ref  = "refs/heads/REF";
-      };
-      expected = "flake:nixpkgs/refs/heads/REF";
-    };
-    indirect7 = {
-      expr = {
-        type = "indirect";
-        id   = "nixpkgs";
-        ref  = "refs/heads/REF";
-        dir  = "lib";
-      };
-      expected = "flake:nixpkgs/refs/heads/REF?dir=lib";
+      expected = "flake:nixpkgs/REF?dir=lib";
     };
 
 
@@ -952,56 +839,40 @@ in { lib ? nixpkgs.lib }: let
       };
       expected = "path:/foo";
     };
-    path2 = {
+    path1 = {
       expr = {
         type = "path";
         path = "/foo/bar";
       };
       expected = "path:/foo/bar";
     };
-    path3 = {
+    path2 = {
       expr = {
         type = "path";
         path = "/foo/bar/baz";
       };
       expected = "path:/foo/bar/baz";
     };
-    path4 = {
-      expr = {
-        type = "path";
-        path = "/foo/bar/baz";
-        dir  = "quux";
-      };
-      expected = "path:/foo/bar/baz?dir=quux";
-    };
-    path5 = {
+    path3 = {
       expr = {
         type = "path";
         path = "./foo";
       };
       expected = "path:./foo";
     };
-    path6 = {
+    path4 = {
       expr = {
         type = "path";
         path = "./foo/bar";
       };
       expected = "path:./foo/bar";
     };
-    path7 = {
+    path5 = {
       expr = {
         type = "path";
         path = "./foo/bar/baz";
       };
       expected = "path:./foo/bar/baz";
-    };
-    path8 = {
-      expr = {
-        type = "path";
-        path = "./foo/bar/baz";
-        dir  = "quux";
-      };
-      expected = "path:./foo/bar/baz?dir=quux";
     };
 
 

@@ -209,7 +209,7 @@ let
     base = { inherit type; } // pk';
     # Indirect
     forIndirect = let
-      m' = builtins.match "(flake:)?([^/]+)(/([^?]+))?(\\?.*)?" ref;
+      m' = builtins.match "(flake:)?([^/?]+)(/([^?]+))?(\\?.*)?" ref;
       r  = builtins.elemAt m' 3;
     in ( if r == null then {} else tagRefOrRev r ) // {
       id = builtins.elemAt m' 1;
