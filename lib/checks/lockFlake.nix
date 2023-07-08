@@ -122,24 +122,18 @@ in { lib ? nixpkgs.lib }: let
       expr     = "nixpkgs/a3a3dda3bacf61e8a39258a0ed9c924eeca8e293";
       expected = "indirect";
     };
-    indirect2 = { expr = "nixpkgs/refs/heads/REF"; expected = "indirect"; };
-    indirect3 = {
-      expr     = "nixpkgs/refs/heads/REF?dir=lib";
+    indirect2 = { expr = "nixpkgs/REF";   expected = "indirect"; };
+    indirect3 = { expr = "flake:nixpkgs"; expected = "indirect"; };
+    indirect4 = {
+      expr     = "flake:nixpkgs?dir=lib";
       expected = "indirect";
     };
-    indirect4 = { expr = "flake:nixpkgs"; expected = "indirect"; };
     indirect5 = {
       expr     = "flake:nixpkgs/a3a3dda3bacf61e8a39258a0ed9c924eeca8e293";
       expected = "indirect";
     };
-    indirect6 = {
-      expr     = "flake:nixpkgs/refs/heads/REF";
-      expected = "indirect";
-    };
-    indirect7 = {
-      expr     = "flake:nixpkgs/refs/heads/REF?dir=lib";
-      expected = "indirect";
-    };
+    indirect6 = { expr = "flake:nixpkgs/REF";         expected = "indirect"; };
+    indirect7 = { expr = "flake:nixpkgs/REF?dir=lib"; expected = "indirect"; };
 
 
     path0 = { expr = "path:/foo";                   expected = "path"; };
