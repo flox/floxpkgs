@@ -56,12 +56,12 @@
       else lockedFlake.originalRef.string;
     url =
       if flakeRef == null
+      # TODO this violates the catalog schema, so it must be set with
+      # postprocessing
       then null
       else if flakeRef == "self"
       then ""
       else lockedFlake.lockedRef.string;
-    # TODO this violates the catalog schema, so it must be set with
-    # postprocessing
     storePaths =
       if drv ? meta.outputsToInstall
       then
