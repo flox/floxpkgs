@@ -27,7 +27,7 @@
     inherit (drv) name system;
     inherit attrPath namespace;
     drvPath = builtins.unsafeDiscardStringContext drv.drvPath;
-    pname   = (builtins.parseDrvName drv.name).name;
+    pname = (builtins.parseDrvName drv.name).name;
     version =
       if (builtins.parseDrvName drv.name).version != ""
       then (builtins.parseDrvName drv.name).version
@@ -38,21 +38,28 @@
     # as strings later.
     outputs = let
       outputs = drv.outputs or ["out"];
-      proc    = o:
-        builtins.unsafeDiscardStringContext ( builtins.getAttr o drv ).outPath;
-    in lib.genAttrs outputs proc;
+      proc = o:
+        builtins.unsafeDiscardStringContext (builtins.getAttr o drv).outPath;
+    in
+      lib.genAttrs outputs proc;
     meta = drv.meta or {};
   };
 
   element = {
     active = true;
     inherit attrPath;
-    originalUrl = if flakeRef == null   then null else
-                  if flakeRef == "self" then "."  else
-                  lockedFlake.originalRef.string;
-    url = if flakeRef == null   then null else
-          if flakeRef == "self" then ""   else
-          lockedFlake.lockedRef.string;
+    originalUrl =
+      if flakeRef == null
+      then null
+      else if flakeRef == "self"
+      then "."
+      else lockedFlake.originalRef.string;
+    url =
+      if flakeRef == null
+      then null
+      else if flakeRef == "self"
+      then ""
+      else lockedFlake.lockedRef.string;
     # TODO this violates the catalog schema, so it must be set with
     # postprocessing
     storePaths =

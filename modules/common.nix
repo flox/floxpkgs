@@ -374,35 +374,44 @@ in {
             maybeFakeDerivation = lib.getAttrFromPath flakePath fetchedFlake;
 
             publishData = let
-              inherit (import ../lib/lockFlake.nix) lockFlake;
-              lockedFlake     = lockFlake channelName;
+              lockedFlake = (import ../lib/lockFlake.nix).lockFlake channelName;
               publish_element = {
-                attrPath    = flakePath;
-                originalUrl = if channelName == null   then null else
-                              if channelName == "self" then "."  else
-                              lockedFlake.originalRef.string;
-                url = if channelName == null   then null else
-                      if channelName == "self" then ""   else
-                      lockedFlake.lockedRef.string;
+                attrPath = flakePath;
+                originalUrl =
+                  if channelName == null
+                  then null
+                  else if channelName == "self"
+                  then "."
+                  else lockedFlake.originalRef.string;
+                url =
+                  if channelName == null
+                  then null
+                  else if channelName == "self"
+                  then ""
+                  else lockedFlake.lockedRef.string;
                 storePaths =
                   maybeFakeDerivation.meta.publishData.element.storePaths;
               };
-
-            # if we have a fake derivation, add some additional meta required
-            # by flox list to correctly display information about the catalog
-            # this derivation came from (e.g. nixpkgs-flox) rather than the
-            # original source it was built from (e.g. nixpkgs).
-            # This is not reachable for self.
-            in if maybeFakeDerivation ? meta.publishData
-               then maybeFakeDerivation.meta.publishData // {
-                 inherit publish_element;
-               }
-               else floxpkgs.lib.readPackage {
-                 # TODO use namespace and attrPath instead of passing entire
-                 # flakePath as attrPath
-                 attrPath = flakePath;
-                 flakeRef = channelName;
-               } { analyzeOutput = true; } maybeFakeDerivation;
+              # if we have a fake derivation, add some additional meta required
+              # by flox list to correctly display information about the catalog
+              # this derivation came from (e.g. nixpkgs-flox) rather than the
+              # original source it was built from (e.g. nixpkgs).
+              # This is not reachable for self.
+            in
+              if maybeFakeDerivation ? meta.publishData
+              then
+                maybeFakeDerivation.meta.publishData
+                // {
+                  inherit publish_element;
+                }
+              else
+                floxpkgs.lib.readPackage {
+                  # TODO use namespace and attrPath instead of passing entire
+                  # flakePath as attrPath
+                  attrPath = flakePath;
+                  flakeRef = channelName;
+                } {analyzeOutput = true;}
+                maybeFakeDerivation;
 
             # The floxEnv must be identical for the locking and locked build, so we have to
             # - call mkFakeDerivation even if we already have a fake derivation, because the version
