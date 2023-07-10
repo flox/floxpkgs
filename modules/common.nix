@@ -372,50 +372,42 @@ in {
               in
                 throw "Channel ${channelName} does not contain ${flakePathsToPrint}";
             maybeFakeDerivation = lib.getAttrFromPath flakePath fetchedFlake;
-            publishData =
+
+            publishData = let
+              lockedFlake = (import ../lib/lockFlake.nix).lockFlake channelName;
+              publish_element = {
+                attrPath = flakePath;
+                originalUrl =
+                  if channelName == null
+                  then null
+                  else if channelName == "self"
+                  then "."
+                  else lockedFlake.originalRef.string;
+                url =
+                  if channelName == null
+                  then null
+                  else if channelName == "self"
+                  then ""
+                  else lockedFlake.lockedRef.string;
+                storePaths =
+                  maybeFakeDerivation.meta.publishData.element.storePaths;
+              };
               # if we have a fake derivation, add some additional meta required
               # by flox list to correctly display information about the catalog
               # this derivation came from (e.g. nixpkgs-flox) rather than the
               # original source it was built from (e.g. nixpkgs).
               # This is not reachable for self.
+            in
               if maybeFakeDerivation ? meta.publishData
-              then let
-                publish_element = let
-                  flakeRef = channelName;
-                in rec {
-                  # TODO deduplicate with readPackage
-                  originalUrl =
-                    if flakeRef == "self"
-                    then "." # TODO: use outPath?
-                    else
-                      (
-                        if flakeRef == null || builtins.match ".*:.*" flakeRef == []
-                        then flakeRef
-                        else "flake:${flakeRef}"
-                      );
-                  # TODO deduplicate with readPackage and figure out a better
-                  # way to store flake resolution information
-                  url =
-                    if flakeRef == "self"
-                    then ""
-                    else let
-                      flake =
-                        builtins.getFlake flakeRef;
-                      # this assumes that either flakeRef is not indirect, or if
-                      # it is indirect, the flake it resolves to contains a
-                      # branch
-                    in "${originalUrl}/${flake.rev}";
-                  storePaths = maybeFakeDerivation.meta.publishData.element.storePaths;
-                  attrPath = flakePath;
-                };
-              in
+              then
                 maybeFakeDerivation.meta.publishData
                 // {
                   inherit publish_element;
                 }
               else
                 floxpkgs.lib.readPackage {
-                  # TODO use namespace and attrPath instead of passing entire flakePath as attrPath
+                  # TODO use namespace and attrPath instead of passing entire
+                  # flakePath as attrPath
                   attrPath = flakePath;
                   flakeRef = channelName;
                 } {analyzeOutput = true;}

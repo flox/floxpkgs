@@ -21,48 +21,10 @@
   ...
 } @ buildOptions: drv: let
   inherit (self.lib) inspectBuild;
-
-  element = rec {
-    active = true;
-    inherit attrPath;
-    # TODO deduplicate with logic for floxEnvs
-    # normalize to include "flake:", which is included in manifest.json
-    originalUrl =
-      if flakeRef == "self"
-      then "." # TODO: use outPath?
-      else
-        (
-          if flakeRef == null || builtins.match ".*:.*" flakeRef == []
-          then flakeRef
-          else "flake:${flakeRef}"
-        );
-    # TODO deduplicate with logic for floxEnvs and figure out a better way to
-    # store flake resolution information
-    url =
-      if flakeRef == "self"
-      then ""
-      else if flakeRef != null
-      then let
-        flake =
-          builtins.getFlake flakeRef;
-        # this assumes that either flakeRef is not indirect, or if it is indirect, the flake it
-        # resolves to contains a branch
-      in "${originalUrl}/${flake.rev}"
-      # TODO this violates the catalog schema, so it must be set with
-      # postprocessing
-      else null;
-    storePaths =
-      if drv.meta ? outputsToInstall
-      then
-        # only include outputsToInstall
-        (builtins.map (outputName: eval.outputs.${outputName})
-          drv.meta.outputsToInstall)
-      else lib.attrValues eval.outputs;
-  };
+  lockedFlake = (import ./lockFlake.nix).lockFlake flakeRef;
 
   eval = {
-    # flake.locked = builtins.removeAttrs inputs.target.sourceInfo ["outPath"];
-    inherit (drv) name system meta;
+    inherit (drv) name system;
     inherit attrPath namespace;
     drvPath = builtins.unsafeDiscardStringContext drv.drvPath;
     pname = (builtins.parseDrvName drv.name).name;
@@ -72,10 +34,41 @@
       else if drv ? version && drv.version != "" && drv.version != null
       then drv.version
       else "unknown";
+    # Collect `outPath' for each output, stripping context so we can emit them
+    # as strings later.
     outputs = let
       outputs = drv.outputs or ["out"];
+      proc = o:
+        builtins.unsafeDiscardStringContext (builtins.getAttr o drv).outPath;
     in
-      lib.genAttrs outputs (output: builtins.unsafeDiscardStringContext drv.${output}.outPath);
+      lib.genAttrs outputs proc;
+    meta = drv.meta or {};
+  };
+
+  element = {
+    active = true;
+    inherit attrPath;
+    originalUrl =
+      if flakeRef == null
+      then null
+      else if flakeRef == "self"
+      then "."
+      else lockedFlake.originalRef.string;
+    url =
+      if flakeRef == null
+      # TODO this violates the catalog schema, so it must be set with
+      # postprocessing
+      then null
+      else if flakeRef == "self"
+      then ""
+      else lockedFlake.lockedRef.string;
+    storePaths =
+      if drv ? meta.outputsToInstall
+      then
+        # only include outputsToInstall
+        (builtins.map (outputName: eval.outputs.${outputName})
+          drv.meta.outputsToInstall)
+      else lib.attrValues eval.outputs;
   };
 in {
   inherit element eval;
