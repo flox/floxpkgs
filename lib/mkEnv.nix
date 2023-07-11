@@ -129,12 +129,14 @@ let
     # inlining, but are also accomplishing separate tasks.
     # TODO: optimize
     pre-wrapper = derivation {
-      name = "wrapper";
+      name = "pre-wrapper";
       system = system;
       builder = "builtin:buildenv";
       manifest = "unused";
-      derivations =
-        map (x: ["true" (x.meta.priority or 5) 1 x]) (args.packages ++ [envBash]);
+      derivations = let
+        isDir = p: ( builtins.readFileType p ) == "directory";
+        drvs = builtins.filter isDir (args.packages ++ [envBash]);
+      in map (x: ["true" (x.meta.priority or 5) 1 x]) drvs;
     };
   in
     # note: this allows for an input-addressed approach for an environment to self-activate
