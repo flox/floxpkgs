@@ -115,6 +115,16 @@ in
           z = "3";
         };
       };
+
+      bools = {
+        expr = paramStrToAttrs "x=1&allRefs=1&submodules=0";
+        expected = {
+          x = "1";
+          allRefs = true;
+          submodules = false;
+        };
+      };
+
     };
     /*
     End `paramStrToAttrsTests'

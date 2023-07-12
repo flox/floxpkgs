@@ -103,6 +103,8 @@ let
 
   # -------------------------------------------------------------------------- #
 
+  boolParams = ["shallow" "submodules" "allRefs"];
+
   # Split a URI query string into an attribute set.
   # Parameters without values will be set to `null' - all other values are
   # emitted as strings.
@@ -110,9 +112,10 @@ let
   # Ex:
   # paramStrToAttrs "foo=1&bar&quux=3" -> { foo = "1"; bar = null; quux = "3"; }
   paramStrToAttrs = str: let
-    sp = builtins.split "[?&]" str;
+    sp   = builtins.split "[?&]" str;
     proc = acc: x: let
-      xs = builtins.match "([^=]+)(=(.*))?" x;
+      xs   = builtins.match "([^=]+)(=(.*))?" x;
+      name = builtins.head xs;
     in
       if (builtins.isList x) || (xs == null)
       then acc
@@ -120,8 +123,10 @@ let
         acc
         ++ [
           {
-            name = builtins.head xs;
-            value = builtins.elemAt xs 2;
+            inherit name;
+            value = let
+              raw = builtins.elemAt xs 2;
+            in if builtins.elem name boolParams then raw == "1" else raw;
           }
         ];
     rsl =
@@ -141,11 +146,14 @@ let
   # paramStrToAttrs { foo = "1"; bar = null; quux = "3"; } -> "foo=1&bar&quux=3"
   paramAttrsToStr = attrs: let
     proc = name: let
-      val = builtins.getAttr name attrs;
+      val    = builtins.getAttr name attrs;
+      strVal = if ! ( builtins.elem name boolParams ) then toString val else
+               assert builtins.isBool val;
+               if val then "1" else "0";
     in
       if val == null
       then name
-      else "${name}=${toString val}";
+      else name + "=" + strVal;
   in
     assert builtins.isAttrs attrs;
       builtins.concatStringsSep "&" (map proc (builtins.attrNames attrs));
