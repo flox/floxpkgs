@@ -115,6 +115,16 @@ in
           z = "3";
         };
       };
+
+      bools = {
+        expr = paramStrToAttrs "x=1&allRefs=1&submodules=0";
+        expected = {
+          x = "1";
+          allRefs = true;
+          submodules = false;
+        };
+      };
+
     };
     /*
     End `paramStrToAttrsTests'
@@ -154,6 +164,16 @@ in
         };
         expected = "x=1&y&z=3";
       };
+
+      bools = {
+        expr = paramAttrsToStr {
+          x = "1";
+          allRefs = true;
+          submodules = false;
+        };
+        expected = "allRefs=1&submodules=0&x=1";
+      };
+
     };
     /*
     End `paramAttrsToStrTests'
