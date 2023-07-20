@@ -1,1 +1,1 @@
-{capacitated}: capacitated.flox.packages.flox
+{capacitated}: capacitated.flox-latest.packages.flox
