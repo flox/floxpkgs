@@ -1,3 +1,1 @@
-{self, ...}: {
-  fromCatalog = self.evalCatalog.stable.flox-prerelease;
-}
+{capacitated}: capacitated.flox-main.packages.flox
