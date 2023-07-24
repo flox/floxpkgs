@@ -17,9 +17,9 @@
 
   # This is needed for `pkgs/flox{,-prerelease}/default.nix` to refer to the capacitated
   # recipe.
-  inputs.flox-latest.url = "git+ssh://git@github.com/flox/flox?ref=latest";
+  inputs.flox-latest.url = "git+https://git@github.com/flox/flox?ref=latest";
   inputs.flox-latest.inputs.flox-floxpkgs.follows = "";
-  inputs.flox-main.url = "git+ssh://git@github.com/flox/flox?ref=main";
+  inputs.flox-main.url = "git+https://git@github.com/flox/flox?ref=main";
   inputs.flox-main.inputs.flox-floxpkgs.follows = "";
   # Several packages rely on flox/floxpkgs having an input called "flox".
   # Add this to refer to the release version by default.
