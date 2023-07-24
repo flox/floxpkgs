@@ -179,7 +179,8 @@ in {
         ++ packageAttrPath
         ++ version
       )
-    ];
+    # this is a temporary hack that leads to incorrect contents in catalog.json
+    ] ++ getFlakeFlakePaths packageAttrPath {};
 
     # used for both flakes and self
     getFlakeCatalogPath = channelName: packageAttrPath: _:
