@@ -77,14 +77,13 @@
       else null;
   in
     if cacheUrl != null
-    then
-      if builtins ? fetchClosure
-      then
-        builtins.fetchClosure {
-          fromStore = cacheUrl;
-          fromPath = stringOutPath;
-        }
-      else builtins.storePath stringOutPath
+    then let
+      pureStorePath = path: let
+        contextFree = builtins.unsafeDiscardStringContext path;
+      in
+        builtins.appendContext contextFree {${contextFree} = {path = true;};};
+    in
+      pureStorePath stringOutPath
     else fromSource.${outputName};
 
   outputs = eval.outputs or (throw "unable to create mkFakeDerivation: no eval.outputs");
