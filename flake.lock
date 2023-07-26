@@ -5,11 +5,11 @@
         "flox-floxpkgs": []
       },
       "locked": {
-        "lastModified": 1688654208,
-        "narHash": "sha256-GXUr6KzbiMJvalLwTv/dFNdldfqbc5yDS4uktUpdZsw=",
+        "lastModified": 1690396033,
+        "narHash": "sha256-Ei0/avjSGJab4MnBEFxBSJwn9A3TAMTtN50p+95tDjw=",
         "owner": "flox",
         "repo": "builtfilter",
-        "rev": "441e6eea6920581da0bb5a2924431139bf25a15a",
+        "rev": "ac4f6510377ebe886d268efd827e7d20c37bce10",
         "type": "github"
       },
       "original": {
