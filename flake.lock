@@ -7,16 +7,16 @@
       "locked": {
         "lastModified": 1690396033,
         "narHash": "sha256-Ei0/avjSGJab4MnBEFxBSJwn9A3TAMTtN50p+95tDjw=",
-        "owner": "flox",
-        "repo": "builtfilter",
+        "ref": "builtfilter-rs",
         "rev": "ac4f6510377ebe886d268efd827e7d20c37bce10",
-        "type": "github"
+        "revCount": 23,
+        "type": "git",
+        "url": "ssh://git@github.com/flox/builtfilter"
       },
       "original": {
-        "owner": "flox",
         "ref": "builtfilter-rs",
-        "repo": "builtfilter",
-        "type": "github"
+        "type": "git",
+        "url": "ssh://git@github.com/flox/builtfilter"
       }
     },
     "capacitor": {

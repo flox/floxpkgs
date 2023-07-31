@@ -32,7 +32,7 @@
   inputs.tracelinks.url = "git+ssh://git@github.com/flox/tracelinks?ref=main";
   inputs.tracelinks.inputs.flox-floxpkgs.follows = "";
 
-  inputs.builtfilter.url = "github:flox/builtfilter?ref=builtfilter-rs";
+  inputs.builtfilter.url = "git+ssh://git@github.com/flox/builtfilter?ref=builtfilter-rs";
   inputs.builtfilter.inputs.flox-floxpkgs.follows = "";
 
   inputs.etc-profiles.url = "github:flox/etc-profiles";
