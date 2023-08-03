@@ -157,7 +157,18 @@ in {
         packageConfig.version or "latest"
       ];
 
-    getChannelFlakePaths = packageAttrPath: packageConfig: let
+    # used for both flakes and self
+    getFlakeCatalogPath = channelName: packageAttrPath: _:
+      [
+        channelName
+        system
+      ]
+      ++ packageAttrPath;
+
+    # used for both flakes and self
+    getFlakeFlakePaths = packageAttrPath: packageConfig: [
+      (
+        let
       version =
         if packageConfig ? version
         then [
@@ -169,8 +180,7 @@ in {
           )
         ]
         else [];
-    in [
-      (
+    in
         [
           "evalCatalog"
           system
@@ -179,20 +189,8 @@ in {
         ++ packageAttrPath
         ++ version
       )
-    # this is a temporary hack that leads to incorrect contents in catalog.json
-    ] ++ getFlakeFlakePaths packageAttrPath {};
-
-    # used for both flakes and self
-    getFlakeCatalogPath = channelName: packageAttrPath: _:
-      [
-        channelName
-        system
-      ]
-      ++ packageAttrPath;
-
-    # used for both flakes and self
-    getFlakeFlakePaths = packageAttrPath: _: [
-      ([
+      (
+        [
           "packages"
           system
         ]
@@ -234,19 +232,13 @@ in {
           then "flakes"
           else if lib.isStorePath channelName
           then "storePaths"
-          else let
-            fetchedChannel = builtins.getFlake channelName;
-          in
-            if builtins.hasAttr "evalCatalog" fetchedChannel
-            then "channels"
-            else "flakes"
+          else "flakes"
       )
       config.packages;
 
     # partially apply generateFakeCatalog to the appropriate getters
     packagesWithDerivation =
-      builtins.concatLists (lib.mapAttrsToList (getDerivationsForPackages getChannelCatalogPath getChannelFlakePaths) (groupedChannels.channels or {}))
-      ++ builtins.concatLists (lib.mapAttrsToList (getDerivationsForPackages getFlakeCatalogPath getFlakeFlakePaths) (groupedChannels.flakes or {}));
+      builtins.concatLists (lib.mapAttrsToList (getDerivationsForPackages getFlakeCatalogPath getFlakeFlakePaths) (groupedChannels.flakes or {}));
 
     # Inline capacitated projects exposes capacitor interface
     inline =
