@@ -1,0 +1,123 @@
+{
+  "build": [],
+  "cache": [
+    {
+      "cacheUrl": "https://cache.floxdev.com/",
+      "narinfo": [
+        {
+          "deriver": "/nix/store/5lscdkjpljmksv5zxmra0823mhpgzd4y-flox-0.2.5-r562.drv",
+          "downloadHash": "sha256-munk6zNpSWsbmmia773zZi9CenvJZz15Kirq8F1hy/E=",
+          "downloadSize": 37732,
+          "narHash": "sha256-9nBbZgJ9bqstSv8/uUwfVGyafbBNb/Y4gbe/DU5wceE=",
+          "narSize": 44656,
+          "path": "/nix/store/jlpx6yndwh2xvazd86fp9l4kqnryrbp3-flox-0.2.5-r562-man",
+          "references": [],
+          "signatures": [
+            "flox-store-public-0:21DdRiQJUimK/NEThPXIJbF0a+gzkpcHhvKbgomHrjNbf/ecW+z9h7a3oZlSamRRVCJXlWcS2xdAajELj9IyDA=="
+          ],
+          "url": "nar/1wfbc5fz1sia59wksry9gdx44bv6yfyyz6k8k8dnnjb96gmy9scs.nar.xz",
+          "valid": true
+        },
+        {
+          "deriver": "/nix/store/5lscdkjpljmksv5zxmra0823mhpgzd4y-flox-0.2.5-r562.drv",
+          "downloadHash": "sha256-mN7agGzpC7UXT3+9SLHDWwzisabGCPOr3udWDeehr3A=",
+          "downloadSize": 3652464,
+          "narHash": "sha256-nI3YWEbF2cpV1IY/L2JCpCQ3kGhzDk4d7nMM8SWb/9Y=",
+          "narSize": 16279824,
+          "path": "/nix/store/rgjib3iwgr4qy1kq2silkgh6y9aiaiyp-flox-0.2.5-r562",
+          "references": [
+            "/nix/store/75622q2wranjp6zl81ldq5j54s788dqz-gcc-12.3.0-lib",
+            "/nix/store/a5allwqr652qgs5dacm0vmfdy16jrx3x-catalog-ingest",
+            "/nix/store/d15dwhjy1ax66g7q6kx0sxz5qgzglnmz-git-minimal-2.41.0",
+            "/nix/store/d9di9cna6c8k8szfcl3p4sgrkkscjc2s-nix_bash_completion.sh",
+            "/nix/store/dpilfshzj55y21585bd2y64wfj5wciqv-nss-cacert-3.90",
+            "/nix/store/ii5lq0igwk9xpq16s98yqswsgr1dbfi2-openssl-3.0.9",
+            "/nix/store/kl8i709anpj3hvq7qpnaqz7mygs7196s-resolver",
+            "/nix/store/m7hhwa8s6012aga4rhw4xhps7527frz2-nix_zsh_completion.sh",
+            "/nix/store/n483y3v5gsw40y0phvk2217npkm9v33r-flox-bash-0.2.5-r562",
+            "/nix/store/rgjib3iwgr4qy1kq2silkgh6y9aiaiyp-flox-0.2.5-r562",
+            "/nix/store/s9zl0rv45yc3ymx61q6n97c3l7196pq4-zlib-1.2.13",
+            "/nix/store/wpgrc564ys39vbyv0m50qxmq8dvhi7cc-glibc-2.37-8",
+            "/nix/store/xr0rc6y719iyks4lq5xba0g2inqng1zy-libssh2-1.11.0",
+            "/nix/store/zbaycxgvv3iaa18p889dagcfhinasvcx-glibc-locales-2.37-8"
+          ],
+          "signatures": [
+            "flox-store-public-0:cEuD705MZaLx8A1jkftkLb4R49fFocW+5ZMHclYb2ANQxjQ4xuMIuwYjnwWYifVkZTCoDluJiy6R8bF0f2CgDA=="
+          ],
+          "url": "nar/0w5gl7khsmp7vsmz6266lsqy432vqfqligbz9wbva2z9dj0dmplq.nar.xz",
+          "valid": true
+        }
+      ]
+    }
+  ],
+  "element": {
+    "active": true,
+    "attrPath": [
+      "packages",
+      "x86_64-linux",
+      "flox-prerelease"
+    ],
+    "storePaths": [
+      "/nix/store/rgjib3iwgr4qy1kq2silkgh6y9aiaiyp-flox-0.2.5-r562",
+      "/nix/store/jlpx6yndwh2xvazd86fp9l4kqnryrbp3-flox-0.2.5-r562-man"
+    ],
+    "url": "git+ssh://git@github.com/flox/floxpkgs?ref=master&rev=380f1b3e3b239aee252700a9f80aa9bfd4860a14"
+  },
+  "eval": {
+    "attrPath": [
+      "packages",
+      "x86_64-linux",
+      "flox-prerelease"
+    ],
+    "drvPath": "/nix/store/5lscdkjpljmksv5zxmra0823mhpgzd4y-flox-0.2.5-r562.drv",
+    "meta": {
+      "available": true,
+      "broken": false,
+      "insecure": false,
+      "name": "flox-0.2.5-r562",
+      "outputsToInstall": [
+        "out",
+        "man"
+      ],
+      "position": "/nix/store/q6y6d512iwxs8qplsgsn14jkbwdawg96-source/lib/mkCargoDerivation.nix:47",
+      "unfree": false,
+      "unsupported": false
+    },
+    "name": "flox-0.2.5-r562",
+    "namespace": [
+      "flox-prerelease"
+    ],
+    "outputs": {
+      "man": "/nix/store/jlpx6yndwh2xvazd86fp9l4kqnryrbp3-flox-0.2.5-r562-man",
+      "out": "/nix/store/rgjib3iwgr4qy1kq2silkgh6y9aiaiyp-flox-0.2.5-r562"
+    },
+    "pname": "flox",
+    "stability": "stable",
+    "system": "x86_64-linux",
+    "version": "0.2.5-r562"
+  },
+  "source": {
+    "locked": {
+      "lastModified": 1690830906,
+      "narHash": "sha256-QpBDqpsXqEtebTWw/qEibk16OfC7hXoCfim9yN0QObQ=",
+      "ref": "master",
+      "rev": "380f1b3e3b239aee252700a9f80aa9bfd4860a14",
+      "revCount": 4307,
+      "type": "git",
+      "url": "ssh://git@github.com/flox/floxpkgs"
+    },
+    "original": {
+      "ref": "master",
+      "rev": "380f1b3e3b239aee252700a9f80aa9bfd4860a14",
+      "type": "git",
+      "url": "ssh://git@github.com/flox/floxpkgs"
+    },
+    "remote": {
+      "ref": "master",
+      "rev": "380f1b3e3b239aee252700a9f80aa9bfd4860a14",
+      "type": "git",
+      "url": "ssh://git@github.com/flox/floxpkgs"
+    }
+  },
+  "version": 1
+}
