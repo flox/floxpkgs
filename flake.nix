@@ -36,7 +36,6 @@
   inputs.builtfilter.inputs.flox-floxpkgs.follows = "";
 
   inputs.etc-profiles.url = "github:flox/etc-profiles";
-  inputs.etc-profiles.inputs.flox-floxpkgs.follows = "";
   # ===========================================================================
 
   outputs = args @ {capacitor, ...}: capacitor args (
