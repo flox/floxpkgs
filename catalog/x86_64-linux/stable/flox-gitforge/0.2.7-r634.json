@@ -1,0 +1,88 @@
+{
+  "build": [],
+  "cache": [
+    {
+      "cacheUrl": "https://cache.floxdev.com/",
+      "narinfo": [
+        {
+          "path": "/nix/store/mghs4mkqdkdksnppr7x894flfcj2i04k-flox-0.2.7-r634-man",
+          "valid": false
+        },
+        {
+          "path": "/nix/store/r71jj3nlr4m848cgwc87kzzky10687my-flox-0.2.7-r634",
+          "valid": false
+        }
+      ]
+    }
+  ],
+  "element": {
+    "active": true,
+    "attrPath": [
+      "packages",
+      "x86_64-linux",
+      "flox-gitforge"
+    ],
+    "storePaths": [
+      "/nix/store/r71jj3nlr4m848cgwc87kzzky10687my-flox-0.2.7-r634",
+      "/nix/store/mghs4mkqdkdksnppr7x894flfcj2i04k-flox-0.2.7-r634-man"
+    ],
+    "url": "git+ssh://git@github.com/flox/flox.git?rev=0b1182524354ec3aa70a460f782e90bd57e9f228"
+  },
+  "eval": {
+    "attrPath": [
+      "packages",
+      "x86_64-linux",
+      "flox-gitforge"
+    ],
+    "drvPath": "/nix/store/69bijbkda2asb5h6xk3h91pwm70q5b1f-flox-0.2.7-r634.drv",
+    "meta": {
+      "available": true,
+      "broken": false,
+      "insecure": false,
+      "name": "flox-0.2.7-r634",
+      "outputsToInstall": [
+        "out",
+        "man"
+      ],
+      "position": "/nix/store/01j6fgwf8xfw610dn7ksf4c6fzcmxm9f-source/lib/mkCargoDerivation.nix:47",
+      "unfree": false,
+      "unsupported": false
+    },
+    "name": "flox-0.2.7-r634",
+    "namespace": [
+      "flox-gitforge"
+    ],
+    "outputs": {
+      "man": "/nix/store/mghs4mkqdkdksnppr7x894flfcj2i04k-flox-0.2.7-r634-man",
+      "out": "/nix/store/r71jj3nlr4m848cgwc87kzzky10687my-flox-0.2.7-r634"
+    },
+    "pname": "flox",
+    "stability": "stable",
+    "system": "x86_64-linux",
+    "version": "0.2.7-r634"
+  },
+  "source": {
+    "locked": {
+      "allRefs": true,
+      "lastModified": 1692857235,
+      "narHash": "sha256-MJ/BvbDAL3QDEyJC43qPVfm+BlN4CAnA9B5hhAmWO+M=",
+      "rev": "0b1182524354ec3aa70a460f782e90bd57e9f228",
+      "revCount": 634,
+      "type": "git",
+      "url": "ssh://git@github.com/flox/flox.git"
+    },
+    "original": {
+      "allRefs": true,
+      "rev": "0b1182524354ec3aa70a460f782e90bd57e9f228",
+      "type": "git",
+      "url": "ssh://git@github.com/flox/flox.git"
+    },
+    "remote": {
+      "allRefs": true,
+      "rev": "0b1182524354ec3aa70a460f782e90bd57e9f228",
+      "type": "git",
+      "url": "ssh://git@github.com/flox/flox.git"
+    }
+  },
+  "version": 1
+}
