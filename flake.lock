@@ -69,11 +69,11 @@
         "rust-overlay": "rust-overlay"
       },
       "locked": {
-        "lastModified": 1693163878,
-        "narHash": "sha256-HXuyMUVaRSoIA602jfFuYGXt6AMZ+WUxuvLq8iJmYTA=",
+        "lastModified": 1693608196,
+        "narHash": "sha256-qs1rDvXXjrKdobPvTdn9qKjV0/RE2uqCCTHD/c6AAo8=",
         "owner": "ipetkov",
         "repo": "crane",
-        "rev": "43db881168bc65b568d36ceb614a0fc8b276191b",
+        "rev": "80432e15452e55a72403da3bc91837508a4ccae3",
         "type": "github"
       },
       "original": {
@@ -304,11 +304,11 @@
         "shellHooks": "shellHooks"
       },
       "locked": {
-        "lastModified": 1693482662,
-        "narHash": "sha256-i9rzDYU/S4w1p5doJnbo7/tTZNcksfv+uY1l+4WnW1E=",
+        "lastModified": 1693650885,
+        "narHash": "sha256-diJpLO4PbRiT0pqsQIQG+UngU9WBJowH0CdvyneEumA=",
         "ref": "latest",
-        "rev": "ddb98011156c74b5f12933917e2426683db88065",
-        "revCount": 604,
+        "rev": "d842f56b7a046fe9f4fedc8499566e0ebee291c6",
+        "revCount": 615,
         "type": "git",
         "url": "https://git@github.com/flox/flox"
       },
@@ -327,11 +327,11 @@
         "shellHooks": "shellHooks_2"
       },
       "locked": {
-        "lastModified": 1693646441,
-        "narHash": "sha256-WavGcUCF4LOjDI4uFbhGAbxPiLpcMDHdgZTTWWfpZIc=",
+        "lastModified": 1693650885,
+        "narHash": "sha256-diJpLO4PbRiT0pqsQIQG+UngU9WBJowH0CdvyneEumA=",
         "ref": "main",
-        "rev": "28ce6a182a14563bbebfc0b58e94b13e9a3aded4",
-        "revCount": 614,
+        "rev": "d842f56b7a046fe9f4fedc8499566e0ebee291c6",
+        "revCount": 615,
         "type": "git",
         "url": "https://git@github.com/flox/flox"
       },
