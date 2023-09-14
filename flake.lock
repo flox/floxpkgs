@@ -548,11 +548,11 @@
         "nixpkgs__flox__x86_64-linux": "nixpkgs__flox__x86_64-linux"
       },
       "locked": {
-        "lastModified": 1694644865,
-        "narHash": "sha256-8zZ7rOVfTzHvWZhrZlsFtBE14aBaBqybWWJc89fGBuA=",
+        "lastModified": 1694663523,
+        "narHash": "sha256-ynr23hCWe34milER6kLYNJEvt07FLPEeBb4bSORlTaY=",
         "owner": "flox",
         "repo": "nixpkgs-flox",
-        "rev": "b08137fa08d45346d41fa9f494cc179ec1470193",
+        "rev": "5322625585f7e92caacb9efb3a164e914be65fb0",
         "type": "github"
       },
       "original": {
@@ -685,11 +685,11 @@
       "flake": false,
       "locked": {
         "host": "catalog.floxsdlc.com",
-        "lastModified": 1694499989,
-        "narHash": "sha256-6Q+IdWGGDSQMJca9lHgkLNK/FRiSbPsaT/CEXZPzMQE=",
+        "lastModified": 1694663393,
+        "narHash": "sha256-aUYxOg2ig/zWgwpIS9BRZVClgqNGVo9XabuP7oyzBFc=",
         "owner": "flox",
         "repo": "nixpkgs-flox",
-        "rev": "434d69715fafd8a33bb86805871ed0539c288a55",
+        "rev": "6590ae4a1e3aa6896e9f63aef7ecff6723dc9da6",
         "type": "github"
       },
       "original": {
