@@ -986,8 +986,7 @@
         ],
         "flox-latest": "flox-latest",
         "flox-main": "flox-main",
-        "nixpkgs": "nixpkgs_13",
-        "tracelinks": "tracelinks"
+        "nixpkgs": "nixpkgs_13"
       }
     },
     "rust-overlay": {
@@ -1190,25 +1189,6 @@
         "owner": "nix-systems",
         "repo": "default",
         "type": "github"
-      }
-    },
-    "tracelinks": {
-      "inputs": {
-        "flox-floxpkgs": []
-      },
-      "locked": {
-        "lastModified": 1683889723,
-        "narHash": "sha256-h7LMr8tgu4RJecin4oEO50WoTU0rTomAW9+7AJroX0Y=",
-        "ref": "main",
-        "rev": "e05561bdd0ed9d10c66e35a1d8e66defab949534",
-        "revCount": 11,
-        "type": "git",
-        "url": "ssh://git@github.com/flox/tracelinks"
-      },
-      "original": {
-        "ref": "main",
-        "type": "git",
-        "url": "ssh://git@github.com/flox/tracelinks"
       }
     }
   },
