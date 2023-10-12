@@ -417,11 +417,11 @@
         "shellHooks": "shellHooks_2"
       },
       "locked": {
-        "lastModified": 1696731106,
-        "narHash": "sha256-IQonEPPvat7jyM8HpjP2rKuxTguCwWYiRrbE+UoDzWo=",
+        "lastModified": 1697073191,
+        "narHash": "sha256-jRIA0cBVq4W7QxZRdkgA3c0KJAqRah640SjiYE4CgkY=",
         "ref": "main",
-        "rev": "2cff0a2214ad97bd7527733b2cd4729137322420",
-        "revCount": 649,
+        "rev": "76c945691a39e2891347813701cb650ebc6c3108",
+        "revCount": 657,
         "type": "git",
         "url": "https://git@github.com/flox/flox"
       },
@@ -963,11 +963,11 @@
         "sqlite3pp": "sqlite3pp_2"
       },
       "locked": {
-        "lastModified": 1696355153,
-        "narHash": "sha256-MfzTkTJAJyaRJ9qxLbwM7e8dh4Jb3r0r8FGRg0ipqIk=",
+        "lastModified": 1696598945,
+        "narHash": "sha256-Kn4TyqgcaAASXJ8UzTdPS4+dkmVyPgIu3CkmFE5Zd/Y=",
         "owner": "flox",
         "repo": "pkgdb",
-        "rev": "676ff1e7eb927f68da95e59fefeaf0def205ee28",
+        "rev": "b5a75297225d6ed5879d0b7f2e7e212d7cc81eff",
         "type": "github"
       },
       "original": {
