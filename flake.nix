@@ -26,11 +26,9 @@
   inputs.flox.follows = "flox-latest";
 
   # ===========================================================================
-  # This bellow are examples to show case how a there should/could be many more
+  # This below are examples to show case how a there should/could be many more
   # packages
   # ===========================================================================
-  inputs.tracelinks.url = "git+ssh://git@github.com/flox/tracelinks?ref=main";
-  inputs.tracelinks.inputs.flox-floxpkgs.follows = "";
 
   inputs.builtfilter.url = "github:flox/builtfilter?ref=builtfilter-rs";
   inputs.builtfilter.inputs.flox-floxpkgs.follows = "";
