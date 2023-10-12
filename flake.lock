@@ -113,11 +113,11 @@
         "rust-overlay": "rust-overlay"
       },
       "locked": {
-        "lastModified": 1693787605,
-        "narHash": "sha256-rwq5U8dy+a9JFny/73L0SJu1GfWwATMPMTp7D+mjHy8=",
+        "lastModified": 1695511445,
+        "narHash": "sha256-mnE14re43v3/Jc50Jv0BKPMtEk7FEtDSligP6B5HwlI=",
         "owner": "ipetkov",
         "repo": "crane",
-        "rev": "8b4f7a4dab2120cf41e7957a28a853f45016bd9d",
+        "rev": "3de322e06fc88ada5e3589dc8a375b73e749f512",
         "type": "github"
       },
       "original": {
@@ -234,11 +234,11 @@
         "systems": "systems"
       },
       "locked": {
-        "lastModified": 1692799911,
-        "narHash": "sha256-3eihraek4qL744EvQXsK1Ha6C3CR7nnT8X2qWap4RNk=",
+        "lastModified": 1694529238,
+        "narHash": "sha256-zsNZZGTGnMOf9YpHKJqMSsa0dXbfmxeoJ7xHlrt+xmY=",
         "owner": "numtide",
         "repo": "flake-utils",
-        "rev": "f9e7cf818399d17d347f847525c5a5a8032e4e44",
+        "rev": "ff7b65b44d01cf9ba6a71320833626af21126384",
         "type": "github"
       },
       "original": {
@@ -393,11 +393,11 @@
         "shellHooks": "shellHooks"
       },
       "locked": {
-        "lastModified": 1695912896,
-        "narHash": "sha256-cG7IqGfiAVGJ4+EwFk8mQVF9zxu0+jFW1icusRkuJ9U=",
+        "lastModified": 1697141076,
+        "narHash": "sha256-hmufEUKWt2/1FgpErXY8ZuyIKbo3nXA8eFwpuFVEUvE=",
         "ref": "latest",
-        "rev": "61bb093d89ef7477148d654f8e95e3b2a4d7fe09",
-        "revCount": 638,
+        "rev": "be63296e4a86d235041679e67a44bf183561cc6c",
+        "revCount": 660,
         "type": "git",
         "url": "https://git@github.com/flox/flox"
       },
@@ -417,11 +417,11 @@
         "shellHooks": "shellHooks_2"
       },
       "locked": {
-        "lastModified": 1697133510,
-        "narHash": "sha256-TDVJElYy8pX2j6JvjLCWtyLf7UESQcUQTslGf+ihOG4=",
+        "lastModified": 1697141076,
+        "narHash": "sha256-hmufEUKWt2/1FgpErXY8ZuyIKbo3nXA8eFwpuFVEUvE=",
         "ref": "main",
-        "rev": "f491e9a05b255952094848c340184d513eef6214",
-        "revCount": 659,
+        "rev": "be63296e4a86d235041679e67a44bf183561cc6c",
+        "revCount": 660,
         "type": "git",
         "url": "https://git@github.com/flox/flox"
       },
@@ -697,11 +697,11 @@
     },
     "nixpkgs_3": {
       "locked": {
-        "lastModified": 1693654884,
-        "narHash": "sha256-EqKKEl+IOS8TSjkt+xn1qGpsjnx5/ag33YNQ1+c7OuM=",
+        "lastModified": 1694948089,
+        "narHash": "sha256-d2B282GmQ9o8klc22/Rbbbj6r99EnELQpOQjWMyv0rU=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "e7f35e03abd06a2faef6684d0de813370e13bda8",
+        "rev": "5148520bfab61f99fd25fb9ff7bfbb50dad3c9db",
         "type": "github"
       },
       "original": {
@@ -942,11 +942,11 @@
         "sqlite3pp": "sqlite3pp"
       },
       "locked": {
-        "lastModified": 1695310004,
-        "narHash": "sha256-MXtTQZ7BfD9OjhxhbtVz/kDwoyTKjw6FzX+5QKSxdns=",
+        "lastModified": 1696598945,
+        "narHash": "sha256-Kn4TyqgcaAASXJ8UzTdPS4+dkmVyPgIu3CkmFE5Zd/Y=",
         "owner": "flox",
         "repo": "pkgdb",
-        "rev": "680aaaf1198fec0c8abdd822ce2e563e3606c319",
+        "rev": "b5a75297225d6ed5879d0b7f2e7e212d7cc81eff",
         "type": "github"
       },
       "original": {
@@ -1003,11 +1003,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1693707092,
-        "narHash": "sha256-HR1EnynBSPqbt+04/yxxqsG1E3n6uXrOl7SPco/UnYo=",
+        "lastModified": 1695003086,
+        "narHash": "sha256-d1/ZKuBRpxifmUf7FaedCqhy0lyVbqj44Oc2s+P5bdA=",
         "owner": "oxalica",
         "repo": "rust-overlay",
-        "rev": "98ccb73e6eefc481da6039ee57ad8818d1ca8d56",
+        "rev": "b87a14abea512d956f0b89d0d8a1e9b41f3e20ff",
         "type": "github"
       },
       "original": {
@@ -1052,11 +1052,11 @@
         "nixpkgs-stable": "nixpkgs-stable"
       },
       "locked": {
-        "lastModified": 1692274144,
-        "narHash": "sha256-BxTQuRUANQ81u8DJznQyPmRsg63t4Yc+0kcyq6OLz8s=",
+        "lastModified": 1695576016,
+        "narHash": "sha256-71KxwRhTfVuh7kNrg3/edNjYVg9DCyKZl2QIKbhRggg=",
         "owner": "cachix",
         "repo": "pre-commit-hooks.nix",
-        "rev": "7e3517c03d46159fdbf8c0e5c97f82d5d4b0c8fa",
+        "rev": "cb770e93516a1609652fa8e945a0f310e98f10c0",
         "type": "github"
       },
       "original": {
