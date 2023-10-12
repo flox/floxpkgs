@@ -417,11 +417,11 @@
         "shellHooks": "shellHooks_2"
       },
       "locked": {
-        "lastModified": 1697128502,
-        "narHash": "sha256-nAbAOHc40he7NKlfYGLKdk8tXPFqkeqnEXCPwc2ki2k=",
+        "lastModified": 1697133510,
+        "narHash": "sha256-TDVJElYy8pX2j6JvjLCWtyLf7UESQcUQTslGf+ihOG4=",
         "ref": "main",
-        "rev": "01823678deecf64198a0e19284917598eeef781b",
-        "revCount": 658,
+        "rev": "f491e9a05b255952094848c340184d513eef6214",
+        "revCount": 659,
         "type": "git",
         "url": "https://git@github.com/flox/flox"
       },
