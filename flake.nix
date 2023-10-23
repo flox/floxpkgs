@@ -15,12 +15,14 @@
   inputs.nixpkgs.inputs.flox-floxpkgs.follows = "";
   inputs.nixpkgs.inputs.flox.follows = "flox";
 
-  # This is needed for `pkgs/flox{,-prerelease}/default.nix` to refer to the capacitated
-  # recipe.
-  inputs.flox-latest.url = "git+https://git@github.com/flox/flox?ref=latest";
-  inputs.flox-latest.inputs.flox-floxpkgs.follows = "";
-  inputs.flox-main.url = "git+https://git@github.com/flox/flox?ref=main";
-  inputs.flox-main.inputs.flox-floxpkgs.follows = "";
+  # Latest Release Branch
+  # Used for `flox` and `flox-installers` targets.
+  inputs.flox-latest.url = "github:flox/flox/latest";
+
+  # Latest Dev Branch
+  # Used for `flox-prerelease` target.
+  inputs.flox-main.url = "github:flox/flox";
+
   # Several packages rely on flox/floxpkgs having an input called "flox".
   # Add this to refer to the release version by default.
   inputs.flox.follows = "flox-latest";
