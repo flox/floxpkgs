@@ -17,11 +17,11 @@
 
   # Latest Release Branch
   # Used for `flox` and `flox-installers` targets.
-  inputs.flox-main.url = "github:flox/flox/latest";
+  inputs.flox-latest.url = "github:flox/flox/latest";
 
   # Latest Dev Branch
   # Used for `flox-prerelease` target.
-  inputs.flox-latest.url = "github:flox/flox/aameen.build-with-nix";
+  inputs.flox-main.url = "github:flox/flox";
 
   # Several packages rely on flox/floxpkgs having an input called "flox".
   # Add this to refer to the release version by default.
