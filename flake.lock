@@ -778,16 +778,16 @@
       "locked": {
         "lastModified": 1697141076,
         "narHash": "sha256-hmufEUKWt2/1FgpErXY8ZuyIKbo3nXA8eFwpuFVEUvE=",
-        "owner": "flox",
-        "repo": "flox",
+        "ref": "latest",
         "rev": "be63296e4a86d235041679e67a44bf183561cc6c",
-        "type": "github"
+        "revCount": 660,
+        "type": "git",
+        "url": "https://github.com/flox/flox"
       },
       "original": {
-        "owner": "flox",
         "ref": "latest",
-        "repo": "flox",
-        "type": "github"
+        "type": "git",
+        "url": "https://github.com/flox/flox"
       }
     },
     "flox-latest_2": {
@@ -864,15 +864,15 @@
       "locked": {
         "lastModified": 1698082552,
         "narHash": "sha256-F4uZZ62ZTm6JbSAkSsrr0e78UvYgn/SWUW4fPun/Ozo=",
-        "owner": "flox",
-        "repo": "flox",
+        "ref": "refs/heads/main",
         "rev": "e975a72a81a48c1f8e329ba62104e49164b5c260",
-        "type": "github"
+        "revCount": 674,
+        "type": "git",
+        "url": "https://github.com/flox/flox"
       },
       "original": {
-        "owner": "flox",
-        "repo": "flox",
-        "type": "github"
+        "type": "git",
+        "url": "https://github.com/flox/flox"
       }
     },
     "gitignore": {
