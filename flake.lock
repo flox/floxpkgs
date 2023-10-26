@@ -139,28 +139,17 @@
     },
     "crane_2": {
       "inputs": {
-        "flake-compat": [
-          "flox-main",
-          "shellHooks",
-          "flake-compat"
-        ],
-        "flake-utils": [
-          "flox-main",
-          "shellHooks",
-          "flake-utils"
-        ],
         "nixpkgs": [
           "flox-main",
           "nixpkgs"
-        ],
-        "rust-overlay": "rust-overlay_2"
+        ]
       },
       "locked": {
-        "lastModified": 1697165857,
-        "narHash": "sha256-Cho+TPHCIfx/sVo5scjNDP2XUCpUxcyKvoMlJ8w9dgQ=",
+        "lastModified": 1698166613,
+        "narHash": "sha256-y4rdN4flxRiROqNi1waMYIZj/Fs7L2OrszFk/1ry9vU=",
         "owner": "ipetkov",
         "repo": "crane",
-        "rev": "117ac48319c0dbcff5540781c7c5b18166e33f6a",
+        "rev": "b7db46f0f1751f7b1d1911f6be7daf568ad5bc65",
         "type": "github"
       },
       "original": {
@@ -349,11 +338,11 @@
         "shellHooks": "shellHooks_2"
       },
       "locked": {
-        "lastModified": 1698348023,
-        "narHash": "sha256-bVX1cYChRpWCHHuH51BYdLYhUFImjS6clo9iDVInek8=",
+        "lastModified": 1698350470,
+        "narHash": "sha256-xgVzseGVCQ0TQsSIFBQ2AXZHneDM7u01P1wTotgXLUg=",
         "ref": "refs/heads/main",
-        "rev": "63f24f9343e5961d18a6a9322f4ccd5896ed0f66",
-        "revCount": 693,
+        "rev": "77f6f3222871b0bc53e5f5f82f69ad690a6cc8b2",
+        "revCount": 695,
         "type": "git",
         "url": "https://github.com/flox/flox"
       },
@@ -780,11 +769,11 @@
         "sqlite3pp": "sqlite3pp_2"
       },
       "locked": {
-        "lastModified": 1697839458,
-        "narHash": "sha256-8YLXvOvE5Fvuns68exAP5oEIke95OTYpIxSqHAwldMQ=",
+        "lastModified": 1698339474,
+        "narHash": "sha256-T6GzEMqCJ4aTpCszQ9/K6MTBT/OA/+GQcsh+/rY3n9s=",
         "owner": "flox",
         "repo": "pkgdb",
-        "rev": "e50404e82dfc3eb5b6af049db451ebe96f08692a",
+        "rev": "ff64955feb4a391f7246cf96a29b19698d46de14",
         "type": "github"
       },
       "original": {
@@ -815,33 +804,6 @@
         ],
         "nixpkgs": [
           "flox-latest",
-          "crane",
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1696299134,
-        "narHash": "sha256-RS77cAa0N+Sfj5EmKbm5IdncNXaBCE1BSSQvUE8exvo=",
-        "owner": "oxalica",
-        "repo": "rust-overlay",
-        "rev": "611ccdceed92b4d94ae75328148d84ee4a5b462d",
-        "type": "github"
-      },
-      "original": {
-        "owner": "oxalica",
-        "repo": "rust-overlay",
-        "type": "github"
-      }
-    },
-    "rust-overlay_2": {
-      "inputs": {
-        "flake-utils": [
-          "flox-main",
-          "crane",
-          "flake-utils"
-        ],
-        "nixpkgs": [
-          "flox-main",
           "crane",
           "nixpkgs"
         ]
@@ -897,11 +859,11 @@
         "nixpkgs-stable": "nixpkgs-stable_2"
       },
       "locked": {
-        "lastModified": 1696846637,
-        "narHash": "sha256-0hv4kbXxci2+pxhuXlVgftj/Jq79VSmtAyvfabCCtYk=",
+        "lastModified": 1698227354,
+        "narHash": "sha256-Fi5H9jbaQLmLw9qBi/mkR33CoFjNbobo5xWdX4tKz1Q=",
         "owner": "cachix",
         "repo": "pre-commit-hooks.nix",
-        "rev": "42e1b6095ef80a51f79595d9951eb38e91c4e6ca",
+        "rev": "bd38df3d508dfcdff52cd243d297f218ed2257bf",
         "type": "github"
       },
       "original": {
